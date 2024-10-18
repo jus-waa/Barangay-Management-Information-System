@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Management Sytem</title>
-    <link rel="stylesheet" href="/src/output.css">    
+    <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\style.css">
+    <script src="\Main Project\Barangay-Management-System\tailwind.config.js"></script>
 </head>
 <body  class="absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
-    <div class="bg-white grid grid-rows-2/5 grid-cols-3 rounded-xl w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+<div class="bg-white grid grid-rows-2/5 grid-cols-3 rounded-xl w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
         <div class="text-5xl place-self-center w-full pt-12 col-span-3 rounded-xl mb-16" >
             <h1 class="bg-pg p-6 text-center font-bold shadow-xl " >Barangay Management System</h1>
         </div>
@@ -37,7 +38,7 @@
                             <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Password</label>
                         </div>
 
-                        <button class="relative rounded-xl bg-pg w-2/5 p-2 mt-2 text-l mt-4">Sign In</button><br>
+                        <button class="relative rounded-md bg-pg w-2/5 p-2 mt-2 text-l mt-4">Sign In</button><br>
                         <a href="#" class="underline text-blue-700">Forgot Password?</a>
                      </form>
                 </div>
@@ -52,7 +53,7 @@
                         <p class="rounded-xl bg-c place-self-center max-w-96 p-4 text-center">A user-friendly website that helps barangays manage resident information, incident reports, projects, and documents easily. It simplifies day-to-day tasks, making operations more efficient and improving service for the community.</p>
                     </div>
                     <div class="flex justify-center items-center space-x-8">
-                        <img src="/img/bit_builders.png" alt="bitbuilders-logo" class="size-12 rounded-full border-2 border-pg">
+                        <img src="\Main Project\Barangay-Management-System\img\bit_builders.png" alt="bitbuilders-logo" class="size-12 rounded-full border-2 border-pg">
                         <p class="text-center bg-pg rounded-lg p-2">by Bit Builders</p>
                     </div>
                 </div>
