@@ -31,7 +31,7 @@
                         <p class="text-3xl font-bold break-after-auto">Sign In</p>
                         <p>Access your account.</p>
                     </div>
-                    <form action="backend/login.php" method="POST">
+                    <form action="" method="POST">
                         <div>
                             <input name="email" type="text" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" placeholder=" "/> 
                             <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Email Address</label>
