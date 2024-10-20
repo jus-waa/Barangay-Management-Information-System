@@ -1,7 +1,10 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Management Sytem</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\style.css">
@@ -10,7 +13,7 @@
 <body  class="absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
 <div class="bg-white grid grid-rows-2/5 grid-cols-3 rounded-xl w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
         <div class="text-5xl place-self-center w-full pt-12 col-span-3 rounded-xl mb-16" >
-            <h1 class="bg-pg p-6 text-center font-bold shadow-xl " >Barangay Management System</h1>
+            <h1 class="bg-pg p-6 text-center font-bold shadow-xl ">Barangay Management System</h1>
         </div>
 
         <div class="rounded-xl grid ml-20 mb-24 place-self-center w-64 2xl:w-96 text-xs hidden st:block 2xl:text-base 2xl:block" >
@@ -28,17 +31,34 @@
                         <p class="text-3xl font-bold break-after-auto">Sign In</p>
                         <p>Access your account.</p>
                     </div>
-                    <form action="#">
+                    <form action="backend/login.php" method="POST">
                         <div>
-                            <input type="text" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" placeholder=" "/> 
+                            <input name="email" type="text" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" placeholder=" "/> 
                             <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Email Address</label>
                         </div>
                         <div>
-                            <input type="password" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c mt-2" placeholder=" "/> 
+                            <input name="pass" type="password" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c mt-2" placeholder=" "/> 
                             <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Password</label>
                         </div>
 
-                        <button class="relative rounded-md bg-pg w-2/5 p-2 mt-2 text-l mt-4">Sign In</button><br>
+                        <!--displays error msg-->
+                        <?php if (!empty($error_msg)) { ?> 
+                        <div>
+                            <p><? $error_msg ?></p>
+                        </div>
+                        <?php } ?>
+                        <!--display login message if user exists or not-->
+                        <?php 
+                            if(isset($_SESSION['login_msg'])) {
+                        ?>
+                        <div class="text-xs grid mt-2" style="color: red">
+                            <p class="place-self-center">
+                                <?= $_SESSION['login_msg']?>
+                            </p>
+                        </div>
+                        <?php unset($_SESSION['login_msg']); }?>
+
+                        <button class="relative rounded-md bg-pg w-2/5 p-2 mt-2 text-l mt-4" name="login">Sign In</button><br>
                         <a href="#" class="underline text-blue-700">Forgot Password?</a>
                      </form>
                 </div>
