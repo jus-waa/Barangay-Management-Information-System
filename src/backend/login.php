@@ -4,10 +4,12 @@ session_start();
  //db connection
 include('connection.php');
 
+
  if (isset($_POST['login'])){
      $email = $_POST['email'];
      $pass = $_POST['pass'];
 
+     $hash = password_hash($pass, PASSWORD_DEFAULT);
      //prepared stmt to avoid sql inject
      $query = 'SELECT * FROM users WHERE users.email = :e AND users.password = :p';
      $stmt = $dbh->prepare($query);
