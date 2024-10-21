@@ -98,7 +98,36 @@
                                 </p>
                             </div>
                         <?php unset($_SESSION['email_info']); }?>
-
+                        <!--display message about email dup-->
+                        <?php 
+                            if(isset($_SESSION['email_dup'])) {
+                        ?>
+                        <div class="text-xs grid mt-2" style="color: red">
+                            <p class="place-self-center">
+                                <?= $_SESSION['email_dup']?>
+                            </p>
+                        </div>
+                        <?php unset($_SESSION['email_dup']); }?>
+                        <!--display message about password recheck-->
+                        <?php 
+                            if(isset($_SESSION['pass_recheck'])) {
+                        ?>
+                        <div class="text-xs grid mt-2" style="color: red">
+                            <p class="place-self-center">
+                                <?= $_SESSION['pass_recheck']?>
+                            </p>
+                        </div>
+                        <?php unset($_SESSION['pass_recheck']); }?>
+                        <!--display message about password recheck-->
+                        <?php 
+                            if(isset($_SESSION['pass_min'])) {
+                        ?>
+                        <div class="text-xs grid mt-2" style="color: red">
+                            <p class="place-self-center">
+                                <?= $_SESSION['pass_min']?>
+                            </p>
+                        </div>
+                        <?php unset($_SESSION['pass_min']); }?>
                      </form>
                 </div>
                 <p class="text-center rounded-xl mb-28 mt-4 text-s md:mb-12">Already have an account? <a href="backend/loginpage.php" class="underline text-blue-700">Sign In</a></p>
