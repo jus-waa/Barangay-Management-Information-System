@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['users'])) header('location: login.php');
+    $_SESSION['table'] = 'users';
+    $users = $_SESSION['users'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,39 +26,82 @@
                         <p class="text-3xl font-bold break-after-auto">Create Account</p>
                         <p >Get started with an account.</p>
                     </div>
-                    <form action="#" ">
+                    <form action="backend/signup.php" method="POST" >
                         <div class="grid grid-rows-3 grid-cols-2 ">
                             <!--1,4,2,5,3 -->
                             <div>
-                                <input type="text" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" placeholder=" "/> 
+                                <input type="text" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" name="email" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Email Address</label>
                             </div>
                             <div>
-                                <input type="password" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c ml-2" placeholder=" "/> 
+                                <input type="password" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c ml-2" name="password" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-4 peer-focus:scale-75 peer-focus:translate-x-2 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Password</label>
                             </div>
                             <div>
-                                <input type="numer" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" placeholder=" "/> 
+                                <input type="numer" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" name="username" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Username</label>
                             </div>
                             <div>
-                                <input type="password" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c ml-2" placeholder=" "/> 
+                                <input type="password" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c ml-2" name="password_re" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-4 peer-focus:scale-75 peer-focus:translate-x-2 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Re-type Password</label>
                             </div>
                             <div>
-                                <input type="numer" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" placeholder=" "/> 
+                                <input type="numer" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" name="contact_info" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Contact Information</label>
                             </div>
                             <div class="grid grid-cols-1 place-self-end">
-                                <button class="rounded-md bg-pg w-full p-2 pl-4 pr-4 text-l col-span-2">Sign In</button><br>
+                                <button class="rounded-md bg-pg w-full p-2 pl-4 pr-4 text-l col-span-2">Create Account</button><br>
                                <a href="#" class="underline text-blue-700 text-s">Forgot Password?</a>
                             </div>
-                        </div>
+                         </div>
 
-                      
+                        <!--displays response msg-->
+                        <?php if(isset($_SESSION['response'])) { 
+                                $response_message = $_SESSION['response']['message']; 
+                                $success_message = $_SESSION['response']['success'];    
+                            ?> 
+                                <div class="text-xs grid mt-2" style="color: red">
+                                    <p class="place-self-center <?= $success ? 'responseMessage__success' : 'responseMessage__error' ?>">
+                                       <?= $response_message ?>
+                                    </p>
+                                </div>
+                            <?php unset($_SESSION['response']); } ?>
+                        <!--display login message if email is emptyor not-->
+                        <?php 
+                            if(isset($_SESSION['empty_info'])) {
+                        ?>
+                            <div class="text-xs grid mt-2" style="color: red">
+                                <p class="place-self-center">
+                                    <?= $_SESSION['empty_info']?>
+                                </p>
+                            </div>
+                        <?php unset($_SESSION['empty_info']); }?>
+                                
+                        <!--display if email format is incorrect -->
+                        <?php 
+                            if(isset($_SESSION['email_format'])) {
+                        ?>
+                            <div class="text-xs grid mt-2" style="color: red">
+                                <p class="place-self-center">
+                                    <?= $_SESSION['email_format']?>
+                                </p>
+                            </div>
+                        <?php unset($_SESSION['email_format']); }?>
+
+                        <!--display if email info already exist-->
+                        <?php 
+                            if(isset($_SESSION['email_info'])) {
+                        ?>
+                            <div class="text-xs grid mt-2" style="color: red">
+                                <p class="place-self-center">
+                                    <?= $_SESSION['email_info']?>
+                                </p>
+                            </div>
+                        <?php unset($_SESSION['email_info']); }?>
+
                      </form>
                 </div>
-                <p class="text-center rounded-xl mb-28 mt-4 text-s md:mb-12">Already have an account? <a href="#" class="underline text-blue-700">Sign In</a></p>
+                <p class="text-center rounded-xl mb-28 mt-4 text-s md:mb-12">Already have an account? <a href="backend/loginpage.php" class="underline text-blue-700">Sign In</a></p>
             </div>
         </div>    
     </div>
