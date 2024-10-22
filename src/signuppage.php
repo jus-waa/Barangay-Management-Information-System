@@ -116,41 +116,41 @@
                         <?php 
                             if(isset($_SESSION['email_dup'])) {
                         ?>
-                        <div class="text-xs grid mt-2" style="color: red">
-                            <p class="place-self-center">
-                                <?= $_SESSION['email_dup']?>
-                            </p>
-                        </div>
+                            <div class="text-xs grid mt-2" style="color: red">
+                                <p class="place-self-center">
+                                    <?= $_SESSION['email_dup']?>
+                                </p>
+                            </div>
                         <?php unset($_SESSION['email_dup']); }?>
                         <!--display message about password recheck-->
                         <?php 
                             if(isset($_SESSION['pass_recheck'])) {
                         ?>
-                        <div class="text-xs grid mt-2" style="color: red">
-                            <p class="place-self-center">
-                                <?= $_SESSION['pass_recheck']?>
-                            </p>
-                        </div>
+                            <div class="text-xs grid mt-2" style="color: red">
+                                <p class="place-self-center">
+                                    <?= $_SESSION['pass_recheck']?>
+                                </p>
+                            </div>
                         <?php unset($_SESSION['pass_recheck']); }?>
                         <!--display message about password recheck-->
                         <?php 
                             if(isset($_SESSION['pass_min'])) {
                         ?>
-                        <div class="text-xs grid mt-2" style="color: red">
-                            <p class="place-self-center">
-                                <?= $_SESSION['pass_min']?>
-                            </p>
-                        </div>
+                            <div class="text-xs grid mt-2" style="color: red">
+                                <p class="place-self-center">
+                                    <?= $_SESSION['pass_min']?>
+                                </p>
+                            </div>
                         <?php unset($_SESSION['pass_min']); }?>
                         <!--display message about role number-->
                         <?php 
                             if(isset($_SESSION['role_num'])) {
                         ?>
-                        <div class="text-xs grid mt-2" style="color: red">
-                            <p class="place-self-center">
-                                <?= $_SESSION['role_num']?>
-                            </p>
-                        </div>
+                            <div class="text-xs grid mt-2" style="color: red">
+                                <p class="place-self-center">
+                                    <?= $_SESSION['role_num']?>
+                                </p>
+                            </div>
                         <?php unset($_SESSION['role_num']); }?>
                      </form>
                 </div>

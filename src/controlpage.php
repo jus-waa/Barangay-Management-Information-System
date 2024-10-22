@@ -12,6 +12,7 @@
     <title>Barangay Management Sytem</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\style.css">
     <script src="\Main Project\Barangay-Management-System\tailwind.config.js"></script>
+    <script src="../script.js" defer></script>
 </head>
 <body  class="absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
     <div class="bg-white grid grid-rows-2/5 grid-cols-1 rounded-xl w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
@@ -24,5 +25,12 @@
             <div class="border-2">Account information</div>
         </div>    
     </div>
+    <div x-data="{ open: false }">
+    <button @click="open = true">Expand</button>
+ 
+    <span x-show="open">
+        Content...
+    </span>
+</div>
 </body>
 </html>

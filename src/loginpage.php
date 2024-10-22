@@ -9,6 +9,7 @@
     <title>Barangay Management Sytem</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\style.css">
     <script src="\Main Project\Barangay-Management-System\tailwind.config.js"></script>
+    <script src="../script.js"></script>
 </head>
 <body  class="absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
 <div class="bg-white grid grid-rows-2/5 grid-cols-3 rounded-xl w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
@@ -36,33 +37,34 @@
                             <input name="email" type="text" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" placeholder=" "/> 
                             <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Email Address</label>
                         </div>
-                        <div>
-                            <input name="pass" type="password" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c mt-2" placeholder=" "/> 
+                        <div x-data="{showPassword : false}">
+                            <input :type="showPassword ? 'text' : 'password'" name="pass" type="password" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c mt-2" placeholder=" "/> 
                             <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Password</label>
+                            <div>
+                                <img :src="showPassword ? '../img/eye-open.png' : '../img/eye-close.png'" @click="showPassword = !showPassword" class="absolute transform -translate-y-13.5 z-20 cursor-pointer"  style="cursor:pointer; z-index:99; cursor:pointer; margin-left:16rem; width: 1rem; margin-top: 1.6rem; cursor:pointer;">
+                            </div>
                         </div>
-
                         <!--displays error msg-->
                         <?php if (!empty($error_msg)) { ?> 
-                        <div>
-                            <p><? $error_msg ?></p>
-                        </div>
+                            <div>
+                                <p><? $error_msg ?></p>
+                            </div>
                         <?php } ?>
                         <!--display login message if user exists or not-->
                         <?php 
                             if(isset($_SESSION['login_msg'])) {
                         ?>
-                        <div class="text-xs grid mt-2" style="color: red">
-                            <p class="place-self-center">
-                                <?= $_SESSION['login_msg']?>
-                            </p>
-                        </div>
+                            <div class="text-xs grid mt-2" style="color: red">
+                                <p class="place-self-center">
+                                    <?= $_SESSION['login_msg']?>
+                                </p>
+                            </div>
                         <?php unset($_SESSION['login_msg']); }?>
-                        
-
-                        <button class="relative rounded-md bg-pg w-2/5 p-2 mt-2 text-l mt-4" >Sign In</button><br>
+                        <button class="rounded-md bg-pg w-2/5 p-2 mt-2 text-l " >Sign In</button><br>
                         <a href="#" class="underline text-blue-700">Forgot Password?</a>
-                     </form>
+                    </form>
                 </div>
+                
                 <p class="text-center rounded-xl mb-28 mt-4 text-s md:mb-12">Don't have an account? <a href="signuppage.php" class="underline text-blue-700">Create your account </a></p>
             </div>
         </div>
@@ -75,7 +77,7 @@
                     </div>
                     <div class="flex justify-center items-center space-x-8">
                         <img src="\Main Project\Barangay-Management-System\img\bit_builders.png" alt="bitbuilders-logo" class="size-12 rounded-full border-2 border-pg">
-                        <p class="text-center bg-pg rounded-lg p-2">by Bit Builders</p>
+                        <p class="text-center bg-pg rounded-lg p-2 ">by Bit Builders</p>
                     </div>
                 </div>
             </div>
