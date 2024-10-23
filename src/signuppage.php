@@ -13,6 +13,7 @@
     <title>Barangay Management Sytem</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\style.css">
     <script src="\Main Project\Barangay-Management-System\tailwind.config.js"></script>
+    <script src="../script.js"></script>
 </head>
 <body class="absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
     <div class="bg-white grid grid-rows-2/5 grid-cols-1 rounded-xl w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
@@ -41,17 +42,23 @@
                                 <input autocomplete="off" type="text" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" name="email" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Email Address</label>
                             </div>
-                            <div>
-                                <input autocomplete="off" type="password" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c ml-2 " name="password"  placeholder=" "/> 
+                            <div x-data="{showPassword : false}">
+                                <input :type="showPassword ? 'text' : 'password'" autocomplete="off" type="password" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c ml-2 " name="password"  placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-4 peer-focus:scale-75 peer-focus:translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Password</label>
+                                <div>
+                                    <img :src="showPassword ? '../img/eye-open.png' : '../img/eye-close.png'" @click="showPassword = !showPassword" alt="show/hide password" class="absolute transform -translate-y-13.5 cursor-pointer"  style="cursor:pointer; z-index:99; cursor:pointer; margin-left:16rem; width: 1rem; margin-top: 1.6rem; cursor:pointer;">
+                                </div>
                             </div>
                             <div>
                                 <input autocomplete="off" type="numer" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" name="username" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">  Username</label>
                             </div>
-                            <div>
-                                <input autocomplete="off" type="password" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c ml-2" name="password_re" placeholder=" "/> 
+                            <div x-data="{showPassword : false}">
+                                <input :type="showPassword ? 'text' : 'password'"  autocomplete="off" type="password" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c ml-2" name="password_re" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pl-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-4 peer-focus:scale-75 peer-focus:translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Re-type Password</label>
+                                <div>
+                                    <img :src="showPassword ? '../img/eye-open.png' : '../img/eye-close.png'" @click="showPassword = !showPassword" alt="show/hide password" class="absolute transform -translate-y-13.5 cursor-pointer"  style="cursor:pointer; z-index:99; cursor:pointer; margin-left:16rem; width: 1rem; margin-top: 1.6rem; cursor:pointer;">
+                                </div>
                             </div>
                             <div>
                                 <input autocomplete="off" type="number" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" name="contact_info" placeholder=" "/> 
