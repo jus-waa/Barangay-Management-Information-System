@@ -17,11 +17,11 @@ include("connection.php");
         //check if user exists
         if(password_verify($pass, $result['password'])){
             //fetch user data
-            $_SESSION['users'] = $user['id'];
-            $_SESSION['role_id'] = $user['role_id'];
+            $_SESSION['users'] = $result['id'];
+            $_SESSION['role_id'] = $result['role_id'];
             $_SESSION['login_msg'] = "User Exists.";    
             //redirect to this location
-            header('location: ../signuppage.php');
+            header('location: ../controlpage.php');
         } else if (empty($email) || empty($pass)){
             //return to page
             $_SESSION['login_msg'] = "Empty credentials!";

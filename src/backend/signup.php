@@ -3,13 +3,14 @@
 
     include('connection.php');
 
-    $tb_name = $_SESSION['users'];
     $username = $_POST['username'];
     $email = $_POST['email'];
     $pass = $_POST['password'];
     $pass_re = $_POST['password_re'];
     $contact_info = $_POST['contact_info'];
     $role_id = $_POST['role_id'];
+
+
 
     if($pass != $pass_re) {
         $_SESSION['pass_recheck'] = "Password do not match.";
@@ -42,12 +43,6 @@
     //check for password strength
     if(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', $pass)) {
         $_SESSION['pass_min'] = "Password too weak.";
-        header('location: ../signuppage.php');
-        exit();
-    } 
-    //check for role number
-    if ($role_id != 1 || $role_id != 2) {
-        $SESSION['role_num'] = "Please enter a valid role number.";
         header('location: ../signuppage.php');
         exit();
     } else {

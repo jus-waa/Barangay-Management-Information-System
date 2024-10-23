@@ -1,8 +1,12 @@
 <?php
     session_start();
-    //if(!isset($_SESSION['users'])) header('location: login.php');
-    //$_SESSION['table'] = 'users';
-    //$users = $_SESSION['users'];
+    require 'backend/connection.php';
+    require 'backend/helper.php';
+
+    if (!isset($_SESSION['users'])) {
+        header('location: login.php');
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,17 +24,25 @@
             <h1 class="bg-pg p-6 text-center font-bold shadow-xl " >Barangay Management System</h1>
         </div>
         <div class="grid rounded-xl grid ml-96 st:ml-0 border-2"  >
+            <?php
+            if (hasPermission('generate_doc')) {
+                echo "<a href='create_post.php'>Generate_Doc</a><br>";
+            }
+            
+            if (hasPermission('resident_info')) {
+                echo "<a href='edit_post.php'>Resident Information</a><br>";
+            }
+            
+            if (hasPermission('system_settings')) {
+                echo "<a href='delete_post.php'>System Settings</a><br>";
+            }
+            ?>
+            <!--
             <div class="border-2">Generate documents</div>
             <div class="border-2">View records</div>
             <div class="border-2">Account information</div>
+            -->
         </div>    
     </div>
-    <div x-data="{ open: false }">
-    <button @click="open = true">Expand</button>
- 
-    <span x-show="open">
-        Content...
-    </span>
-</div>
 </body>
 </html>
