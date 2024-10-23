@@ -14,7 +14,7 @@
 <body  class="absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
 <div class="bg-white grid grid-rows-2/5 grid-cols-3 rounded-xl w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
         <div class="text-5xl place-self-center w-full pt-12 col-span-3 rounded-xl mb-16" >
-            <h1 class="bg-pg p-6 text-center font-bold shadow-xl ">Barangay Management System</h1>
+            <h1 class="bg-pg p-6 text-center font-bold shadow-xl ">iBarangay: Management Information System</h1>
         </div>
 
         <div class="rounded-xl grid ml-20 mb-24 place-self-center w-64 2xl:w-96 text-xs hidden st:block 2xl:text-base 2xl:block" >
@@ -27,9 +27,9 @@
 
         <div class="rounded-xl grid ml-96 st:ml-0"  >
             <div class="bg-pg rounded-xl grid place-self-center shadow-2xl st:ml-0">
-                <div class="grid rounded-xl bg-c m-10 mb-0 p-14 shadow-lg">
+                <div class="grid rounded-xl bg-c m-10 p-14 shadow-lg">
                     <div class="grid grid-rows-2">
-                        <p class="text-3xl font-bold break-after-auto">Sign In</p>
+                        <p class="text-3xl font-bold">Sign In</p>
                         <p>Access your account.</p>
                     </div>
                     <form action="backend/login.php" method="POST">
@@ -60,12 +60,11 @@
                                 </p>
                             </div>
                         <?php unset($_SESSION['login_msg']); }?>
-                        <button class="rounded-md bg-pg w-2/5 p-2 mt-2 text-l " >Sign In</button><br>
-                        <a href="#" class="underline text-blue-700">Forgot Password?</a>
+                        <div class="grid">
+                            <button class="rounded-md bg-pg w-full p-2 mt-4 text-l place-self-center" >Sign In</button><br>
+                        </div>
                     </form>
                 </div>
-                
-                <p class="text-center rounded-xl mb-28 mt-4 text-s md:mb-12">Don't have an account? <a href="signuppage.php" class="underline text-blue-700">Create your account </a></p>
             </div>
         </div>
 

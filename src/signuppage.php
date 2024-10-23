@@ -18,12 +18,12 @@
 <body class="absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
     <div class="bg-white grid grid-rows-2/5 grid-cols-1 rounded-xl w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
         <div class="text-5xl place-self-center w-full pt-12 col-span-3 rounded-xl mb-16" >
-            <h1 class="text-red-500 bg-pg p-6 text-center font-bold shadow-xl " >Barangay Management System</h1>
+            <h1 class="text-red-500 bg-pg p-6 text-center font-bold shadow-xl ">iBarangay: Management Information System</h1>
             
         </div>
         <div class="rounded-xl grid ml-96 st:ml-0"  >
             <div class="bg-pg rounded-xl grid place-self-center shadow-2xl st:ml-0">
-                <div class="grid rounded-xl bg-c m-10 mb-0 p-14 shadow-lg">
+                <div class="grid rounded-xl bg-c m-10 p-14 shadow-lg">
                     <div class="grid grid-rows-1 grid-cols-2 mb-4">
                         <div>
                             <p class="text-3xl font-bold break-after-auto">Create Account</p>
@@ -164,7 +164,6 @@
                         <?php unset($_SESSION['role_num']); }?>
                      </form>
                 </div>
-                <p class="text-center rounded-xl mb-28 mt-4 text-s md:mb-12">Already have an account? <a href="loginpage.php" class="underline text-blue-700">Sign In</a></p>
             </div>
         </div>    
          

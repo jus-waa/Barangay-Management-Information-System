@@ -21,7 +21,7 @@
 <body  class="absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
     <div class="bg-white grid grid-rows-2/5 grid-cols-1 rounded-xl w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
         <div class="text-5xl place-self-center w-full pt-12 col-span-3 rounded-xl mb-16" >
-            <h1 class="bg-pg p-6 text-center font-bold shadow-xl " >Barangay Management System</h1>
+            <h1 class="bg-pg p-6 text-center font-bold shadow-xl ">iBarangay: Management Information System</h1>
         </div>
         <div class="grid rounded-xl grid ml-96 st:ml-0 border-2"  >
             <?php
