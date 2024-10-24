@@ -18,6 +18,10 @@ module.exports = {
         'll': '1440px',
         'st': '1366px',
       },
+      spacing: {
+        '13': '3.25rem',
+        '18': '4.5rem',
+      },
     },
   },
   plugins: [],

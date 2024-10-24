@@ -49,18 +49,12 @@
         try {
             $insert_data = "INSERT INTO `users`(`username`, `email`, `password`, `password_re`, `contact_info`, `created_at`, `updated_at`, `role_id`) VALUES ('$username','$email','$encrypted','$encrypted_re','$contact_info',now(),now(),'$role_id')";
             $dbh->exec($insert_data);
-
-            $response = [
-                'success' => true,
-                'message' => $username . ' successfully added to the system.'
-            ];
+            
+            $response =  $username . ' successfully added to the system.';
              
 
         } catch (PDOException $e) {
-            $response = [
-                'success' => true,
-                'message' => $e->getMessage()
-            ];
+            $response = $e->getMessage();
         }
         $_SESSION['response'] = $response;
         header('location: ../signuppage.php');
