@@ -23,25 +23,29 @@
         <div class="text-5xl place-self-center w-full pt-12 col-span-3 rounded-xl mb-16" >
             <h1 class="bg-pg p-6 text-center font-bold shadow-xl ">iBarangay: Management Information System</h1>
         </div>
-        <div class="grid rounded-xl grid ml-96 st:ml-0 border-2"  >
-            <?php
-            if (hasPermission('generate_doc')) {
-                echo "<a href='create_post.php'>Generate_Doc</a><br>";
-            }
-            
-            if (hasPermission('resident_info')) {
-                echo "<a href='edit_post.php'>Resident Information</a><br>";
-            }
-            
-            if (hasPermission('system_settings')) {
-                echo "<a href='delete_post.php'>System Settings</a><br>";
-            }
-            ?>
-            <!--
-            <div class="border-2">Generate documents</div>
-            <div class="border-2">View records</div>
-            <div class="border-2">Account information</div>
-            -->
+        <div class="grid grid-cols-3"  >
+
+            <div class="border-2 p-4 bg-c">
+                <?php
+                    if (hasPermission('generate_doc')) {
+                        echo "<button><a href='#'>Generate_Doc</a><button>";
+                    }
+                ?>
+            </div>
+            <div class="border-2">
+                <?php
+                    if (hasPermission('resident_info')) {
+                        echo "<button><a href='#'>Resident Information</a></button>";
+                    }
+                ?>
+            </div>
+            <div class="border-2">
+                <?php
+                    if (hasPermission('system_settings')) {
+                        echo "<button><a href='#'>System Settings</a><button>";
+                    }
+                ?>
+            </div>
         </div>    
     </div>
 </body>

@@ -1,6 +1,11 @@
 <?php
     session_start();
-    //if(!isset($_SESSION['users'])) header('location: login.php');
+    //to be able to require login first
+    if (!isset($_SESSION['users'])) {
+        header('location: login.php');
+        exit();
+    }
+    
     //$_SESSION['table'] = 'users';
     //$users = $_SESSION['users'];
 ?>
@@ -78,90 +83,29 @@
                                 </div>
                             </div>
                          </div>
+                        
+                         <?php //displays messanges
+                            $messages = [
+                                'response' => ['message' => 'response', 'class' => 'responseMessage__success', 'color' => 'green'],
+                                'empty_info' => ['message' => 'empty_info', 'class' => 'responseMessage__error', 'color' => 'red'],
+                                'email_format' => ['message' => 'email_format', 'class' => 'responseMessage__error', 'color' => 'red'],
+                                'email_info' => ['message' => 'email_info', 'class' => 'responseMessage__error', 'color' => 'red'],
+                                'email_dup' => ['message' => 'email_dup', 'class' => 'responseMessage__error', 'color' => 'red'],
+                                'pass_recheck' => ['message' => 'pass_recheck', 'class' => 'responseMessage__error', 'color' => 'red'],
+                                'pass_min' => ['message' => 'pass_min', 'class' => 'responseMessage__error', 'color' => 'red'],
+                                'role_num' => ['message' => 'role_num', 'class' => 'responseMessage__error', 'color' => 'red']
+                            ];
 
-                        <!--displays response msg-->
-                        <?php if(isset($_SESSION['response'])) { 
-                                $response_message = $_SESSION['response']['message']; 
-                                $success_message = $_SESSION['response']['success'];    
-                            ?> 
-                                <div class="text-xs grid mt-2" style="color: red">
-                                    <p class="place-self-center <?= $success ? 'responseMessage__success' : 'responseMessage__error' ?>">
-                                       <?= $response_message ?>
+                            foreach ($messages as $key => $message) {
+                                if (isset($_SESSION[$key])) {
+                                    $response_message = $_SESSION[$key];
+                            ?>
+                                <div class="text-xs grid mt-2" style="color: <?= $message['color'] ?>">
+                                    <p class="place-self-center <?= $message['class'] ?>">
+                                        <?= $response_message ?>
                                     </p>
                                 </div>
-                            <?php unset($_SESSION['response']); } ?>
-                        <!--display login message if email is emptyor not-->
-                        <?php 
-                            if(isset($_SESSION['empty_info'])) {
-                        ?>
-                            <div class="text-xs grid mt-2" style="color: red">
-                                <p class="place-self-center">
-                                    <?= $_SESSION['empty_info']?>
-                                </p>
-                            </div>
-                        <?php unset($_SESSION['empty_info']); }?>
-                                
-                        <!--display if email format is incorrect -->
-                        <?php 
-                            if(isset($_SESSION['email_format'])) {
-                        ?>
-                            <div class="text-xs grid mt-2" style="color: red">
-                                <p class="place-self-center">
-                                    <?= $_SESSION['email_format']?>
-                                </p>
-                            </div>
-                        <?php unset($_SESSION['email_format']); }?>
-
-                        <!--display if email info already exist-->
-                        <?php 
-                            if(isset($_SESSION['email_info'])) {
-                        ?>
-                            <div class="text-xs grid mt-2" style="color: red">
-                                <p class="place-self-center">
-                                    <?= $_SESSION['email_info']?>
-                                </p>
-                            </div>
-                        <?php unset($_SESSION['email_info']); }?>
-                        <!--display message about email dup-->
-                        <?php 
-                            if(isset($_SESSION['email_dup'])) {
-                        ?>
-                            <div class="text-xs grid mt-2" style="color: red">
-                                <p class="place-self-center">
-                                    <?= $_SESSION['email_dup']?>
-                                </p>
-                            </div>
-                        <?php unset($_SESSION['email_dup']); }?>
-                        <!--display message about password recheck-->
-                        <?php 
-                            if(isset($_SESSION['pass_recheck'])) {
-                        ?>
-                            <div class="text-xs grid mt-2" style="color: red">
-                                <p class="place-self-center">
-                                    <?= $_SESSION['pass_recheck']?>
-                                </p>
-                            </div>
-                        <?php unset($_SESSION['pass_recheck']); }?>
-                        <!--display message about password recheck-->
-                        <?php 
-                            if(isset($_SESSION['pass_min'])) {
-                        ?>
-                            <div class="text-xs grid mt-2" style="color: red">
-                                <p class="place-self-center">
-                                    <?= $_SESSION['pass_min']?>
-                                </p>
-                            </div>
-                        <?php unset($_SESSION['pass_min']); }?>
-                        <!--display message about role number-->
-                        <?php 
-                            if(isset($_SESSION['role_num'])) {
-                        ?>
-                            <div class="text-xs grid mt-2" style="color: red">
-                                <p class="place-self-center">
-                                    <?= $_SESSION['role_num']?>
-                                </p>
-                            </div>
-                        <?php unset($_SESSION['role_num']); }?>
+                            <?php unset($_SESSION[$key]);}}?>
                      </form>
                 </div>
             </div>

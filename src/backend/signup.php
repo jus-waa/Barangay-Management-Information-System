@@ -40,7 +40,7 @@
         header('location: ../signuppage.php');
         exit();
     } 
-    //check for password strength
+    //check for                         password strength
     if(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', $pass)) {
         $_SESSION['pass_min'] = "Password too weak.";
         header('location: ../signuppage.php');
