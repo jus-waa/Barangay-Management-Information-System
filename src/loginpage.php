@@ -10,22 +10,23 @@
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../script.js"></script>
 </head>
-<body  class="absolute inset-0 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
-<div class=" grid grid-rows-2/5 grid-cols-3 rounded-xl w-full  bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+<body class="absolute inset-0 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+    <div class=" grid grid-rows-2/5 grid-cols-3 rounded-xl">
+        <!--Header-->
         <div class="text-5xl place-self-center w-full pt-12 col-span-3 rounded-xl mb-16" >
             <h1 class="bg-pg p-6 text-center font-bold shadow-xl ">iBarangay: Management Information System</h1>
         </div>
-
-        <div class="rounded-xl grid ml-20 mb-24 place-self-center w-64 2xl:w-96 text-xs st:block 2xl:text-base 2xl:block" >
-            <div class="place-self-center rounded-xl">
+        <!--Barangay Info-->
+        <div class="rounded-xl grid ml-16 mb-24 place-self-center w-64 2xl:w-96 text-xs st:block 2xl:text-base 2xl:block" >
+            <div class="place-self-center rounded-xl hidden st:block 2xl:text-base 2xl:block">
                 <div class="rounded-xl bg-pg grid pt-8 pb-8 p-4 mt-4 shadow-xl">
                     <p class="rounded-xl bg-c p-4 text-center">Barangay Poblacion II is popularly known as Riverside because it is bounded by the Tibagan River on the southwest portion. It was established in 1982 when Poblacion was divided into four barangays. The Barangay is primarily classified as urban with a total land area of 74 hectares and is bounded on the north by Barangay Poblacion III, on the south by Barangay Banaba Cerca, on the east by Barangay Poblacion I and on the west by Tibagan River.</p>
                 </div>
             </div>
         </div>
-
-        <div class="rounded-xl grid ml-96 st:ml-0"  >
-            <div class="bg-pg rounded-xl grid place-self-center shadow-2xl st:ml-0">
+        <!--Login-->
+        <div class="rounded-xl grid"  >
+            <div class="bg-pg rounded-xl grid place-self-center shadow-2xl ">
                 <div class="grid rounded-xl bg-c m-10 p-14 shadow-lg">
                     <div class="grid grid-rows-2">
                         <p class="text-3xl font-bold">Sign In</p>
@@ -66,10 +67,10 @@
                 </div>
             </div>
         </div>
-
-        <div class="rounded-xl grid place-self-center w-96 2xl:w-auto text-xs hidden st:block 2xl:text-base 2xl: block">
+                                
+        <div class="rounded-xl place-self-center w-96 2xl:w-auto text-xs hidden st:block 2xl:text-base 2xl:block">
             <div class="rounded-xl grid ">
-                <div class="ml-64 mr-12 place-self-center rounded-xl md:ml-12 md:mb-16">
+                <div class="ml-64 mr-12 place-self-center rounded-xl md:ml-2 md:mb-16">
                     <div class="rounded-xl bg-pg grid pt-8 pb-8 p-4 mt-4 mb-4 shadow-xl ">
                         <p class="rounded-xl bg-c place-self-center max-w-96 p-4 text-center">A user-friendly website that helps barangays manage resident information, incident reports, projects, and documents easily. It simplifies day-to-day tasks, making operations more efficient and improving service for the community.</p>
                     </div>

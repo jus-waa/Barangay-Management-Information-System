@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Documents</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body style="background-color: #F0F0F0">
+
+    <!-- Main content with added horizontal margins -->
+    <div class="mx-20 flex-1 p-10"> 
+        <div class="flex justify-between mb-16">
+            <!-- Left section: Adding a new resident to the database -->
+            <div class="p-5 rounded-lg inline block" style="background-color: #76D174;"> 
+                <h1 class="text-xl font-bold" style="font-family: 'Karla', sans-serif; font-size: 48px; letter-spacing: 2px; color: black;">Add a new resident</h1>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <form class="grid grid-cols-[2fr,1fr,1fr] gap-12">
+            <!-- First Column -->
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">First name</label>
+                    <input type="text" class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;" placeholder="E.G. Josh Andrei">
+                </div>
+
+                <div class="flex items-center justify-between mt-4">
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Middle name</label>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="noMiddleNameCheckbox" class="mr-2">
+                        <label for="noMiddleNameCheckbox" class="text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">No Middle Name</label>
+                    </div>
+                </div>
+                <input type="text" id="middleNameInput" class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656; margin-top: 0.5rem;" placeholder="E.G. Lagrimas">
+
+                <script>
+                    document.getElementById('noMiddleNameCheckbox').addEventListener('change', function() {
+                        const middleNameInput = document.getElementById('middleNameInput');
+                        middleNameInput.disabled = this.checked; // Disable input if checkbox is checked
+                        if (this.checked) {
+                            middleNameInput.value = ''; // Clear the input field if checkbox is checked
+                            middleNameInput.style.backgroundColor = '#C8C8C8'; // Change background to gray
+                        } else {
+                            middleNameInput.style.backgroundColor = ''; // Reset background when unchecked
+                        }
+                    });
+                </script>
+
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Last name</label>
+                    <input type="text" class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;" placeholder="E.G. Lagrimas">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Suffix</label>
+                    <select class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;">
+                        <option value="">Select Suffix</option>
+                        <option value="Jr.">Jr.</option>
+                        <option value="Sr.">Sr.</option>
+                        <option value="II">II</option>
+                        <option value="III">III</option>
+                        <option value="IV">IV</option>
+                        <option value="V">V</option>
+                        <option value="PhD">PhD</option>
+                        <option value="MD">MD</option>
+                        <option value="Esq.">Esq.</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Second Column -->
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Address</label>
+                    <input type="text" class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;" placeholder="lalagyan pa depende sa template">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Age</label>
+                    <input type="text" class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Sex</label>
+                    <select class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;">
+                        <option value="">Select Sex</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Date of Birth</label>
+                    <input type="date" class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;">
+                </div>
+            </div>
+
+            <!-- Third Column -->
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Birth Place</label>
+                    <input type="text" class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Civil status</label>
+                    <select class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;">
+                        <option value="">Select Status</option>
+                        <option value="Si">Single</option>
+                        <option value="Ma">Married</option>
+                        <option value="Wi">Widowed</option>
+                        <option value="LS">Legally separated</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Citizenship</label>
+                    <input type="text" class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Occupation</label>
+                    <input type="text" class="mt-1 block w-full p-2" style="border: none; outline: none; box-shadow: 0 3px 0 #579656;">
+                </div>
+            </div>
+        </form>
+
+        <!-- Buttons -->
+        <div class="mt-12 flex justify-end space-x-6">
+            <button class="bg-[#76D174] text-black py-1 px-3 rounded-md hover:bg-[#579656] focus:outline-none"
+                style="font-family: 'Source Sans Pro', sans-serif; font-size: 16px; letter-spacing: 2px;">
+                Add
+            </button>
+            <button class="bg-[#76D174] text-black py-1 px-3 rounded-md hover:bg-[#579656] focus:outline-none"
+                style="font-family: 'Source Sans Pro', sans-serif; font-size: 16px; letter-spacing: 2px;">
+                Cancel
+            </button>
+        </div>
+    </div>
+</body>
+</html>

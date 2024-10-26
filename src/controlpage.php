@@ -51,6 +51,8 @@
                         <?php
                             if (hasPermission('system_settings')) {
                                 echo "<button><a href='#'>System<br>Settings</a></button>";
+                            } else {
+                                echo "<button><a href='#'>Inaccessible</a></button>";
                             }
                         ?>
                     </div>

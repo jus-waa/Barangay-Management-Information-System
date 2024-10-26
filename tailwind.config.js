@@ -4,12 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'pg': '#53A548', // pigment green
-        'sg': '#4C934C', // sea green
-        'c': '#AFE1AF'
-      },
-      fontFamily: {
-        serif: ['"Georgia"'],
+        'dg': '#579656', // pigment green
+        'lg': '#76D174', // sea green
       },
       translate: {
         '13.5': '3.3rem',
