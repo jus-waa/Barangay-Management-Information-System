@@ -37,9 +37,9 @@ if(isset($_POST['add'])) {
         $stmt->bindParam(':citizenship', $citizenship, PDO::PARAM_STR);
         $stmt->bindParam(':occupation', $occupation, PDO::PARAM_STR);
         $stmt->execute();
-        
+
         if($stmt) {
-            header("location: residentpage.php?msg= New record added.");
+            header("location: residentpage.php?msg= new record added.");
         } else {
             echo "Failed: " . $e->getMessage();
         }

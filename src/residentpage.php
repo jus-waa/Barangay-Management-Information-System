@@ -156,9 +156,9 @@
                                     <img class="" src="../img/edit.svg" alt="edit" style="filter: brightness(0);" />
                                 </a>
                             </button>
-                            <button class="w-6 ml-1 cursor-pointer">
-                                <a href="delete.php?id=<?=$row['id']?>">
-                                    <img class="size-6" src="../img/trash.svg" alt="delete"  style="filter: brightness(0);" />
+                            <button  class="w-6 ml-1 cursor-pointer">
+                                <a href="backend/delete.php?id=<?=$row['id']?>">
+                                    <img name="delete" class="size-6" src="../img/trash.svg" alt="delete"  style="filter: brightness(0);" />
                                 </a>
                             </button>
                         </div>
