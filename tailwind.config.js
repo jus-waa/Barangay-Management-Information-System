@@ -6,7 +6,7 @@ module.exports = {
       colors: {
         'pg': '#53A548', // pigment green
         'sg': '#4C934C', // sea green
-        'c': '#AFE1AF'
+        'c': '#AFE1AF', // very light green
       },
 
       translate: {
