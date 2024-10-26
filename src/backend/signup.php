@@ -10,8 +10,6 @@
     $contact_info = $_POST['contact_info'];
     $role_id = $_POST['role_id'];
 
-
-
     if($pass != $pass_re) {
         $_SESSION['pass_recheck'] = "Password do not match.";
         header('location: ../signuppage.php');

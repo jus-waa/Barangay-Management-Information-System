@@ -3,8 +3,6 @@ session_start();
 
  //db connection
 include("connection.php");
-
-
         $email = $_POST['email'];
         $pass = $_POST['pass'];
         
