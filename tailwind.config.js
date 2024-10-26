@@ -4,9 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'dg': '#579656', // pigment green
-        'lg': '#76D174', // sea green
+        'pg': '#53A548', // pigment green
+        'sg': '#4C934C', // sea green
+        'c': '#AFE1AF'
       },
+
       translate: {
         '13.5': '3.3rem',
       },
