@@ -1,5 +1,9 @@
 <?php
 include("backend/connection.php");
+$stmt = $dbh->prepare("SELECT * FROM `resident_info`");
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,16 +56,18 @@ include("backend/connection.php");
         <!-- Search and Add New Button -->
         <div class="flex justify-end items-center space-x-4 mr-32">
             <div class="relative">
-                <input type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none h-8">
-                <button class="rounded-sm absolute right-0 top-1/2 transform -translate-y-1/2 bg-pg p-2 h-full flex items-center justify-center hover:bg-[#579656] focus:outline-none">
-                    <img class="w-4 h-4" src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="Search Icon"/>
-                </button>
+                <form method="post">
+                    <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none h-8" >
+                    <button id="searchBtn" class="rounded-sm absolute right-0 top-1/2 transform -translate-y-1/2 bg-pg p-2 h-full flex items-center justify-center hover:bg-[#579656] focus:outline-none">
+                        <img class="w-4 h-4" src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="Search Icon"/>
+                    </button>
+                </form>
             </div>
             <a href="backend/add.php"><button class="bg-pg text-black py-1 px-3 hover:bg-pg focus:outline-none rounded-sm"">Add New</button></a>
         </div>
         <!-- Residents Table -->
         <div class="overflow-x-auto pr-32 pl-32 mt-4">
-            <table class="min-w-full bg-white border border-gray-300">
+            <table id="residentTable" class="min-w-full bg-white border border-gray-300">
                 <thead>
                     <tr class="bg-c text-gray-600 uppercase text-sm border-2 ">
                         <th class="border-2 border-pg">ID</th>
@@ -82,12 +88,8 @@ include("backend/connection.php");
                 </thead>
                 <tbody class=" border-2 text-gray-600" >
                     <?php 
-                    require_once("backend/connection.php");
-                    $query = "SELECT * FROM resident_info";
-                    $stmt = $dbh->prepare($query);
-                    $stmt->execute();
                     $i = 1; //auto numbering
-                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    foreach ($result as $row) {
                     ?>
                     <tr>
                         <td class="border-2">
@@ -190,7 +192,7 @@ include("backend/connection.php");
             </table>
         </div>
     </div>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     //hover on nav 
     function hoverNav() {
@@ -223,7 +225,26 @@ include("backend/connection.php");
         element.style.display = show ? "block" : "none";
 
     }
-    
+    $(document).ready(function() {
+        $('#search').keyup(function(event) {
+            search_table($(this).val());
+        });
+        function search_table(value) {
+            $('#residentTable tbody tr').each(function(){
+                let found = 'false';
+                $(this).each(function(){
+                    if($(this).text().toLowerCase().indexOf(value.toLowerCase())>=0){
+                        found = 'true';
+                    }
+                });
+                if(found=='true'){
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    });
 </script>
 </body>
 </html>
