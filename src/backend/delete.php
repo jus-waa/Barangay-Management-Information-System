@@ -4,8 +4,7 @@ include("connection.php");
         $id = $_GET["id"];
         $query = "DELETE FROM resident_info WHERE `id` = :id";
         $stmt = $dbh->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
+        $stmt->execute(['id' => $id]);
         if($stmt) {
             $sql = "ALTER TABLE `resident_info` AUTO_INCREMENT=1";
             $sth = $dbh->prepare($sql);

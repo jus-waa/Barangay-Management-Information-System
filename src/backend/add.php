@@ -1,5 +1,5 @@
 <?php
-include("backend/connection.php");
+include("connection.php");
 
 if(isset($_POST['add'])) {
     try{
@@ -39,13 +39,15 @@ if(isset($_POST['add'])) {
         $stmt->execute();
 
         if($stmt) {
-            header("location: residentpage.php?msg= new record added.");
+            header("location: ../residentpage.php?msg= new record added.");
         } else {
             echo "Failed: " . $e->getMessage();
         }
     } catch(PDOException $e){
         echo "Error: " . $e->getMessage();
     }
+} else if (isset($_POST['cancel'])){
+    header("location: ../residentpage.php?msg= operation cancelled.");
 }
 ?>
 <!DOCTYPE html>
@@ -56,6 +58,7 @@ if(isset($_POST['add'])) {
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../script.js"></script>
+
 </head>
 <body class="bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
     <!-- Main content with added horizontal margins -->
@@ -70,7 +73,7 @@ if(isset($_POST['add'])) {
             <div class="space-y-6">
                 <div>
                     <label class="block text-sm font-bold">First name</label>
-                    <input type="text" name="first_name" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" placeholder="e.g. Juan">
+                    <input type="text" name="first_name" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" placeholder="e.g. Juan" >
                 </div>
                 <div>
                     <div class="flex items-center justify-between">
@@ -89,7 +92,7 @@ if(isset($_POST['add'])) {
                 <div>
                     <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Suffix</label>
                     <select name="suffix" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg">
-                        <option value=""  selected >Select Suffix</option>
+                        <option value="" selected >Select Suffix</option>
                         <option value="Jr.">Jr.</option>
                         <option value="Sr.">Sr.</option>
                         <option value="II">II</option>
@@ -101,8 +104,7 @@ if(isset($_POST['add'])) {
                         <option value="Esq.">Esq.</option>
                     </select>
                 </div>
-            </div>
-
+            </div
             <!-- Second Column -->
             <div class="space-y-6">
                 <div>
@@ -115,7 +117,7 @@ if(isset($_POST['add'])) {
                 </div>
                 <div>
                     <label class="block text-sm font-bold">Sex</label>
-                    <select name="sex" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg " >
+                    <select name="sex" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg">
                         <option value=""  selected >Select Sex</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -125,8 +127,7 @@ if(isset($_POST['add'])) {
                     <label class="block text-sm font-bold">Date of Birth</label>
                     <input type="date" name="birth_date" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg">
                 </div>
-            </div>
-
+            </div
             <!-- Third Column -->
             <div class="space-y-6">
                 <div>
@@ -155,28 +156,25 @@ if(isset($_POST['add'])) {
                 <button name="add" class="bg-pg text-black py-1 px-3 rounded-sm hover:bg-sg focus:outline-none">
                     Add
                 </button>
-                <button class="bg-pg text-black py-1 px-3 rounded-sm hover:bg-sg focus:outline-none">
-                    <a href="index.php">
-                        Cancel
-                    </a>
+                <button name="cancel" class="bg-pg text-black py-1 px-3 rounded-sm hover:bg-sg focus:outline-none">
+                    Cancel
                 </button>
             </div>
             </div>
         </form>
     </div>
     <script>
-        document.getElementById('noMid').addEventListener('change', function() {
-            const middleNameInput = document.getElementById('middleNameInput');
-            middleNameInput.disabled = 'true';// Disable input if checkbox is checked
-            middleNameInput.value = ''; // Clear the input field if checkbox is checked
-
-            if (this.checked) {
-                middleNameInput.value = ''; // Clear the input field if checkbox is checked
-                middleNameInput.style.backgroundColor = '#C8C8C8'; // Change background to gray
-            } else {
-                middleNameInput.style.backgroundColor = ''; // Reset background when unchecked
-            }
-        });
+    document.getElementById('noMid').addEventListener('change', function() {
+        const middleNameInput = document.getElementById('middleNameInput');
+        middleNameInput.disabled = this.checked;
+        if (this.checked) {
+            middleNameInput.value = '';
+            middleNameInput.classList.add('bg-gray-300');
+        } else {
+            middleNameInput.classList.remove('bg-gray-300');
+        }
+    });
+        
     </script>
 </body>
 </html>

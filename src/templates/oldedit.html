@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="editResidentPopup" class="grid h-screen hidden ">
+        <div class="absolute overflow-auto place-self-center h-5/6 bg-white border-2 shadow-max  rounded-md w-5/6">
+            <!-- Starts here -->
+            <div class=" mx-20 mt-14 p-10"> 
+                <div class="flex justify-center bg-pg rounded-lg p-6 w-1/4 mb-16 "> 
+                    <h1 class="text-2xl font-bold "><center>Update Resident Information</center></h1>
+                </div>
+                <?php 
+                    $query = "SELECT * FROM `resident_info` WHERE `id` = :id";
+                    $stmt = $dbh->prepare($query);
+                    $stmt->execute(['id' => $_GET['id']]);
+                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                <!-- Form Section -->
+                <form class="grid grid-cols-[2fr,1fr,1fr] gap-12" method="post">
+                    <!-- First Column -->
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold">First name</label>
+                            <input type="text" name="first_name" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" placeholder="e.g. Juan" value="<?php echo $row['first_name']?>">
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <label class="block text-sm font-bold">Middle Name</label>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="noMid" class="mr-1">
+                                    <label for="noMid" class="text-xs">No Middle Name</label>
+                                </div>
+                            </div>
+                            <input type="text" name="middle_name" id="middleNameInput" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" placeholder="e.g. Dela" value="<?php echo $row['middle_name']?>">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold">Last name</label>
+                            <input type="text" name="last_name" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" placeholder="e.g. Cruz" value="<?php echo $row['last_name']?>">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium" style="font-family: 'Source Sans Pro', sans-serif; font-weight: bold;">Suffix</label>
+                            <select name="suffix" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" value="<?php echo $row['suffix_name']?>">
+                                <option value="" selected >Select Suffix</option>
+                                <option value="Jr.">Jr.</option>
+                                <option value="Sr.">Sr.</option>
+                                <option value="II">II</option>
+                                <option value="III">III</option>
+                                <option value="IV">IV</option>
+                                <option value="V">V</option>
+                                <option value="PhD">PhD</option>
+                                <option value="MD">MD</option>
+                                <option value="Esq.">Esq.</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Second Column -->
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold">Address</label>
+                            <input name="address" type="text" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" placeholder="e.g. Indang Cavite" value="<?php echo $row['address']?>">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold">Age</label>
+                            <input name="age" type="text" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" placeholder="e.g. 18" value="<?php echo $row['age']?>">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold">Sex</label>
+                            <select name="sex" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg " value="<?php echo $row['sex']?>">
+                                <option value=""  selected >Select Sex</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold">Date of Birth</label>
+                            <input type="date" name="birth_date" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" value="<?php echo $row['birth_date']?>">
+                        </div>
+                    </div>
+
+                    <!-- Third Column -->
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold">Birth Place</label>
+                            <input type="text" name="birth_place" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" placeholder="e.g. Indang Cavite" value="<?php echo $row['birth_place']?>">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold">Civil Status</label>
+                            <select name="civil_status" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" value="<?php echo $row['civil_status']?>">
+                                <option value="" selected>Select Status</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Widowed">Widowed</option>
+                                <option value="Legally Separated">Legally separated</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold">Citizenship</label>
+                            <input type="text" name="citizenship" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" placeholder="e.g. Filipino" value="<?php echo $row['citizenship']?>">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold">Occupation</label>
+                            <input type="text" name="occupation" class="mt-1 w-full p-2 border-2 border-pg rounded-md focus:outline-sg" placeholder="e.g. Programmer" value="<?php echo $row['occupation']?>">
+                        </div>
+                        <div class="mt-12 flex justify-end space-x-4">
+                        <button name="update" class="bg-pg text-black py-1 px-3 rounded-sm hover:bg-sg focus:outline-none">
+                            Update
+                        </button>
+                        <button class="bg-pg text-black py-1 px-3 rounded-sm hover:bg-sg focus:outline-none" onclick="hideEditResidentPopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    </div>
+                    <?php } ?>
+                </form>
+            </div>
+            <!-- Ends here -->
+        </div>
+    </div>
+    <script>
+        
+    //show/hide edit resident pop up
+    function showEditResidentPopup() {
+        document.getElementById("editResidentPopup").classList.remove("hidden");
+        const mainNav = document.getElementById('mainNav');
+        let doc = document.getElementById("gen_doc");
+
+        mainNav.onmouseover = null;
+        mainNav.onmouseout = null;
+        mainNav.style.pointerEvents = "none";
+        doc.onmouseover = null;
+    }
+    function hideEditResidentPopup() {
+        document.getElementById("editResidentPopup").classList.add("hidden");
+    }
+    </script>
+</body>
+</html>
