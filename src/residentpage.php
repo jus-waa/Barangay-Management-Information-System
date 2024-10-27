@@ -225,6 +225,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         element.style.display = show ? "block" : "none";
 
     }
+    //search funcitonality
     $(document).ready(function() {
         $('#search').keyup(function(event) {
             search_table($(this).val());
