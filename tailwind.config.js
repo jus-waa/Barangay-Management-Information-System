@@ -8,7 +8,6 @@ module.exports = {
         'sg': '#4C934C', // sea green
         'c': '#AFE1AF', // very light green
       },
-
       translate: {
         '13.5': '3.3rem',
       },
@@ -20,6 +19,9 @@ module.exports = {
         '13': '3.25rem',
         '18': '4.5rem',
       },
+      boxShadow: {
+        'max': '2px 2px 10px 1000px rgba(0, 0, 0, 0.5)',
+      }
     },
   },
   plugins: [],

@@ -58,7 +58,6 @@ if(isset($_POST['add'])) {
     <script src="../script.js"></script>
 </head>
 <body class="bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
-
     <!-- Main content with added horizontal margins -->
     <div class="mx-20 p-10"> 
         <div class="flex justify-center bg-pg rounded-lg p-6 w-1/4 mb-16 "> 
@@ -163,7 +162,6 @@ if(isset($_POST['add'])) {
                 </button>
             </div>
             </div>
-            
         </form>
     </div>
     <script>
