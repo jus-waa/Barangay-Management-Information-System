@@ -17,13 +17,13 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body class="relative bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
     <!--Header-->
     <div class="absolute w-full h-full">
-        <div class="grid grid-cols-2 items-center">
+        <div class="grid grid-cols-2 items-center -z-20">
             <div class="flex flex-row items-start ">
                 <!--Nav-->
                 <div id="mainNav" onmouseover="hoverNav()" onmouseleave="leaveNav()" class="flex flex-col mr-16 rounded-b-full h-14 w-16 bg-pg duration-500 ease-in-out">
                     <a href="residentpage.php">
                         <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="w-20 mt-2 rounded-b-full flex">
-                            <img  class="place-self-center size-10 ml-3 mb-2" src="../img/res_info.svg">
+                            <img  class="place-self-center size-8 ml-4 mb-4" src="../img/res_info.svg">
                             <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-pg rounded-full bg-c min-w-52">Resident Information</span>
                         </button>
                     </a>
@@ -32,7 +32,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-pg rounded-full bg-c min-w-52">Generate Documents</span>
                     </button>
                     <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
-                        <img  class="place-self-center size-10 ml-3 mb-2" src="../img/setting.svg" >
+                        <img  class="place-self-center size-8 ml-4 mb-4" src="../img/setting.svg" >
                         <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-pg rounded-full bg-c min-w-52">System Settings</span>
                     </button>
                     
@@ -46,7 +46,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <!-- Right section -->
-            <div class="relative inline-block w-2/4 place-self-center ml-24 ll:ml-56">
+            <div class="relative inline-block w-2/4 place-self-center ml-24 ll:ml-56 -z-20">
                 <div class="bg-pg h-12 rounded-lg flex items-center justify-center p-8">
                     <h1 class="text-2xl font-bold text-center  ">
                         List of Records
@@ -55,17 +55,30 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="bg-c w-3/4 h-6 rounded-lg absolute right-0 top-14 -z-10"></div>
             </div>
         </div>
-        <!-- Search and Add New Button -->
+        <!-- Search, Add New Button, Bulk Import -->
         <div class="flex justify-end items-center space-x-4 mr-32">
             <div class="relative">
                 <form method="post">
                     <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none h-8" >
-                    <button id="searchBtn" class="rounded-sm absolute right-0 top-1/2 transform -translate-y-1/2 bg-pg p-2 h-full flex items-center justify-center hover:bg-[#579656] focus:outline-none">
+                    <button id="searchBtn" class="rounded-sm absolute right-0 top-1/2 transform -translate-y-1/2 bg-white border border-l-0 border-gray-300 p-2 h-full flex items-center justify-center ">
                         <img class="w-4 h-4" src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="Search Icon"/>
                     </button>
                 </form>
             </div>
-            <a href="backend/add.php"><button class="bg-pg text-black py-1 px-3 hover:bg-pg focus:outline-none rounded-sm"">Add New</button></a>
+            <a href="backend/add.php"><button class="bg-pg text-black py-1 px-3 hover:bg-[#579656] focus:outline-none rounded-sm focus:ring-4 ring-c mr-24">Add Record</button></a>
+            <div>
+                <form id="formUpload">
+                    <label for="file_input">
+                        <img id="file_output" class="absolute top-40 right-36 ml-4 p-1 z-20 duration-150 cursor-pointer hover:z-20 hover:-translate-y-1"  style="cursor: pointer;" src="../img/gen_doc.svg">
+                        <input type="file" id="file_input" name="file" accept="csv/*" class="hidden -z-10"> </input>
+                    </label>
+                    <div>
+                        <div class="absolute top-40 right-32 ml-4 p-1 border-2 h-20 w-26"></div>
+                        <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 bg-pg text-black py-1 px-3 hover:bg-[#579656] focus:outline-none rounded-sm focus:ring-4 ring-c">Bulk Import</button>
+                    </div>
+                </form>
+                <div class="msgUpload"></div>
+            </div>
         </div>
         <!-- Residents Table -->
         <div class="overflow-x-auto pr-32 pl-32 mt-4">
@@ -74,11 +87,11 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <tr class="bg-c text-gray-600 uppercase text-sm border-2 ">
                         <th class="border-2 border-pg">ID</th>
                         <th class="border-2 border-pg">First Name</th>
-                        <th class="border-2 border-pg">Middle Name</th>
-                        <th class="border-2 border-pg">Last Name</th>
+                        <th class="border-2 border-pg ">Middle Name</th>
+                        <th class="border-2 border-pg px-2">Last Name</th>
                         <th class="border-2 border-pg">Suffix</th>
                         <th class="border-2 border-pg">Age</th>
-                        <th class="border-2 border-pg">Address</th>
+                        <th class="border-2 border-pg px-6">Address</th>
                         <th class="border-2 border-pg">Sex</th>
                         <th class="border-2 border-pg">Date of Birth</th>
                         <th class="border-2 border-pg">Birth Place</th>
@@ -227,6 +240,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         element.style.display = show ? "block" : "none";
 
     }
+    
+</script>
+<script>
     //search funcitonality
     $(document).ready(function() {
         $('#search').keyup(function(event) {
@@ -248,6 +264,33 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             });
         }
     });
+</script>
+<script>
+    const fileInput = document.querySelector("#file_input");
+    const fileOutput = document.querySelector("#file_output");
+
+    let file = "";
+
+    fileInput.addEventListener("change", function(){
+        file = this.files[0];
+        displayFile();
+    });
+
+    const displayFile = () => {
+        let fileReader = new FileReader();
+        let fileType = file.type;
+        if(fileType === "text/csv"){
+            fileReader.onload=()=>{
+                let fileAddress = fileReader.result;
+                fileOutput.src=fileAddress;
+                fileOutput.src="../img/prevcsv.jpg";
+                document.querySelector("#btnUpload").style.display="block";
+            };
+        } else {
+            fileOutput.src="../img/error.png";
+        } 
+        fileReader.readAsDataURL(file);
+    };
 </script>
 </body>
 </html>
