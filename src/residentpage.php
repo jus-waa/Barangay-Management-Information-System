@@ -75,9 +75,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <input type="file" id="file_input" name="file" accept="csv/*" class="hidden z-20"> </input>
                     </label>
                     <div>
-                        <!--To be consulted
-                        <div class="absolute top-40 right-32 p-1 border-2 rounded-md bg-c h-16 w-26 -z-10"></div>
-                        -->
+                    
+                        <div class="absolute top-40 right-32 p-1 rounded-xl bg-c h-16 w-26 -z-10"></div>
+                        
                         <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm focus:ring-4 ring-c" disabled>Bulk Import</button>
                     </div>
                 </form>
@@ -187,28 +187,30 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </button>
                             </div>
                         </td>
-                        <!-- Confirmation -->
-                        <div class="absolute w-5/6 flex justify-center place-items-center hidden" id="confirmDeletion">
-                            <div class="grid grid-cols-1 grid-rows-2 h-72 w-1/4 overflow-auto rounded-md bg-white shadow-max">
-                                <div class=" grid justify-center">
-                                    <div class="text-3xl font-bold place-self-center mt-12"> Confirm Deletion</div>
-                                    <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
-                                </div>
-                                <div class=" flex justify-center space-x-4 mt-6">
-                                    <a id="deleteLink" href="#">
-                                        <button class="bg-c rounded-md w-32 h-12">
-                                            Yes, Delete  
-                                        </button>
-                                    </a>
-                                    <button class="bg-c rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
-                                </div>
-                            </div>
-                        </div>
                     </tr>
-                    
                     <?php $i++; } ?>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <!-- Confirmation -->
+    <div class="fixed z-50 hidden" id="confirmDeletion">
+        <div class="border-4 w-screen h-screen flex justify-center items-center">
+            <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+            <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white shadow-lg z-10">
+                <div class="grid justify-center">
+                    <div class="text-3xl font-bold place-self-center mt-12">Confirm Deletion</div>
+                    <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
+                </div>
+                <div class="flex justify-center space-x-4 mt-6">
+                    <a id="deleteLink" href="#">
+                        <button class="bg-c rounded-md w-32 h-12">
+                            Yes, Delete  
+                        </button>
+                    </a>
+                    <button class="bg-c rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                </div>
+            </div>
         </div>
     </div>
 <script>
