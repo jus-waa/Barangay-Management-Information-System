@@ -13,6 +13,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body class="relative bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
     <!--Header-->
@@ -65,19 +66,22 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </button>
                 </form>
             </div>
-            <a href="backend/add.php"><button class="bg-pg text-black py-1 px-3 hover:bg-[#579656] focus:outline-none rounded-sm focus:ring-4 ring-c mr-24">Add Record</button></a>
+            <a href="backend/add.php"><button class="bg-pg text-black py-1 px-3 hover:bg-[#579656] focus:outline-none rounded-sm focus:ring-4 ring-c">Add Record</button></a>
+            <div class="w-22"></div>
             <div>
                 <form id="formUpload">
                     <label for="file_input">
-                        <img id="file_output" class="absolute top-40 right-36 ml-4 p-1 z-20 duration-150 cursor-pointer hover:z-20 hover:-translate-y-1"  style="cursor: pointer;" src="../img/gen_doc.svg">
-                        <input type="file" id="file_input" name="file" accept="csv/*" class="hidden -z-10"> </input>
+                        <img id="file_output" class="absolute top-40 right-38 translate-y-1 duration-150 cursor-pointer hover:z-20 hover:-translate-y-1 " width="60px" height="60px" src="../img/gen_doc.svg">
+                        <input type="file" id="file_input" name="file" accept="csv/*" class="hidden z-20"> </input>
                     </label>
                     <div>
-                        <div class="absolute top-40 right-32 ml-4 p-1 border-2 h-20 w-26"></div>
-                        <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 bg-pg text-black py-1 px-3 hover:bg-[#579656] focus:outline-none rounded-sm focus:ring-4 ring-c">Bulk Import</button>
+                        <!--To be consulted
+                        <div class="absolute top-40 right-32 p-1 border-2 rounded-md bg-c h-16 w-26 -z-10"></div>
+                        -->
+                        <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm focus:ring-4 ring-c" disabled>Bulk Import</button>
                     </div>
                 </form>
-                <div class="msgUpload"></div>
+                <div id="msgUpload"></div>
             </div>
         </div>
         <!-- Residents Table -->
@@ -207,7 +211,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </table>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     //hover on nav 
     function hoverNav() {
@@ -275,22 +278,47 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         file = this.files[0];
         displayFile();
     });
-
+    //change the display file to csv icon
     const displayFile = () => {
         let fileReader = new FileReader();
         let fileType = file.type;
-        if(fileType === "text/csv"){
+        if (fileType === "text/csv"){
             fileReader.onload=()=>{
                 let fileAddress = fileReader.result;
                 fileOutput.src=fileAddress;
-                fileOutput.src="../img/prevcsv.jpg";
-                document.querySelector("#btnUpload").style.display="block";
+                fileOutput.src="../img/prevcsv.png";
+                document.querySelector("#btnUpload").removeAttribute("disabled");
+                document.querySelector("#btnUpload").classList.add("bg-pg");
+                document.querySelector("#btnUpload").classList.remove("text-gray-600");
             };
         } else {
             fileOutput.src="../img/error.png";
+            document.querySelector("#btnUpload").setAttribute("disabled", "true"); // Disable upload button
         } 
         fileReader.readAsDataURL(file);
     };
+    //upload csv file
+    $(function (){
+        $('#formUpload').on('submit', function(e) {
+            e.preventDefault();
+            let form = $(this);
+            let csv = new FormData(form[0]);
+            $('.msgUpload').show(2).html('<center><img src=../img/loader.gif width=60px/> <br>Uploading Data. Please wait...</center>');
+            $('.btnUpload').hide(2);
+            $.ajax({
+                url: "backend/upload.php",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: csv,
+                success: function(data) {
+                    console.log(data);
+                    $('#msgUpload').html(data);
+                    $('#btnUpload').hide(2);
+                }
+            }); 
+        });
+    });
 </script>
 </body>
 </html>

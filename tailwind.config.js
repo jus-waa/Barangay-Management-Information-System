@@ -18,7 +18,9 @@ module.exports = {
       spacing: {
         '13': '3.25rem',
         '18': '4.5rem',
-        '26': '6.5rem',
+        '26': '6.6rem',
+        '22': '5.6rem',
+        '38': '9.4rem',
       },
       boxShadow: {
         'max': '2px 2px 10px 1000px rgba(0, 0, 0, 0.5)',
