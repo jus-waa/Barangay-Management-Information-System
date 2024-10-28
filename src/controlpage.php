@@ -40,7 +40,7 @@
                     <div class="bg-pg p-2 pr-14 pl-14 rounded-2xl text-xl hover:bg-sg active:bg-pg focus:outline-none focus:ring-4 focus:ring-c">
                         <?php
                             if (hasPermission('resident_info')) {
-                                echo "<button><a href='#'>Resident<br>Information</a></button>";
+                                echo "<a href='residentpage.php'><button>Resident<br>Information</button></a>";
                             }
                         ?>
                     </div>

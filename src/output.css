@@ -643,6 +643,10 @@ video {
   margin-left: 0.75rem;
 }
 
+.ml-32 {
+  margin-left: 8rem;
+}
+
 .ml-56 {
   margin-left: 14rem;
 }
@@ -701,6 +705,10 @@ video {
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
 }
 
 .block {
@@ -851,10 +859,6 @@ video {
   width: 100%;
 }
 
-.w-4\/5 {
-  width: 80%;
-}
-
 .min-w-52 {
   min-width: 13rem;
 }
@@ -984,6 +988,10 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.place-self-start {
+  place-self: start;
 }
 
 .place-self-center {

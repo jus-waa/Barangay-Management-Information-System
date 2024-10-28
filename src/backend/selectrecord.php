@@ -1,5 +1,5 @@
 <?php
-include("backend/connection.php");
+include("connection.php");
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -18,38 +18,17 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!--Header-->
     <div class="absolute w-full h-full">
         <div class="grid grid-cols-2 items-center">
-            <div class="flex flex-row items-start ">
-                <!--Nav-->
-                <div id="mainNav" onmouseover="hoverNav()" onmouseleave="leaveNav()" class="flex flex-col mr-16 rounded-b-full h-14 w-16 bg-pg duration-500 ease-in-out">
-                    <a href="residentpage.php">
-                        <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="w-20 mt-2 rounded-b-full flex">
-                            <img  class="place-self-center size-10 ml-3 mb-2" src="../img/res_info.svg">
-                            <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-pg rounded-full bg-c min-w-52">Resident Information</span>
-                        </button>
-                    </a>
-                    <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="w-20 opacity-0 mt-1 rounded-b-full flex">
-                        <img  class="place-self-center size-10 ml-3 mb-2" src="../img/gen_doc.svg">
-                        <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-pg rounded-full bg-c min-w-52">Generate Documents</span>
-                    </button>
-                    <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
-                        <img  class="place-self-center size-10 ml-3 mb-2" src="../img/setting.svg" >
-                        <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-pg rounded-full bg-c min-w-52">System Settings</span>
-                    </button>
-                    
-                </div>
-                <!-- Left section: Title -->
-                <div class="bg-pg w-3/5 p-4 px-8 mt-8 rounded-lg place-self-center">
+                <div class="bg-pg w-3/5 p-4 px-8 mt-8 rounded-lg place-self-start ml-32">
                     <h1 class="text-5xl font-bold mb-2 text-center">
                         Resident<br>Information
                     </h1>
                     <div class="bg-c w-full h-10 rounded-lg"></div>
                 </div>
-            </div>
             <!-- Right section -->
             <div class="relative inline-block w-2/4 place-self-center ml-24 ll:ml-56">
                 <div class="bg-pg h-12 rounded-lg flex items-center justify-center p-8">
                     <h1 class="text-2xl font-bold text-center  ">
-                        List of Records
+                        Select from Records
                     </h1>
                 </div>
                 <div class="bg-c w-3/4 h-6 rounded-lg absolute right-0 top-14 -z-10"></div>
@@ -65,7 +44,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </button>
                 </form>
             </div>
-            <a href="backend/add.php"><button class="bg-pg text-black py-1 px-3 hover:bg-pg focus:outline-none rounded-sm"">Add New</button></a>
         </div>
         <!-- Residents Table -->
         <div class="overflow-x-auto pr-32 pl-32 mt-4">
@@ -160,13 +138,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </td>
                         <td class="border-2">
                             <div class="flex justify-center items-center">
-                                <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                    <a href="backend/edit.php?id=<?= $row['id']?>">
-                                        <img src="../img/edit.svg" alt="edit"/>
+                                <button class="w-6 mr-1 cursor-pointer" name="" id=""> 
+                                    <a href="#?id=<?= $row['id']?>">
+                                        <img src="#" alt="print"/>
                                     </a>
-                                </button>
-                                <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
-                                    <img name="delete" src="../img/trash.svg" alt="delete"/>
                                 </button>
                             </div>
                         </td>
