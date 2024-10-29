@@ -39,12 +39,12 @@ if($_FILES["file"]["size"] > 0) {
     }
     fclose($file);
     ?>
-    <div class="success_message absolute top-52 right-32 text-xs ">
-        Data Uploaded Successfully
+    <div class="success_message absolute top-52 right-32 pl-6 text-xs bg-lg w-28">
+        Data Added
     <?php 
     
     if($rowCount > 0) {
-        echo "<div class='ml-6 pt-6 flex place-content-start'><br/>". number_format($i)." rows inserted</div>";
+        echo "<div class='ml-3 bg-lg'>". number_format($i)." rows</div>";
  
     ?>
     </div>

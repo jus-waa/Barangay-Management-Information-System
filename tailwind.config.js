@@ -24,6 +24,7 @@ module.exports = {
         '22': '5.6rem',
         '38': '9.4rem',
         '5.5': '22px',
+        '50': '204px',
       },
       boxShadow: {
         'max': '2px 2px 10px 1000px rgba(0, 0, 0, 0.5)',
