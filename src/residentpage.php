@@ -1,9 +1,11 @@
 <?php
+session_start();
 include("backend/connection.php");
+require("backend/helper.php");
+
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,39 +23,55 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="grid grid-cols-2 items-center -z-20">
             <div class="flex flex-row items-start ">
                 <!--Nav-->
-                <div id="mainNav" onmouseover="hoverNav()" onmouseleave="leaveNav()" class="flex flex-col mr-16 rounded-b-full h-14 w-16 bg-pg duration-500 ease-in-out">
+                <div id="mainNav" onmouseover="hoverNav()" onmouseleave="leaveNav()" class="flex flex-col mr-16 rounded-b-full h-14 w-16 bg-lg duration-500 ease-in-out">
                     <a href="residentpage.php">
                         <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="w-20 mt-2 rounded-b-full flex">
                             <img  class="place-self-center size-8 ml-4 mb-4" src="../img/res_info.svg">
-                            <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-pg rounded-full bg-c min-w-52">Resident Information</span>
+                            <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-lg min-w-52">Resident Information</span>
                         </button>
                     </a>
-                    <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="w-20 opacity-0 mt-1 rounded-b-full flex">
-                        <img  class="place-self-center size-10 ml-3 mb-2" src="../img/gen_doc.svg">
-                        <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-pg rounded-full bg-c min-w-52">Generate Documents</span>
+                    <a href="generatedocuments.php">
+                        <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="w-20 opacity-0 mt-1 rounded-b-full flex">
+                            <img  class="place-self-center size-10 ml-3 mb-2 mt-1" src="../img/gen_doc.svg">
+                            <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-lg min-w-52">Generate Documents</span>
+                        </button>
+                    </a>
+                    <?php
+                    if (hasPermission('system_settings')){
+                    ?>
+                    <a href="accountmanagement.php">
+                        <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
+                            <img  class="place-self-center size-8 ml-4 mb-4" src="../img/setting.svg" >
+                            <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-lg min-w-52">System Settings</span>
+                        </button>
+                    </a>
+                    <?php 
+                    } else {
+                    ?>
+                    <button disabled id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
+                        <img  class="place-self-center size-8 ml-4 mb-4 mt-2" src="../img/setting.svg" >
+                        <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-gray-600 rounded-full bg-gray-500 text-gray-600 min-w-52">System Settings</span>
                     </button>
-                    <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
-                        <img  class="place-self-center size-8 ml-4 mb-4" src="../img/setting.svg" >
-                        <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-pg rounded-full bg-c min-w-52">System Settings</span>
-                    </button>
-                    
+                    <?php
+                    }
+                    ?>
                 </div>
                 <!-- Left section: Title -->
-                <div class="bg-pg w-3/5 p-4 px-8 mt-8 rounded-lg place-self-center">
+                <div class="bg-lg w-3/5 p-4 px-8 mt-8 rounded-lg place-self-center">
                     <h1 class="text-5xl font-bold mb-2 text-center">
                         Resident<br>Information
                     </h1>
-                    <div class="bg-c w-full h-10 rounded-lg"></div>
+                    <div class="bg-dg w-full h-10 rounded-lg"></div>
                 </div>
             </div>
             <!-- Right section -->
             <div class="relative inline-block w-2/4 place-self-center ml-24 ll:ml-56 -z-20">
-                <div class="bg-pg h-12 rounded-lg flex items-center justify-center p-8">
+                <div class="bg-lg h-12 rounded-lg flex items-center justify-center p-8">
                     <h1 class="text-2xl font-bold text-center  ">
                         List of Records
                     </h1>
                 </div>
-                <div class="bg-c w-3/4 h-6 rounded-lg absolute right-0 top-14 -z-10"></div>
+                <div class="bg-dg w-3/4 h-6 rounded-lg absolute right-0 top-14 -z-10"></div>
             </div>
         </div>
         <!-- Search, Add New Button, Bulk Import -->
@@ -61,24 +79,24 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="relative">
                 <form method="post">
                     <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none h-8" >
-                    <button id="searchBtn" class="rounded-sm absolute right-0 top-1/2 transform -translate-y-1/2 bg-white border border-l-0 border-gray-300 p-2 h-full flex items-center justify-center ">
-                        <img class="w-4 h-4" src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="Search Icon"/>
+                    <button id="searchBtn" class="rounded-sm absolute right-0 top-1/2 transform -translate-y-1/2 bg-white border border-l-0 border-gray-300 p-2 h-full flex items-center justify-center pointer-events-none">
+                        <img class="w-4 h-4" src="../img/search.svg" alt="Search Icon"/>
                     </button>
                 </form>
             </div>
-            <a href="backend/add.php"><button class="bg-pg text-black py-1 px-3 hover:bg-[#579656] focus:outline-none rounded-sm focus:ring-4 ring-c">Add Record</button></a>
+                <a href="backend/add.php"><button class="bg-lg text-black py-1 px-3 hover:bg-dg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a>
             <div class="w-22"></div>
             <div>
                 <form id="formUpload">
                     <label for="file_input">
-                        <img id="file_output" class="absolute top-40 right-38 translate-y-1 duration-150 cursor-pointer hover:z-20 hover:-translate-y-1 " width="60px" height="60px" src="../img/gen_doc.svg">
+                        <img id="file_output" class="absolute top-40 right-38 translate-y-1 duration-150 cursor-pointer hover:z-20 hover:-translate-y-2 " width="60px" height="60px" src="../img/gen_doc.svg">
                         <input type="file" id="file_input" name="file" accept="csv/*" class="hidden z-20"> </input>
                     </label>
                     <div>
-                    
-                        <div class="absolute top-40 right-32 p-1 rounded-xl bg-c h-16 w-26 -z-10"></div>
-                        
-                        <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm focus:ring-4 ring-c" disabled>Bulk Import</button>
+                        <!-- bg
+                        <div class="absolute top-40 right-32 p-1 rounded-xl bg-dg h-16 w-26 -z-10"></div>
+                        -->
+                        <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm focus:ring-4 ring-dg" disabled>Bulk Import</button>
                     </div>
                 </form>
                 <div id="msgUpload"></div>
@@ -88,21 +106,21 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="overflow-x-auto pr-32 pl-32 mt-4">
             <table id="residentTable" class="min-w-full bg-white border border-gray-300">
                 <thead>
-                    <tr class="bg-c text-gray-600 uppercase text-sm border-2 ">
-                        <th class="border-2 border-pg">ID</th>
-                        <th class="border-2 border-pg">First Name</th>
-                        <th class="border-2 border-pg ">Middle Name</th>
-                        <th class="border-2 border-pg px-2">Last Name</th>
-                        <th class="border-2 border-pg">Suffix</th>
-                        <th class="border-2 border-pg">Age</th>
-                        <th class="border-2 border-pg px-6">Address</th>
-                        <th class="border-2 border-pg">Sex</th>
-                        <th class="border-2 border-pg">Date of Birth</th>
-                        <th class="border-2 border-pg">Birth Place</th>
-                        <th class="border-2 border-pg">Civil Status</th>
-                        <th class="border-2 border-pg">Citizenship</th>
-                        <th class="border-2 border-pg">Occupation</th>
-                        <th class="border-2 border-pg">Action</th>
+                    <tr class="bg-lg text-gray-600 uppercase text-sm border-2 ">
+                        <th class="border-2 border-dg">ID</th>
+                        <th class="border-2 border-dg">First Name</th>
+                        <th class="border-2 border-dg ">Middle Name</th>
+                        <th class="border-2 border-dg px-2">Last Name</th>
+                        <th class="border-2 border-dg">Suffix</th>
+                        <th class="border-2 border-dg">Age</th>
+                        <th class="border-2 border-dg px-6">Address</th>
+                        <th class="border-2 border-dg">Sex</th>
+                        <th class="border-2 border-dg">Date of Birth</th>
+                        <th class="border-2 border-dg">Birth Place</th>
+                        <th class="border-2 border-dg">Civil Status</th>
+                        <th class="border-2 border-dg">Citizenship</th>
+                        <th class="border-2 border-dg">Occupation</th>
+                        <th class="border-2 border-dg">Action</th>
                     </tr>
                 </thead>
                 <tbody class=" border-2 text-gray-600" >
@@ -197,18 +215,18 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="fixed z-50 hidden" id="confirmDeletion">
         <div class="border-4 w-screen h-screen flex justify-center items-center">
             <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-            <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white shadow-lg z-10">
+            <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
                 <div class="grid justify-center">
                     <div class="text-3xl font-bold place-self-center mt-12">Confirm Deletion</div>
                     <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
                 </div>
                 <div class="flex justify-center space-x-4 mt-6">
                     <a id="deleteLink" href="#">
-                        <button class="bg-c rounded-md w-32 h-12">
+                        <button class="bg-dg rounded-md w-32 h-12">
                             Yes, Delete  
                         </button>
                     </a>
-                    <button class="bg-c rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                    <button class="bg-dg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
                 </div>
             </div>
         </div>
@@ -290,7 +308,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 fileOutput.src=fileAddress;
                 fileOutput.src="../img/prevcsv.png";
                 document.querySelector("#btnUpload").removeAttribute("disabled");
-                document.querySelector("#btnUpload").classList.add("bg-pg");
+                document.querySelector("#btnUpload").classList.add("bg-lg");
                 document.querySelector("#btnUpload").classList.remove("text-gray-600");
             };
         } else {

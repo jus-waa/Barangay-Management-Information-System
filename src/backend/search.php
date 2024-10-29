@@ -1,4 +1,0 @@
-<?php
-include("connection.php");
-
-?>

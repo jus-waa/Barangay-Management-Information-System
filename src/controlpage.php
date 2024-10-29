@@ -2,11 +2,11 @@
     session_start();
     require 'backend/connection.php';
     require 'backend/helper.php';
-
-    if (!isset($_SESSION['users'])) {
-        header('location: login.php');
-        exit();
-    }
+    //to require login first
+    //if (!isset($_SESSION['users'])) {
+    //    header('location: login.php');
+    //    exit();
+    //}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,32 +27,42 @@
             <div class="flex gap-32 place-self-center">
                 <div class="bg-c rounded-2xl grid ">
                 <img class="place-self-center h-28 size-20" src="../img/gen_doc.svg" alt="">
-                    <div class="bg-pg p-2 pr-14 pl-14 rounded-2xl text-xl hover:bg-sg active:bg-pg focus:outline-none focus:ring-4 focus:ring-c">
+                    <div class="bg-pg rounded-xl text-xl hover:bg-sg active:bg-pg focus:outline-none focus:ring-4 focus:ring-c">
                         <?php
                             if (hasPermission('generate_doc')) {
-                                echo "<button><a href='#'>Generate a<br> Document</a></button>";
+                                echo "<a href='generatedocuments.php'><button class='p-2 px-14'>Generate a<br> Document</button></a>";
                             }
                         ?>
                     </div>
                 </div>
                 <div class="bg-c rounded-2xl grid ">
                 <img class="place-self-center h-28 size-16" src="../img/res_info.svg" alt="">
-                    <div class="bg-pg p-2 pr-14 pl-14 rounded-2xl text-xl hover:bg-sg active:bg-pg focus:outline-none focus:ring-4 focus:ring-c">
+                    <div class="bg-pg rounded-xl text-xl hover:bg-sg active:bg-pg focus:outline-none focus:ring-4 focus:ring-c">
                         <?php
                             if (hasPermission('resident_info')) {
-                                echo "<a href='residentpage.php'><button>Resident<br>Information</button></a>";
+                                echo "<a href='residentpage.php'><button class='p-2 px-14'>Resident<br>Information</button></a>";
                             }
                         ?>
                     </div>
                 </div>
-                <div class="bg-c rounded-2xl grid">
-                <img class="place-self-center h-28" src="../img/gen_doc.svg" alt="">
-                    <div class="bg-pg p-2 pr-18 pl-18 rounded-2xl text-xl hover:bg-sg active:bg-pg focus:outline-none focus:ring-4 focus:ring-c">
+                <?php  
+                if(hasPermission('system_settings')){
+                ?>
+                <div class="bg-c rounded-xl grid">
+                <?php
+                } else {
+                ?>
+                <div class="bg-gray-400 rounded-xl grid">
+                <?php
+                }
+                ?>
+                <img class="place-self-center h-28 size-16" src="../img/setting.svg" alt="">
+                    <div class="bg-pg rounded-2xl text-xl hover:bg-sg active:bg-pg focus:outline-none focus:ring-4 focus:ring-c">
                         <?php
                             if (hasPermission('system_settings')) {
-                                echo "<button><a href='#'>System<br>Settings</a></button>";
+                                echo "<a href='accountmanagement.php'><button class='p-2 px-18'>System<br>Settings</button></a>";
                             } else {
-                                echo "<button><a href='#'>Inaccessible</a></button>";
+                                echo "<button class = 'p-5.5 px-12 bg-gray-500 text-gray-600 rounded-xl pointer-events-none'>Inaccessible</button>";
                             }
                         ?>
                     </div>

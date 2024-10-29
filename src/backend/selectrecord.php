@@ -40,7 +40,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <form method="post">
                     <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none h-8" >
                     <button id="searchBtn" class="rounded-sm absolute right-0 top-1/2 transform -translate-y-1/2 bg-pg p-2 h-full flex items-center justify-center hover:bg-[#579656] focus:outline-none">
-                        <img class="w-4 h-4" src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="Search Icon"/>
+                        <img class="w-4 h-4" src="../../img/search.svg" alt="Search Icon"/>
                     </button>
                 </form>
             </div>
