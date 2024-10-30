@@ -16,6 +16,17 @@
         exit();
     }
 
+    $query = "SELECT * FROM roles WHERE id = :role_id";
+    $stmt = $dbh->prepare($query);
+    $stmt->execute(array(":role_id" => $role_id));
+    $role = $stmt->fetch(PDO::FETCH_ASSOC); 
+
+    if (!$role) {
+        $_SESSION['empty_info'] = "Please fill in required information.";
+        header('location: ../signuppage.php');
+        exit();
+    }
+
     $options = ['cost' => 13];
     $encrypted = password_hash($pass, PASSWORD_BCRYPT, $options);
     $encrypted_re = password_hash($pass_re, PASSWORD_BCRYPT, $options);
@@ -38,7 +49,7 @@
         header('location: ../signuppage.php');
         exit();
     } 
-    //check for                         password strength
+    //check for password strength
     if(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', $pass)) {
         $_SESSION['pass_min'] = "Password too weak.";
         header('location: ../signuppage.php');
@@ -47,15 +58,13 @@
         try {
             $insert_data = "INSERT INTO `users`(`username`, `email`, `password`, `password_re`, `contact_info`, `created_at`, `updated_at`, `role_id`) VALUES ('$username','$email','$encrypted','$encrypted_re','$contact_info',now(),now(),'$role_id')";
             $dbh->exec($insert_data);
-            
-            $response =  $username . ' successfully added to the system.';
-             
-
+            $response = $username . ' successfully added to the system.';
         } catch (PDOException $e) {
             $response = $e->getMessage();
         }
         $_SESSION['response'] = $response;
         header('location: ../signuppage.php');
+        exit();
     } 
     
 ?>

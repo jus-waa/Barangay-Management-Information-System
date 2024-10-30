@@ -1,5 +1,6 @@
 <?php
 include("connection.php");
+
 $id = $_GET["id"];
 if(isset($_POST['update'])) {
     try{

@@ -1,10 +1,5 @@
 <?php
     session_start();
-    //to be able to require login first
-    //if (!isset($_SESSION['users'])) {
-    //    header('location: login.php');
-    //    exit();
-    //}
     
     //$_SESSION['table'] = 'users';
     //$users = $_SESSION['users'];

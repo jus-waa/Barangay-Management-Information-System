@@ -4,6 +4,11 @@ include("backend/connection.php");
 $stmt = $dbh->prepare("SELECT * FROM `users`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//require login first
+if (!isset($_SESSION['users'])) {
+    header('location: login.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

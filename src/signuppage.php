@@ -1,6 +1,6 @@
 <?php
     session_start();
-    //to be able to require login first
+    //require login first
     if (!isset($_SESSION['users'])) {
         header('location: login.php');
         exit();
@@ -23,15 +23,19 @@
     <div class="grid grid-rows-2/5 grid-cols-1 rounded-xl w-full  bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
         <div class="text-5xl place-self-center w-full pt-12 col-span-3 rounded-xl mb-16" >
             <h1 class=" bg-pg p-6 text-center font-bold shadow-xl ">iBarangay: Management Information System</h1>
-            
         </div>
         <div class="rounded-xl grid st:ml-0"  >
             <div class="bg-pg rounded-xl grid place-self-center shadow-2xl st:ml-0">
                 <div class="grid rounded-xl bg-c m-10 p-14">
+                <a href="accountmanagement.php"><button class="flex h-6 w-16  items-center text-sm"><img src="../img/back.png" class="h-4 size-4">Back</button></a>
                     <div class="grid grid-rows-1 grid-cols-2 mb-4 ">
-                        <div>
-                            <p class="text-3xl font-bold">Create Account</p>
-                            <p>Get started with an account.</p>
+                        <div class="grid grid-rows-1">
+                            <div class="h-16">
+                                <div class="">
+                                    <p class="text-3xl font-bold">Create Account</p>
+                                    <p class="mb-4">Get started with an account.</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex place-content-center">
                             <p class="text-xs"><b>NOTE:</b><br>The password must be at least 8 characters long and <br>include at least one uppercase letter, one lowercase <br> letter, one digit, and one special character. </p>
@@ -74,7 +78,7 @@
                                     <label class="text-sg">Regular</label>
                                 </div>                               
                                 <div>
-                                    <button class="rounded-md bg-pg w-full p-2 px-4 text-l col-span-2 mb-4">Create Account</button><br>
+                                    <button class="rounded-md  w-full bg-pg p-2 px-4 text-l col-span-2 mb-4">Create Account</button><br>
                                 </div>
                             </div>
                          </div>

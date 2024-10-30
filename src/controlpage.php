@@ -2,11 +2,11 @@
     session_start();
     require 'backend/connection.php';
     require 'backend/helper.php';
-    //to require login first
-    //if (!isset($_SESSION['users'])) {
-    //    header('location: login.php');
-    //    exit();
-    //}
+    //require login first
+    if (!isset($_SESSION['users'])) {
+        header('location: login.php');
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

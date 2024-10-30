@@ -66,7 +66,6 @@ if(isset($_POST['add'])) {
         <div class="flex justify-center bg-pg rounded-lg p-6 w-1/4 mb-16 "> 
                 <h1 class="text-2xl font-bold">Add a new resident</h1>
             </div>
-
         <!-- Form Section -->
         <form class="grid grid-cols-[2fr,1fr,1fr] gap-12" method="post">
             <!-- First Column -->

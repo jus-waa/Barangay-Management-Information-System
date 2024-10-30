@@ -13,7 +13,7 @@
 <body class="absolute inset-0 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
     <div class=" grid grid-rows-2/5 grid-cols-3 rounded-xl">
         <!--Header-->
-        <div class="text-5xl place-self-center w-full pt-12 col-span-3 rounded-xl mb-16" >
+        <div class="text-4xl place-self-center w-full pt-12 col-span-3 rounded-xl mb-16" >
             <h1 class="bg-pg p-6 text-center font-bold shadow-xl ">iBarangay: Management Information System</h1>
         </div>
         <!--Barangay Info-->
@@ -27,7 +27,7 @@
         <!--Login-->
         <div class="rounded-xl grid"  >
             <div class="bg-pg rounded-xl grid place-self-center shadow-2xl ">
-                <div class="grid rounded-xl bg-c m-10 p-14 ">
+                <div class="grid rounded-xl bg-c m-10 my-12 p-14 mx-6 ">
                     <div class="grid grid-rows-2">
                         <p class="text-3xl font-bold">Sign In</p>
                         <p>Access your account.</p>
