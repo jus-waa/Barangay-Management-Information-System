@@ -39,7 +39,7 @@ if($_FILES["file"]["size"] > 0) {
     }
     fclose($file);
     ?>
-    <div class="success_message absolute top-52 right-32 pl-6 text-xs bg-lg w-28">
+    <div class="success_message absolute top-52 right-32 pl-6 mt-0.5 text-xs bg-lg w-28">
         Data Added
     <?php 
     

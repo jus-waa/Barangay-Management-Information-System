@@ -18,6 +18,7 @@ module.exports = {
         'st': '1366px',
       },
       spacing: {
+        '4.5': '18px',
         '13': '3.25rem',
         '18': '4.5rem',
         '26': '6.6rem',
@@ -31,6 +32,17 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [function ({ addUtilities }) {
+    addUtilities({
+      /* Hide scrollbar for Chrome, Safari, and Edge */
+      '.no-scrollbar::-webkit-scrollbar': {
+        display: 'none',
+      },
+      /* Hide scrollbar for Firefox */
+      '.no-scrollbar': {
+        scrollbarWidth: 'none',
+      },
+    });
+  },],
 }
 
