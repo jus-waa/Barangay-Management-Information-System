@@ -3,8 +3,6 @@ include("connection.php");
     try{
         $id = $_GET["id"];
         $query = "DELETE FROM resident_info WHERE `id` = :id ";
-        var_dump($query);
-        die();
         $stmt = $dbh->prepare($query);
         $stmt->execute(['id' => $id]);
         if($stmt) {

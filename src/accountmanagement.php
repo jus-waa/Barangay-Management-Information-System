@@ -26,54 +26,54 @@ if (!isset($_SESSION['users'])) {
         <div class="grid grid-cols-2 items-center -z-20">
             <div class="flex flex-row items-start">
                 <!--Nav-->
-                <div id="mainNav" onmouseover="hoverNav()" onmouseleave="leaveNav()" class="flex flex-col mr-16 rounded-b-full h-14 w-16 bg-lg duration-500 ease-in-out">
+                <div id="mainNav" onmouseover="hoverNav()" onmouseleave="leaveNav()" class="flex flex-col mr-16 rounded-b-full h-14 w-16 bg-c duration-500 ease-in-out">
                     <a href="accountmanagement.php">
                         <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 mt-2 rounded-b-full flex">
                             <img  class="place-self-center size-8 ml-4 mb-4" src="../img/setting.svg" >
-                            <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-lg min-w-52">System Settings</span>
+                            <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-c min-w-52">System Settings</span>
                         </button>
                     </a>
                     <a href="generatedocuments.php">
                         <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="w-20 opacity-0 mt-1 rounded-b-full flex">
                             <img  class="place-self-center size-10 ml-3 mb-2 mt-1" src="../img/gen_doc.svg">
-                            <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-lg min-w-52">Generate Documents</span>
+                            <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-c min-w-52">Generate Documents</span>
                         </button>
                     </a>
                     <a href="residentpage.php">
                         <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
                             <img  class="place-self-center size-8 ml-4 mb-4 mt-2" src="../img/res_info.svg">
-                            <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-lg min-w-52">Resident Information</span>
+                            <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-c min-w-52">Resident Information</span>
                         </button>
                     </a>
             </div>
 
                 <!-- Title Section -->
-                <div class="bg-lg w-3/5 p-4 pr-8 px-8 mt-8 rounded-lg place-self-center">
+                <div class="bg-c w-3/5 p-4 pr-8 px-8 mt-8 rounded-lg place-self-center">
                     <h1 class="text-5xl font-bold mb-2 text-center">Account<br>Management</h1>
-                    <div class="bg-dg w-full h-10 rounded-lg"></div>
+                    <div class="bg-sg w-full h-10 rounded-lg"></div>
                 </div>
             </div>
 
             <!-- Accounts List -->
             <div class="relative inline-block w-2/4 place-self-center ml-24 ll:ml-56 -z-20">
-                <div class="bg-lg h-12 rounded-lg flex items-center justify-center p-8">
+                <div class="bg-c h-12 rounded-lg flex items-center justify-center p-8">
                     <h1 class="text-2xl font-bold text-center">List of accounts</h1>
                 </div>
-                <div class="bg-dg w-3/4 h-6 rounded-lg absolute right-0 top-14 -z-10"></div>
+                <div class="bg-sg w-3/4 h-6 rounded-lg absolute right-0 top-14 -z-10"></div>
             </div>
         </div>
 
         <!-- Regular Section -->
         <div class="flex justify-between items-end mx-32 mt-8">
-            <div class="bg-lg text-black py-2 px-14 rounded-xl font-bold text-3xl min-w-[200px] text-center">Regular</div>
-            <a href="signuppage.php"><button class="bg-lg text-black py-1 px-3 hover:bg-dg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a>
+            <div class="bg-c text-black py-2 px-14 rounded-xl font-bold text-3xl min-w-[200px] text-center">Regular</div>
+            <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a>
         </div>
 
         <!-- Regular Account Table -->
         <div class="overflow-x-auto pr-32 pl-32 mt-4">
             <table id="residentTable" class="min-w-full bg-white border border-gray-300">
                 <thead>
-                    <tr class="bg-lg text-gray-600 uppercase text-sm border-b-2 border-dg"> 
+                    <tr class="bg-c text-gray-600 uppercase text-sm border-b-2 border-dg"> 
                         <th class="border-2 border-dg">ID</th>
                         <th class="border-2 border-dg px-6">Username</th>
                         <th class="border-2 border-dg">Email</th>
@@ -151,8 +151,8 @@ if (!isset($_SESSION['users'])) {
 
         <!-- Admin Section -->
         <div class="flex justify-between items-end mx-32 mt-16">
-            <div class="bg-lg text-black py-2 px-16 rounded-xl font-bold text-3xl min-w-[200px] text-center">Admin</div>
-            <!-- <a href="signuppage.php"><button class="bg-lg text-black py-1 px-3 hover:bg-dg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a> -->
+            <div class="bg-c text-black py-2 px-16 rounded-xl font-bold text-3xl min-w-[200px] text-center">Admin</div>
+            <!-- <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a> -->
         </div>
 
         <!-- Admin Table -->
@@ -160,7 +160,7 @@ if (!isset($_SESSION['users'])) {
             <h1 class="text-2xl font-bold text-center mb-4"></h1>
             <table id="adminTable" class="min-w-full bg-white border border-gray-300">
                 <thead>
-                    <tr class="bg-lg text-gray-600 uppercase text-sm border-b-2 border-dg"> 
+                    <tr class="bg-c text-gray-600 uppercase text-sm border-b-2 border-dg"> 
                     <th class="border-2 border-dg">ID</th>
                         <th class="border-2 border-dg px-6">Username</th>
                         <th class="border-2 border-dg">Email</th>
@@ -243,11 +243,11 @@ if (!isset($_SESSION['users'])) {
                 </div>
                 <div class="flex justify-center space-x-4 mt-6">
                     <a id="deleteLink" href="#">
-                        <button class="bg-dg rounded-md w-32 h-12">
+                        <button class="bg-sg rounded-md w-32 h-12">
                             Yes, Delete  
                         </button>
                     </a>
-                    <button class="bg-dg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                    <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
                 </div>
             </div>
         </div>

@@ -844,19 +844,24 @@ if (!isset($_SESSION['users'])) {
     function cancelConfirmation() {
         document.getElementById("confirmDeletion").classList.add("hidden");
     }
+
     //veiw details
     function viewDetails() {
         document.getElementById("viewDetails").classList.remove("hidden");
+        
     }
     window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('showModal') && urlParams.get('showModal') === '1') {
         viewDetails();
-    }
+
+        window.history.replaceState({}, document.title, window.location.pathname);
+        }
     };
     function cancelView() {
         document.getElementById("viewDetails").classList.add("hidden");
     }
+
     //toggle display
     function toggleDisplay(elementID, show) {
         const element = document.getElementById(elementID);
