@@ -126,7 +126,7 @@ if (!isset($_SESSION['users'])) {
             </div>
         </div>
         <!-- Tables -->
-        <div class="w-screen overflow-hidden mt-4 border-2">
+        <div class="w-screen overflow-hidden mt-4">
             <div class="border-2 border-c rounded-lg mx-32">
                 <!--Personal Information Table -->
                 <div id="tb1" class="overflow-auto no-scrollbar " style="height: 67vh;" >
@@ -162,7 +162,7 @@ if (!isset($_SESSION['users'])) {
                         foreach ($result as $row) {
                         ?>
                         <tr class="hover:bg-gray-100">
-                            <td class="border-l-2 border-y-2 border-c py-4">
+                            <td class=" border-y-2 border-c py-4">
                                 <div class="flex justify-center  min-w-20">
                                     <?= $i ?>
                                 </div>
@@ -197,7 +197,7 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['age']?>
                                 </div>
                             </td>
-                            <td class="border-r-2 border-y-2 border-c py-2">
+                            <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                         <a href="backend/edit.php?id=<?= $row['id']?>">
@@ -250,7 +250,7 @@ if (!isset($_SESSION['users'])) {
                         foreach ($result as $row) {
                         ?>
                         <tr class="hover:bg-gray-100">
-                            <td class="border-l-2 border-y-2 border-c py-4">
+                            <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center min-w-20">
                                     <?= $i ?>
                                 </div>
@@ -282,7 +282,7 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['age']?>
                                 </div>
                             </td>
-                            <td class="border-r-2 border-y-2 border-c py-2">
+                            <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                         <a href="backend/edit.php?id=<?= $row['id']?>">
@@ -291,6 +291,9 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                     <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                    </button>
+                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -327,7 +330,7 @@ if (!isset($_SESSION['users'])) {
                         foreach ($result as $row) {
                         ?>
                         <tr class="hover:bg-gray-100">
-                            <td class="border-l-2 border-y-2 border-c py-4">
+                            <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
                                 </div>
@@ -349,7 +352,7 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['address']?>
                                 </div>
                             </td>
-                            <td class="border-r-2 border-y-2 border-c py-2">
+                            <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                         <a href="backend/edit.php?id=<?= $row['id']?>">
@@ -358,6 +361,9 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                     <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                    </button>
+                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -402,7 +408,7 @@ if (!isset($_SESSION['users'])) {
                         foreach ($result as $row) {
                         ?>
                         <tr class="hover:bg-gray-100">
-                            <td class="border-l-2 border-y-2 border-c py-4">
+                            <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
                                 </div>
@@ -444,7 +450,7 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['last_name']?>
                                 </div>
                             </td>
-                            <td class="border-r-2 border-y-2 border-c py-2">
+                            <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                         <a href="backend/edit.php?id=<?= $row['id']?>">
@@ -453,6 +459,9 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                     <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                    </button>
+                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -490,7 +499,7 @@ if (!isset($_SESSION['users'])) {
                         foreach ($result as $row) {
                         ?>
                         <tr class="hover:bg-gray-100">
-                            <td class="border-l-2 border-y-2 border-c py-4">
+                            <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
                                 </div>
@@ -512,7 +521,7 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['last_name']?>
                                 </div>
                             </td>
-                            <td class="border-r-2 border-y-2 border-c py-2">
+                            <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                         <a href="backend/edit.php?id=<?= $row['id']?>">
@@ -521,6 +530,9 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                     <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                    </button>
+                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -561,7 +573,7 @@ if (!isset($_SESSION['users'])) {
                         foreach ($result as $row) {
                         ?>
                         <tr class="hover:bg-gray-100">
-                            <td class="border-l-2 border-y-2 border-c py-4">
+                            <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
                                 </div>
@@ -593,7 +605,7 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['last_name']?>
                                 </div>
                             </td>
-                            <td class="border-r-2 border-y-2 border-c py-2">
+                            <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                         <a href="backend/edit.php?id=<?= $row['id']?>">
@@ -602,6 +614,9 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                     <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                    </button>
+                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -639,7 +654,7 @@ if (!isset($_SESSION['users'])) {
                         foreach ($result as $row) {
                         ?>
                         <tr class="hover:bg-gray-100">
-                            <td class="border-l-2 border-y-2 border-c py-4">
+                            <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
                                 </div>
@@ -661,7 +676,7 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['last_name']?>
                                 </div>
                             </td>
-                            <td class="border-r-2 border-y-2 border-c py-2">
+                            <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                         <a href="backend/edit.php?id=<?= $row['id']?>">
@@ -670,6 +685,9 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                     <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                    </button>
+                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
