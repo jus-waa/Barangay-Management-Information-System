@@ -126,10 +126,11 @@ if (!isset($_SESSION['users'])) {
             </div>
         </div>
         <!-- Tables -->
-        <div class="w-screen overflow-hidden mt-4">
-            <!--Personal Information Table -->
-            <div  id="tb1" class="overflow-auto px-32 no-scrollbar " style="height: 67vh;" >
-                <div class="rounded-xl pt-2 bg-c ">
+        <div class="w-screen overflow-hidden mt-4 border-2">
+            <div class="border-2 border-c rounded-lg mx-32">
+                <!--Personal Information Table -->
+                <div id="tb1" class="overflow-auto no-scrollbar " style="height: 67vh;" >
+                <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[200px]">
@@ -141,8 +142,8 @@ if (!isset($_SESSION['users'])) {
                             <col>
                             <col class="w-[200px]">
                         </colgroup>
-                        <thead class="bg-c sticky top-0">
-                            <tr class="uppercase">
+                        <thead class="bg-c sticky top-0 ">
+                            <tr class="uppercase ">
                                 <!--Basic Information + Action-->
                                 <th class="py-4 min-w-20">ID</th>
                                 <th class="py-4">First Name</th>
@@ -216,10 +217,10 @@ if (!isset($_SESSION['users'])) {
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <!--Birth Details Table -->
-            <div  id="tb2" class="overflow-auto px-32 no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-xl pt-2 bg-c ">
+                </div>
+                <!--Birth Details Table -->
+                <div  id="tb2" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
+                <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[200px]">
@@ -298,10 +299,10 @@ if (!isset($_SESSION['users'])) {
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <!--Contact Information Table -->
-            <div id="tb3" class="overflow-auto px-32 no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-xl pt-2 bg-c ">
+                </div>
+                <!--Contact Information Table -->
+                <div id="tb3" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
+                <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[200px]">
@@ -365,10 +366,10 @@ if (!isset($_SESSION['users'])) {
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <!--Address Table -->
-            <div  id="tb4" class="overflow-auto px-32 no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-xl pt-2 bg-c ">
+                </div>
+                <!--Address Table -->
+                <div  id="tb4" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
+                <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[200px]">
@@ -460,10 +461,10 @@ if (!isset($_SESSION['users'])) {
                         </tbody>
                     </table>
                 </div>
-            </div>         
-            <!--Civil Status & Citizenship Table -->
-            <div id="tb5" class="overflow-auto px-32 no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-xl pt-2 bg-c ">
+                </div>         
+                <!--Civil Status & Citizenship Table -->
+                <div id="tb5" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
+                <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[200px]">
@@ -528,10 +529,10 @@ if (!isset($_SESSION['users'])) {
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <!--Residentcy & Occupation Table -->
-            <div id="tb6" class="overflow-auto px-32 no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-xl pt-2 bg-c ">
+                </div>
+                <!--Residentcy & Occupation Table -->
+                <div id="tb6" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
+                <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[200px]">
@@ -609,10 +610,10 @@ if (!isset($_SESSION['users'])) {
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <!--Health Table -->
-            <div id="tb7" class="overflow-auto px-32 no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-xl pt-2 bg-c ">
+                </div>
+                <!--Health Table -->
+                <div id="tb7" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
+                <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[200px]">
@@ -677,8 +678,9 @@ if (!isset($_SESSION['users'])) {
                         </tbody>
                     </table>
                 </div>
+                </div>
+                <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
             </div>
-            <div class="mx-32 h-6 rounded-b-xl border-2 border-c bg-c"></div>
         </div>
     </div>
     <!--Delete Confirmation -->
