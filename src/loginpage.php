@@ -31,8 +31,8 @@
                             <input type="password" id="password" name="pass" autocomplete="off" class="block bg-transparent w-72 border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:ring-2 focus:ring-sg focus:border-bg-c mt-2" placeholder=" "/> 
                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1  pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Password</label>
                             <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                <img src="../img/eye-close.png" alt="Show password" class="h-3.5 w-4 text-gray-600" id="eyeClosed">
-                                <img src="../img/eye-open.png" alt="Hide password"  class="h-3 w-4 text-gray-600 hidden" id="eyeOpen">
+                                <img src="../img/eye-close.png" alt="Show password" class="h-3 w-4 mr-3 text-gray-600" id="eyeClosed">
+                                <img src="../img/eye-open.png" alt="Hide password"  class="h-2.5 w-4 mr-3 text-gray-600 hidden" id="eyeOpen">
                             </button>
                         </div>
                         <!--Displays error msg-->

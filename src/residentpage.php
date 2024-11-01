@@ -860,12 +860,12 @@ if (!isset($_SESSION['users'])) {
                             <div class="w-6/12 text-black">
                                 <p class="text-xl text-white">Personal Information</p>
                                 <ul class="ml-6"> 
-                                    <li>Josh<?=$row['first_name']?></li>
-                                    <li>Lising<?=$row['middle_name']?></li>
-                                    <li>Lagrimas<?=$row['last_name']?></li>
+                                    <li><?=$row['first_name']?></li>
+                                    <li><?=$row['middle_name']?></li>
+                                    <li><?=$row['last_name']?></li>
                                     <li><?=$row['suffix']?></li>
-                                    <li>Male<?=$row['gender']?></li>
-                                    <li>20<?=$row['age']?></li>
+                                    <li><?=$row['gender']?></li>
+                                    <li><?=$row['age']?></li>
                                 </ul>
                             </div>
                         </div>
