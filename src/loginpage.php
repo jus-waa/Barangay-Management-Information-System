@@ -59,7 +59,7 @@
         </div>
 
         <!-- Right Side (Information Section) -->
-        <div class="bg-sg rounded-md w-2/5 my-10 mr-16 p-20 text-white flex flex-col justify-center items-center"> <!-- Increased padding -->
+        <div class="bg-sg rounded-l-md w-2/5  p-20 text-white flex flex-col justify-center items-center"> <!-- Increased padding -->
             <h1 class="text-5xl font-bold mb-2 text-center">iBarangay</h1>
             <h3 class="text-c text-2xl mt-1 mb-16 text-center">Management Information System</h3>
             <p class="text-c text-justify p-6">A user-friendly website designed to simplify barangay management of resident data, incident reports, projects, and documents, enhancing productivity and service to the community.</p> <!-- Changed font to Questrial -->
