@@ -189,7 +189,7 @@ if (!isset($_SESSION['users'])) {
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['sex']?>
+                                    <?=$row['gender']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
@@ -228,7 +228,6 @@ if (!isset($_SESSION['users'])) {
                             <col>
                             <col>
                             <col>
-                            <col>
                             <col class="w-[200px]">
                         </colgroup>
                         <thead class=" bg-c sticky top-0">
@@ -237,10 +236,8 @@ if (!isset($_SESSION['users'])) {
                                 <th class="py-4 min-w-20">ID</th>
                                 <th class="py-4 text-sg">Full Name</th>                            
                                 <th class="py-4">Date of Birth</th>
-                                <th class="py-4">Place of Birth</th>
                                 <th class="py-4">Place of Birth Municipality/City</th>
                                 <th class="py-4">Place of Birth Province</th>
-
                                 <th class="py-4 min-w-20">Action</th>
                             </tr>
                         </thead>
@@ -264,22 +261,17 @@ if (!isset($_SESSION['users'])) {
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center" >
-                                    <?=$row['middle_name']?>
+                                    <?=$row['birth_date']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['last_name']?>
+                                    <?=$row['birthplace_municipality_city']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['suffix']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['age']?>
+                                    <?=$row['birthplace_province']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
@@ -319,8 +311,8 @@ if (!isset($_SESSION['users'])) {
                                 <!--Basic Information + Action-->
                                 <th class="py-4 min-w-20">ID</th>
                                 <th class="py-4  text-sg">Full Name</th>                            
-                                <th class="py-4 ">Contact Information</th>
-                                <th class="py-4 ">Address</th>
+                                <th class="py-4">Contact Information</th>
+                                <th class="py-4">Email Address</th>
                                 <th class="py-4 min-w-20">Action</th>
                             </tr>
                         </thead>
@@ -344,12 +336,12 @@ if (!isset($_SESSION['users'])) {
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center" >
-                                    <?=$row['middle_name']?>
+                                    <?=$row['contact_num']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['address']?>
+                                    <?=$row['email_address']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
@@ -374,7 +366,7 @@ if (!isset($_SESSION['users'])) {
                 </div>
                 </div>
                 <!--Address Table -->
-                <div  id="tb4" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
+                <div id="tb4" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
                 <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
@@ -422,32 +414,32 @@ if (!isset($_SESSION['users'])) {
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center" >
-                                    <?=$row['middle_name']?>
+                                    <?=$row['house_num']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['last_name']?>
+                                    <?=$row['street_name']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center" >
-                                    <?=$row['middle_name']?>
+                                    <?=$row['barangay_name']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['last_name']?>
+                                    <?=$row['municipality_city']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center" >
-                                    <?=$row['middle_name']?>
+                                    <?=$row['province']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['last_name']?>
+                                    <?=$row['zip_code']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
@@ -513,12 +505,12 @@ if (!isset($_SESSION['users'])) {
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center" >
-                                    <?=$row['middle_name']?>
+                                    <?=$row['civil_status']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['last_name']?>
+                                    <?=$row['citizenship']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
@@ -587,22 +579,22 @@ if (!isset($_SESSION['users'])) {
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center" >
-                                    <?=$row['middle_name']?>
+                                    <?=$row['occupation']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['last_name']?>
+                                    <?=$row['residency_type']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center" >
-                                    <?=$row['middle_name']?>
+                                    <?=$row['start_residency']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['last_name']?>
+                                    <?=$row['end_residency']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
@@ -644,7 +636,6 @@ if (!isset($_SESSION['users'])) {
                                 <th class="py-4  text-sg">Full Name</th>                            
                                 <th class="py-4">Blood Type</th>
                                 <th class="py-4">Religion</th>
-
                                 <th class="py-4 min-w-20">Action</th>
                             </tr>
                         </thead>
@@ -668,12 +659,12 @@ if (!isset($_SESSION['users'])) {
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center" >
-                                    <?=$row['middle_name']?>
+                                    <?=$row['blood_type']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
-                                    <?=$row['last_name']?>
+                                    <?=$row['religion']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
@@ -726,111 +717,159 @@ if (!isset($_SESSION['users'])) {
         <div class="border-4 w-screen h-screen flex justify-end items-center">
             <div class="absolute bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
             <div class="relative grid h-screen overflow-auto rounded-l-xl bg-white z-10" style="width:60vh">
-                <div class="h-8">
-                    <button class="m-4" onclick="cancelView()"><img src="../img/back.png" class="size-4"></button>
+                <div class="pl-6 pt-2 flex items-center">
+                    <button onclick="cancelView()"><img src="../img/back.png" class="size-4"></button>
                 </div>
-                <div class="grid grid-cols-2 px-6 " style="height:95vh;">
-                    <div class="text-gray-400">
-                        <p class="text-xl">Personal Information</p>
-                        <ul class="ml-6"> 
-                            <li>First Name</li>
-                            <li>Middle Name</li>
-                            <li>Last Name</li>
-                            <li>Suffix</li>
-                            <li>Gender</li>
-                            <li>Age</li>
-                        </ul>
-                        <p class="text-xl mt-3">Birth Details</p>
-                        <ul class="ml-6"> 
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                            <li>Place of Birth Province</li>
-                        </ul>
-                        <p class="text-xl mt-3">Contact Information</p>
-                        <ul class="ml-6"> 
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                        </ul>
-                        <p class="text-xl mt-3">Address Details</p>
-                        <ul class="ml-6"> 
-                            <li>ID</li>
-                            <li>First Name</li>
-                            <li>Middle Name</li>
-                            <li>Last Name</li>
-                            <li>Suffix</li>
-                            <li>Gender</li>
-                        </ul>
-                        <p class="text-xl mt-3">Citizenship and Civil Status</p>
-                        <ul class="ml-6"> 
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                        </ul>
-                        <p class="text-xl mt-3">Residency and Occupation</p>
-                        <ul class="ml-6"> 
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                        </ul>
-                        <p class="text-xl mt-3">Health</p>
-                        <ul class="ml-6"> 
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                        </ul>
-                    </div>
+                <div class="px-8" style="height:90vh;">
                     <?php 
                     $query = "SELECT * FROM `resident_info` WHERE `id` = :id";
                     $stmt = $dbh->prepare($query);
                     $stmt->execute(['id' => $_GET['id']]);
                     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     ?>
-                    <div>
-                        <p class="text-xl text-white">Personal Information</p>
-                        <ul class="ml-6"> 
-                            <li><?=$row['first_name']?></li>
-                            <li><?=$row['middle_name']?></li>
-                            <li><?=$row['last_name']?></li>
-                            <li>Suffix</li>
-                            <li>Gender</li>
-                            <li>Age</li>
-                        </ul>
-                        <p class="text-xl text-white mt-3">Birth Details</p>
-                        <ul class="ml-6"> 
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                            <li>Place of Birth Province</li>
-                        </ul>
-                        <p class="text-xl text-white mt-3">Contact Information</p>
-                        <ul class="ml-6"> 
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                        </ul>
-                        <p class="text-xl text-white mt-3">Address Details</p>
-                        <ul class="ml-6"> 
-                            <li>ID</li>
-                            <li>First Name</li>
-                            <li>Middle Name</li>
-                            <li>Last Name</li>
-                            <li>Suffix</li>
-                            <li>Gender</li>
-                        </ul>
-                        <p class="text-xl text-white mt-3">Citizenship and Civil Status</p>
-                        <ul class="ml-6"> 
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                        </ul>
-                        <p class="text-xl text-white mt-3">Residency and Occupation</p>
-                        <ul class="ml-6"> 
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                        </ul>
-                        <p class="text-xl text-white mt-3">Health</p>
-                        <ul class="ml-6"> 
-                            <li>Date of Birth</li>
-                            <li>Place of Birth Municipality/City</li>
-                        </ul>
+                    
+                    <div class="grid gap-2 text-gray-400 ">
+                        <!--Personal Info Summary -->
+                        <div class="grid-cols-2 flex">
+                            <div class="w-6/12 ">
+                                <p class="text-xl">Personal Information</p>
+                                <ul class="ml-6"> 
+                                    <li>First Name</li>
+                                    <li>Middle Name</li>
+                                    <li>Last Name</li>
+                                    <li>Suffix</li>
+                                    <li>Gender</li>
+                                    <li>Age</li>
+                                </ul>
+                            </div>
+                            <div class="w-6/12 text-black">
+                                <p class="text-xl text-white">Personal Information</p>
+                                <ul class="ml-6"> 
+                                    <li>Josh<?=$row['first_name']?></li>
+                                    <li>Lising<?=$row['middle_name']?></li>
+                                    <li>Lagrimas<?=$row['last_name']?></li>
+                                    <li><?=$row['suffix']?></li>
+                                    <li>Male<?=$row['gender']?></li>
+                                    <li>20<?=$row['age']?></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Birth Details Summary -->
+                        <div class="grid-cols-2 flex">
+                            <div class="w-6/12">
+                                <p class="text-xl">Birth Details</p>
+                                <ul class="ml-6"> 
+                                    <li>Date of Birth</li>
+                                    <li>Place of Birth Municipality/City</li>
+                                    <li>Place of Birth Province</li>
+                                </ul>
+                            </div>
+                            <div class="w-6/12 text-black">
+                                <p class="text-xl text-white">Birth Details</p>
+                                <ul class="ml-6"> 
+                                    <li><?=$row['birth_date']?></li>
+                                    <li><?=$row['birthplace_municipality_city']?></li>
+                                    <li><?=$row['birthplace_province']?></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Contact Information Summary-->
+                        <div class="grid-cols-2 flex">
+                            <div class="w-6/12">
+                                <p class="text-xl">Contact Information</p>
+                                <ul class="ml-6"> 
+                                    <li>Contact Number</li>
+                                    <li>Email Address</li>
+                                </ul>
+                            </div>
+                                <div class="w-6/12 text-black">
+                                <p class="text-xl text-white">Contact Information</p>
+                                <ul class="ml-6"> 
+                                    <li><?=$row['contact_num']?></li>
+                                    <li><?=$row['email_address']?></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Address Details-->
+                        <div class="grid-cols-2 flex">
+                            <div class="w-6/12">
+                                <p class="text-xl">Address Details</p>
+                                <ul class="ml-6"> 
+                                    <li>House Number</li>
+                                    <li>Street Name</li>
+                                    <li>Barangay Name</li>
+                                    <li>Municipality/City</li>
+                                    <li>Province</li>
+                                    <li>Zip Code</li>
+                                </ul>
+                            </div>
+                            <div class="w-6/12 text-black">
+                                <p class="text-xl text-white">Address Details</p>
+                                <ul class="ml-6"> 
+                                    <li><?=$row['house_num']?></li>
+                                    <li><?=$row['street_name']?></li>
+                                    <li><?=$row['barangay_name']?></li>
+                                    <li><?=$row['municipality_city']?></li>
+                                    <li><?=$row['province']?></li>
+                                    <li><?=$row['zip_code']?></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Citizenship and Civil-->
+                        <div class="grid-cols-2 flex">
+                            <div class="w-6/12">
+                                <p class="text-xl">Citizenship and Civil Status</p>
+                                <ul class="ml-6"> 
+                                    <li>Citizenship</li>
+                                    <li>Civil Status</li>
+                                </ul>
+                            </div>
+                            <div class="w-6/12 text-black">
+                                <p class="text-xl text-white">Citizenship and Civil Status</p>
+                                <ul class="ml-6"> 
+                                    <li><?=$row['civil_status']?></li>
+                                    <li><?=$row['citizenship']?></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Residency & Occupation-->
+                        <div class="grid-cols-2 flex">
+                            <div class="w-6/12">
+                                <p class="text-xl">Residency and Occupation</p>
+                                <ul class="ml-6"> 
+                                    <li>Occupation</li>
+                                    <li>Type of Residency</li>
+                                    <li>Start Date of Residency</li>
+                                    <li>End Date of Residency</li>
+                                </ul>
+                            </div>
+                            <div class="w-6/12 text-black">
+                                <p class="text-xl text-white">Residency and Occupation</p>
+                                <ul class="ml-6"> 
+                                    <li><?=$row['occupation']?></li>
+                                    <li><?=$row['residency_type']?></li>
+                                    <li><?=$row['start_residency']?></li>
+                                    <li><?=$row['end_residency']?></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Health-->
+                        <div class="grid-cols-2 flex">
+                            <div class="w-6/12">
+                                <p class="text-xl">Health</p>
+                                <ul class="ml-6"> 
+                                    <li>Blood Type</li>
+                                    <li>Religion</li>
+                                </ul>
+                            </div>
+                            <div class="w-6/12 text-black">
+                                <p class="text-xl text-white">Health</p>
+                                <ul class="ml-6"> 
+                                    <li><?=$row['blood_type']?></li>
+                                    <li><?=$row['religion']?></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <?php } ?>
                 </div>

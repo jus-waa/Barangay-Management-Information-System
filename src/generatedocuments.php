@@ -18,7 +18,7 @@ if (!isset($_SESSION['users'])) {
     <script src="../script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
-<body class="relative bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+<body class="relative">
     <!-- Header -->
     <div class="grid grid-cols-2 items-center">
         <div class="flex flex-row items-start">
@@ -58,10 +58,12 @@ if (!isset($_SESSION['users'])) {
             </div>
 
             <!-- Left section: Title (Generate Documents) -->
-            <div class="bg-c w-3/5 p-4 pr-8 pl-8 mt-8 rounded-lg place-self-center">
-                <h1 class="text-5xl font-bold mb-2 text-center">Generate<br>Documents</h1>
-                <div class="bg-sg w-full h-10 rounded-lg"></div>
-            </div>
+            <div class="bg-c w-3/5 p-4 px-8 mt-6 rounded-lg place-self-center">
+                    <h1 class="text-5xl font-bold mb-2 text-center">
+                        Generate<br>Documents
+                    </h1>
+                    <div class="bg-sg w-full h-10 rounded-lg"></div>
+                </div>
         </div>
 
         <!-- Right section: List of Records -->

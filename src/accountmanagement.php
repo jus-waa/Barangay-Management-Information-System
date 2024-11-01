@@ -20,7 +20,7 @@ if (!isset($_SESSION['users'])) {
     <script src="../script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
-<body class="relative bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+<body class="relative">
     <!-- Header -->
     <div class="absolute w-full h-full">
         <div class="grid grid-cols-2 items-center -z-20">
@@ -48,8 +48,10 @@ if (!isset($_SESSION['users'])) {
             </div>
 
                 <!-- Title Section -->
-                <div class="bg-c w-3/5 p-4 pr-8 px-8 mt-8 rounded-lg place-self-center">
-                    <h1 class="text-5xl font-bold mb-2 text-center">Account<br>Management</h1>
+                <div class="bg-c w-3/5 p-4 px-8 mt-6 rounded-lg place-self-center">
+                    <h1 class="text-5xl font-bold mb-2 text-center">
+                        Account<br>Management
+                    </h1>
                     <div class="bg-sg w-full h-10 rounded-lg"></div>
                 </div>
             </div>
@@ -64,89 +66,109 @@ if (!isset($_SESSION['users'])) {
         </div>
 
         <!-- Regular Section -->
-        <div class="flex justify-between items-end mx-32 mt-8">
+        <div class="flex justify-between items-end mx-32 mt-16">
             <div class="bg-c text-black py-2 px-14 rounded-xl font-bold text-3xl min-w-[200px] text-center">Regular</div>
             <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a>
         </div>
 
         <!-- Regular Account Table -->
-        <div class="overflow-x-auto pr-32 pl-32 mt-4">
-            <table id="residentTable" class="min-w-full bg-white border border-gray-300">
-                <thead>
-                    <tr class="bg-c text-gray-600 uppercase text-sm border-b-2 border-dg"> 
-                        <th class="border-2 border-dg">ID</th>
-                        <th class="border-2 border-dg px-6">Username</th>
-                        <th class="border-2 border-dg">Email</th>
-                        <th class="border-2 border-dg">Password</th>
-                        <th class="border-2 border-dg">Verify Password</th>
-                        <th class="border-2 border-dg">Contact Information</th>
-                        <th class="border-2 border-dg">Date Created</th>
-                        <th class="border-2 border-dg">Date Updated</th>
-                        <th class="border-2 border-dg">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="border-2 text-gray-600">
-                <?php 
-                    $i = 1; //auto numbering
-                    foreach ($result as $row) {
-                        if ($row['role_id'] == 2) {
-                    ?>
-                    <tr>
-                        <td class="border-2 w-12">
-                            <div class="flex justify-center w-12">
-                                <?= $i ?>
-                            </div>
-                        </td>
-                        <td class="border-2">
-                            <div class="flex justify-center">
-                                <?=$row['username']?></td>
-                            </div>
-                        <td class="border-2 w-56">
-                            <div class="flex justify-center w-56">
-                                <?=$row['email']?>
-                            </div>
-                        </td>
-                        <td class="border-2 w-80">
-                            <div class="flex justify-start w-80 overflow-auto">
-                                <?=$row['password']?>
-                            </div>
-                        </td>
-                        <td class="border-2 w-80">
-                            <div class="flex justify-start w-80 overflow-auto">
-                                <?=$row['password_re']?>
-                            </div>
-                        </td>
-                        <td class="border-2 w-32">
-                            <div class="flex justify-center w-32">
-                                <?=$row['contact_info']?>
-                            </div>
-                        </td>
-                        <td class="border-2">
-                            <div class="flex justify-center">
-                                <?=$row['created_at']?>
-                            </div>
-                        </td>
-                        <td class="border-2">
-                            <div class="flex justify-center">
-                                <?=$row['updated_at']?>
-                            </div>
-                        </td>
-                        <td class="border-2">
-                            <div class="flex justify-center items-center">
-                                <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                    <a href="updateaccount.php?id=<?= $row['id']?>">
-                                        <img src="../img/edit.svg" alt="edit"/>
-                                    </a>
-                                </button>
-                                <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
-                                    <img name="delete" src="../img/trash.svg" alt="delete"/>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php $i++; }}?>
-                </tbody>
-            </table>
+        <div class="w-screen overflow-hidden mt-4">
+            <div class="border-2 border-c rounded-lg mx-32">
+                <!--Regular-->
+                <div id="tb1" class="overflow-auto no-scrollbar ">
+                <div class="rounded-t-sm pt-2 bg-c ">
+                    <table id="residentTable" class="w-full border-collapse">
+                        <colgroup>
+                            <col class="w-[100px]">
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col class="w-[200px]">
+                        </colgroup>
+                        <thead class="bg-c sticky top-0 ">
+                            <tr class="uppercase ">
+                                <!--Basic Information + Action-->
+                                <th class="w-12">ID</th>
+                                <th class="">Username</th>
+                                <th class="w-56">Email</th>
+                                <th class="w-72">Password</th>
+                                <th class="w-72">Verify Password</th>
+                                <th class="w-32">Contact Information</th>
+                                <th class="">Date Created</th>
+                                <th class="">Date Updated</th>
+                                <th class="w-36">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class=" text-gray-600 bg-white">
+                        <?php 
+                        $i = 1; //auto numbering
+                        foreach ($result as $row) {
+                            if ($row['role_id'] == 2) {
+                        ?>
+                        <tr class="hover:bg-gray-100">
+                            <td class=" border-y-2 border-c w-12">
+                                <div class="flex justify-center">
+                                    <?= $i ?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-center">
+                                    <?=$row['username']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-center overflow-auto w-56" >
+                                    <?=$row['email']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-start overflow-auto w-64">
+                                    <?=$row['password']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-start overflow-auto w-64">
+                                    <?=$row['password_re']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-center overflow-auto w-32">
+                                    <?=$row['contact_info']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-center">
+                                    <?=$row['created_at']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-center">
+                                    <?=$row['updated_at']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c w-36">
+                                <div class="flex justify-center items-center">
+                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
+                                        <a href="updateaccount.php?id=<?= $row['id']?>">
+                                            <img src="../img/edit.svg" alt="edit"/>
+                                        </a>
+                                    </button>
+                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                        <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php $i++; }} ?>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
+            </div>
         </div>
 
         <!-- Admin Section -->
@@ -156,83 +178,103 @@ if (!isset($_SESSION['users'])) {
         </div>
 
         <!-- Admin Table -->
-        <div class="overflow-x-auto pr-32 pl-32">
-            <h1 class="text-2xl font-bold text-center mb-4"></h1>
-            <table id="adminTable" class="min-w-full bg-white border border-gray-300">
-                <thead>
-                    <tr class="bg-c text-gray-600 uppercase text-sm border-b-2 border-dg"> 
-                    <th class="border-2 border-dg">ID</th>
-                        <th class="border-2 border-dg px-6">Username</th>
-                        <th class="border-2 border-dg">Email</th>
-                        <th class="border-2 border-dg">Password</th>
-                        <th class="border-2 border-dg">Verify Password</th>
-                        <th class="border-2 border-dg">Contact Information</th>
-                        <th class="border-2 border-dg">Date Created</th>
-                        <th class="border-2 border-dg">Date Updated</th>
-                        <th class="border-2 border-dg">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="border-2 text-gray-600">
-                <?php 
-                    $i = 1; //auto numbering
-                    foreach ($result as $row) {
-                        if ($row['role_id'] == 1) {
-                    ?>
-                    <tr>
-                        <td class="border-2 w-12">
-                            <div class="flex justify-center w-12">
-                                <?= $i ?>
-                            </div>
-                        </td>
-                        <td class="border-2">
-                            <div class="flex justify-center">
-                                <?=$row['username']?></td>
-                            </div>
-                        <td class="border-2 w-56">
-                            <div class="flex justify-center w-56">
-                                <?=$row['email']?>
-                            </div>
-                        </td>
-                        <td class="border-2 w-80">
-                            <div class="flex justify-start w-80 overflow-auto">
-                                <?=$row['password']?>
-                            </div>
-                        </td>
-                        <td class="border-2 w-80">
-                            <div class="flex justify-start w-80 overflow-auto">
-                                <?=$row['password_re']?>
-                            </div>
-                        </td>
-                        <td class="border-2 w-32">
-                            <div class="flex justify-center w-32">
-                                <?=$row['contact_info']?>
-                            </div>
-                        </td>
-                        <td class="border-2">
-                            <div class="flex justify-center">
-                                <?=$row['created_at']?>
-                            </div>
-                        </td>
-                        <td class="border-2">
-                            <div class="flex justify-center">
-                                <?=$row['updated_at']?>
-                            </div>
-                        </td>
-                        <td class="border-2">
-                            <div class="flex justify-center items-center">
-                                <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                    <a href="updateaccount.php?id=<?= $row['id']?>">
-                                        <img src="../img/edit.svg" alt="edit"/>
-                                    </a>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php $i++; }}?>
-                </tbody>
-            </table>
+        <div class="w-screen overflow-hidden mt-4">
+            <div class="border-2 border-c rounded-lg mx-32">
+                <!--Regular-->
+                <div id="tb1" class="overflow-auto no-scrollbar ">
+                <div class="rounded-t-sm pt-2 bg-c ">
+                    <table id="residentTable" class="w-full border-collapse">
+                        <colgroup>
+                            <col class="w-[100px]">
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col class="w-[200px]">
+                        </colgroup>
+                        <thead class="bg-c sticky top-0 ">
+                            <tr class="uppercase ">
+                                <!--Basic Information + Action-->
+                                <th class="w-12">ID</th>
+                                <th class="">Username</th>
+                                <th class="w-56">Email</th>
+                                <th class="w-72">Password</th>
+                                <th class="w-72">Verify Password</th>
+                                <th class="w-32">Contact Information</th>
+                                <th class="">Date Created</th>
+                                <th class="">Date Updated</th>
+                                <th class="w-36">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class=" text-gray-600 bg-white">
+                        <?php 
+                        $i = 1; //auto numbering
+                        foreach ($result as $row) {
+                            if ($row['role_id'] == 1) {
+                        ?>
+                        <tr class="hover:bg-gray-100">
+                            <td class=" border-y-2 border-c w-12">
+                                <div class="flex justify-center">
+                                    <?= $i ?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-center">
+                                    <?=$row['username']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-center overflow-auto w-56" >
+                                    <?=$row['email']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-start overflow-auto w-64">
+                                    <?=$row['password']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-start overflow-auto w-64">
+                                    <?=$row['password_re']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-center overflow-auto w-32">
+                                    <?=$row['contact_info']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-center">
+                                    <?=$row['created_at']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c ">
+                                <div class="flex justify-center">
+                                    <?=$row['updated_at']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c w-36">
+                                <div class="flex justify-center items-center">
+                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
+                                        <a href="updateaccount.php?id=<?= $row['id']?>">
+                                            <img src="../img/edit.svg" alt="edit"/>
+                                        </a>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php $i++; }} ?>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
+            </div>
         </div>
     </div>
+    <!--Confirm Deletion-->
     <div class="fixed z-50 hidden" id="confirmDeletion">
         <div class="border-4 w-screen h-screen flex justify-center items-center">
             <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
