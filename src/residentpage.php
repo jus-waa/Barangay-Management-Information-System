@@ -27,7 +27,7 @@ if (!isset($_SESSION['users'])) {
     <div class="absolute w-full h-full">
         <!--Header-->
         <div class="grid grid-cols-2 items-center mb-2 -z-20">
-            <div class="flex flex-row items-start ">
+            <div class="flex flex-row items-start">
                 <!--Nav-->
                 <div id="mainNav" onmouseover="hoverNav()" onmouseleave="leaveNav()" class="flex flex-col mr-16 rounded-b-full h-14 w-16 bg-c duration-500 ease-in-out">
                     <a href="residentpage.php">
@@ -107,6 +107,9 @@ if (!isset($_SESSION['users'])) {
                         </button>
                     </form>
                 </div>
+                <?php 
+                if(hasPermission('system_settings')) {
+                ?>
                 <!-- Add Record -->
                 <a href="backend/add.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
                 <div class="w-22"></div>
@@ -123,6 +126,20 @@ if (!isset($_SESSION['users'])) {
                     </form>
                     <div id="msgUpload"></div>
                 </div>
+                <?php } else { ?>
+                    <button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm hidden">Add Record</button>
+                    <div class="hidden">
+                        <form id="formUpload">
+                            <label for="file_input">
+                                <img id="file_output" class="absolute top-40 right-38 -translate-y-2 duration-150 cursor-pointer hover:z-20 hover:-translate-y-6 mt-4" width="60px" height="60px" src="../img/gen_doc.svg">
+                                <input type="file" id="file_input" name="file" accept="csv/*" class="hidden z-20"> </input>
+                            </label>
+                            <div>
+                                <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm focus:ring-4 ring-dg mt-0.5" disabled>Bulk Import</button>
+                            </div>
+                        </form>
+                    </div>
+                <?php } ?>
             </div>
         </div>
         <!-- Tables -->
@@ -197,6 +214,9 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['age']?>
                                 </div>
                             </td>
+                            <?php
+                            if (hasPermission('system_settings')){
+                            ?>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -212,6 +232,17 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                 </div>
                             </td>
+                            <?php
+                            } else {
+                            ?>
+                            <td class="border-y-2 border-c py-2">
+                                <div class="flex justify-center items-center">
+                                    <button disabled class="w-6 mr-1"> 
+                                        <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                </div>
+                            </td>
+                            <?php } ?>
                         </tr>
                         <?php $i++; } ?>
                         </tbody>
@@ -274,6 +305,9 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['birthplace_province']?>
                                 </div>
                             </td>
+                            <?php
+                            if (hasPermission('system_settings')){
+                            ?>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -281,7 +315,7 @@ if (!isset($_SESSION['users'])) {
                                             <img src="../img/edit.svg" alt="edit"/>
                                         </a>
                                     </button>
-                                    <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
                                     <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
@@ -289,6 +323,17 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                 </div>
                             </td>
+                            <?php
+                            } else {
+                            ?>
+                            <td class="border-y-2 border-c py-2">
+                                <div class="flex justify-center items-center">
+                                    <button disabled class="w-6 mr-1"> 
+                                        <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                </div>
+                            </td>
+                            <?php } ?>
                         </tr>
                         <?php $i++; } ?>
                         </tbody>
@@ -344,6 +389,9 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['email_address']?>
                                 </div>
                             </td>
+                            <?php
+                            if (hasPermission('system_settings')){
+                            ?>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -351,7 +399,7 @@ if (!isset($_SESSION['users'])) {
                                             <img src="../img/edit.svg" alt="edit"/>
                                         </a>
                                     </button>
-                                    <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
                                     <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
@@ -359,6 +407,17 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                 </div>
                             </td>
+                            <?php
+                            } else {
+                            ?>
+                            <td class="border-y-2 border-c py-2">
+                                <div class="flex justify-center items-center">
+                                    <button disabled class="w-6 mr-1"> 
+                                        <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                </div>
+                            </td>
+                            <?php } ?>
                         </tr>
                         <?php $i++; } ?>
                         </tbody>
@@ -442,6 +501,9 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['zip_code']?>
                                 </div>
                             </td>
+                            <?php
+                            if (hasPermission('system_settings')){
+                            ?>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -449,7 +511,7 @@ if (!isset($_SESSION['users'])) {
                                             <img src="../img/edit.svg" alt="edit"/>
                                         </a>
                                     </button>
-                                    <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
                                     <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
@@ -457,6 +519,17 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                 </div>
                             </td>
+                            <?php
+                            } else {
+                            ?>
+                            <td class="border-y-2 border-c py-2">
+                                <div class="flex justify-center items-center">
+                                    <button disabled class="w-6 mr-1"> 
+                                        <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                </div>
+                            </td>
+                            <?php } ?>
                         </tr>
                         <?php $i++; } ?>
                         </tbody>
@@ -513,6 +586,9 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['citizenship']?>
                                 </div>
                             </td>
+                            <?php
+                            if (hasPermission('system_settings')){
+                            ?>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -520,7 +596,7 @@ if (!isset($_SESSION['users'])) {
                                             <img src="../img/edit.svg" alt="edit"/>
                                         </a>
                                     </button>
-                                    <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
                                     <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
@@ -528,6 +604,17 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                 </div>
                             </td>
+                            <?php
+                            } else {
+                            ?>
+                            <td class="border-y-2 border-c py-2">
+                                <div class="flex justify-center items-center">
+                                    <button disabled class="w-6 mr-1"> 
+                                        <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                </div>
+                            </td>
+                            <?php } ?>
                         </tr>
                         <?php $i++; } ?>
                         </tbody>
@@ -597,6 +684,9 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['end_residency']?>
                                 </div>
                             </td>
+                            <?php
+                            if (hasPermission('system_settings')){
+                            ?>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -604,7 +694,7 @@ if (!isset($_SESSION['users'])) {
                                             <img src="../img/edit.svg" alt="edit"/>
                                         </a>
                                     </button>
-                                    <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
                                     <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
@@ -612,6 +702,17 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                 </div>
                             </td>
+                            <?php
+                            } else {
+                            ?>
+                            <td class="border-y-2 border-c py-2">
+                                <div class="flex justify-center items-center">
+                                    <button disabled class="w-6 mr-1"> 
+                                        <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                </div>
+                            </td>
+                            <?php } ?>
                         </tr>
                         <?php $i++; } ?>
                         </tbody>
@@ -667,6 +768,9 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['religion']?>
                                 </div>
                             </td>
+                            <?php
+                            if (hasPermission('system_settings')){
+                            ?>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
                                     <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -674,7 +778,7 @@ if (!isset($_SESSION['users'])) {
                                             <img src="../img/edit.svg" alt="edit"/>
                                         </a>
                                     </button>
-                                    <button  class="w-6 ml-1 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
                                     <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
@@ -682,6 +786,17 @@ if (!isset($_SESSION['users'])) {
                                     </button>
                                 </div>
                             </td>
+                            <?php
+                            } else {
+                            ?>
+                            <td class="border-y-2 border-c py-2">
+                                <div class="flex justify-center items-center">
+                                    <button disabled class="w-6 mr-1"> 
+                                        <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                </div>
+                            </td>
+                            <?php } ?>
                         </tr>
                         <?php $i++; } ?>
                         </tbody>
