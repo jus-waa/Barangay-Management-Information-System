@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../script.js"></script>
 </head>
-<body class="h-screen w-full p-6 flex items-center justify-center">
+<body class="h-screen w-full bg-[#f0f0f0] p-6 flex items-center justify-center">
     <!-- Main Content Area -->
     <div class="flex flex-col h-4/5 w-4/5 bg-white shadow-2xl rounded-xl overflow-hidden">
         <div class="flex flex-grow">
