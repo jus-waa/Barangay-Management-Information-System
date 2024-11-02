@@ -23,12 +23,12 @@
                         </div>
                         <!--Email-->
                         <div class="mt-8 mb-3">
-                            <input name="email" type="text" autocomplete="off" class="block bg-transparent w-72 border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:ring-2 focus:border-bg-c focus:ring-sg" placeholder=" "/> 
+                            <input name="email" type="text" autocomplete="off" class="block bg-transparent w-72 border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:ring-2 focus:border-c focus:ring-sg" placeholder=" "/> 
                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Email Address</label>
                         </div>
                         <!--Password-->
                         <div class="relative mb-4">
-                            <input type="password" id="password" name="pass" autocomplete="off" class="block bg-transparent w-72 border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:ring-2 focus:ring-sg focus:border-bg-c mt-2" placeholder=" "/> 
+                            <input type="password" id="password" name="pass" autocomplete="off" class="block bg-transparent w-72 border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:ring-2 focus:ring-sg focus:border-c mt-2" placeholder=" "/> 
                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1  pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Password</label>
                             <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 flex items-center pr-3">
                                 <img src="../img/eye-close.png" alt="Show password" class="h-3 w-4 mr-3 text-gray-600" id="eyeClosed">
@@ -52,7 +52,7 @@
                             </div>
                         <?php unset($_SESSION['login_msg']); }?>
                         <div class="">
-                            <button class="rounded-md bg-c w-72 p-2 mt-4 text-l place-self-center hover:bg-sg transition duration-700">Sign In</button><br>
+                            <button class="rounded-md bg-c w-72 p-2 mt-4 place-self-center hover:bg-sg transition duration-700">Sign In</button><br>
                         </div>
                     </div>
                 </form>

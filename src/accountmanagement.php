@@ -30,19 +30,19 @@ if (!isset($_SESSION['users'])) {
                     <a href="accountmanagement.php">
                         <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 mt-2 rounded-b-full flex">
                             <img  class="place-self-center size-8 ml-4 mb-4" src="../img/setting.svg" >
-                            <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-c min-w-52">System Settings</span>
+                            <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">System Settings</span>
                         </button>
                     </a>
                     <a href="generatedocuments.php">
                         <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="w-20 opacity-0 mt-1 rounded-b-full flex">
                             <img  class="place-self-center size-10 ml-3 mb-2 mt-1" src="../img/gen_doc.svg">
-                            <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-c min-w-52">Generate Documents</span>
+                            <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">Generate Documents</span>
                         </button>
                     </a>
                     <a href="residentpage.php">
                         <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
                             <img  class="place-self-center size-8 ml-4 mb-4 mt-2" src="../img/res_info.svg">
-                            <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-dg rounded-full bg-c min-w-52">Resident Information</span>
+                            <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">Resident Information</span>
                         </button>
                     </a>
             </div>
