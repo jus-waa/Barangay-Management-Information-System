@@ -121,7 +121,7 @@ if (!isset($_SESSION['users'])) {
                             <input type="file" id="file_input" name="file" accept="csv/*" class="hidden z-20"> </input>
                         </label>
                         <div>
-                            <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm focus:ring-4 ring-dg mt-0.5" disabled>Bulk Import</button>
+                            <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm mt-0.5" disabled>Bulk Import</button>
                         </div>
                     </form>
                     <div id="msgUpload"></div>
@@ -135,7 +135,7 @@ if (!isset($_SESSION['users'])) {
                                 <input type="file" id="file_input" name="file" accept="csv/*" class="hidden z-20"> </input>
                             </label>
                             <div>
-                                <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm focus:ring-4 ring-dg mt-0.5" disabled>Bulk Import</button>
+                                <button class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm mt-0.5" disabled>Bulk Import</button>
                             </div>
                         </form>
                     </div>
@@ -1096,7 +1096,9 @@ if (!isset($_SESSION['users'])) {
                 fileOutput.src=fileAddress;
                 fileOutput.src="../img/prevcsv.png";
                 document.querySelector("#btnUpload").removeAttribute("disabled");
+                document.querySelector("#btnUpload").classList.remove("bg-gray-400");
                 document.querySelector("#btnUpload").classList.add("bg-c");
+                document.querySelector("#btnUpload").classList.add("hover:bg-sg");
                 document.querySelector("#btnUpload").classList.remove("text-gray-600");
             };
         } else {
