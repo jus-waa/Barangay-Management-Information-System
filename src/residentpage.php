@@ -219,11 +219,11 @@ if (!isset($_SESSION['users'])) {
                             ?>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center items-center">
-                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                        <a href="backend/edit.php?id=<?= $row['id']?>">
+                                    <a href="backend/edit.php?id=<?= $row['id']?>">
+                                        <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                             <img src="../img/edit.svg" alt="edit"/>
-                                        </a>
-                                    </button>
+                                            </button>
+                                    </a>
                                     <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
@@ -1102,8 +1102,17 @@ if (!isset($_SESSION['users'])) {
                 document.querySelector("#btnUpload").classList.remove("text-gray-600");
             };
         } else {
-            fileOutput.src="../img/error.png";
-            document.querySelector("#btnUpload").setAttribute("disabled", "true"); // Disable upload button
+            fileOutput.src="../img/lock.png";
+            document.querySelector("#btnUpload").setAttribute("disabled", "true"); 
+            document.querySelector("#btnUpload").classList.add("w-26");
+            document.querySelector("#btnUpload").classList.add("h-8");
+            document.querySelector("#btnUpload").classList.remove("px-3");
+            document.querySelector("#btnUpload").textContent = "That's not csv.";
+            document.querySelector("#btnUpload").classList.add("bg-gray-400");
+            document.querySelector("#btnUpload").classList.add("text-sm");
+            document.querySelector("#btnUpload").classList.remove("bg-c");
+            document.querySelector("#btnUpload").classList.remove("hover:bg-sg");
+            document.querySelector("#btnUpload").classList.add("text-gray-600");
         } 
         fileReader.readAsDataURL(file);
     };

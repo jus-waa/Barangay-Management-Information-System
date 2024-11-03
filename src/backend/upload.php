@@ -53,6 +53,7 @@ if($_FILES["file"]["size"] > 0) {
     }
     fclose($file);
     ?>
+    <div class="success_message absolute top-52 right-32 pl-6 mt-0.5 text-xs bg-sg w-16">
     <?php 
     
     if($rowCount > 0) {
@@ -64,8 +65,8 @@ if($_FILES["file"]["size"] > 0) {
         let form = document.querySelector("form");
         form.style.display = 'none';
     </script>
-    <?php 
-        } else {
+    <?php
+    } else {
         echo 'Nothing was inserted, please refresh';
         } 
     }else {

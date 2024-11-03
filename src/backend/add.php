@@ -139,12 +139,12 @@ if(isset($_POST['add'])) {
                             </div>
                             <div class="flex items-center justify-between">
                                 <div class="flex-grow mr-2">
-                                    <input id="age" name="age" type="number" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                    <input id="age" name="age" type="text" maxlength="3" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                     <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Age</label>
                                 </div>
                                 <div for="gender"class="flex flex-col flex-grow">
                                     <select id="gender" name="gender" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-gray-500 text-sm">
-                                        <option class="bg-white" value="">Select Gender</option>
+                                        <option class="bg-white " value="">Select Gender</option>
                                         <option class="bg-white" value="Male">Male</option>
                                         <option class="bg-white" value="Female">Female</option>
                                     </select>
@@ -159,7 +159,7 @@ if(isset($_POST['add'])) {
                         <h2 class="text-xl font-bold mb-4 ">Birth Details</h2>
                         <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
                             <div>
-                                <input id="date-of-birth" name="birth_date" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  text-gray-500 text-sm p-2.1 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                <input id="date-of-birth" name="birth_date" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  text-sm p-2.1 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Date of Birth</label>
                             </div>
                             <div>
@@ -179,7 +179,7 @@ if(isset($_POST['add'])) {
                         <h2 class="text-xl font-bold mb-4 ">Contact Information</h2>
                         <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
                             <div>
-                                <input id="email" name="email_address" type="email" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  text-gray-500 text-sm p-2.1 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                <input id="email" name="email_address" type="email" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  text-sm p-2.1 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Email Address</label>
                             </div>
                             <div>
