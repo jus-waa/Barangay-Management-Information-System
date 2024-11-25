@@ -108,7 +108,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </td>
                         <td class="border-2">
                             <div class="flex justify-center">
-                                <?=$row['sex']?>
+                                <?=$row['gender']?>
                             </div>
                         </td>
                         <td class="border-2">

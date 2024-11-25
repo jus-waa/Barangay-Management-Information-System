@@ -839,147 +839,244 @@ if (!isset($_SESSION['users'])) {
                         ?>
                         <div class="grid gap-2 text-gray-400 ">
                             <!--Personal Info Summary -->
-                            <div class="grid-cols-2 flex">
-                                <div class="w-6/12 ">
-                                    <p class="text-xl">Personal Information</p>
-                                    <ul class="ml-6"> 
-                                        <li>First Name</li>
-                                        <li>Middle Name</li>
-                                        <li>Last Name</li>
-                                        <li>Suffix</li>
-                                        <li>Gender</li>
-                                        <li>Age</li>
-                                    </ul>
+                            <div class="grid-cols-2">
+                                <p class="text-xl">Personal Information</p>
+                                <!-- First Name -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>First Name</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['first_name']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="w-6/12 text-black">
-                                    <p class="text-xl text-white">Personal Information</p>
-                                    <ul class="ml-6"> 
-                                        <li><?=$row['first_name']?></li>
-                                        <li><?=$row['middle_name']?></li>
-                                        <li><?=$row['last_name']?></li>
-                                        <li><?=$row['suffix']?></li>
-                                        <li><?=$row['gender']?></li>
-                                        <li><?=$row['age']?></li>
-                                    </ul>
+                                <!-- Middle Name -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Middle Name</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['middle_name']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--Birth Details Summary -->
-                            <div class="grid-cols-2 flex">
-                                <div class="w-6/12">
-                                    <p class="text-xl">Birth Details</p>
-                                    <ul class="ml-6"> 
-                                        <li>Date of Birth</li>
-                                        <li>Place of Birth Municipality/City</li>
-                                        <li>Place of Birth Province</li>
-                                    </ul>
+                                <!-- Last Name -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Last Name</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['last_name']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="w-6/12 text-black">
-                                    <p class="text-xl text-white">Birth Details</p>
-                                    <ul class="ml-6"> 
-                                        <li><?=$row['birth_date']?></li>
-                                        <li><?=$row['birthplace_municipality_city']?></li>
-                                        <li><?=$row['birthplace_province']?></li>
-                                    </ul>
+                                <!-- Suffix -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Suffix</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['suffix']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--Contact Information Summary-->
-                            <div class="grid-cols-2 flex">
-                                <div class="w-6/12">
-                                    <p class="text-xl">Contact Information</p>
-                                    <ul class="ml-6"> 
-                                        <li>Contact Number</li>
-                                        <li>Email Address</li>
-                                    </ul>
+                                <!-- Gender -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Gender</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['gender']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                    <div class="w-6/12 text-black">
-                                    <p class="text-xl text-white">Contact Information</p>
-                                    <ul class="ml-6"> 
-                                        <li><?=$row['contact_num']?></li>
-                                        <li><?=$row['email_address']?></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!--Address Details-->
-                            <div class="grid-cols-2 flex">
-                                <div class="w-6/12">
-                                    <p class="text-xl">Address Details</p>
-                                    <ul class="ml-6"> 
-                                        <li>House Number</li>
-                                        <li>Street Name</li>
-                                        <li>Barangay Name</li>
-                                        <li>Municipality/City</li>
-                                        <li>Province</li>
-                                        <li>Zip Code</li>
-                                    </ul>
-                                </div>
-                                <div class="w-6/12 text-black">
-                                    <p class="text-xl text-white">Address Details</p>
-                                    <ul class="ml-6"> 
-                                        <li><?=$row['house_num']?></li>
-                                        <li><?=$row['street_name']?></li>
-                                        <li><?=$row['barangay_name']?></li>
-                                        <li><?=$row['municipality_city']?></li>
-                                        <li><?=$row['province']?></li>
-                                        <li><?=$row['zip_code']?></li>
-                                    </ul>
+                                <!-- Age -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Age</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['age']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <!--Citizenship and Civil-->
-                            <div class="grid-cols-2 flex">
-                                <div class="w-6/12">
-                                    <p class="text-xl">Citizenship and Civil Status</p>
-                                    <ul class="ml-6"> 
-                                        <li>Citizenship</li>
-                                        <li>Civil Status</li>
-                                    </ul>
+                            <!-- Birth Details -->
+                            <p class="text-xl">Birth Details</p>
+                            <div class="grid-cols-2">
+                                <!-- Birth Date-->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Date of Birth</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['birth_date']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="w-6/12 text-black">
-                                    <p class="text-xl text-white">Citizenship and Civil Status</p>
-                                    <ul class="ml-6"> 
-                                        <li><?=$row['civil_status']?></li>
-                                        <li><?=$row['citizenship']?></li>
-                                    </ul>
+                                <!-- Birthplace Municipality City -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Birthplace Municipality City</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['birthplace_municipality_city']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Birthplace Province -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Birthplace Province</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['birthplace_province']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <!--Residency & Occupation-->
-                            <div class="grid-cols-2 flex">
-                                <div class="w-6/12">
-                                    <p class="text-xl">Residency and Occupation</p>
-                                    <ul class="ml-6"> 
-                                        <li>Occupation</li>
-                                        <li>Type of Residency</li>
-                                        <li>Start Date of Residency</li>
-                                        <li>End Date of Residency</li>
-                                    </ul>
+                            <!-- Contact Number -->
+                            <p class="text-xl">Contact Number</p>
+                            <div class="grid-cols-2">
+                                <!-- Birthplace Province -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Contact Number</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['contact_num']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="w-6/12 text-black">
-                                    <p class="text-xl text-white">Residency and Occupation</p>
-                                    <ul class="ml-6"> 
-                                        <li><?=$row['occupation']?></li>
-                                        <li><?=$row['residency_type']?></li>
-                                        <li><?=$row['start_residency']?></li>
-                                        <li><?=$row['end_residency']?></li>
-                                    </ul>
+                                <!-- Email Address -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Email Address</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['email_address']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <!--Health-->
-                            <div class="grid-cols-2 flex">
-                                <div class="w-6/12">
-                                    <p class="text-xl">Health</p>
-                                    <ul class="ml-6"> 
-                                        <li>Blood Type</li>
-                                        <li>Religion</li>
-                                    </ul>
+                            <!-- Address Details -->
+                            <p class="text-xl">Address Details</p>
+                            <div class="grid-cols-2">
+                                <!-- Birthplace Province -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>House Number</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['house_num']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="w-6/12 text-black">
-                                    <p class="text-xl text-white">Health</p>
-                                    <ul class="ml-6"> 
-                                        <li><?=$row['blood_type']?></li>
-                                        <li><?=$row['religion']?></li>
-                                    </ul>
+                                <!-- Email Address -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Street Name</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['street_name']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Barnangay Name -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Barangay Name</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['barangay_name']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Municipality/City -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Municipality/City</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['municipality_city']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Province -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Province</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['province']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Zip Code -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Zip Code</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['zip_code']?></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
                         <?php } ?>
                     </div>
                 </div>
