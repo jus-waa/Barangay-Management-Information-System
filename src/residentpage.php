@@ -24,130 +24,125 @@ if (!isset($_SESSION['users'])) {
     <!--<script src="https://cdn.tailwindcss.com"></script>-->
 </head>
 <body class="relative"> <!--bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]-->
-    <div class="absolute w-full h-full">
-        <!--Header-->
-        <div class="grid grid-cols-2 items-center mb-2 -z-20">
-            <div class="flex flex-row items-start">
-                <!--Nav-->
-                <div id="mainNav" onmouseover="hoverNav()" onmouseleave="leaveNav()" class="flex flex-col mr-16 rounded-b-full h-14 w-16 bg-c duration-500 ease-in-out">
+    <div class="flex h-screen w-screen overflow-auto">
+        <!-- Sidebar -->
+        <div class="flex-none w-20 h-full shadow-2xl">
+            <!--Nav-->
+            <div id="mainNav" class="flex flex-col place-content-start h-full w-full bg-c duration-500 ease-in-out">
+                <div class="mt-24 flex flex-col space-y-6">
                     <a href="residentpage.php">
-                        <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="w-20 mt-2 rounded-b-full flex">
-                            <img  class="place-self-center size-8 ml-4 mb-4" src="../img/res_info.svg">
-                            <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">Resident Information</span>
+                        <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
+                            <img  class="size-10 my-2" src="../img/res_info.svg">
+                            <span id="res_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">Resident Information</span>
                         </button>
                     </a>
                     <a href="generatedocuments.php">
-                        <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="w-20 opacity-0 mt-1 rounded-b-full flex">
-                            <img  class="place-self-center size-10 ml-3 mb-2 mt-1" src="../img/gen_doc.svg">
-                            <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">Generate Documents</span>
+                        <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
+                            <img  class="size-13 my-1" src="../img/gen_doc.svg">
+                            <span id="doc_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">Generate Documents</span>
                         </button>
                     </a>
                     <?php
                     if (hasPermission('system_settings')){
                     ?>
                     <a href="accountmanagement.php">
-                        <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
-                            <img  class="place-self-center size-8 ml-4 mb-4 mt-2" src="../img/setting.svg" >
-                            <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">System Settings</span>
+                        <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
+                            <img  class="size-10 my-2" src="../img/setting.svg" >
+                            <span id="set_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">System Settings</span>
                         </button>
                     </a>
                     <?php 
                     } else {
                     ?>
-                    <button disabled id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
-                        <img  class="place-self-center size-8 ml-4 mb-4 mt-2" src="../img/setting.svg" >
-                        <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-gray-600 rounded-full bg-gray-500 text-gray-600 min-w-52">System Settings</span>
+                    <button disabled id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
+                        <img  class="size-10 my-2" src="../img/setting.svg" >
+                        <span id="set_title" class="absolute ml-76 z-10 p-2 border-4 border-gray-600 rounded-full bg-gray-500 text-gray-600 min-w-52 hidden ">System Settings</span>
                     </button>
                     <?php
                     }
                     ?>
                 </div>
-                <!-- Left section: Title -->
-                <div class="bg-c w-3/5 p-4 px-8 mt-6 rounded-lg place-self-center">
-                    <h1 class="text-5xl font-bold mb-2 text-center">
-                        Resident<br>Information
-                    </h1>
-                    <div class="bg-sg w-full h-10 rounded-lg"></div>
-                </div>
-            </div>
-            <!-- Right section -->
-            <div class="flex place-content-end mr-32">
-                <div class="relative inline-block w-2/4 ">
-                    <div class="bg-c h-12 rounded-lg flex items-center justify-center p-8">
-                        <h1 class="text-2xl font-bold text-center  ">
-                            List of Records
-                        </h1>
-                    </div>
-                    <div class="bg-sg w-3/4 h-6 rounded-lg absolute right-0 top-14 -z-10"></div>
-                </div>
             </div>
         </div>
-        <!-- Options -->
-        <div class="flex justify-between items-center">
-            <div class="ml-32">
-                <ul class="flex justify-start items-center space-x-4 ">
-                    <li onclick="showCategory('tb1','option1')"><button id="option1" class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">Personal Information</button></li>
-                    <li onclick="showCategory('tb2','option2')"><button id="option2" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Birth Details</button></li>
-                    <li onclick="showCategory('tb3','option3')"><button id="option3" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Contact Information</button></li>
-                    <li onclick="showCategory('tb4','option4')"><button id="option4" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Address Details</button></li>
-                    <li onclick="showCategory('tb5','option5')"><button id="option5" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Citizenship and Civil Status</button></li>
-                    <li onclick="showCategory('tb6','option6')"><button id="option6" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Residency and Occupation</button></li>
-                    <li onclick="showCategory('tb7','option7')"><button id="option7" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Health</button></li>
-                </ul>
-                
-            </div>
-            <!-- Search, Add New Button, Bulk Import -->
-            <div class="flex justify-end items-center space-x-4 mr-32">
-                <!-- Search -->
-                <div class="relative">
-                    <form method="post">
-                        <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-sg h-8" >
-                        <button id="searchBtn" class="rounded-md absolute right-0 top-1/2 transform -translate-y-1/2 bg-white border border-l-0 border-gray-300 p-2 h-full flex items-center justify-center pointer-events-none">
-                            <img class="w-4 h-4" src="../img/search.svg" alt="Search Icon"/>
-                        </button>
-                    </form>
+        <!-- Main -->
+        <div class="grow w-4/5 h-full">
+            <!-- Header -->
+            <div class="grid gap-x-10 grid-cols-2 shadow-md h-20 px-32 py-6 mb-20 ">
+                <div class="text-3xl">
+                    Resident Page
                 </div>
-                <?php 
-                if(hasPermission('system_settings')) {
-                ?>
-                <!-- Add Record -->
-                <a href="backend/add.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
-                <div class="w-22"></div>
-                <!--Bulk Import-->
-                <div>
-                    <form id="formUpload">
-                        <label for="file_input">
-                            <img id="file_output" class="absolute top-40 right-38 -translate-y-2 duration-150 cursor-pointer hover:z-20 hover:-translate-y-6 mt-4" width="60px" height="60px" src="../img/gen_doc.svg">
-                            <input type="file" id="file_input" name="file" accept="csv/*" class="hidden z-20"> </input>
-                        </label>
-                        <div>
-                            <button id="btnUpload" name="btnUpload" class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm mt-0.5" disabled>Bulk Import</button>
-                        </div>
-                    </form>
-                    <div id="msgUpload"></div>
-                </div>
-                <?php } else { ?>
-                    <button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm hidden">Add Record</button>
-                    <div class="hidden">
-                        <form id="formUpload">
-                            <label for="file_input">
-                                <img id="file_output" class="absolute top-40 right-38 -translate-y-2 duration-150 cursor-pointer hover:z-20 hover:-translate-y-6 mt-4" width="60px" height="60px" src="../img/gen_doc.svg">
-                                <input type="file" id="file_input" name="file" accept="csv/*" class="hidden z-20"> </input>
-                            </label>
-                            <div>
-                                <button class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm mt-0.5" disabled>Bulk Import</button>
-                            </div>
+                <!-- Search, Add New Button, Bulk Import -->
+                <div class="flex justify-end items-center space-x-4">
+                    <!-- Search -->
+                    <div class="relative">
+                        <form method="post">
+                            <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-sg h-8" >
+                            <button id="searchBtn" class="rounded-md absolute right-0 top-1/2 transform -translate-y-1/2 bg-white border border-l-0 border-gray-300 p-2 h-full flex items-center justify-center pointer-events-none">
+                                <img class="w-4 h-4" src="../img/search.svg" alt="Search Icon"/>
+                            </button>
                         </form>
                     </div>
-                <?php } ?>
+                    <?php 
+                    if(hasPermission('system_settings')) {
+                    ?>
+                    <!-- Add Record -->
+                    <div>
+                        <a href="backend/add.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
+                    </div>
+                    <div>
+                        <!--Bulk Import-->
+                        <div>
+                            <form id="formUpload"  class="flex items-center">
+                                <div>
+                                    <button id="btnUpload" name="btnUpload" class="py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm" disabled>Bulk Import</button>
+                                </div>
+                                <label for="file_input">
+                                    <img id="file_output" class="size-10 cursor-pointer hover:animate-wiggle" src="../img/gen_doc.svg">
+                                    <input type="file" id="file_input" name="file" accept="csv/*" class="hidden"></input>
+                                </label>
+                            </form>
+                            <div id="msgUpload"></div>
+                        </div>
+                        <?php } else { ?>
+                            <button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm hidden">Add Record</button>
+                            <div class="hidden">
+                                <form id="formUpload">
+                                    <label for="file_input">
+                                        <img id="file_output" class="absolute top-40 right-38 -translate-y-2 duration-150 cursor-pointer hover:z-20 hover:-translate-y-6 mt-4" width="60px" height="60px" src="../img/gen_doc.svg">
+                                        <input type="file" id="file_input" name="file" accept="csv/*" class="hidden z-20"> </input>
+                                    </label>
+                                    <div>
+                                        <button class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm mt-0.5" disabled>Bulk Import</button>
+                                    </div>
+                                </form>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
             </div>
-        </div>
-        <!-- Tables -->
-        <div class="w-screen overflow-hidden mt-4">
-            <div class="border-2 border-c rounded-lg mx-32">
+            <!-- Options -->
+            <div class="flex justify-between items-center">
+                <!-- Categories -->
+                <div class="ml-32">
+                    <ul class="flex justify-start items-center space-x-4 ">
+                        <li onclick="showCategory('tb1','option1')"><button id="option1" class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">Personal Information</button></li>
+                        <li onclick="showCategory('tb2','option2')"><button id="option2" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Birth Details</button></li>
+                        <li onclick="showCategory('tb3','option3')"><button id="option3" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Contact Information</button></li>
+                        <li onclick="showCategory('tb4','option4')"><button id="option4" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Address Details</button></li>
+                        <li onclick="showCategory('tb5','option5')"><button id="option5" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Citizenship and Civil Status</button></li>
+                        <li onclick="showCategory('tb6','option6')"><button id="option6" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Residency and Occupation</button></li>
+                        <li onclick="showCategory('tb7','option7')"><button id="option7" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Health</button></li>
+                    </ul>
+                        
+                </div>
+                        
+            </div>
+            <!-- Tables -->
+            <div class="overflow-hidden mt-4 w-full">
+                <div class="border-2 border-c rounded-lg mx-32">
                 <!--Personal Information Table -->
-                <div id="tb1" class="overflow-auto no-scrollbar " style="height: 67vh;" >
-                <div class="rounded-t-sm pt-2 bg-c ">
+                <div id="tb1" class="overflow-auto no-scrollbar"  style="height: 67vh;">
+                    <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[200px]">
@@ -247,7 +242,7 @@ if (!isset($_SESSION['users'])) {
                         <?php $i++; } ?>
                         </tbody>
                     </table>
-                </div>
+                    </div>
                 </div>
                 <!--Birth Details Table -->
                 <div  id="tb2" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
@@ -804,211 +799,194 @@ if (!isset($_SESSION['users'])) {
                 </div>
                 </div>
                 <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
-            </div>
-        </div>
-    </div>
-    <!--Delete Confirmation -->
-    <div class="fixed z-50 hidden" id="confirmDeletion">
-        <div class="border-4 w-screen h-screen flex justify-center items-center">
-            <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-            <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
-                <div class="grid justify-center">
-                    <div class="text-3xl font-bold place-self-center mt-12">Confirm Deletion</div>
-                    <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
-                </div>
-                <div class="flex justify-center space-x-4 mt-6">
-                    <a id="deleteLink" href="#">
-                        <button class="bg-sg rounded-md w-32 h-12">
-                            Yes, Delete  
-                        </button>
-                    </a>
-                    <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- View Details -->
-    <div class="fixed z-50 hidden" id="viewDetails">
-        <div class="border-4 w-screen h-screen flex justify-end items-center">
-            <div class="absolute bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-            <div class="relative grid h-screen overflow-auto rounded-l-xl bg-white z-10" style="width:60vh">
-                <div class="pl-6 pt-2 flex items-center">
-                    <button onclick="cancelView()"><img src="../img/back.png" class="size-4"></button>
-                </div>
-                <div class="px-8" style="height:90vh;">
-                    <?php 
-                    $query = "SELECT * FROM `resident_info` WHERE `id` = :id";
-                    $stmt = $dbh->prepare($query);
-                    $stmt->execute(['id' => $_GET['id']]);
-                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    ?>
-                    <div class="grid gap-2 text-gray-400 ">
-                        <!--Personal Info Summary -->
-                        <div class="grid-cols-2 flex">
-                            <div class="w-6/12 ">
-                                <p class="text-xl">Personal Information</p>
-                                <ul class="ml-6"> 
-                                    <li>First Name</li>
-                                    <li>Middle Name</li>
-                                    <li>Last Name</li>
-                                    <li>Suffix</li>
-                                    <li>Gender</li>
-                                    <li>Age</li>
-                                </ul>
-                            </div>
-                            <div class="w-6/12 text-black">
-                                <p class="text-xl text-white">Personal Information</p>
-                                <ul class="ml-6"> 
-                                    <li><?=$row['first_name']?></li>
-                                    <li><?=$row['middle_name']?></li>
-                                    <li><?=$row['last_name']?></li>
-                                    <li><?=$row['suffix']?></li>
-                                    <li><?=$row['gender']?></li>
-                                    <li><?=$row['age']?></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--Birth Details Summary -->
-                        <div class="grid-cols-2 flex">
-                            <div class="w-6/12">
-                                <p class="text-xl">Birth Details</p>
-                                <ul class="ml-6"> 
-                                    <li>Date of Birth</li>
-                                    <li>Place of Birth Municipality/City</li>
-                                    <li>Place of Birth Province</li>
-                                </ul>
-                            </div>
-                            <div class="w-6/12 text-black">
-                                <p class="text-xl text-white">Birth Details</p>
-                                <ul class="ml-6"> 
-                                    <li><?=$row['birth_date']?></li>
-                                    <li><?=$row['birthplace_municipality_city']?></li>
-                                    <li><?=$row['birthplace_province']?></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--Contact Information Summary-->
-                        <div class="grid-cols-2 flex">
-                            <div class="w-6/12">
-                                <p class="text-xl">Contact Information</p>
-                                <ul class="ml-6"> 
-                                    <li>Contact Number</li>
-                                    <li>Email Address</li>
-                                </ul>
-                            </div>
-                                <div class="w-6/12 text-black">
-                                <p class="text-xl text-white">Contact Information</p>
-                                <ul class="ml-6"> 
-                                    <li><?=$row['contact_num']?></li>
-                                    <li><?=$row['email_address']?></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--Address Details-->
-                        <div class="grid-cols-2 flex">
-                            <div class="w-6/12">
-                                <p class="text-xl">Address Details</p>
-                                <ul class="ml-6"> 
-                                    <li>House Number</li>
-                                    <li>Street Name</li>
-                                    <li>Barangay Name</li>
-                                    <li>Municipality/City</li>
-                                    <li>Province</li>
-                                    <li>Zip Code</li>
-                                </ul>
-                            </div>
-                            <div class="w-6/12 text-black">
-                                <p class="text-xl text-white">Address Details</p>
-                                <ul class="ml-6"> 
-                                    <li><?=$row['house_num']?></li>
-                                    <li><?=$row['street_name']?></li>
-                                    <li><?=$row['barangay_name']?></li>
-                                    <li><?=$row['municipality_city']?></li>
-                                    <li><?=$row['province']?></li>
-                                    <li><?=$row['zip_code']?></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--Citizenship and Civil-->
-                        <div class="grid-cols-2 flex">
-                            <div class="w-6/12">
-                                <p class="text-xl">Citizenship and Civil Status</p>
-                                <ul class="ml-6"> 
-                                    <li>Citizenship</li>
-                                    <li>Civil Status</li>
-                                </ul>
-                            </div>
-                            <div class="w-6/12 text-black">
-                                <p class="text-xl text-white">Citizenship and Civil Status</p>
-                                <ul class="ml-6"> 
-                                    <li><?=$row['civil_status']?></li>
-                                    <li><?=$row['citizenship']?></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--Residency & Occupation-->
-                        <div class="grid-cols-2 flex">
-                            <div class="w-6/12">
-                                <p class="text-xl">Residency and Occupation</p>
-                                <ul class="ml-6"> 
-                                    <li>Occupation</li>
-                                    <li>Type of Residency</li>
-                                    <li>Start Date of Residency</li>
-                                    <li>End Date of Residency</li>
-                                </ul>
-                            </div>
-                            <div class="w-6/12 text-black">
-                                <p class="text-xl text-white">Residency and Occupation</p>
-                                <ul class="ml-6"> 
-                                    <li><?=$row['occupation']?></li>
-                                    <li><?=$row['residency_type']?></li>
-                                    <li><?=$row['start_residency']?></li>
-                                    <li><?=$row['end_residency']?></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--Health-->
-                        <div class="grid-cols-2 flex">
-                            <div class="w-6/12">
-                                <p class="text-xl">Health</p>
-                                <ul class="ml-6"> 
-                                    <li>Blood Type</li>
-                                    <li>Religion</li>
-                                </ul>
-                            </div>
-                            <div class="w-6/12 text-black">
-                                <p class="text-xl text-white">Health</p>
-                                <ul class="ml-6"> 
-                                    <li><?=$row['blood_type']?></li>
-                                    <li><?=$row['religion']?></li>
-                                </ul>
-                            </div>
-                        </div>
+        <!--Delete Confirmation -->
+        <div class="fixed z-50 hidden" id="confirmDeletion">
+            <div class="border-4 w-screen h-screen flex justify-center items-center">
+                <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
+                    <div class="grid justify-center">
+                        <div class="text-3xl font-bold place-self-center mt-12">Confirm Deletion</div>
+                        <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
                     </div>
-                    <?php } ?>
+                    <div class="flex justify-center space-x-4 mt-6">
+                        <a id="deleteLink" href="#">
+                            <button class="bg-sg rounded-md w-32 h-12">
+                                Yes, Delete  
+                            </button>
+                        </a>
+                        <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- View Details -->
+        <div class="fixed z-50 hidden" id="viewDetails">
+            <div class="border-4 w-screen h-screen flex justify-end items-center">
+                <div class="absolute bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                <div class="relative grid h-screen overflow-auto rounded-l-xl bg-white z-10" style="width:60vh">
+                    <div class="pl-6 pt-2 flex items-center">
+                        <button onclick="cancelView()"><img src="../img/back.png" class="size-4"></button>
+                    </div>
+                    <div class="px-8" style="height:90vh;">
+                        <?php 
+                        $query = "SELECT * FROM `resident_info` WHERE `id` = :id";
+                        $stmt = $dbh->prepare($query);
+                        $stmt->execute(['id' => $_GET['id']]);
+                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                        <div class="grid gap-2 text-gray-400 ">
+                            <!--Personal Info Summary -->
+                            <div class="grid-cols-2 flex">
+                                <div class="w-6/12 ">
+                                    <p class="text-xl">Personal Information</p>
+                                    <ul class="ml-6"> 
+                                        <li>First Name</li>
+                                        <li>Middle Name</li>
+                                        <li>Last Name</li>
+                                        <li>Suffix</li>
+                                        <li>Gender</li>
+                                        <li>Age</li>
+                                    </ul>
+                                </div>
+                                <div class="w-6/12 text-black">
+                                    <p class="text-xl text-white">Personal Information</p>
+                                    <ul class="ml-6"> 
+                                        <li><?=$row['first_name']?></li>
+                                        <li><?=$row['middle_name']?></li>
+                                        <li><?=$row['last_name']?></li>
+                                        <li><?=$row['suffix']?></li>
+                                        <li><?=$row['gender']?></li>
+                                        <li><?=$row['age']?></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Birth Details Summary -->
+                            <div class="grid-cols-2 flex">
+                                <div class="w-6/12">
+                                    <p class="text-xl">Birth Details</p>
+                                    <ul class="ml-6"> 
+                                        <li>Date of Birth</li>
+                                        <li>Place of Birth Municipality/City</li>
+                                        <li>Place of Birth Province</li>
+                                    </ul>
+                                </div>
+                                <div class="w-6/12 text-black">
+                                    <p class="text-xl text-white">Birth Details</p>
+                                    <ul class="ml-6"> 
+                                        <li><?=$row['birth_date']?></li>
+                                        <li><?=$row['birthplace_municipality_city']?></li>
+                                        <li><?=$row['birthplace_province']?></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Contact Information Summary-->
+                            <div class="grid-cols-2 flex">
+                                <div class="w-6/12">
+                                    <p class="text-xl">Contact Information</p>
+                                    <ul class="ml-6"> 
+                                        <li>Contact Number</li>
+                                        <li>Email Address</li>
+                                    </ul>
+                                </div>
+                                    <div class="w-6/12 text-black">
+                                    <p class="text-xl text-white">Contact Information</p>
+                                    <ul class="ml-6"> 
+                                        <li><?=$row['contact_num']?></li>
+                                        <li><?=$row['email_address']?></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Address Details-->
+                            <div class="grid-cols-2 flex">
+                                <div class="w-6/12">
+                                    <p class="text-xl">Address Details</p>
+                                    <ul class="ml-6"> 
+                                        <li>House Number</li>
+                                        <li>Street Name</li>
+                                        <li>Barangay Name</li>
+                                        <li>Municipality/City</li>
+                                        <li>Province</li>
+                                        <li>Zip Code</li>
+                                    </ul>
+                                </div>
+                                <div class="w-6/12 text-black">
+                                    <p class="text-xl text-white">Address Details</p>
+                                    <ul class="ml-6"> 
+                                        <li><?=$row['house_num']?></li>
+                                        <li><?=$row['street_name']?></li>
+                                        <li><?=$row['barangay_name']?></li>
+                                        <li><?=$row['municipality_city']?></li>
+                                        <li><?=$row['province']?></li>
+                                        <li><?=$row['zip_code']?></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Citizenship and Civil-->
+                            <div class="grid-cols-2 flex">
+                                <div class="w-6/12">
+                                    <p class="text-xl">Citizenship and Civil Status</p>
+                                    <ul class="ml-6"> 
+                                        <li>Citizenship</li>
+                                        <li>Civil Status</li>
+                                    </ul>
+                                </div>
+                                <div class="w-6/12 text-black">
+                                    <p class="text-xl text-white">Citizenship and Civil Status</p>
+                                    <ul class="ml-6"> 
+                                        <li><?=$row['civil_status']?></li>
+                                        <li><?=$row['citizenship']?></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Residency & Occupation-->
+                            <div class="grid-cols-2 flex">
+                                <div class="w-6/12">
+                                    <p class="text-xl">Residency and Occupation</p>
+                                    <ul class="ml-6"> 
+                                        <li>Occupation</li>
+                                        <li>Type of Residency</li>
+                                        <li>Start Date of Residency</li>
+                                        <li>End Date of Residency</li>
+                                    </ul>
+                                </div>
+                                <div class="w-6/12 text-black">
+                                    <p class="text-xl text-white">Residency and Occupation</p>
+                                    <ul class="ml-6"> 
+                                        <li><?=$row['occupation']?></li>
+                                        <li><?=$row['residency_type']?></li>
+                                        <li><?=$row['start_residency']?></li>
+                                        <li><?=$row['end_residency']?></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Health-->
+                            <div class="grid-cols-2 flex">
+                                <div class="w-6/12">
+                                    <p class="text-xl">Health</p>
+                                    <ul class="ml-6"> 
+                                        <li>Blood Type</li>
+                                        <li>Religion</li>
+                                    </ul>
+                                </div>
+                                <div class="w-6/12 text-black">
+                                    <p class="text-xl text-white">Health</p>
+                                    <ul class="ml-6"> 
+                                        <li><?=$row['blood_type']?></li>
+                                        <li><?=$row['religion']?></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 <script>
-    //hover on nav 
-    function hoverNav() {
-        let generate = document.getElementById("gen_doc");
-        let setting = document.getElementById("setting");
-        let mainNav = document.getElementById("mainNav");
-        mainNav.style.height = "11rem";
-        generate.style.opacity = "1";
-        setting.style.opacity = "1";
-    }
-    function leaveNav() {
-        let generate = document.getElementById("gen_doc");
-        let setting = document.getElementById("setting");
-        let mainNav = document.getElementById("mainNav");
-
-        mainNav.style.height = "3.5rem";
-        generate.style.opacity = "0";
-        setting.style.opacity = "0";
-    }
     //confirm deletion
     function confirmDeletion(id) {
         document.getElementById("confirmDeletion").classList.remove("hidden");

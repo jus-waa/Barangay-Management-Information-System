@@ -19,76 +19,69 @@ if (!isset($_SESSION['users'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body class="relative">
-    <!-- Header -->
-    <div class="grid grid-cols-2 items-center">
-        <div class="flex flex-row items-start">
-            <!-- Nav -->
-            <div id="mainNav" onmouseover="hoverNav()" onmouseleave="leaveNav()" class="flex flex-col mr-16 rounded-b-full h-14 w-16 hover:h-44 bg-c duration-500 ease-in-out">
-                <a href="generatedocuments.php">
-                    <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex w-20 mt-1 rounded-b-full">
-                        <img class="place-self-center size-10 ml-3 mb-2" src="../img/gen_doc.svg">
-                        <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">Generate Documents</span>
-                    </button>
-                </a>
-                <a href="residentpage.php">
-                        <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
-                            <img  class="place-self-center size-8 ml-4 mb-4 mt-2" src="../img/res_info.svg">
-                            <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">Resident Information</span>
+    <div class="flex h-screen w-screen overflow-auto">
+        <!-- Sidebar -->
+        <div class="flex-none w-20 h-full shadow-2xl">
+            <!--Nav-->
+            <div id="mainNav" class="flex flex-col place-content-start h-full w-full bg-c duration-500 ease-in-out">
+                <div class="mt-24 flex flex-col space-y-6">
+                    <a href="residentpage.php">
+                        <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
+                            <img  class="size-10 my-2" src="../img/res_info.svg">
+                            <span id="res_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">Resident Information</span>
                         </button>
                     </a>
-                <?php
+                    <a href="generatedocuments.php">
+                        <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
+                            <img  class="size-13 my-1" src="../img/gen_doc.svg">
+                            <span id="doc_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">Generate Documents</span>
+                        </button>
+                    </a>
+                    <?php
                     if (hasPermission('system_settings')){
                     ?>
                     <a href="accountmanagement.php">
-                        <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
-                            <img  class="place-self-center size-8 ml-4 mb-4" src="../img/setting.svg" >
-                            <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">System Settings</span>
+                        <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
+                            <img  class="size-10 my-2" src="../img/setting.svg" >
+                            <span id="set_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">System Settings</span>
                         </button>
                     </a>
                     <?php 
                     } else {
                     ?>
-                    <button disabled id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
-                        <img  class="place-self-center size-8 ml-4 mb-4 mt-2" src="../img/setting.svg" >
-                        <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-gray-600 rounded-full bg-gray-500 text-gray-600 min-w-52">System Settings</span>
+                    <button disabled id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
+                        <img  class="size-10 my-2" src="../img/setting.svg" >
+                        <span id="set_title" class="absolute ml-76 z-10 p-2 border-4 border-gray-600 rounded-full bg-gray-500 text-gray-600 min-w-52 hidden ">System Settings</span>
                     </button>
                     <?php
                     }
-                ?>
-            </div>
-
-            <!-- Left section: Title (Generate Documents) -->
-            <div class="bg-c w-3/5 p-4 px-8 mt-6 rounded-lg place-self-center">
-                    <h1 class="text-5xl font-bold mb-2 text-center">
-                        Generate<br>Documents
-                    </h1>
-                    <div class="bg-sg w-full h-10 rounded-lg"></div>
+                    ?>
                 </div>
+            </div>
         </div>
-
-        <!-- Right section: List of Records -->
-        <div class="relative inline-block w-2/4 place-self-center ml-56">
-            <div class="bg-c h-12 rounded-lg flex items-center justify-center p-8">
-                <h1 class="text-2xl font-bold text-center">Select a document</h1>
+        <!-- Main -->
+        <div class="w-full h-screen"> 
+            <!-- Header -->
+            <div class="shadow-md px-32 h-20 py-6">
+                <div class="text-3xl">
+                    Generate Documents
+                </div>
             </div>
-            <div class="bg-sg w-3/4 h-6 rounded-lg absolute right-0 top-14 -z-10"></div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="mt-40"> <!-- Add margin-top for spacing -->
-        <div class="w-full p-10 rounded-lg flex justify-center space-x-14 bg-c">
-            <div class="document-button flex flex-col items-center w-40 cursor-pointer">
-                <img width="50" height="50" src="../img/clearance.svg" alt="clearance" />
-                <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Barangay <br>Clearance</span>
-            </div>
-            <div class="document-button flex flex-col items-center w-40 cursor-pointer">
-                <img width="50" height="50" src="../img/indigency.svg" alt="indigency" />
-                <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Certificate of<br>Indigency</span>
-            </div>
-            <div class="document-button flex flex-col items-center w-40 cursor-pointer">
-                <img width="50" height="50" src="../img/residency.svg" alt="residency" />
-                <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Certificate of<br>Residency</span>
+            <div class="grid content-center h-5/6">
+                <div class="flex justify-center space-x-14 bg-c w-full p-10 shadow-md">
+                    <div class="document-button flex flex-col items-center w-40 cursor-pointer">
+                        <img width="50" height="50" src="../img/clearance.svg" alt="clearance" />
+                        <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Barangay <br>Clearance</span>
+                    </div>
+                    <div class="document-button flex flex-col items-center w-40 cursor-pointer">
+                        <img width="50" height="50" src="../img/indigency.svg" alt="indigency" />
+                        <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Certificate of<br>Indigency</span>
+                    </div>
+                    <div class="document-button flex flex-col items-center w-40 cursor-pointer">
+                        <img width="50" height="50" src="../img/residency.svg" alt="residency" />
+                        <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Certificate of<br>Residency</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

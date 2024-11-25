@@ -3,12 +3,19 @@ module.exports = {
   content: ["./src/**/*.{html,js,php}"],
   theme: {
     extend: {
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        }
+      },
+      animation: {
+        wiggle: 'wiggle 1s ease-in-out infinite',
+      },
       colors: {
         'pg': '#53A548', // pigment green
         'sg': '#4C934C', // sea green
         'c': '#AFE1AF', // very light green
-        'lg': '#9ccc65',
-        'dg': '#689f38',
       },
       translate: {
         '13.5': '3.3rem',

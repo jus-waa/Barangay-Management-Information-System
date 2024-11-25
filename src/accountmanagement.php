@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("backend/connection.php");
+include("backend/helper.php");
 $stmt = $dbh->prepare("SELECT * FROM `users`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -21,59 +22,66 @@ if (!isset($_SESSION['users'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body class="relative">
-    <!-- Header -->
-    <div class="absolute w-full h-full">
-        <div class="grid grid-cols-2 items-center -z-20">
-            <div class="flex flex-row items-start">
-                <!--Nav-->
-                <div id="mainNav" onmouseover="hoverNav()" onmouseleave="leaveNav()" class="flex flex-col mr-16 rounded-b-full h-14 w-16 bg-c duration-500 ease-in-out">
-                    <a href="accountmanagement.php">
-                        <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="w-20 mt-2 rounded-b-full flex">
-                            <img  class="place-self-center size-8 ml-4 mb-4" src="../img/setting.svg" >
-                            <span id="set_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">System Settings</span>
+    <div class="flex h-screen w-screen overflow-auto">
+        <!-- Sidebar -->
+        <div class="flex-none w-20 h-full shadow-2xl">
+            <!--Nav-->
+            <div id="mainNav" class="flex flex-col place-content-start h-full w-full bg-c duration-500 ease-in-out">
+                <div class="mt-24 flex flex-col space-y-6">
+                    <a href="residentpage.php">
+                        <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
+                            <img  class="size-10 my-2" src="../img/res_info.svg">
+                            <span id="res_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">Resident Information</span>
                         </button>
                     </a>
                     <a href="generatedocuments.php">
-                        <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="w-20 opacity-0 mt-1 rounded-b-full flex">
-                            <img  class="place-self-center size-10 ml-3 mb-2 mt-1" src="../img/gen_doc.svg">
-                            <span id="doc_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">Generate Documents</span>
+                        <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
+                            <img  class="size-13 my-1" src="../img/gen_doc.svg">
+                            <span id="doc_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">Generate Documents</span>
                         </button>
                     </a>
-                    <a href="residentpage.php">
-                        <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="w-20 opacity-0 mt-2 rounded-b-full flex">
-                            <img  class="place-self-center size-8 ml-4 mb-4 mt-2" src="../img/res_info.svg">
-                            <span id="res_title" class="hidden ml-8 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52">Resident Information</span>
+                    <?php
+                    if (hasPermission('system_settings')){
+                    ?>
+                    <a href="accountmanagement.php">
+                        <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
+                            <img  class="size-10 my-2" src="../img/setting.svg" >
+                            <span id="set_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">System Settings</span>
                         </button>
                     </a>
+                    <?php 
+                    } else {
+                    ?>
+                    <button disabled id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
+                        <img  class="size-10 my-2" src="../img/setting.svg" >
+                        <span id="set_title" class="absolute ml-76 z-10 p-2 border-4 border-gray-600 rounded-full bg-gray-500 text-gray-600 min-w-52 hidden ">System Settings</span>
+                    </button>
+                    <?php
+                    }
+                    ?>
+                </div>
             </div>
-
-                <!-- Title Section -->
-                <div class="bg-c w-3/5 p-4 px-8 mt-6 rounded-lg place-self-center">
-                    <h1 class="text-5xl font-bold mb-2 text-center">
-                        Account<br>Management
-                    </h1>
-                    <div class="bg-sg w-full h-10 rounded-lg"></div>
+        </div>
+        <!-- Main -->
+        <div class="w-full h-screen">
+            <!-- Header -->
+            <div class="shadow-md px-32 h-20 py-6">
+                <div class="text-3xl">
+                    Account Management
                 </div>
             </div>
 
-            <!-- Accounts List -->
-            <div class="relative inline-block w-2/4 place-self-center ml-24 ll:ml-56 -z-20">
-                <div class="bg-c h-12 rounded-lg flex items-center justify-center p-8">
-                    <h1 class="text-2xl font-bold text-center">List of accounts</h1>
+            <!-- List of Accounts -->
+            <div class="grid content-center h-5/6">
+                <!-- Regular Section -->
+                <div class="flex justify-between items-end mx-32">
+                    <div class="bg-c text-black py-2 px-14 rounded-xl font-bold text-3xl min-w-[200px] text-center">Regular</div>
+                    <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a>
                 </div>
-                <div class="bg-sg w-3/4 h-6 rounded-lg absolute right-0 top-14 -z-10"></div>
-            </div>
-        </div>
 
-        <!-- Regular Section -->
-        <div class="flex justify-between items-end mx-32 mt-16">
-            <div class="bg-c text-black py-2 px-14 rounded-xl font-bold text-3xl min-w-[200px] text-center">Regular</div>
-            <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a>
-        </div>
-
-        <!-- Regular Account Table -->
-        <div class="w-screen overflow-hidden mt-4">
-            <div class="border-2 border-c rounded-lg mx-32">
+                <!-- Regular Account Table -->
+                <div class="w-full overflow-hidden mt-4">
+                <div class="border-2 border-c rounded-lg mx-32">
                 <!--Regular-->
                 <div id="tb1" class="overflow-auto no-scrollbar ">
                 <div class="rounded-t-sm pt-2 bg-c ">
@@ -168,19 +176,19 @@ if (!isset($_SESSION['users'])) {
                 </div>
                 </div>
                 <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
-            </div>
-        </div>
+                </div>
+                </div>
 
-        <!-- Admin Section -->
-        <div class="flex justify-between items-end mx-32 mt-16">
-            <div class="bg-c text-black py-2 px-16 rounded-xl font-bold text-3xl min-w-[200px] text-center">Admin</div>
-            <!-- <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a> -->
-        </div>
+                <!-- Admin Section -->
+                <div class="flex justify-between items-end mx-32 mt-16">
+                    <div class="bg-c text-black py-2 px-16 rounded-xl font-bold text-3xl min-w-[200px] text-center">Admin</div>
+                    <!-- <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a> -->
+                </div>
 
-        <!-- Admin Table -->
-        <div class="w-screen overflow-hidden mt-4">
-            <div class="border-2 border-c rounded-lg mx-32">
-                <!--Regular-->
+                <!-- Admin Table -->
+                <div class="w-full overflow-hidden mt-4">
+                <div class="border-2 border-c rounded-lg mx-32">
+                <!-- Admin -->
                 <div id="tb1" class="overflow-auto no-scrollbar ">
                 <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse">
@@ -271,25 +279,27 @@ if (!isset($_SESSION['users'])) {
                 </div>
                 </div>
                 <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
+                </div>
+                </div>
             </div>
         </div>
-    </div>
-    <!--Confirm Deletion-->
-    <div class="fixed z-50 hidden" id="confirmDeletion">
-        <div class="border-4 w-screen h-screen flex justify-center items-center">
-            <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-            <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
-                <div class="grid justify-center">
-                    <div class="text-3xl font-bold place-self-center mt-12">Confirm Deletion</div>
-                    <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
-                </div>
-                <div class="flex justify-center space-x-4 mt-6">
-                    <a id="deleteLink" href="#">
-                        <button class="bg-sg rounded-md w-32 h-12">
-                            Yes, Delete  
-                        </button>
-                    </a>
-                    <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+        <!--Confirm Deletion-->
+        <div class="fixed z-50 hidden" id="confirmDeletion">
+            <div class="border-4 w-screen h-screen flex justify-center items-center">
+                <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
+                    <div class="grid justify-center">
+                        <div class="text-3xl font-bold place-self-center mt-12">Confirm Deletion</div>
+                        <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
+                    </div>
+                    <div class="flex justify-center space-x-4 mt-6">
+                        <a id="deleteLink" href="#">
+                            <button class="bg-sg rounded-md w-32 h-12">
+                                Yes, Delete  
+                            </button>
+                        </a>
+                        <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                    </div>
                 </div>
             </div>
         </div>
