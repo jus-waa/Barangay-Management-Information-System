@@ -921,8 +921,8 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                             <!-- Birth Details -->
-                            <p class="text-xl">Birth Details</p>
                             <div class="grid-cols-2">
+                            <p class="text-xl">Birth Details</p>
                                 <!-- Birth Date-->
                                 <div class="flex">
                                     <div class="w-6/12 ">
@@ -964,8 +964,8 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                             <!-- Contact Number -->
-                            <p class="text-xl">Contact Number</p>
                             <div class="grid-cols-2">
+                            <p class="text-xl">Contact Number</p>
                                 <!-- Birthplace Province -->
                                 <div class="flex">
                                     <div class="w-6/12 ">
@@ -994,8 +994,8 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                             <!-- Address Details -->
-                            <p class="text-xl">Address Details</p>
                             <div class="grid-cols-2">
+                            <p class="text-xl">Address Details</p>
                                 <!-- Birthplace Province -->
                                 <div class="flex">
                                     <div class="w-6/12 ">
@@ -1071,6 +1071,122 @@ if (!isset($_SESSION['users'])) {
                                     <div class="w-6/12 ">
                                         <ul class="ml-6"> 
                                             <li><?=$row['zip_code']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Citizenship and Civil Status -->
+                            <div class="grid-cols-2">
+                            <p class="text-xl">Citizenship and Civil Status</p>
+                                <!-- Civil Status -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Civil Status</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['civil_status']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Citizenship -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Citizenship</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['citizenship']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Residency and Occupation -->
+                            <div class="grid-cols-2">
+                            <p class="text-xl">Residency and Occupation</p>
+                                <!-- Occupation -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Occupation</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['occupation']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Type of Residency -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Type of Residency</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['residency_type']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Start of Residency -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Start of Residency</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['start_residency']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- End of Residency -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Start of Residency</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['end_residency']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Health -->
+                            <div class="grid-cols-2">
+                            <p class="text-xl">Residency and Occupation</p>
+                                <!-- Bloodtype -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Blood Type</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['blood_type']?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Religion -->
+                                <div class="flex">
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li>Blood Type</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-6/12 ">
+                                        <ul class="ml-6"> 
+                                            <li><?=$row['religion']?></li>
                                         </ul>
                                     </div>
                                 </div>
