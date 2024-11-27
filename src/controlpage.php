@@ -16,7 +16,7 @@
     <title>Barangay Management Sytem</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../script.js" defer></script>
-
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body  class="relative">
     <div class="grid grid-rows-2/5 grid-cols-1 rounded-xl w-full">
