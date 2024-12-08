@@ -47,7 +47,7 @@ if (!isset($_SESSION['users'])) {
                     ?>
                     <a href="accountmanagement.php">
                         <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
-                            <img  class="size-10 my-2" src="../img/setting.svg" >
+                            <img class="size-10 my-2" src="../img/setting.svg"  >
                             <span id="set_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">System Settings</span>
                         </button>
                     </a>
@@ -82,12 +82,14 @@ if (!isset($_SESSION['users'])) {
                             </button>
                         </form>
                     </div>
-                    
-                    <!-- Add Record -->
-                    <div>
-                        <a href="backend/add.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
-                    </div>
-                    <div>
+                    <?php 
+                    if(hasPermission('system_settings')) {
+                    ?>
+                        <!-- Add Record -->
+                        <div>
+                            <a href="backend/add.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
+                        </div>
+                        <div>
                         <!--Bulk Import-->
                         <div>
                             <form id="formUpload"  class="flex items-center">
@@ -101,23 +103,7 @@ if (!isset($_SESSION['users'])) {
                             </form>
                             <div id="msgUpload"></div>
                         </div>
-                        <?php 
-                        if(!hasPermission('system_settings')) {
-                        ?>
-                            <button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm hidden">Add Record</button>
-                            <div class="hidden">
-                                <form id="formUpload">
-                                    <label for="file_input">
-                                        <img id="file_output" class="absolute top-40 right-38 -translate-y-2 duration-150 cursor-pointer hover:z-20 hover:-translate-y-6 mt-4" width="60px" height="60px" src="../img/gen_doc.svg">
-                                        <input type="file" id="file_input" name="file" accept="csv/*" class="hidden z-20"> </input>
-                                    </label>
-                                    <div>
-                                        <button class="absolute top-52 right-32 py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm mt-0.5" disabled>Bulk Import</button>
-                                    </div>
-                                </form>
-                            </div>
-                        <?php } ?>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
             <!-- Options -->
