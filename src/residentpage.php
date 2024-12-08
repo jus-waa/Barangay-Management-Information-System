@@ -82,9 +82,7 @@ if (!isset($_SESSION['users'])) {
                             </button>
                         </form>
                     </div>
-                    <?php 
-                    if(hasPermission('system_settings')) {
-                    ?>
+                    
                     <!-- Add Record -->
                     <div>
                         <a href="backend/add.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
@@ -103,7 +101,9 @@ if (!isset($_SESSION['users'])) {
                             </form>
                             <div id="msgUpload"></div>
                         </div>
-                        <?php } else { ?>
+                        <?php 
+                        if(!hasPermission('system_settings')) {
+                        ?>
                             <button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm hidden">Add Record</button>
                             <div class="hidden">
                                 <form id="formUpload">
