@@ -89,7 +89,6 @@ if (!isset($_SESSION['users'])) {
                         <div>
                             <a href="backend/add.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
                         </div>
-                        <div>
                         <!--Bulk Import-->
                         <div>
                             <form id="formUpload"  class="flex items-center">
