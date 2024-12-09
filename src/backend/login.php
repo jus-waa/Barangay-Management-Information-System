@@ -20,16 +20,16 @@ include("connection.php");
             $_SESSION['login_msg'] = "User Exists.";    
             //redirect to this location
             header('location: ../controlpage.php');
+            exit();
         } else if (empty($email) || empty($pass)){
             //return to page
             $_SESSION['login_msg'] = "Empty credentials!";
             header('location: ../loginpage.php');
+            exit();
         }   else {
             //return to page
             $_SESSION['login_msg'] = "Invalid credentials!";
             header('location: ../loginpage.php');
+            exit();
         }   
-
-
-    
 ?>

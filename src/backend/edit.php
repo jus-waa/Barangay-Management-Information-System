@@ -124,7 +124,7 @@ if(isset($_POST['update'])) {
             $stmt->execute(['id' => $_GET['id']]);
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             ?>
-            <form method="post">
+            <form method="post" id="personal_info">
                 <!-- Personal Information -->
                 <div class="rounded-lg p-2 mb-8">
                     <div>
@@ -133,6 +133,7 @@ if(isset($_POST['update'])) {
                             <div>
                                 <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['first_name']?>" placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">First Name</label>
+                                <span id="first-name-error" class="text-red-500 text-sm hidden">Field is required</span>
                             </div>
                             <div class="relative">
                                 <input id="middle-name" name="middle_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['middle_name']?>" placeholder=" "/> 
@@ -147,6 +148,7 @@ if(isset($_POST['update'])) {
                                 <div class="flex-grow mr-2">
                                     <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg"  value="<?php echo $row['last_name']?>" placeholder=" "/> 
                                     <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Last Name</label>
+                                    <span id="last-name-error" class="text-red-500 text-sm hidden">Field is required</span>
                                 </div>
                                 <div for="suffix" class="flex flex-col flex-grow">
                                     <?php
@@ -165,6 +167,7 @@ if(isset($_POST['update'])) {
                                 <div class="flex-grow mr-2">
                                     <input id="age" maxlength="3" name="age" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['age']?>" placeholder=" "/> 
                                     <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Age</label>
+                                    <span id="age-error" class="text-red-500 text-sm hidden">Field is required</span>
                                 </div>
                                 <div for="gender" class="flex flex-col flex-grow">
                                     <?php
@@ -177,6 +180,7 @@ if(isset($_POST['update'])) {
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <span id="gender-error" class="text-red-500 text-sm hidden">Field is required</span>
                                 </div>
                             </div>
                         </div>
@@ -337,7 +341,7 @@ if(isset($_POST['update'])) {
                 </div>
                 <!-- Buttons -->
                 <div class="flex justify-end gap-2">
-                    <button name="update" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Add</button><br>
+                    <button name="update" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Update</button><br>
                     <button name="cancel" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Cancel</button><br>
                 </div>
                 <?php } ?>
@@ -355,7 +359,68 @@ if(isset($_POST['update'])) {
             </div>
         </div>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("personal_info");
+    const firstNameInput = document.getElementById("first-name");
+    const lastNameInput = document.getElementById("last-name");
+    const ageInput = document.getElementById("age");
+    const genderInput = document.getElementById("gender");
 
+    const firstNameError = document.getElementById("first-name-error");
+    const lastNameError = document.getElementById("last-name-error");
+    const ageError = document.getElementById("age-error");
+    const genderError = document.getElementById("gender-error");
+
+    form.addEventListener("submit", (event) => {
+            let isValid = true;
+            let firstInvalidElement = null;
+
+            // Validate First Name
+            if (!firstNameInput.value.trim()) {
+                isValid = false;
+                firstNameError.classList.remove("hidden");
+                firstNameInput.focus();
+                firstInvalidElement = firstInvalidElement || firstNameInput;
+            } else {
+                firstNameError.classList.add("hidden");
+            }
+
+            // Validate Last Name
+            if (!lastNameInput.value.trim()) {
+                isValid = false;
+                lastNameError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || lastNameInput;
+            } else {
+                lastNameError.classList.add("hidden");
+            }
+
+            // Validate Age
+            if (!ageInput.value.trim()) {
+                isValid = false;
+                ageError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || ageInput;
+            } else {
+                ageError.classList.add("hidden");
+            }
+
+            // Validate Gender
+            if (!genderInput.value.trim()) {
+                isValid = false;
+                genderError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || genderInput;
+            } else {
+                genderError.classList.add("hidden");
+            }
+
+            // Prevent form submission if validation fails
+            if (!isValid) {
+                event.preventDefault();
+                firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        });
+    });
+    </script>
     <script>
     $(document).ready(function() {
         // Input mask for the phone number
