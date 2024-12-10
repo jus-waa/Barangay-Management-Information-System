@@ -13,11 +13,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
-    <style>
-    html {
-    scroll-behavior: smooth;
-    }
-    </style>
 </head>
 <body class="relative h-screen w-full bg-cover bg-center bg-fixed">
     <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/indang.webp'); filter: blur(2px); z-index: -1;"></div>
@@ -26,6 +21,20 @@
         <!-- Main Content -->
         <div class="w-4/5 p-6 mt-4 bg-white rounded-lg">
             <form method="post" id="personal_info">
+                <!-- Select from records -->
+                <div class="grid grid-cols-2 ">
+                    <div class="pt-1">
+                        <div class="rounded-md border-2 hover:border-sg hover:bg-c cursor-pointer p-2 transition duration-700 w-9 ml-2">
+                            <a href="generatedocuments.php"><img src="../img/back.png" class="size-4"></a>
+                        </div>
+                    </div>
+                    <div class="grid justify-items-end ">
+                        <div class="flex rounded-md border-2 hover:border-sg hover:bg-c cursor-pointer transition duration-700">
+                            <button class="rounded-md w-48 p-2 place-self-center border-2 hover:border-sg transition duration-700" hidden>Select from Records</button><br>
+                            <img src="../img/residency.svg" class="size-10 p-2" alt="select from records">
+                        </div>
+                    </div>
+                </div>
                 <!-- Two-column Grid -->
                 <div class="grid grid-cols-2 gap-20">
                     <!-- First Column: Personal Information and Purpose -->
@@ -148,68 +157,7 @@
             <img src="../img/coat.png" alt="Bottom Image" class="w-[100px] h-[100px] object-contain">
         </div>
     </div>
-    
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("personal_info");
-    const firstNameInput = document.getElementById("first-name");
-    const lastNameInput = document.getElementById("last-name");
-    const ageInput = document.getElementById("age");
-    const genderInput = document.getElementById("gender");
-
-    const firstNameError = document.getElementById("first-name-error");
-    const lastNameError = document.getElementById("last-name-error");
-    const ageError = document.getElementById("age-error");
-    const genderError = document.getElementById("gender-error");
-
-    form.addEventListener("submit", (event) => {
-            let isValid = true;
-            let firstInvalidElement = null;
-
-            // Validate First Name
-            if (!firstNameInput.value.trim()) {
-                isValid = false;
-                firstNameError.classList.remove("hidden");
-                firstNameInput.focus();
-                firstInvalidElement = firstInvalidElement || firstNameInput;
-            } else {
-                firstNameError.classList.add("hidden");
-            }
-
-            // Validate Last Name
-            if (!lastNameInput.value.trim()) {
-                isValid = false;
-                lastNameError.classList.remove("hidden");
-                firstInvalidElement = firstInvalidElement || lastNameInput;
-            } else {
-                lastNameError.classList.add("hidden");
-            }
-
-            // Validate Age
-            if (!ageInput.value.trim()) {
-                isValid = false;
-                ageError.classList.remove("hidden");
-                firstInvalidElement = firstInvalidElement || ageInput;
-            } else {
-                ageError.classList.add("hidden");
-            }
-
-            // Validate Gender
-            if (!genderInput.value.trim()) {
-                isValid = false;
-                genderError.classList.remove("hidden");
-                firstInvalidElement = firstInvalidElement || genderInput;
-            } else {
-                genderError.classList.add("hidden");
-            }
-
-            // Prevent form submission if validation fails
-            if (!isValid) {
-                event.preventDefault();
-                firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
-            }
-        });
-    });
     </script>
     <script>
     $(document).ready(function() {
