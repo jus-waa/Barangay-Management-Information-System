@@ -85,6 +85,7 @@ if (!isset($_SESSION['users'])) {
                 </div>
             </div>
         </div>
+        
     </div>
 <script>
    //hover on nav 
@@ -119,5 +120,4 @@ if (!isset($_SESSION['users'])) {
     }
 </script>
 </body>
-
 </html>

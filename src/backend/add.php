@@ -320,8 +320,8 @@ if(isset($_POST['add'])) {
                 </div>
                 <!-- Buttons -->
                 <div class="flex justify-end gap-2">
-                    <button type="submit" name="add" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Add</button><br>
-                    <button name="cancel" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Cancel</button><br>
+                    <button id="add-button" name="add" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Add</button><br>
+                    <button id="cancel-button" name="cancel" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700"><a href="../residentpage.php">Cancel</a></button><br>
                 </div>
             </form>
         </div>
@@ -343,7 +343,12 @@ if(isset($_POST['add'])) {
     const ageError = document.getElementById("age-error");
     const genderError = document.getElementById("gender-error");
 
-    form.addEventListener("submit", (event) => {
+    const addButton = document.getElementById("add-button"); // Assume the Add button has this ID
+    const cancelButton = document.getElementById("cancel-button"); // Assume the Cancel button has this ID
+
+    form.addEventListener("click", (event) => {
+            event.preventDefault(); // Prevent default button behavior (form submission)
+
             let isValid = true;
             let firstInvalidElement = null;
 
@@ -389,6 +394,12 @@ if(isset($_POST['add'])) {
                 event.preventDefault();
                 firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
             }
+        });
+        // Cancel Button: Redirect to another page
+        cancelButton.addEventListener("click", (event) => {
+            event.preventDefault(); // Prevent default button behavior
+            // Redirect to another page (replace 'your-page-url' with the actual URL)
+            window.location.href = "../residentpage.php"; 
         });
     });
     </script>
