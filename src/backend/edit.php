@@ -196,11 +196,11 @@ if(isset($_POST['update'])) {
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Date of Birth</label>
                             </div>
                             <div>
-                                <input id="place-of-birth-city" name="bp_municipality_city" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['birthplace_municipality_city']?>" placeholder=" "/> 
+                                <input id="place-of-birth-city" name="birthplace_municipality_city" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['birthplace_municipality_city']?>" placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-4 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Place of Birth (Municipality/City)</label>
                             </div>
                             <div>
-                                <input id="place-of-birth-province" name="bp_province" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['birthplace_province']?>" placeholder=" "/> 
+                                <input id="place-of-birth-province" name="birthplace_province" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['birthplace_province']?>" placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-4 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Place of Birth (Province)</label>
                             </div>
                         </div>
@@ -272,7 +272,6 @@ if(isset($_POST['update'])) {
                                         <option value="<?=$civilStatus?>" <?= $row['civil_status'] == $civilStatus ? "selected" : "" ?>>
                                             <?=$civilStatus == "" ? "Select Civil Status" : $civilStatus?>
                                         </option>
-                                    <option value="Widowed">Widowed</option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -324,7 +323,7 @@ if(isset($_POST['update'])) {
                                 <?php
                                 $bloodOptions = ["", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
                                 ?>
-                                <select id="blood-type" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1  text-sm">
+                                <select id="blood-type" name="blood_type" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1  text-sm">
                                     <?php foreach($bloodOptions as $bloodType): ?>
                                         <option value="<?=$bloodType?>" <?= $row['blood_type'] == $bloodType ? "selected" : "" ?>>
                                             <?=$bloodType == "" ? "Select Blood Type" : $bloodType?>
@@ -425,7 +424,7 @@ if(isset($_POST['update'])) {
     $(document).ready(function() {
         // Input mask for the phone number
         $('#phone').inputmask({
-            mask: '+63 999 999 9999',
+            mask: '9999 999 9999',
             placeholder: ' ',
             showMaskOnHover: true,
             showMaskOnFocus: true

@@ -1,6 +1,5 @@
 <?php
 include("connection.php");
-$first_name_error = "";
 
 if(isset($_POST['add'])) {
     try{

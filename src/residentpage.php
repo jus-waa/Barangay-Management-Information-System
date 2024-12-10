@@ -118,9 +118,7 @@ if (!isset($_SESSION['users'])) {
                         <li onclick="showCategory('tb6','option6')"><button id="option6" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Residency and Occupation</button></li>
                         <li onclick="showCategory('tb7','option7')"><button id="option7" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Health</button></li>
                     </ul>
-                        
                 </div>
-                        
             </div>
             <!-- Tables -->
             <div class="overflow-hidden mt-4 w-full">
@@ -201,8 +199,8 @@ if (!isset($_SESSION['users'])) {
                                 <div class="flex justify-center items-center">
                                     <a href="backend/edit.php?id=<?= $row['id']?>">
                                         <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                            <img src="../img/edit.svg" alt="edit"/>
-                                            </button>
+                                        <img src="../img/edit.svg" alt="edit"/>
+                                        </button>
                                     </a>
                                     <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
@@ -219,6 +217,9 @@ if (!isset($_SESSION['users'])) {
                                 <div class="flex justify-center items-center">
                                     <button disabled class="w-6 mr-1"> 
                                         <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -1136,7 +1137,7 @@ if (!isset($_SESSION['users'])) {
                                 <div class="flex">
                                     <div class="w-6/12 ">
                                         <ul class="ml-6"> 
-                                            <li>Start of Residency</li>
+                                            <li>End of Residency</li>
                                         </ul>
                                     </div>
                                     <div class="w-6/12 ">
@@ -1166,7 +1167,7 @@ if (!isset($_SESSION['users'])) {
                                 <div class="flex">
                                     <div class="w-6/12 ">
                                         <ul class="ml-6"> 
-                                            <li>Blood Type</li>
+                                            <li>Religion</li>
                                         </ul>
                                     </div>
                                     <div class="w-6/12 ">
