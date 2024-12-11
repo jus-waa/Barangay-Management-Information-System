@@ -21,17 +21,23 @@
         <!-- Main Content -->
         <div class="w-4/5 p-6 mt-4 bg-white rounded-lg">
             <form method="post" id="personal_info">
-                <!-- Select from records -->
                 <div class="grid grid-cols-2 ">
-                    <div class="pt-1">
-                        <div class="rounded-md border-2 hover:border-sg hover:bg-c cursor-pointer p-2 transition duration-700 w-9 ml-2">
-                            <a href="generatedocuments.php"><img src="../img/back.png" class="size-4"></a>
+                    <!-- Back Button -->
+                    <div class="grid justify-items-start pl-2">
+                        <div class="flex">
+                            <div class="flex items-center p-2 rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700">
+                                <img src="../img/back.png" class="size-4" alt="select from records">
+                            </div>
+                            <p class="flex justify-start w-48 p-2 text-gray-400 ">Back</p>
                         </div>
                     </div>
+                    <!-- Select from records -->
                     <div class="grid justify-items-end ">
-                        <div class="flex rounded-md border-2 hover:border-sg hover:bg-c cursor-pointer transition duration-700">
-                            <button class="rounded-md w-48 p-2 place-self-center border-2 hover:border-sg transition duration-700" hidden>Select from Records</button><br>
-                            <img src="../img/residency.svg" class="size-10 p-2" alt="select from records">
+                        <div class="flex">
+                            <p class="flex justify-end w-48 p-2 text-gray-400 ">Select from Records</p>
+                            <div class="rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700">
+                                <img src="../img/residency.svg" class="size-10 p-2" alt="select from records">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -150,14 +156,40 @@
                         </div>
                     </div>
                 </div>
-                
             </form>   
         </div>
         <div class="w-full flex justify-center mt-12">
             <img src="../img/coat.png" alt="Bottom Image" class="w-[100px] h-[100px] object-contain">
         </div>
+        <!--Delete Confirmation -->
+        <div class="fixed z-50 hidden" id="confirmDeletion">
+            <div class="border-4 w-screen h-screen flex justify-center items-center">
+                <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
+                    <div class="grid justify-center">
+                        <div class="text-3xl font-bold place-self-center mt-12">Confirm Deletion</div>
+                        <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
+                    </div>
+                    <div class="flex justify-center space-x-4 mt-6">
+                        <a id="deleteLink" href="#">
+                            <button class="bg-sg rounded-md w-32 h-12">
+                                Yes, Delete  
+                            </button>
+                        </a>
+                        <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
+    //confirm deletion
+    function confirmDeletion() {
+        document.getElementById("confirmDeletion").classList.remove("hidden");
+    }
+    function cancelConfirmation() {
+        document.getElementById("confirmDeletion").classList.add("hidden");
+    }
     </script>
     <script>
     $(document).ready(function() {
