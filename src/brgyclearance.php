@@ -2,7 +2,6 @@
 session_start();
 include("backend/connection.php");
 require("backend/helper.php");
-
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -52,6 +51,35 @@ if (!isset($_SESSION['users'])) {
                 </div>
             </div>
             <form method="post" id="personal_info">
+                <?php 
+                $id = isset($_GET['id']) ? $_GET['id'] : 0;
+                $recordLoaded = false;
+
+                if($id) {
+                    $query = "SELECT * FROM `resident_info` WHERE `id` = :id";
+                    $stmt = $dbh->prepare($query);
+                    $stmt->execute(['id' => $id]);
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                    if ($row) {
+                        $recordLoaded = true;
+                    } else {
+                        $row = [];
+                    }
+                }
+                
+                $defaultValues = [
+                    'first_name' => '',
+                    'middle_name' => '',
+                    'last_name' => '',
+                    'suffix' => '',
+                    'house_num' => '',
+                    'street_name' => '',
+                    'barangay_name' => '',
+                    'municipality_city' => '',
+                    'zip_code' => '',
+                ];
+                ?>
                 <!-- Two-column Grid -->
                 <div class="grid grid-cols-2 gap-20">
                     <!-- First Column: Personal Information and Purpose -->
@@ -62,12 +90,12 @@ if (!isset($_SESSION['users'])) {
                                 <h2 class="text-xl font-bold mb-4">Personal Information</h2>
                                 <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
                                     <div>
-                                        <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['first_name'] : $defaultValues['first_name']?>" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">First Name</label>
                                         <span id="first-name-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
                                     <div class="relative">
-                                        <input id="middle-name" name="middle_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <input id="middle-name" name="middle_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['middle_name'] : $defaultValues['middle_name']?>" placeholder=" "/> 
                                         <label id="middle-name-label" class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Middle Name</label>
                                         <div class="absolute inset-y-0 right-0 flex items-center">
                                             <span class="flex-grow"></span>
@@ -77,21 +105,21 @@ if (!isset($_SESSION['users'])) {
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <div class="flex-grow mr-2">
-                                            <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                            <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['last_name'] : $defaultValues['last_name']?>" placeholder=" "/> 
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Last Name</label>
                                             <span id="last-name-error" class="text-red-500 text-sm hidden">Field is required</span>
                                         </div>
                                         <div for="suffix" class="flex flex-col flex-grow">
-                                            <select id="suffix" name="suffix" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg p-2.1 text-gray-500 text-sm">
-                                                <option value="">Select Suffix</option>
-                                                <option value="Jr.">Jr.</option>
-                                                <option value="Sr.">Sr.</option>
-                                                <option value="II">II</option>
-                                                <option value="III">III</option>
-                                                <option value="IV">IV</option>
-                                                <option value="V">V</option>
-                                                <option value="PhD">PhD</option>
-                                                <option value="MD">MD</option>
+                                            <?php
+                                            $suffixOptions = ["", "Jr.", "Sr.", "II", "III", "IV", "V", "PhD", "MD", "Esq."];
+                                            ?>
+                                            <select id="suffix" name="suffix" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
+                                                <?php foreach ($suffixOptions as $suffix): ?>
+                                                    <option value="<?= $suffix ?>" 
+                                                        <?= ($recordLoaded ? $row['suffix'] : $defaultValues['suffix']) == $suffix ? "selected" : "" ?>>
+                                                        <?= $suffix == "" ? "Select Suffix" : $suffix?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -122,27 +150,27 @@ if (!isset($_SESSION['users'])) {
                                 <h2 class="text-xl font-bold mb-4">Address Details</h2>
                                 <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
                                     <div>
-                                        <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['house_num'] : $defaultValues['house_num']?>" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">House Number</label>
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <div class="flex-grow mr-2">
-                                            <input id="street-name" name="street_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                            <input id="street-name" name="street_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['street_name'] : $defaultValues['street_name']?>" placeholder=" "/> 
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Street Name</label>
                                         </div>
                                         <div class="flex-grow">
-                                            <input id="barangay-name" name="barangay_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                            <input id="barangay-name" name="barangay_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['barangay_name'] : $defaultValues['barangay_name']?>" placeholder=" "/> 
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Barangay Name</label>
                                         </div>
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <div class="flex-grow mr-2">
-                                            <input id="city-name" name="city_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
-                                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">City Name</label>
+                                            <input id="municipality-city" name="municipality_city" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['municipality_city'] : $defaultValues['municipality_city']?>" placeholder=" "/> 
+                                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Municipality/City</label>
                                         </div>
                                         <div class="flex-grow">
-                                            <input id="zipcode" name="zipcode" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
-                                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Zip Code</label>
+                                            <input id="zip-code" name="zip_code" maxlength="4" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg"value="<?php echo $recordLoaded ? $row['zip_code'] : $defaultValues['zip_code']?>" placeholder=" "/> 
+                                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Zip Code</label>
                                         </div>
                                     </div>
                                 </div>
@@ -159,21 +187,27 @@ if (!isset($_SESSION['users'])) {
                                     </div>
                                 </div>
                             </div>
-                            <!-- Buttons -->
-                            <div class="flex justify-end gap-2 pt-4">
-                                <button type="submit" name="print" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Print</button><br>
-                                <button name="cancel" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Cancel</button><br>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </form>   
+            <!-- Buttons -->
+            <div class="flex justify-end items-center gap-2">
+                <a href="backend/brgyclearance_print.php?id=<?= $row['id']?>">
+                    <button class="rounded-md w-32 border-2 border-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
+                    Print
+                    </button>
+                </a>
+                <button name="cancel" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Cancel</button><br>
+            </div>
         </div>
+        
         <!-- Bottom Logo -->
         <div class="w-full flex justify-center mt-12">
             <img src="../img/coat.png" alt="Bottom Image" class="w-[100px] h-[100px] object-contain">
         </div>
-        <!--Delete Confirmation -->
+        <!--Select from Records -->
         <div class="fixed z-50 hidden" id="confirmDeletion">
             <div class="border-4 w-screen h-screen flex justify-center items-center flex-col">
                 <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
@@ -220,7 +254,11 @@ if (!isset($_SESSION['users'])) {
                                     </td>
                                     <td class="border-y-2 border-c py-2">
                                         <div class="flex justify-center items-center h-20 grow">
-                                        <button class="rounded-md w-32 border-2 border-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Select</button>
+                                            <a href="brgyclearance.php?id=<?= $row['id']?>">
+                                                <button name="select" class="rounded-md w-32 border-2 border-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
+                                                Select
+                                                </button>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
