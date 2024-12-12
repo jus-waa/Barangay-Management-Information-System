@@ -195,11 +195,9 @@ if (!isset($_SESSION['users'])) {
             <!-- Buttons -->
             <div class="flex justify-end items-center gap-2">
                 <a href="backend/brgyclearance_print.php?id=<?= $row['id']?>">
-                    <button class="rounded-md w-32 border-2 border-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
-                    Print
-                    </button>
+                    <button class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Print </button>
                 </a>
-                <button name="cancel" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Cancel</button><br>
+                <button name="cancel" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button><br>
             </div>
         </div>
         

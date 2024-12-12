@@ -77,7 +77,7 @@ if (!isset($_SESSION['users'])) {
                 <!-- Regular Section -->
                 <div class="flex justify-between items-end mx-32">
                     <div class="bg-c text-black py-2 px-14 rounded-xl font-bold text-3xl min-w-[200px] text-center">Regular</div>
-                    <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a>
+                    <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
                 </div>
 
                 <!-- Regular Account Table -->
@@ -93,8 +93,8 @@ if (!isset($_SESSION['users'])) {
                             <col>
                             <col>
                             <col>
-                            <col>
-                            <col>
+                            <col class="w-[50px]">
+                            <col class="w-[200px]">
                             <col class="w-[200px]">
                         </colgroup>
                         <thead class="bg-c sticky top-0 ">
@@ -191,7 +191,7 @@ if (!isset($_SESSION['users'])) {
                 <div class="border-2 border-c rounded-lg mx-32">
                 <!-- Admin -->
                 <div id="tb1" class="overflow-auto no-scrollbar ">
-                <div class="rounded-t-sm pt-2 bg-c ">
+                    <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[100px]">
@@ -199,8 +199,8 @@ if (!isset($_SESSION['users'])) {
                             <col>
                             <col>
                             <col>
-                            <col>
-                            <col>
+                            <col class="w-[50px]">
+                            <col class="w-[200px]">
                             <col class="w-[200px]">
                         </colgroup>
                         <thead class="bg-c sticky top-0 ">
@@ -277,7 +277,7 @@ if (!isset($_SESSION['users'])) {
                         <?php $i++; }} ?>
                         </tbody>
                     </table>
-                </div>
+                    </div>
                 </div>
                 <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
                 </div>

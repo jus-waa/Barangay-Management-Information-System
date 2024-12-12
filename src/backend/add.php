@@ -24,8 +24,7 @@ if(isset($_POST['add'])) {
         $citizenship = $_POST['citizenship'];
         $occupation = $_POST['occupation'];
         $residency_type = $_POST['residency_type'];
-        $start_residency = $_POST['start_residency'];
-        $end_residency = $_POST['end_residency'];
+        $status = $_POST['status'];
         $blood_type = $_POST['blood_type'];
         $religion = $_POST['religion'];
 
@@ -33,8 +32,8 @@ if(isset($_POST['add'])) {
             $middle_name = '';
         }
 
-        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `contact_num`, `email_address`, `house_num`, `street_name`, `barangay_name`, `municipality_city`, `province`, `zip_code`, `civil_status`, `citizenship`, `occupation`, `residency_type`, `start_residency`, `end_residency`, `blood_type`, `religion`) 
-                                        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :contact_num, :email_address, :house_num, :street_name, :barangay_name, :municipality_city, :province, :zip_code, :civil_status, :citizenship, :occupation, :residency_type, :start_residency, :end_residency, :blood_type, :religion)";
+        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `contact_num`, `email_address`, `house_num`, `street_name`, `barangay_name`, `municipality_city`, `province`, `zip_code`, `civil_status`, `citizenship`, `occupation`, `residency_type`, `status`, `blood_type`, `religion`) 
+                                        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :contact_num, :email_address, :house_num, :street_name, :barangay_name, :municipality_city, :province, :zip_code, :civil_status, :citizenship, :occupation, :residency_type, :status, :blood_type, :religion)";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
         $stmt->bindParam(':middle_name', $middle_name, PDO::PARAM_STR);
@@ -57,12 +56,11 @@ if(isset($_POST['add'])) {
         $stmt->bindParam(':citizenship', $citizenship, PDO::PARAM_STR);
         $stmt->bindParam(':occupation', $occupation, PDO::PARAM_STR);
         $stmt->bindParam(':residency_type', $residency_type, PDO::PARAM_STR);
-        $stmt->bindParam(':start_residency', $start_residency, PDO::PARAM_STR);
-        $stmt->bindParam(':end_residency', $end_residency, PDO::PARAM_STR);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
         $stmt->bindParam(':blood_type', $blood_type, PDO::PARAM_STR);
         $stmt->bindParam(':religion', $religion, PDO::PARAM_STR);
         $stmt->execute();
-        
+     
         if($stmt) {
             header("location: ../residentpage.php?msg= new record added.");
         } else {
@@ -74,6 +72,7 @@ if(isset($_POST['add'])) {
 } else if (isset($_POST['cancel'])){
     header("location: ../residentpage.php?msg= operation cancelled.");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,7 +81,7 @@ if(isset($_POST['add'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
-    <script src="../script.js"></script>
+    <script src="../../script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <style>
@@ -159,7 +158,7 @@ if(isset($_POST['add'])) {
                             </div>
                             <div class="flex items-center justify-between">
                                 <div class="flex-grow mr-2">
-                                    <input id="age" name="age" type="text" maxlength="3" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                    <input id="age" name="age" type="number" maxlength="3" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                     <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Age</label>
                                     <span id="age-error" class="text-red-500 text-sm hidden">Field is required</span>
                                 </div>
@@ -205,8 +204,10 @@ if(isset($_POST['add'])) {
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Email Address</label>
                             </div>
                             <div>
-                                <input id="phone" name="contact_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                <input id="contact-num" name="contact_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Phone Number</label>
+                                <span class="text-gray-400 text-sm">Format: 0999 999 9999</span><br>
+                                <span id="contact-error" class="text-red-500 text-sm hidden">Must be 11 digits</span>
                             </div>
                         </div>
                     </div>
@@ -272,32 +273,30 @@ if(isset($_POST['add'])) {
                 <div class="rounded-lg p-2 mb-8">
                     <h2 class="text-xl font-bold mb-4">Residency and Occupation</h2>
                     <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
-                        
-                        <div class="flex flex-col w-full">
-                            <select id="residency-type" name="residency_type" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-gray-500 text-sm">
-                                <option value="">Select Residency Type</option>
-                                <option value="Owner">Owner</option>
-                                <option value="Renter">Renter</option>
-                                <option value="Co-owner">Co-owner</option>
-                                <option value="Live-in Family Member">Live-in Family Member</option>
-                                <option value="Roommate">Roommate</option>
-                                <option value="Temporary Resident">Temporary Resident</option>
-                                <option value="Subtenant">Subtenant</option>
-                                <option value="Occupant">Occupant</option>
-                            </select>
-                        </div>
                         <div>
                             <input id="occupation" name="occupation" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Occupation</label>
                         </div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex-grow mr-2">
-                                <input id="start-date" name="start_residency" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
-                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-2 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Start Date of Residency</label>
+                        <div class="flex grow">
+                            <div class="flex flex-col w-full mr-2">
+                                <select id="residency-type" name="residency_type" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-gray-500 text-sm">
+                                    <option value="">Select Residency Type</option>
+                                    <option value="Owner">Owner</option>
+                                    <option value="Renter">Renter</option>
+                                    <option value="Co-owner">Co-owner</option>
+                                    <option value="Live-in Family Member">Live-in Family Member</option>
+                                    <option value="Roommate">Roommate</option>
+                                    <option value="Temporary Resident">Temporary Resident</option>
+                                    <option value="Subtenant">Subtenant</option>
+                                    <option value="Occupant">Occupant</option>
+                                </select>
                             </div>
-                            <div class="flex-grow">
-                                <input id="end-date" name="end_residency" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
-                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-2 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">End Date of Residency</label>
+                            <div class="flex flex-col w-full">
+                                <select id="status" name="status" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-gray-500 text-sm">
+                                    <option value="">Select Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>    
                             </div>
                         </div>
                     </div>
@@ -329,8 +328,8 @@ if(isset($_POST['add'])) {
                 </div>
                 <!-- Buttons -->
                 <div class="flex justify-end gap-2">
-                    <button id="add-button" name="add" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Add</button><br>
-                    <button id="cancel-button" name="cancel" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700"><a href="../residentpage.php">Cancel</a></button><br>
+                    <button id="add-button" name="add" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Add</button><br>
+                    <button id="cancel-button" name="cancel" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700"><a href="../residentpage.php">Cancel</a></button><br>
                 </div>
             </form>
         </div>
@@ -346,18 +345,20 @@ if(isset($_POST['add'])) {
     const lastNameInput = document.getElementById("last-name");
     const ageInput = document.getElementById("age");
     const genderInput = document.getElementById("gender");
+    const contactNumberInput = document.getElementById("contact-num");
+    const contactNumber = document.getElementById("contact-num").value;
 
     const firstNameError = document.getElementById("first-name-error");
     const lastNameError = document.getElementById("last-name-error");
     const ageError = document.getElementById("age-error");
     const genderError = document.getElementById("gender-error");
+    const contactError = document.getElementById("contact-error");
 
     const addButton = document.getElementById("add-button"); // Assume the Add button has this ID
     const cancelButton = document.getElementById("cancel-button"); // Assume the Cancel button has this ID
 
-    form.addEventListener("click", (event) => {
-            event.preventDefault(); // Prevent default button behavior (form submission)
-
+    form.addEventListener("submit", (event) => {
+        
             let isValid = true;
             let firstInvalidElement = null;
 
@@ -398,11 +399,25 @@ if(isset($_POST['add'])) {
                 genderError.classList.add("hidden");
             }
 
+            // Check Contact Number
+            if (!/^\d{4} \d{3} \d{4}$/.test(contactNumberInput.value.trim())) {
+                isValid = false;
+                event.preventDefault();
+                contactError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || contactNumberInput;
+            } else {
+                contactError.classList.add("hidden");
+            }
+
             // Prevent form submission if validation fails
             if (!isValid) {
                 event.preventDefault();
                 firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
+                firstInvalidElement.focus();
             }
+
+            //Auto space after every 4 
+           
         });
         // Cancel Button: Redirect to another page
         cancelButton.addEventListener("click", (event) => {
@@ -416,7 +431,7 @@ if(isset($_POST['add'])) {
     $(document).ready(function() {
         // Input mask for the phone number
         $('#phone').inputmask({
-            mask: '+63 999 999 9999',
+            mask: '9999 999 9999',
             placeholder: ' ',
             showMaskOnHover: true,
             showMaskOnFocus: true

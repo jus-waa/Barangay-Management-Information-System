@@ -70,9 +70,11 @@ if (!isset($_SESSION['users'])) {
             </div>
             <div class="grid content-center h-5/6">
                 <div class="flex justify-center space-x-14 bg-c w-full p-10 shadow-md">
-                    <div class="document-button flex flex-col items-center w-40 cursor-pointer">
+                    <div class="document-button flex flex-col items-center w-40 ">
                         <img width="50" height="50" src="../img/clearance.svg" alt="clearance" />
-                        <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Barangay <br>Clearance</span>
+                        <a href="brgyclearance.php" class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center cursor-pointer">
+                            Barangay <br> Clearance
+                        </a>
                     </div>
                     <div class="document-button flex flex-col items-center w-40 cursor-pointer">
                         <img width="50" height="50" src="../img/indigency.svg" alt="indigency" />

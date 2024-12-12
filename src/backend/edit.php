@@ -24,8 +24,7 @@ if(isset($_POST['update'])) {
         $citizenship = $_POST['citizenship'];
         $occupation = $_POST['occupation'];
         $residency_type = $_POST['residency_type'];
-        $start_residency = $_POST['start_residency'];
-        $end_residency = $_POST['end_residency'];
+        $status = $_POST['status'];
         $blood_type = $_POST['blood_type'];
         $religion = $_POST['religion'];
 
@@ -54,8 +53,7 @@ if(isset($_POST['update'])) {
                 `citizenship` = :citizenship,
                 `occupation` = :occupation,
                 `residency_type` = :residency_type,
-                `start_residency` = :start_residency,
-                `end_residency` = :end_residency,
+                `status` = :status,
                 `blood_type` = :blood_type,
                 `religion` = :religion WHERE `id`=$id";
 
@@ -81,8 +79,7 @@ if(isset($_POST['update'])) {
         $stmt->bindParam(':citizenship', $citizenship, PDO::PARAM_STR);
         $stmt->bindParam(':occupation', $occupation, PDO::PARAM_STR);
         $stmt->bindParam(':residency_type', $residency_type, PDO::PARAM_STR);
-        $stmt->bindParam(':start_residency', $start_residency, PDO::PARAM_STR);
-        $stmt->bindParam(':end_residency', $end_residency, PDO::PARAM_STR);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
         $stmt->bindParam(':blood_type', $blood_type, PDO::PARAM_STR);
         $stmt->bindParam(':religion', $religion, PDO::PARAM_STR);
         $stmt->execute();
@@ -106,7 +103,7 @@ if(isset($_POST['update'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
-    <script src="../script.js"></script>
+    <script src="../../script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
@@ -165,7 +162,7 @@ if(isset($_POST['update'])) {
                             </div>
                             <div class="flex items-center justify-between">
                                 <div class="flex-grow mr-2">
-                                    <input id="age" maxlength="3" name="age" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['age']?>" placeholder=" "/> 
+                                    <input id="age" maxlength="3" name="age" type="number" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['age']?>" placeholder=" "/> 
                                     <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Age</label>
                                     <span id="age-error" class="text-red-500 text-sm hidden">Field is required</span>
                                 </div>
@@ -216,8 +213,10 @@ if(isset($_POST['update'])) {
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Email Address</label>
                             </div>
                             <div>
-                                <input id="phone" name="contact_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['contact_num']?>" placeholder=" "/> 
+                                <input id="contact-num" name="contact_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['contact_num']?>" placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Phone Number</label>
+                                <span class="text-gray-400 text-sm">Format: 0999 999 9999</span><br>
+                                <span id="contact-error" class="text-red-500 text-sm hidden">Must be 11 digits</span>
                             </div>
                         </div>
                     </div>
@@ -286,30 +285,34 @@ if(isset($_POST['update'])) {
                 <div class="rounded-lg p-2 mb-8">
                     <h2 class="text-xl font-bold mb-4">Residency and Occupation</h2>
                     <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
-                        <div class="flex flex-col w-full">
-                            <?php
-                            $residencyOptions = ["", "Owner", "Renter", "Co-owner", "Live-in Family Member", "Roommate", "Temporary Student", "Subtenant", "Occupant"];
-                            ?>
-                            <select id="residency-type" name="residency_type" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
-                                <?php foreach($residencyOptions as $residencyType): ?>
-                                    <option value="<?=$residencyType?>" <?= $row['residency_type'] == $residencyType ? "selected" : "" ?>>
-                                        <?=$residencyType == "" ? "Select Residency Type" : $residencyType?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
                         <div>
                             <input id="occupation" name="occupation" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['occupation']?>" placeholder=" "/> 
                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Occupation</label>
                         </div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex-grow mr-2">
-                                <input id="start-date" name="start_residency" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['start_residency']?>" placeholder=" "/> 
-                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-2 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Start Date of Residency</label>
+                        <div class="flex grow">
+                            <div class="flex flex-col w-full mr-2">
+                                <?php
+                                $residencyOptions = ["", "Owner", "Renter", "Co-owner", "Live-in Family Member", "Roommate", "Temporary Student", "Subtenant", "Occupant"];
+                                ?>
+                                <select id="residency-type" name="residency_type" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
+                                    <?php foreach($residencyOptions as $residencyType): ?>
+                                        <option value="<?=$residencyType?>" <?= $row['residency_type'] == $residencyType ? "selected" : "" ?>>
+                                            <?=$residencyType == "" ? "Select Residency Type" : $residencyType?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
-                            <div class="flex-grow">
-                                <input id="end-date" name="end_residency" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['end_residency']?>" placeholder=" "/> 
-                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-2 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-2 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">End Date of Residency</label>
+                            <div class="flex flex-col w-full">
+                                <?php
+                                $statusOptions = ["", "Active", "Inactive"];
+                                ?>
+                                <select id="status" name="status" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
+                                    <?php foreach($statusOptions as $statusType): ?>
+                                        <option value="<?=$statusType?>" <?= $row['status'] == $statusType ? "selected" : "" ?>>
+                                            <?=$statusType == "" ? "Select Status" : $statusType?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -340,8 +343,8 @@ if(isset($_POST['update'])) {
                 </div>
                 <!-- Buttons -->
                 <div class="flex justify-end gap-2">
-                    <button name="update" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Update</button><br>
-                    <button name="cancel" class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-700">Cancel</button><br>
+                    <button name="update" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Update</button><br>
+                    <button name="cancel" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button><br>
                 </div>
                 <?php } ?>
             </form>
@@ -375,11 +378,14 @@ if(isset($_POST['update'])) {
     const lastNameInput = document.getElementById("last-name");
     const ageInput = document.getElementById("age");
     const genderInput = document.getElementById("gender");
+    const contactNumberInput = document.getElementById("contact-num");
+    const contactNumber = document.getElementById("contact-num").value;
 
     const firstNameError = document.getElementById("first-name-error");
     const lastNameError = document.getElementById("last-name-error");
     const ageError = document.getElementById("age-error");
     const genderError = document.getElementById("gender-error");
+    const contactError = document.getElementById("contact-error");
 
     form.addEventListener("submit", (event) => {
             let isValid = true;
@@ -420,6 +426,16 @@ if(isset($_POST['update'])) {
                 firstInvalidElement = firstInvalidElement || genderInput;
             } else {
                 genderError.classList.add("hidden");
+            }
+
+            // Check Contact Number
+            if (!/^\d{4} \d{3} \d{4}$/.test(contactNumberInput.value.trim())) {
+                isValid = false;
+                event.preventDefault();
+                contactError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || contactNumberInput;
+            } else {
+                contactError.classList.add("hidden");
             }
 
             // Prevent form submission if validation fails

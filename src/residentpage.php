@@ -129,7 +129,7 @@ if (!isset($_SESSION['users'])) {
                     <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[200px]">
-                            <col>
+                            <col class="w-[200px]">
                             <col>
                             <col>
                             <col>
@@ -232,11 +232,11 @@ if (!isset($_SESSION['users'])) {
                 </div>
                 <!--Birth Details Table -->
                 <div  id="tb2" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-sm pt-2 bg-c ">
+                    <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[200px]">
-                            <col>
+                            <col class="w-[200px]">
                             <col>
                             <col>
                             <col>
@@ -319,15 +319,15 @@ if (!isset($_SESSION['users'])) {
                         <?php $i++; } ?>
                         </tbody>
                     </table>
-                </div>
+                    </div>
                 </div>
                 <!--Contact Information Table -->
                 <div id="tb3" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-sm pt-2 bg-c ">
+                    <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[200px]">
-                            <col >
+                            <col class="w-[300px]">
                             <col >
                             <col >
                             <col class="w-[200px]">
@@ -403,15 +403,15 @@ if (!isset($_SESSION['users'])) {
                         <?php $i++; } ?>
                         </tbody>
                     </table>
-                </div>
+                    </div>
                 </div>
                 <!--Address Table -->
                 <div id="tb4" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-sm pt-2 bg-c ">
+                    <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[200px]">
-                            <col>
+                            <col class="w-[150px]">
                             <col>
                             <col>
                             <col>
@@ -515,15 +515,15 @@ if (!isset($_SESSION['users'])) {
                         <?php $i++; } ?>
                         </tbody>
                     </table>
-                </div>
+                    </div>
                 </div>         
                 <!--Civil Status & Citizenship Table -->
                 <div id="tb5" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-sm pt-2 bg-c ">
+                    <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[200px]">
-                            <col >
+                            <col class="w-[400px]">
                             <col >
                             <col >
                             <col class="w-[200px]">
@@ -600,16 +600,15 @@ if (!isset($_SESSION['users'])) {
                         <?php $i++; } ?>
                         </tbody>
                     </table>
-                </div>
+                    </div>
                 </div>
                 <!--Residentcy & Occupation Table -->
                 <div id="tb6" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-sm pt-2 bg-c ">
+                    <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[200px]">
-                            <col>
-                            <col>
+                            <col class="w-[300px]">
                             <col>
                             <col>
                             <col>
@@ -622,8 +621,7 @@ if (!isset($_SESSION['users'])) {
                                 <th class="py-4  text-sg">Full Name</th>                            
                                 <th class="py-4">Occupation</th>
                                 <th class="py-4">Type Of Residency</th>
-                                <th class="py-4">Start Date of Residency</th>
-                                <th class="py-4">End Date of Residency</th>
+                                <th class="py-4">Status</th>
                                 <th class="py-4 min-w-20">Action</th>
                             </tr>
                         </thead>
@@ -657,12 +655,21 @@ if (!isset($_SESSION['users'])) {
                             </td>
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center" >
-                                    <?=$row['start_residency']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['end_residency']?>
+                                    <?php
+                                    if ($row['status'] === 'Active') {
+                                        ?>
+                                        <div class="flex items-center mr-1">
+                                            <img src="../img/active.png" class="size-4 flex items-center" alt="">
+                                        </div>
+                                    <?=$row['status']?>
+                                    <?php 
+                                    } else if ($row['status'] === 'Inactive') {
+                                        ?>
+                                        <div class="flex items-center mr-1">
+                                            <img src="../img/inactive.png" class="size-4 flex items-center" alt="">
+                                        </div>
+                                        <?=$row['status']?>
+                                    <?php } ?>
                                 </div>
                             </td>
                             <?php
@@ -698,15 +705,15 @@ if (!isset($_SESSION['users'])) {
                         <?php $i++; } ?>
                         </tbody>
                     </table>
-                </div>
+                    </div>
                 </div>
                 <!--Health Table -->
                 <div id="tb7" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                <div class="rounded-t-sm pt-2 bg-c ">
+                    <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[200px]">
-                            <col >
+                            <col class="w-[400px]">
                             <col >
                             <col >
                             <col class="w-[200px]">
@@ -782,7 +789,7 @@ if (!isset($_SESSION['users'])) {
                         <?php $i++; } ?>
                         </tbody>
                     </table>
-                </div>
+                    </div>
                 </div>
                 <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
                 </div>
@@ -1120,29 +1127,16 @@ if (!isset($_SESSION['users'])) {
                                         </ul>
                                     </div>
                                 </div>
-                                <!-- Start of Residency -->
+                                <!-- Status -->
                                 <div class="flex">
                                     <div class="w-6/12 ">
                                         <ul class="ml-6"> 
-                                            <li>Start of Residency</li>
+                                            <li>Status</li>
                                         </ul>
                                     </div>
                                     <div class="w-6/12 ">
                                         <ul class="ml-6"> 
-                                            <li><?=$row['start_residency']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End of Residency -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>End of Residency</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['end_residency']?></li>
+                                            <li><?=$row['status']?></li>
                                         </ul>
                                     </div>
                                 </div>

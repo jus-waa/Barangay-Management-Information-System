@@ -98,7 +98,7 @@
                     $stmt->execute(['id' => $_GET['id']]);
                     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     ?>
-                    <form method="POST" >
+                    <form method="POST" id="account_form" >
                         <div class="grid grid-rows-3 grid-cols-2 justify-self-center">
                             <div class="mr-2">
                                 <input autocomplete="off" type="text" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" value="<?php echo $row['email'] ?>" name="email" placeholder=" "/> 
@@ -125,15 +125,18 @@
                                 </button>
                             </div>
                             <div>
-                                <input autocomplete="off" type="number" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" value="<?php echo $row['contact_info'] ?>" name="contact_info" placeholder=" "/> 
-                                <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-13.5 z-10 bg-c pl-1 text-left rounded-2xl ">Contact Information</label>
+                                <input id="contact-num" name="contact_info" type="text" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['contact_info']?>" placeholder=" "/> 
+                                <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-c pl-1 text-left rounded-2xl">Phone Number</label>
                             </div>
-                            <div class="grid grid-cols-2 grid-rows-1 mr-2">
-                                <div></div>                               
-                                <div>
-                                    <button name="update_account" class="rounded-md  w-full bg-pg p-2 text-l col-span-2 mb-4">Update Account</button><br>
+                            <div class="flex items-start ">
+                                <div class="flex gap-x-2">
+                                    <button id="update_account" name="update_account" class="rounded-md w-[8.6rem] border-2  p-2 place-self-center border-sg bg-sg hover:text-white transition duration-300">Update</button>
+                                    <button id="cancel-button" name="cancel" class="rounded-md border-2 w-[8.6rem]  p-2 place-self-center bg-red-500 border-red-500 hover:text-white transition duration-700">Cancel</button>
                                 </div>
                             </div>
+                            <span class="text-gray-500 text-sm">Format: 0999 999 9999</span><br>
+                            <span id="contact-error" class="text-red-500 text-sm hidden">Must be 11 digits</span>
+
                         </div>
                         <?php } ?>
                         <?php //displays messanges
@@ -193,6 +196,34 @@
             eyeOpenRe.classList.toggle('hidden');
             eyeClosedRe.classList.toggle('hidden');
         });
+    
+    document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("account_form");
+    const contactNumberInput = document.getElementById("contact-num");
+    const contactNumber = document.getElementById("contact-num").value;
+    const contactError = document.getElementById("contact-error");
+
+    form.addEventListener("submit", (event) => {
+            let isValid = true;
+            let firstInvalidElement = null;
+
+            // Check Contact Number
+            if (!/^\d{4} \d{3} \d{4}$/.test(contactNumberInput.value.trim())) {
+                isValid = false;
+                event.preventDefault();
+                contactError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || contactNumberInput;
+            } else {
+                contactError.classList.add("hidden");
+            }
+
+            // Prevent form submission if validation fails
+            if (!isValid) {
+                event.preventDefault();
+                firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        });
+    });
     </script>
 </body>
 </html>
