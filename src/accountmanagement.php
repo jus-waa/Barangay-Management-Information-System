@@ -75,17 +75,17 @@ if (!isset($_SESSION['users'])) {
             <!-- List of Accounts -->
             <div class="grid content-center h-5/6">
                 <!-- Regular Section -->
-                <div class="flex justify-between items-end mx-32">
+                <div class="flex justify-between items-end mx-32 mt-10">
                     <div class="bg-c text-black py-2 px-14 rounded-xl font-bold text-3xl min-w-[200px] text-center">Regular</div>
                     <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
                 </div>
 
                 <!-- Regular Account Table -->
-                <div class="w-full overflow-hidden mt-4">
-                <div class="border-2 border-c rounded-lg mx-32">
-                <!--Regular-->
-                <div id="tb1" class="overflow-auto no-scrollbar ">
-                <div class="rounded-t-sm pt-2 bg-c ">
+                <div class="overflow-hidden w-full  mt-4">
+                    <div class="border-2 border-c rounded-lg mx-32">
+                    <!--Regular-->
+                    <div id="tb1" class="overflow-auto no-scrollbar" style="height: 35vh;">
+                    <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[100px]">
@@ -174,12 +174,11 @@ if (!isset($_SESSION['users'])) {
                         <?php $i++; }} ?>
                         </tbody>
                     </table>
+                    </div>
+                    </div>
+                    <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
+                    </div>
                 </div>
-                </div>
-                <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
-                </div>
-                </div>
-
                 <!-- Admin Section -->
                 <div class="flex justify-between items-end mx-32 mt-16">
                     <div class="bg-c text-black py-2 px-16 rounded-xl font-bold text-3xl min-w-[200px] text-center">Admin</div>

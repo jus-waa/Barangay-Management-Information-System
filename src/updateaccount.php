@@ -126,7 +126,7 @@
                             </div>
                             <div>
                                 <input id="contact-num" name="contact_info" type="text" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['contact_info']?>" placeholder=" "/> 
-                                <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-c pl-1 text-left rounded-2xl">Phone Number</label>
+                                <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-c pl-1 text-left rounded-2xl">Contact Number</label>
                             </div>
                             <div class="flex items-start ">
                                 <div class="flex gap-x-2">
@@ -136,7 +136,6 @@
                             </div>
                             <span class="text-gray-500 text-sm">Format: 0999 999 9999</span><br>
                             <span id="contact-error" class="text-red-500 text-sm hidden">Must be 11 digits</span>
-
                         </div>
                         <?php } ?>
                         <?php //displays messanges
@@ -167,41 +166,42 @@
     </div>
 
     <script>
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
-        const eyeOpen = document.getElementById('eyeOpen');
-        const eyeClosed = document.getElementById('eyeClosed');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const eyeOpen = document.getElementById('eyeOpen');
+    const eyeClosed = document.getElementById('eyeClosed');
 
-        togglePassword.addEventListener('click', function () {
-            // Toggle the type attribute
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
+    togglePassword.addEventListener('click', function () {
+        // Toggle the type attribute
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
 
-            // Toggle the eye icons
-            eyeOpen.classList.toggle('hidden');
-            eyeClosed.classList.toggle('hidden');
-        });
+        // Toggle the eye icons
+        eyeOpen.classList.toggle('hidden');
+        eyeClosed.classList.toggle('hidden');
+    });
 
-        const togglePasswordRe = document.getElementById('togglePasswordRe');
-        const passwordRe = document.getElementById('passwordRe');
-        const eyeOpenRe = document.getElementById('eyeOpenRe');
-        const eyeClosedRe = document.getElementById('eyeClosedRe');
+    const togglePasswordRe = document.getElementById('togglePasswordRe');
+    const passwordRe = document.getElementById('passwordRe');
+    const eyeOpenRe = document.getElementById('eyeOpenRe');
+    const eyeClosedRe = document.getElementById('eyeClosedRe');
 
-        togglePasswordRe.addEventListener('click', function () {
-            // Toggle the type attribute
-            const type = passwordRe.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordRe.setAttribute('type', type);
+    togglePasswordRe.addEventListener('click', function () {
+        // Toggle the type attribute
+        const type = passwordRe.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordRe.setAttribute('type', type);
 
-            // Toggle the eye icons
-            eyeOpenRe.classList.toggle('hidden');
-            eyeClosedRe.classList.toggle('hidden');
-        });
+        // Toggle the eye icons
+        eyeOpenRe.classList.toggle('hidden');
+        eyeClosedRe.classList.toggle('hidden');
+    });
     
     document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("account_form");
     const contactNumberInput = document.getElementById("contact-num");
     const contactNumber = document.getElementById("contact-num").value;
     const contactError = document.getElementById("contact-error");
+    const cancelButton = document.getElementById("cancel-button"); // Assume the Cancel button has this ID
 
     form.addEventListener("submit", (event) => {
             let isValid = true;
@@ -222,6 +222,12 @@
                 event.preventDefault();
                 firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
             }
+        });
+        // Cancel Button: Redirect to another page
+        cancelButton.addEventListener("click", (event) => {
+            event.preventDefault(); // Prevent default button behavior
+            // Redirect to another page (replace 'your-page-url' with the actual URL)
+            window.location.href = "accountmanagement.php"; 
         });
     });
     </script>

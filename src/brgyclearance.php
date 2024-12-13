@@ -197,7 +197,9 @@ if (!isset($_SESSION['users'])) {
                 <a href="backend/brgyclearance_print.php?id=<?= $row['id']?>">
                     <button class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Print </button>
                 </a>
-                <button name="cancel" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button><br>
+                <a href="generatedocuments.php">
+                    <button name="cancel" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button>
+                </a>
             </div>
         </div>
         
@@ -209,18 +211,28 @@ if (!isset($_SESSION['users'])) {
         <div class="fixed z-50 hidden" id="confirmDeletion">
             <div class="border-4 w-screen h-screen flex justify-center items-center flex-col">
                 <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-                <div class="relative flex flex-col h-4/5 overflow-auto rounded-md bg-white z-10 border-2 mb-24">
-                    <div class="grid justify-center h-full border-2 grow-0">
+                <div class="relative flex flex-col h-4/5 w-4/12 overflow-auto rounded-md bg-white z-10 border-2 mb-24">
+                    <div class="grid justify-center h-full w-full border-2 grow-0">
+                    <!-- Search -->
+                        <div class="flex justify-center items-center mt-2">
+                            <form method="post">
+                                <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-c h-8 transition duration-300">
+                                <button id="searchBtn" class="rounded-md absolute right-52 top-[26px] transform -translate-y-1/2 border-gray-300 p-2 h-8 flex items-center justify-center pointer-events-none">
+                                    <img class="w-4 h-4" src="../img/search.svg" alt="Search Icon"/>
+                                </button>
+                            </form>
+                        </div>
                         <!-- Tables -->
-                        <div class="overflow-hidden mt-4 w-full">
-                        <div class="border-2 border-c rounded-lg mx-4">
+                        <div class="h-full w-screengrow">
+                            <div class="overflow-hidden mt-2 w-full">
+                            <div class="border-2 border-c rounded-lg mx-4">
                             <!--Personal Information Table -->
                             <div id="tb1" class="overflow-auto no-scrollbar"  style="height: 65vh;">
                                 <div class="rounded-t-sm pt-2 bg-c ">
                                     <table id="residentTable" class="w-full border-collapse">
                                 <colgroup>
-                                    <col class="w-[150px]">
-                                    <col>
+                                    <col class="w-[200px]">
+                                    <col class="w-[400px]">
                                     <col class="w-[200px]">
                                 </colgroup>
                                 <thead class="bg-c sticky top-0 ">
@@ -266,7 +278,8 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                             <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
-                        </div>
+                            </div>
+                            </div>
                         </div>
                     </div>
                     <div class="flex justify-center items-center border-2 h-20 grow">
@@ -306,6 +319,27 @@ if (!isset($_SESSION['users'])) {
             }
         });
     });
-    </script>
+    //search funcitonality
+    $(document).ready(function() {
+        $('#search').keyup(function(event) {
+            search_table($(this).val());
+        });
+        function search_table(value) {
+            $('#residentTable tbody tr').each(function(){
+                let found = 'false';
+                $(this).each(function(){
+                    if($(this).text().toLowerCase().indexOf(value.toLowerCase())>=0){
+                        found = 'true';
+                    }
+                });
+                if(found=='true'){
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

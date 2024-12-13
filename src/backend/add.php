@@ -414,10 +414,7 @@ if(isset($_POST['add'])) {
                 event.preventDefault();
                 firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
                 firstInvalidElement.focus();
-            }
-
-            //Auto space after every 4 
-           
+            } 
         });
         // Cancel Button: Redirect to another page
         cancelButton.addEventListener("click", (event) => {
