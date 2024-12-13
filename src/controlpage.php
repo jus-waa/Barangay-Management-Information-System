@@ -30,6 +30,22 @@
                 <p class="border-t-4 border-c w-32 text-white rounded-sm">.</p>
             </div>
             <div class="flex gap-x-10 place-self-center mb-32">
+                <!-- Resident Info -->
+                <div class="bg-c rounded-2xl grid ">
+                    <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
+                        <?php
+                            if (hasPermission('resident_info')) {
+                                echo "
+                                <a href='residentpage.php'>
+                                    <button class='h-full py-8 px-14'>
+                                    <img class='place-self-center size-12' src='../img/res_info.png'>
+                                        Resident<br>Information
+                                    </button>
+                                </a>";
+                            }
+                        ?>
+                    </div>
+                </div>
                 <!-- Generate Documents -->
                 <div class="bg-c rounded-2xl grid">
                     <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
@@ -46,21 +62,7 @@
                         ?>
                     </div>
                 </div>
-                <div class="bg-c rounded-2xl grid ">
-                    <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
-                        <?php
-                            if (hasPermission('resident_info')) {
-                                echo "
-                                <a href='residentpage.php'>
-                                    <button class='h-full py-8 px-14'>
-                                    <img class='place-self-center size-12' src='../img/res_info.png'>
-                                        Resident<br>Information
-                                    </button>
-                                </a>";
-                            }
-                        ?>
-                    </div>
-                </div>
+                <!-- Account Settings -->
                 <?php if(hasPermission('system_settings')){ ?>
                     <div class="bg-c rounded-2xl grid">
                 <?php } else { ?>

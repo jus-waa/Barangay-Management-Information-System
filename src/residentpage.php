@@ -32,31 +32,31 @@ if (!isset($_SESSION['users'])) {
                 <div class="mt-24 flex flex-col space-y-6">
                     <a href="residentpage.php">
                         <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
-                            <img  class="size-10 my-2" src="../img/res_info.svg">
-                            <span id="res_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">Resident Information</span>
+                            <img  class="size-10 my-2 hover:animate-wiggle" src="../img/res_info.png ">
+                            <span id="res_title" class="absolute ml-76 z-10 p-2 border-2 border-sg rounded-full bg-c min-w-52 hidden">Resident Information</span>
                         </button>
                     </a>
                     <a href="generatedocuments.php">
                         <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
-                            <img  class="size-13 my-1" src="../img/gen_doc.svg">
-                            <span id="doc_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">Generate Documents</span>
+                            <img  class="size-10 my-1 hover:animate-wiggle" src="../img/gen_doc.png">
+                            <span id="doc_title" class="absolute ml-76 z-10 p-2 border-2 border-sg rounded-full bg-c min-w-52 hidden">Generate Documents</span>
                         </button>
                     </a>
                     <?php
                     if (hasPermission('system_settings')){
                     ?>
                     <a href="accountmanagement.php">
-                        <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
-                            <img class="size-10 my-2" src="../img/setting.svg"  >
-                            <span id="set_title" class="absolute ml-76 z-10 p-2 border-4 border-sg rounded-full bg-c min-w-52 hidden">System Settings</span>
+                        <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full ">
+                            <img class="size-10 my-2 hover:animate-wiggle" src="../img/setting.png"  >
+                            <span id="set_title" class="absolute ml-76 z-10 p-2 border-2 border-sg rounded-full bg-c min-w-52 hidden">Account Settings</span>
                         </button>
                     </a>
                     <?php 
                     } else {
                     ?>
                     <button disabled id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
-                        <img  class="size-10 my-2" src="../img/setting.svg" >
-                        <span id="set_title" class="absolute ml-76 z-10 p-2 border-4 border-gray-600 rounded-full bg-gray-500 text-gray-600 min-w-52 hidden ">System Settings</span>
+                        <img  class="size-10 my-2" src="../img/setting.png" >
+                        <span id="set_title" class="absolute ml-76 z-10 p-2 border-2 border-gray-600 rounded-full bg-gray-500 text-gray-600 min-w-52 hidden ">Account Settings</span>
                     </button>
                     <?php
                     }
@@ -96,7 +96,7 @@ if (!isset($_SESSION['users'])) {
                                     <button id="btnUpload" name="btnUpload" class="py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm" disabled>Bulk Import</button>
                                 </div>
                                 <label for="file_input">
-                                    <img id="file_output" class="size-10 cursor-pointer hover:animate-wiggle" src="../img/gen_doc.svg">
+                                    <img id="file_output" class="size-10 cursor-pointer hover:animate-wiggle" src="../img/document.png">
                                     <input type="file" id="file_input" name="file" accept="csv/*" class="hidden"></input>
                                 </label>
                             </form>
