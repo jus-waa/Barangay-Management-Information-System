@@ -64,29 +64,36 @@
                 </div>
                 <!-- Account Settings -->
                 <?php if(hasPermission('system_settings')){ ?>
-                    <div class="bg-c rounded-2xl grid">
-                <?php } else { ?>
-                    <div class="bg-gray-400 rounded-xl grid">
-                <?php } ?>
+                <div class="bg-c rounded-2xl grid">
                     <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
-                        <?php
-                            if (hasPermission('system_settings')) {
-                                echo "
-                                <a href='accountmanagement.php'>
-                                    <button class='h-full py-8 px-16'>
-                                    <img class='place-self-center size-12' src='../img/setting.png'>
-                                        Account<br>Settings
-                                    </button>
-                                </a>";
-                            } else {
-                                echo "<button class = 'p-5.5 px-12 bg-gray-500 text-gray-600 rounded-xl pointer-events-none'>Inaccessible</button>";
-                            }
+                        <?php 
+                            echo "
+                            <a href='accountmanagement.php'>
+                                <button class='h-full py-8 px-16'>
+                                <img class='place-self-center size-12' src='../img/setting.png'>
+                                    Account<br>Settings
+                                </button>
+                            </a>";
                         ?>
                     </div>
-                </div>
-            </div>  
+                </div>  
+                <?php } else { ?>
+                <div class="bg-gray-300 rounded-2xl grid">
+                    <div class="border-2 border-gray-200 rounded-xl  hover:bg-gray-400 active:bg-sg transition duration-700 pointer-events-none ">
+                        <?php 
+                            echo "
+                            <a href=''>
+                                <button class='h-full py-8 px-14'>
+                                <img class='place-self-center size-12' src='../img/setting.png'>
+                                    Inaccessible
+                                </button>
+                            </a>";
+                        ?>
+                    </div>
+                </div>  
+                <?php } ?>
+            </div>
         </div>
-          
     </div>
 </body>
 </html>

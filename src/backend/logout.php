@@ -5,5 +5,5 @@
 
     session_destroy();
 
-    header('location: loginpage');
+    header('location: ../loginpage.php');
 ?>

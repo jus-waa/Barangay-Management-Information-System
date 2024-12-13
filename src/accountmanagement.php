@@ -28,38 +28,52 @@ if (!isset($_SESSION['users'])) {
         <div class="flex-none w-20 h-full shadow-2xl">
             <!--Nav-->
             <div id="mainNav" class="flex flex-col place-content-start h-full w-full bg-c duration-500 ease-in-out">
-                <div class="mt-24 flex flex-col space-y-6">
-                    <a href="residentpage.php">
-                        <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
-                            <img  class="size-10 my-2 hover:animate-wiggle" src="../img/res_info.png">
-                            <span id="res_title" class="absolute ml-76 z-10 p-2 border-2 border-sg rounded-full bg-c min-w-52 hidden">Resident Information</span>
-                        </button>
-                    </a>
-                    <a href="generatedocuments.php">
-                        <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
-                            <img  class="size-10 my-1 hover:animate-wiggle" src="../img/gen_doc.png">
-                            <span id="doc_title" class="absolute ml-76 z-10 p-2 border-2 border-sg rounded-full bg-c min-w-52 hidden">Generate Documents</span>
-                        </button>
-                    </a>
-                    <?php
-                    if (hasPermission('system_settings')){
-                    ?>
-                    <a href="accountmanagement.php">
-                        <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
-                            <img  class="size-10 my-2 hover:animate-wiggle" src="../img/setting.png" >
-                            <span id="set_title" class="absolute ml-76 z-10 p-2 border-2 border-sg rounded-full bg-c min-w-52 hidden">Account Settings</span>
-                        </button>
-                    </a>
-                    <?php 
-                    } else {
-                    ?>
-                    <button disabled id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
-                        <img  class="size-10 my-2 hover:animate-wiggle" src="../img/setting.png" >
-                        <span id="set_title" class="absolute ml-76 z-10 p-2 border-2 border-gray-600 rounded-full bg-gray-500 text-gray-600 min-w-52 hidden ">Account Settings</span>
-                    </button>
-                    <?php
-                    }
-                    ?>
+                <div class="h-full flex flex-col ">
+                    <div class="place-content-center h-full grow-0 space-y-14 ">
+                        <div>
+                            <a href="residentpage.php">
+                                <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
+                                    <img  class="size-10 hover:animate-wiggle" src="../img/res_info.png ">
+                                    <span id="res_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Resident Information</span>
+                                </button>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="generatedocuments.php">
+                                <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
+                                    <img  class="size-10 hover:animate-wiggle" src="../img/gen_doc.png">
+                                    <span id="doc_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Generate Documents</span>
+                                </button>
+                            </a>
+                        </div>
+                        <div>
+                            <?php
+                            if (hasPermission('system_settings')){
+                            ?>
+                            <a href="accountmanagement.php">
+                                <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full ">
+                                    <img class="size-10 hover:animate-wiggle" src="../img/setting.png"  >
+                                    <span id="set_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Account Settings</span>
+                                </button>
+                            </a>
+                            <?php 
+                            } else {
+                            ?>
+                            <button disabled id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
+                                <img  class="size-10 hover:animate-wiggle" src="../img/setting.png" >
+                                <span id="set_title" class="absolute z-10 hover:scale-110 text-sm bg-c hidden">
+                                    <img  class="size-10 hover:animate-wiggle" src="../img/x.png">
+                                </span>
+                            </button>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <div class="place-content-center h-2/5 w-full grow">
+                        <a href="backend/logout.php">
+                            <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
+                            <button class="flex place-self-center">Logout</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

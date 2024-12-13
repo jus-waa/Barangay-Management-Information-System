@@ -41,6 +41,7 @@ module.exports = {
       },
       boxShadow: {
         'max': '2px 2px 10px 1000px rgba(0, 0, 0, 0.5)',
+        '3xl': '2px 2px 15px -5px rgba(0, 0, 0, 0.5)'
       }
     },
   },

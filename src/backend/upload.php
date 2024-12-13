@@ -10,8 +10,8 @@ if($_FILES["file"]["size"] > 0) {
     $file = fopen($file_name, "r");
     while(($data = fgetcsv($file, 10000, ",")) !== FALSE) {
         $i++;
-        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `contact_num`, `email_address`, `house_num`, `street_name`, `barangay_name`, `municipality_city`, `province`, `zip_code`, `civil_status`, `citizenship`, `occupation`, `residency_type`, `start_residency`, `end_residency`, `blood_type`, `religion`) 
-        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :contact_num, :email_address, :house_num, :street_name, :barangay_name, :municipality_city, :province, :zip_code, :civil_status, :citizenship, :occupation, :residency_type, :start_residency, :end_residency, :blood_type, :religion)";
+        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `contact_num`, `email_address`, `house_num`, `street_name`, `barangay_name`, `municipality_city`, `province`, `zip_code`, `civil_status`, `citizenship`, `occupation`, `residency_type`, `status`, `blood_type`, `religion`) 
+        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :contact_num, :email_address, :house_num, :street_name, :barangay_name, :municipality_city, :province, :zip_code, :civil_status, :citizenship, :occupation, :residency_type, :status, :blood_type, :religion)";
         $stmt = $dbh->prepare($query);
         try {
             $stmt->bindParam(':first_name', $data[0], PDO::PARAM_STR);
@@ -35,8 +35,7 @@ if($_FILES["file"]["size"] > 0) {
             $stmt->bindParam(':citizenship', $data[18], PDO::PARAM_STR);
             $stmt->bindParam(':occupation', $data[19], PDO::PARAM_STR);
             $stmt->bindParam(':residency_type', $data[20], PDO::PARAM_STR);
-            $stmt->bindParam(':start_residency', $data[21], PDO::PARAM_STR);
-            $stmt->bindParam(':end_residency', $data[22], PDO::PARAM_STR);
+            $stmt->bindParam(':status', $data[22], PDO::PARAM_STR);
             $stmt->bindParam(':blood_type', $data[23], PDO::PARAM_STR);
             $stmt->bindParam(':religion', $data[24], PDO::PARAM_STR);
 
