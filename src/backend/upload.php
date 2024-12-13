@@ -35,11 +35,11 @@ if($_FILES["file"]["size"] > 0) {
             $stmt->bindParam(':citizenship', $data[18], PDO::PARAM_STR);
             $stmt->bindParam(':occupation', $data[19], PDO::PARAM_STR);
             $stmt->bindParam(':residency_type', $data[20], PDO::PARAM_STR);
-            $stmt->bindParam(':status', $data[22], PDO::PARAM_STR);
-            $stmt->bindParam(':blood_type', $data[23], PDO::PARAM_STR);
-            $stmt->bindParam(':religion', $data[24], PDO::PARAM_STR);
+            $stmt->bindParam(':status', $data[21], PDO::PARAM_STR);
+            $stmt->bindParam(':blood_type', $data[22], PDO::PARAM_STR);
+            $stmt->bindParam(':religion', $data[23], PDO::PARAM_STR);
 
-            for($i=0;$i<=24;$i++) {
+            for($i=0;$i<=23;$i++) {
                 if($data[$i] == null) {
                     $data[$i] = "";
                 }
