@@ -31,6 +31,14 @@ if (!isset($_SESSION['users'])) {
                 <div class="h-full flex flex-col ">
                     <div class="place-content-center h-full grow-0 space-y-14 ">
                         <div>
+                            <a href="dashboard.php">
+                                <button id="dashboard"  onmouseover="toggleDisplay('dashboard_title', true)" onmouseleave="toggleDisplay('dashboard_title', false)" class="flex place-content-center w-full">
+                                    <img  class="size-10 hover:animate-wiggle" src="../img/dashboard.png ">
+                                    <span id="dashboard_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Dashboard</span>
+                                </button>
+                            </a>
+                        </div>
+                        <div>
                             <a href="residentpage.php">
                                 <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
                                     <img  class="size-10 hover:animate-wiggle" src="../img/res_info.png ">
@@ -80,7 +88,7 @@ if (!isset($_SESSION['users'])) {
         <!-- Main -->
         <div class="w-full h-screen">
             <!-- Header -->
-            <div class="shadow-md px-32 h-20 py-6">
+            <div class="shadow-md px-32 py-6">
                 <div class="text-3xl">
                     Account Management
                 </div>

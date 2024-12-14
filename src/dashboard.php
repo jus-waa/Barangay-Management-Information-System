@@ -87,24 +87,56 @@ if (!isset($_SESSION['users'])) {
             <!-- Header -->
             <div class="shadow-md px-32 py-6">
                 <div class="text-3xl">
-                    Generate Documents
+                    Dashboard
                 </div>
             </div>
-            <div class="grid content-center h-5/6">
-                <div class="flex justify-center space-x-14 bg-c w-full p-10 shadow-md">
-                    <div class="document-button flex flex-col items-center w-40 ">
-                        <img width="50" height="50" src="../img/clearance.svg" alt="clearance" />
-                        <a href="brgyclearance.php" class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center cursor-pointer">
-                            Barangay <br> Clearance
-                        </a>
+            <div class="h-[91.2%] grid grid-cols-[80rem_auto]">
+                <div class="grid grid-rows-[12rem_auto]">
+                    <div class="h-48 grid grid-cols-4 my-1">
+                        <!-- Total Residents -->
+                        <div class="rounded-xl m-4 bg-c">
+                            <div class="flex m-5">
+                                <img src="../img/total_res.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
+                                <p>Total Residents</p>
+                            </div>
+                            <div class="w-auto flex flex-col items-center  place-self-center">
+                                <p class="text-xl">2132<br></p>
+                                <p class="text-xs py-2">Current number of registered residents</p>                                                           
+                            </div>
+                        </div>          
+                        <!-- Total Documents -->
+                        <div class=" rounded-xl m-4 bg-c">
+                            <div class="flex m-5">
+                                <img src="../img/indigency.svg" class="size-6 p-1 bg-white rounded-md mr-2" alt="">
+                                <p>Total Documents Issued</p>
+                            </div>
+                            <div class="w-auto flex flex-col items-center place-self-center">
+                                <p class="text-xl">232<br></p>
+                                <p class="text-xs py-2">Current number of documents issued</p>                                                           
+                            </div>
+                        </div>
+                        <!-- Acitve Residents Population -->
+                        <div class="rounded-xl m-4 bg-c">
+                            <div class="flex m-5">
+                                <img src="../img/status.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
+                                <p>Active Resident Population</p>
+                            </div>
+                            <div class="w-auto flex flex-col items-center  place-self-center">
+                                <p class="text-xl">1 out of 200<br></p>
+                                <p class="text-xs py-2">Current number of active residents</p>                                                           
+                            </div>
+                        </div>
                     </div>
-                    <div class="document-button flex flex-col items-center w-40 cursor-pointer">
-                        <img width="50" height="50" src="../img/indigency.svg" alt="indigency" />
-                        <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Certificate of<br>Indigency</span>
+                    <div class="border-2 m-4 rounded-xl">
+                        <p class="m-4">Weekly Report</p>
                     </div>
-                    <div class="document-button flex flex-col items-center w-40 cursor-pointer">
-                        <img width="50" height="50" src="../img/residency.svg" alt="residency" />
-                        <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Certificate of<br>Residency</span>
+                </div>
+                <div class="grid grid-rows-2">
+                    <div class="border-2 m-4 rounded-xl">
+                        <p class="m-4">Residents (Gender)</p>
+                    </div>
+                    <div class="border-2 m-4 rounded-xl">
+                        <p class="m-4">Documents (Type)</p>
                     </div>
                 </div>
             </div>
@@ -112,6 +144,7 @@ if (!isset($_SESSION['users'])) {
         
     </div>
 <script>
+   
     function confirmDeletion(id) {
         document.getElementById("confirmDeletion").classList.remove("hidden");
         document.getElementById("deleteLink").href =' backend/delete.php?id=' + id;

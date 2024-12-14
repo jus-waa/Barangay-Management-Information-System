@@ -32,6 +32,14 @@ if (!isset($_SESSION['users'])) {
                 <div class="h-full flex flex-col ">
                     <div class="place-content-center h-full grow-0 space-y-14 ">
                         <div>
+                            <a href="dashboard.php">
+                                <button id="dashboard"  onmouseover="toggleDisplay('dashboard_title', true)" onmouseleave="toggleDisplay('dashboard_title', false)" class="flex place-content-center w-full">
+                                    <img  class="size-10 hover:animate-wiggle" src="../img/dashboard.png ">
+                                    <span id="dashboard_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Dashboard</span>
+                                </button>
+                            </a>
+                        </div>
+                        <div>
                             <a href="residentpage.php">
                                 <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
                                     <img  class="size-10 hover:animate-wiggle" src="../img/res_info.png ">
@@ -81,7 +89,7 @@ if (!isset($_SESSION['users'])) {
         <!-- Main -->
         <div class="grow w-4/5 h-full">
             <!-- Header -->
-            <div class="grid gap-x-10 grid-cols-2 shadow-md h-20 px-32 py-6 mb-20 ">
+            <div class="grid gap-x-10 grid-cols-2 shadow-md px-32 py-6 mb-20 ">
                 <div class="text-3xl">
                     Resident Page
                 </div>
@@ -92,7 +100,7 @@ if (!isset($_SESSION['users'])) {
                         <form method="post">
                             <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-sg h-8" >
                             <button id="searchBtn" class="rounded-md absolute right-0 top-1/2 transform -translate-y-1/2 bg-white border border-l-0 border-gray-300 p-2 h-full flex items-center justify-center pointer-events-none">
-                                <img class="w-4 h-4" src="../img/search.svg" alt="Search Icon"/>
+                                <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
                             </button>
                         </form>
                     </div>
@@ -110,7 +118,7 @@ if (!isset($_SESSION['users'])) {
                                     <button id="btnUpload" name="btnUpload" class="py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm" disabled>Bulk Import</button>
                                 </div>
                                 <label for="file_input">
-                                    <img id="file_output" class="size-10 cursor-pointer hover:animate-wiggle" src="../img/document.png">
+                                    <img id="file_output" class="ml-2 size-8 cursor-pointer hover:animate-wiggle" src="../img/document.png">
                                     <input type="file" id="file_input" name="file" accept="csv/*" class="hidden"></input>
                                 </label>
                             </form>
@@ -1225,6 +1233,7 @@ if (!isset($_SESSION['users'])) {
         const element = document.getElementById(elementID);
         element.style.display = show ? "block" : "none";
     }
+
     function showCategory(categoryID, option){
         const tables = ["tb1", "tb2", "tb3", "tb4", "tb5", "tb6", "tb7"];
         tables.forEach(id => {
