@@ -90,52 +90,54 @@ if (!isset($_SESSION['users'])) {
                     Dashboard
                 </div>
             </div>
-            <div class="h-[91.2%] grid grid-cols-[80rem_auto]">
-                <div class="grid grid-rows-[12rem_auto]">
-                    <div class="h-48 grid grid-cols-4 my-1">
+            <div class="h-[90%] grid grid-cols-[auto_30rem]">
+                <div class="grid grid-rows-[13rem_auto] mb-4">
+                    <!-- Data -->
+                    <div class="h-52 grid grid-cols-4 my-4 mx-2 ">
                         <!-- Total Residents -->
-                        <div class="rounded-xl m-4 bg-c">
-                            <div class="flex m-5">
+                        <div class="rounded-xl bg-c m-4">
+                            <div class="flex m-6 ">
                                 <img src="../img/total_res.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
                                 <p>Total Residents</p>
                             </div>
-                            <div class="w-auto flex flex-col items-center  place-self-center">
+                            <div class="w-auto flex flex-col items-center place-self-center text-center">
                                 <p class="text-xl">2132<br></p>
-                                <p class="text-xs py-2">Current number of registered residents</p>                                                           
+                                <p class="text-xs py-4">Current number of registered residents</p>                                                           
                             </div>
                         </div>          
                         <!-- Total Documents -->
-                        <div class=" rounded-xl m-4 bg-c">
-                            <div class="flex m-5">
+                        <div class="rounded-xl bg-c m-4">
+                            <div class="flex m-6">
                                 <img src="../img/indigency.svg" class="size-6 p-1 bg-white rounded-md mr-2" alt="">
                                 <p>Total Documents Issued</p>
                             </div>
-                            <div class="w-auto flex flex-col items-center place-self-center">
+                            <div class="w-auto flex flex-col items-center place-self-center text-center">
                                 <p class="text-xl">232<br></p>
-                                <p class="text-xs py-2">Current number of documents issued</p>                                                           
+                                <p class="text-xs py-4">Current number of documents issued</p>                                                           
                             </div>
                         </div>
                         <!-- Acitve Residents Population -->
-                        <div class="rounded-xl m-4 bg-c">
-                            <div class="flex m-5">
+                        <div class="rounded-xl bg-c m-4">
+                            <div class="flex m-6">
                                 <img src="../img/status.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
-                                <p>Active Resident Population</p>
+                                <p>Active Residents</p>
                             </div>
-                            <div class="w-auto flex flex-col items-center  place-self-center">
+                            <div class="w-auto flex flex-col items-center place-self-center text-center">
                                 <p class="text-xl">1 out of 200<br></p>
-                                <p class="text-xs py-2">Current number of active residents</p>                                                           
+                                <p class="text-xs py-4">Current number of active residents</p>                                                           
                             </div>
                         </div>
                     </div>
-                    <div class="border-2 m-4 rounded-xl">
+                    <!-- Weekly Report -->
+                    <div class="border-2 rounded-xl ml-6 mr-3 mt-6">
                         <p class="m-4">Weekly Report</p>
                     </div>
                 </div>
-                <div class="grid grid-rows-2">
-                    <div class="border-2 m-4 rounded-xl">
+                <div class="grid grid-rows-2 mt-4 mr-2">
+                    <div class="border-2 mx-4 mt-4 mb-2 rounded-xl">
                         <p class="m-4">Residents (Gender)</p>
                     </div>
-                    <div class="border-2 m-4 rounded-xl">
+                    <div class="border-2 m-4  rounded-xl">
                         <p class="m-4">Documents (Type)</p>
                     </div>
                 </div>
