@@ -3,14 +3,15 @@ session_start();
 include("backend/connection.php");
 require("backend/helper.php");
 
-$stmt = $dbh->prepare("SELECT * FROM `resident_info`");
-$stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 //require login first
 if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
 }
+
+$stmt = $dbh->prepare("SELECT * FROM `resident_info`");
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -175,6 +176,8 @@ if (!isset($_SESSION['users'])) {
                         </thead>
                         <tbody class=" text-gray-600 bg-white">
                         <?php 
+                        $male = 0;
+                        $female = 0;
                         $i = 1; //auto numbering
                         foreach ($result as $row) {
                         ?>
@@ -207,6 +210,7 @@ if (!isset($_SESSION['users'])) {
                             <td class="border-y-2 border-c py-2">
                                 <div class="flex justify-center">
                                     <?=$row['gender']?>
+                                    
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
@@ -247,7 +251,9 @@ if (!isset($_SESSION['users'])) {
                             </td>
                             <?php } ?>
                         </tr>
-                        <?php $i++; } ?>
+                        <?php $i++; }
+                        $last_number = substr((string)$i, -3); // Final number
+                        ?>
                         </tbody>
                     </table>
                     </div>
