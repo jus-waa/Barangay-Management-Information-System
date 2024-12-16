@@ -151,7 +151,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
-                            <col class="w-[200px]">
+                            <col class="w-[100px]">
                             <col class="w-[200px]">
                             <col>
                             <col>
@@ -263,8 +263,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
-                            <col class="w-[200px]">
-                            <col class="w-[200px]">
+                            <col class="w-[100px]">
+                            <col class="w-[300px]">
                             <col>
                             <col>
                             <col>
@@ -354,7 +354,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
-                            <col class="w-[200px]">
+                            <col class="w-[100px]">
                             <col class="w-[300px]">
                             <col >
                             <col >
@@ -438,7 +438,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
-                            <col class="w-[200px]">
+                            <col class="w-[100px]">
                             <col class="w-[150px]">
                             <col>
                             <col>
@@ -550,7 +550,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
-                            <col class="w-[200px]">
+                            <col class="w-[100px]">
                             <col class="w-[400px]">
                             <col >
                             <col >
@@ -635,7 +635,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
-                            <col class="w-[200px]">
+                            <col class="w-[100px]">
                             <col class="w-[300px]">
                             <col>
                             <col>
@@ -740,7 +740,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="rounded-t-sm pt-2 bg-c ">
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
-                            <col class="w-[200px]">
+                            <col class="w-[100px]">
                             <col class="w-[400px]">
                             <col >
                             <col >
