@@ -231,7 +231,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
-                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                         <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
@@ -244,7 +244,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <button disabled class="w-6 mr-1"> 
                                         <img src="../img/lock.png" alt="edit"/>
                                     </button>
-                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                         <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
@@ -264,7 +264,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[100px]">
-                            <col class="w-[300px]">
+                            <col class="w-[200px]">
                             <col>
                             <col>
                             <col>
@@ -327,7 +327,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
-                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                         <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
@@ -339,6 +339,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="flex justify-center items-center">
                                     <button disabled class="w-6 mr-1"> 
                                         <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -411,7 +414,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
-                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                         <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
@@ -423,6 +426,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="flex justify-center items-center">
                                     <button disabled class="w-6 mr-1"> 
                                         <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -523,7 +529,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
-                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                         <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
@@ -535,6 +541,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="flex justify-center items-center">
                                     <button disabled class="w-6 mr-1"> 
                                         <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -608,7 +617,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
-                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                         <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
@@ -620,6 +629,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="flex justify-center items-center">
                                     <button disabled class="w-6 mr-1"> 
                                         <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -713,7 +725,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
-                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                         <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
@@ -725,6 +737,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="flex justify-center items-center">
                                     <button disabled class="w-6 mr-1"> 
                                         <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -741,7 +756,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[100px]">
-                            <col class="w-[400px]">
+                            <col class="w-[500px]">
                             <col >
                             <col >
                             <col class="w-[200px]">
@@ -797,7 +812,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                         <img name="delete" src="../img/trash.svg" alt="delete"/>
                                     </button>
-                                    <button  class="w-6 ml-3 cursor-pointer" onclick="window.location.href='backend/viewDetails.php?id=<?= $row['id'] ?>'">
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                         <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
@@ -809,6 +824,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="flex justify-center items-center">
                                     <button disabled class="w-6 mr-1"> 
                                         <img src="../img/lock.png" alt="edit"/>
+                                    </button>
+                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                        <img name="view_details" src="../img/view.png" alt="delete"/>
                                     </button>
                                 </div>
                             </td>
@@ -846,362 +864,13 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- View Details -->
         <div class="fixed z-50 hidden" id="viewDetails">
             <div class="border-4 w-screen h-screen flex justify-end items-center">
-                <div class="absolute bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                <div class="absolute bg-black opacity-50 w-screen h-screen grid cursor-pointer" onclick="cancelView()"></div> <!-- Background overlay -->
                 <div class="relative grid h-screen overflow-auto rounded-l-xl bg-white z-10" style="width:60vh">
                     <div class="pl-6 pt-2 flex items-center">
                         <button onclick="cancelView()"><img src="../img/back.png" class="size-4"></button>
                     </div>
-                    <div class="px-8" style="height:90vh;">
-                        <?php 
-                        $query = "SELECT * FROM `resident_info` WHERE `id` = :id";
-                        $stmt = $dbh->prepare($query);
-                        $stmt->execute(['id' => $_GET['id']]);
-                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        ?>
-                        <div class="grid gap-2 text-gray-400 ">
-                            <!--Personal Info Summary -->
-                            <div class="grid-cols-2">
-                                <p class="text-xl">Personal Information</p>
-                                <!-- First Name -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>First Name</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['first_name']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Middle Name -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Middle Name</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['middle_name']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Last Name -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Last Name</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['last_name']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Suffix -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Suffix</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['suffix']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Gender -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Gender</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['gender']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Age -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Age</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['age']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Birth Details -->
-                            <div class="grid-cols-2">
-                            <p class="text-xl">Birth Details</p>
-                                <!-- Birth Date-->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Date of Birth</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['birth_date']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Birthplace Municipality City -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Birthplace Municipality City</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['birthplace_municipality_city']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Birthplace Province -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Birthplace Province</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['birthplace_province']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Contact Number -->
-                            <div class="grid-cols-2">
-                            <p class="text-xl">Contact Number</p>
-                                <!-- Birthplace Province -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Contact Number</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['contact_num']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Email Address -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Email Address</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['email_address']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Address Details -->
-                            <div class="grid-cols-2">
-                            <p class="text-xl">Address Details</p>
-                                <!-- Birthplace Province -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>House Number</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['house_num']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Email Address -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Street Name</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['street_name']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Barnangay Name -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Barangay Name</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['barangay_name']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Municipality/City -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Municipality/City</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['municipality_city']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Province -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Province</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['province']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Zip Code -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Zip Code</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['zip_code']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Citizenship and Civil Status -->
-                            <div class="grid-cols-2">
-                            <p class="text-xl">Citizenship and Civil Status</p>
-                                <!-- Civil Status -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Civil Status</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['civil_status']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Citizenship -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Citizenship</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['citizenship']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Residency and Occupation -->
-                            <div class="grid-cols-2">
-                            <p class="text-xl">Residency and Occupation</p>
-                                <!-- Occupation -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Occupation</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['occupation']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Type of Residency -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Type of Residency</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['residency_type']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Status -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Status</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['status']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Health -->
-                            <div class="grid-cols-2">
-                            <p class="text-xl">Residency and Occupation</p>
-                                <!-- Bloodtype -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Blood Type</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['blood_type']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Religion -->
-                                <div class="flex">
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li>Religion</li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-6/12 ">
-                                        <ul class="ml-6"> 
-                                            <li><?=$row['religion']?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <?php } ?>
+                    <div id="viewDetailsContent" class="px-8" style="height:90vh;">
+                    <!-- Details from viewDetails.php will be displayed here -->
                     </div>
                 </div>
             </div>
@@ -1217,22 +886,25 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         document.getElementById("confirmDeletion").classList.add("hidden");
     }
 
-    //veiw details
-    function viewDetails() {
-        document.getElementById("viewDetails").classList.remove("hidden");
-        
-    }
-    window.onload = function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('showModal') && urlParams.get('showModal') === '1') {
-        viewDetails();
+    function viewDetails(event, id) {
+        event.preventDefault(); // Prevent page reload
 
-        window.history.replaceState({}, document.title, window.location.pathname);
-        }
-    };
+        // AJAX to fetch the details without refreshing the page
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'backend/viewDetails.php?id=' + id, true); // Make sure viewDetails.php accepts the ID in the query string
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Insert the response (HTML) into the modal
+                document.getElementById("viewDetailsContent").innerHTML = xhr.responseText;
+                document.getElementById("viewDetails").classList.remove("hidden");
+            }
+        };
+        xhr.send();
+    }
     function cancelView() {
         document.getElementById("viewDetails").classList.add("hidden");
     }
+
 
     //toggle display
     function toggleDisplay(elementID, show) {
