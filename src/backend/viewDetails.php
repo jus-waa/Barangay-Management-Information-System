@@ -9,6 +9,7 @@ if (isset($_GET['id'])) {
         $stmt->execute(['id' => $id]);
         if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             ?>
+            <!-- Info Details -->
             <div class="grid gap-2 text-gray-400 ">
                 <!--Personal Info Summary -->
                 <div class="grid-cols-2">

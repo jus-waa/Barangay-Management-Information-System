@@ -55,6 +55,14 @@ if (!isset($_SESSION['users'])) {
                             </a>
                         </div>
                         <div>
+                            <a href="approvalqueue.php">
+                                <button onmouseover="toggleDisplay('approval_q', true)" onmouseleave="toggleDisplay('approval_q', false)" class="flex place-content-center w-full">
+                                    <img  class="size-10 hover:animate-wiggle" src="../img/reports.png">
+                                    <span id="approval_q" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Approval Queue</span>
+                                </button>
+                            </a>
+                        </div>
+                        <div>
                             <?php
                             if (hasPermission('system_settings')){
                             ?>

@@ -56,6 +56,14 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </a>
                         </div>
                         <div>
+                            <a href="approvalqueue.php">
+                                <button onmouseover="toggleDisplay('approval_q', true)" onmouseleave="toggleDisplay('approval_q', false)" class="flex place-content-center w-full">
+                                    <img  class="size-10 hover:animate-wiggle" src="../img/reports.png">
+                                    <span id="approval_q" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Approval Queue</span>
+                                </button>
+                            </a>
+                        </div>
+                        <div>
                             <?php
                             if (hasPermission('system_settings')){
                             ?>
@@ -89,20 +97,30 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- Main -->
         <div class="w-full h-screen"> 
             <!-- Header -->
-            <div class="shadow-md px-32 py-6">
+            <div class="grid gap-x-10 grid-cols-2 shadow-md px-32 py-6 mb-20 ">
                 <div class="text-3xl">
-                    Generate Documents
+                    Report Page
+                </div>
+            </div>
+            <!-- Options -->
+            <div class="flex justify-between items-center">
+                <!-- Categories -->
+                <div class="ml-32">
+                    <p class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">
+                        History of issued documents
+                    </p>
+                    
                 </div>
             </div>
             <!-- Tables -->
             <div class="overflow-hidden mt-4 w-full">
-                <div class="border-2 border-[#AFE1AF] rounded-lg mx-32">
+                <div class="border-2 border-c rounded-lg mx-32">
                     <!-- Report Page Table -->
                     <div id="tb1" class="overflow-auto no-scrollbar" style="height: 67vh;">
                         <div class="rounded-t-sm pt-2 bg-[#AFE1AF]">
                             <table id="residentTable" class="w-full border-collapse">
                                 <colgroup>
-                                    <col class="w-[200px]">
+                                    <col class="w-[100px]">
                                     <col>
                                     <col>
                                     <col>
@@ -168,6 +186,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </table>
                         </div>
                     </div>
+                    <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
                 </div>
             </div>
         </div>
