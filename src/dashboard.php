@@ -253,7 +253,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     const config2 = {
         type: 'pie',
         data: {
-        labels: ["Female", "Male", "Female"],
+        labels: ["Barangay Clearance", "Certificate of Indigency", "Certificate"],
             datasets: [{
                 label: "Gender Breakdown",
                 data: [female, male, female], //Values

@@ -99,7 +99,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- Header -->
             <div class="grid gap-x-10 grid-cols-2 shadow-md px-32 py-6 mb-20 ">
                 <div class="text-3xl">
-                    Report Page
+                    Approval Queue
                 </div>
             </div>
             <!-- Options -->
@@ -107,7 +107,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <!-- Categories -->
                 <div class="ml-32">
                     <p class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">
-                        History of issued documents
+                        Issued documents
                     </p>
                     
                 </div>
@@ -134,9 +134,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <th class="py-4">First Name</th>
                                         <th class="py-4">Middle Name</th>
                                         <th class="py-4">Last Name</th>
-                                        <th class="py-4">Suffix</th>
                                         <th class="py-4">Document Type</th>
                                         <th class="py-4">Date Released</th>
+                                        <th class="py-4">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-600 bg-white">
@@ -177,7 +177,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2"> 
                                             <div class="flex justify-center">
-                                                <?= $row['suffix'] ?>
+                                                <button name="select" class="rounded-md w-32 border-2 border-c p-1 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
+                                                Print
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
