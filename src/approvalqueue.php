@@ -121,7 +121,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <table id="residentTable" class="w-full border-collapse">
                                 <colgroup>
                                     <col class="w-[100px]">
-                                    <col>
+                                    <col class="w-[250px]">
                                     <col>
                                     <col>
                                     <col>
@@ -132,10 +132,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <tr class="uppercase ">
                                         <th class="py-4 min-w-20">ID</th>
                                         <th class="py-4">First Name</th>
-                                        <th class="py-4">Middle Name</th>
                                         <th class="py-4">Last Name</th>
                                         <th class="py-4">Document Type</th>
-                                        <th class="py-4">Date Released</th>
+                                        <th class="py-4">Date Issued</th>
+                                        <th class="py-4">Progress</th>
                                         <th class="py-4">Action</th>
                                     </tr>
                                 </thead>

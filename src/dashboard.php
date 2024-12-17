@@ -255,7 +255,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         data: {
         labels: ["Barangay Clearance", "Certificate of Indigency", "Certificate"],
             datasets: [{
-                label: "Gender Breakdown",
+                label: "Documents Issued Breakdown",
                 data: [female, male, female], //Values
                 backgroundColor: [
                 'rgba(0, 0, 0, 0)',
@@ -278,7 +278,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 },
                 title: {
                     display: true,
-                    text: 'Gender Breakdown'
+                    text: 'Documents Issued Breakdown'
                 }
             }
         }

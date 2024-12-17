@@ -24,12 +24,12 @@
         <div class="text-5xl h-64 pt-12 col-span-3 ">
             <h1 class="border-4 border-c bg-c hover:bg-sg hover:border-sg transition duration-700 p-6 text-center shadow-xl font-family "><b>iBarangay</b>: Management Information System</h1>
         </div>
-        <div class="flex flex-col justify-center h-full border-2">
+        <div class="flex flex-col justify-center h-full">
             <div class=" place-items-center">
                 <p class="font-bold">Select an Action</p>
                 <p class="border-t-4 border-c w-32 text-white rounded-sm">.</p>
             </div>
-            <div class="grid grid-cols-2 gap-10 place-self-center mb-32 border-2">
+            <div class="grid grid-cols-2 gap-10 place-self-center mb-32">
                 <!-- Dashboard -->
                 <div class="bg-c rounded-2xl grid">
                     <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">

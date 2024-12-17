@@ -99,20 +99,70 @@ if (!isset($_SESSION['users'])) {
                 </div>
             </div>
             <div class="grid content-center h-5/6">
-                <div class="flex justify-center space-x-14 bg-c w-full p-10 shadow-md">
-                    <div class="document-button flex flex-col items-center w-40 ">
-                        <img width="50" height="50" src="../img/clearance.svg" alt="clearance" />
-                        <a href="brgyclearance.php" class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center cursor-pointer">
-                            Barangay <br> Clearance
+                <div class=" place-items-center">
+                    <p class="font-bold">Select a Document</p>
+                    <p class="border-t-4 border-c w-40 text-white rounded-sm">.</p>
+                </div>
+                <div class="grid grid-cols-3  place-self-center gap-x-10">
+                    <!-- Dashboard -->
+                    <div>
+                        <div class="border-2 border-sg rounded-t-xl bg-c h-32 w-48 flex justify-center items-center">
+                            <div>
+                                <a href='dashboard.php'>
+                                    <button>
+                                    <img class='place-self-center size-14' src='../img/dashboard.png'>
+                                        Barangay Clearance
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        <a href="brgyclearance.php">
+                            <div class="border-x-2 border-b-2 border-sg rounded-b-xl h-12 w-48 flex justify-center items-center bg-sg hover:text-white active:bg-sg transition duration-700 cursor-pointer ">
+                                <button>
+                                    Generate
+                                </button>
+                            </div>
                         </a>
                     </div>
-                    <div class="document-button flex flex-col items-center w-40 cursor-pointer">
-                        <img width="50" height="50" src="../img/indigency.svg" alt="indigency" />
-                        <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Certificate of<br>Indigency</span>
+                    <!-- Dashboard -->
+                    <div>
+                        <div class="border-2 border-sg rounded-t-xl bg-c h-32 w-48 flex justify-center items-center">
+                            <div>
+                                <a href='dashboard.php'>
+                                    <button>
+                                    <img class='place-self-center size-14' src='../img/dashboard.png'>
+                                        Cerificate of Residency
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        <a href="brgyclearance.php">
+                            <div class="border-x-2 border-b-2 border-sg rounded-b-xl h-12 w-48 flex justify-center items-center bg-sg hover:text-white active:bg-sg transition duration-700 cursor-pointer ">
+                                <button>
+                                    Generate
+                                </button>
+                            </div>
+                        </a>
                     </div>
-                    <div class="document-button flex flex-col items-center w-40 cursor-pointer">
-                        <img width="50" height="50" src="../img/residency.svg" alt="residency" />
-                        <span class="mt-2 text-sm bg-sg px-10 py-2 rounded-md text-center">Certificate of<br>Residency</span>
+                    <!-- Dashboard -->
+                    <div>
+                        <div class="border-2 border-sg rounded-t-xl bg-c h-32 w-48 flex justify-center items-center">
+                            <div>
+                                <a href='dashboard.php'>
+                                    <button>
+                                    <img class='place-self-center size-14' src='../img/dashboard.png'>
+                                       Certificate of Indigency
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        <a href="brgyclearance.php">
+                            <div class="border-x-2 border-b-2 border-sg rounded-b-xl h-12 w-48 flex justify-center items-center bg-sg hover:text-white active:bg-sg transition duration-700 cursor-pointer ">
+                                <button>
+                                    Generate
+                                </button>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
