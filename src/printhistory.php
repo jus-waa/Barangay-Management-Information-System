@@ -56,10 +56,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </a>
                         </div>
                         <div>
-                            <a href="approvalqueue.php">
-                                <button onmouseover="toggleDisplay('approval_q', true)" onmouseleave="toggleDisplay('approval_q', false)" class="flex place-content-center w-full">
+                            <a href="printhistory.php">
+                                <button onmouseover="toggleDisplay('print_history', true)" onmouseleave="toggleDisplay('print_history', false)" class="flex place-content-center w-full">
                                     <img  class="size-10 hover:animate-wiggle" src="../img/reports.png">
-                                    <span id="approval_q" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Approval Queue</span>
+                                    <span id="print_history" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Print History</span>
                                 </button>
                             </a>
                         </div>
@@ -99,7 +99,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- Header -->
             <div class="grid gap-x-10 grid-cols-2 shadow-md px-32 py-6 mb-20 ">
                 <div class="text-3xl">
-                    Approval Queue
+                    Print History
                 </div>
             </div>
             <!-- Options -->
@@ -107,7 +107,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <!-- Categories -->
                 <div class="ml-32">
                     <p class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">
-                        Issued documents
+                        History of Documents Issued
                     </p>
                     
                 </div>
@@ -131,12 +131,12 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <thead class="bg-c sticky top-0 ">
                                     <tr class="uppercase ">
                                         <th class="py-4 min-w-20">ID</th>
-                                        <th class="py-4">First Name</th>
-                                        <th class="py-4">Last Name</th>
-                                        <th class="py-4">Document Type</th>
-                                        <th class="py-4">Date Issued</th>
-                                        <th class="py-4">Progress</th>
-                                        <th class="py-4">Action</th>
+                                        <th class="py-4">Resident Name</th>
+                                        <th class="py-4">Type of Document</th>
+                                        <th class="py-4">Date of Printing</th>
+                                        <th class="py-4">Control Number</th>
+                                        <th class="py-4">Issued By</th>
+                                        <th class="py-4">Purpose</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-600 bg-white">
