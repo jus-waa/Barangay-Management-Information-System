@@ -253,14 +253,14 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     const config2 = {
         type: 'pie',
         data: {
-        labels: ["Barangay Clearance", "Certificate of Indigency", "Certificate"],
+        labels: ["Barangay Clearance", "Certificate of Indigency", "Certificate of Residency"],
             datasets: [{
                 label: "Documents Issued Breakdown",
                 data: [female, male, female], //Values
                 backgroundColor: [
                 'rgba(0, 0, 0, 0)',
                 'rgba(175, 225, 175, 1)',
-                'rgba(0, 0, 0, 0)',
+                'rgba(76, 147, 76, 1)',
             ],
             borderColor: [
               'rgba(76, 147, 76, 1)',

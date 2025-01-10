@@ -1,15 +1,15 @@
 <?php
 session_start();
-include("connection.php");
-require("../fpdf/fpdf.php");
-require_once("../fpdi/FPDI-2.6.1/src/autoload.php");
+include("./../../backend/connection.php");
+require("./../../fpdf/fpdf.php");
+require("./../../fpdi/FPDI-2.6.1/src/autoload.php");
 
 use setasign\Fpdi\Fpdi;
 $pdf = new Fpdi();
 
 $pdf -> AddPage();
 $pdf -> SetFont("helvetica", "", 11);
-$pdf -> setSourceFile('../demo.pdf');
+$pdf -> setSourceFile('./../../pdfs/demo_brgyclearance.pdf');
 $template = $pdf->importPage(1);
 $pdf->useTemplate($template);
 

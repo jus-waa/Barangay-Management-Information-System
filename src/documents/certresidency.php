@@ -1,7 +1,7 @@
 <?php
 session_start();
-include("backend/connection.php");
-require("backend/helper.php");
+include("../backend/connection.php");
+require("../backend/helper.php");
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -18,13 +18,13 @@ if (!isset($_SESSION['users'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
-    <script src="../script.js"></script>
+    <script src="../../script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
 <body class="relative h-screen w-full bg-cover bg-center bg-fixed">
-    <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/indang.webp'); filter: blur(2px); z-index: -1;"></div>
+    <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../../img/indang.webp'); filter: blur(2px); z-index: -1;"></div>
     <!-- Centering Wrapper -->
     <div class="flex justify-center place-items-center flex-col h-full relative z-10">
         <!-- Main Content -->
@@ -35,7 +35,7 @@ if (!isset($_SESSION['users'])) {
                 <div class="grid justify-items-start pl-2">
                     <div class="flex">
                         <div>
-                            <a href="generatedocuments.php" class="flex items-center p-2 rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700""><img src="../img/back.png" class="size-4" alt="select from records"></a>
+                            <a href="../generatedocuments.php" class="flex items-center p-2 rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700""><img src="../../img/back.png" class="size-4" alt="select from records"></a>
                         </div>
                         <p class="flex justify-start items-center w-48 p-2 text-gray-400 ">Back</p>
                     </div>
@@ -45,7 +45,7 @@ if (!isset($_SESSION['users'])) {
                     <div class="flex">
                         <p class="flex justify-end w-48 p-2 text-gray-400 ">Select from Records</p>
                         <div >
-                            <button class="rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700" onclick="confirmDeletion()"><img src="../img/residency.svg" class="size-10 p-2" alt="select from records"></button>
+                            <button class="rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700" onclick="confirmDeletion()"><img src="../../img/residency.svg" class="size-10 p-2" alt="select from records"></button>
                         </div>
                     </div>
                 </div>
@@ -194,10 +194,10 @@ if (!isset($_SESSION['users'])) {
             </form>   
             <!-- Buttons -->
             <div class="flex justify-end items-center gap-2">
-                <a href="backend/brgyclearance_print.php?id=<?= $row['id']?>">
+                <a href="print/certresidency_print.php?id=<?= $row['id']?>">
                     <button class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Print </button>
                 </a>
-                <a href="generatedocuments.php">
+                <a href="../generatedocuments.php">
                     <button name="cancel" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button>
                 </a>
             </div>
@@ -205,85 +205,83 @@ if (!isset($_SESSION['users'])) {
         
         <!-- Bottom Logo -->
         <div class="w-full flex justify-center mt-12">
-            <img src="../img/coat.png" alt="Bottom Image" class="w-[100px] h-[100px] object-contain">
+            <img src="../../img/coat.png" alt="Bottom Image" class="w-[100px] h-[100px] object-contain">
         </div>
         <!--Select from Records -->
         <div class="fixed z-50 hidden" id="confirmDeletion">
-            <div class="border-4 w-screen h-screen flex justify-center items-center flex-col">
+            <div class=" w-screen h-screen flex justify-center items-center flex-col">
                 <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-                <div class="relative flex flex-col h-4/5 w-4/12 overflow-auto rounded-md bg-white z-10 border-2 mb-24">
-                    <div class="grid justify-center h-full w-full border-2 grow-0">
+                <div class="relative flex flex-col h-full w-4/12 overflow-auto rounded-md bg-white z-10 my-10 ">
+                    <div class="grid justify-center h-full w-full grow-0">
                     <!-- Search -->
                         <div class="flex justify-center items-center mt-2">
                             <form method="post">
                                 <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-c h-8 transition duration-300">
-                                <button id="searchBtn" class="rounded-md absolute right-52 top-[26px] transform -translate-y-1/2 border-gray-300 p-2 h-8 flex items-center justify-center pointer-events-none">
-                                    <img class="w-4 h-4" src="../img/search.svg" alt="Search Icon"/>
+                                <button id="searchBtn" class="rounded-md absolute right-54 top-[26px] transform -translate-y-1/2 border-gray-300 p-2 h-8 flex items-center justify-center pointer-events-none">
                                 </button>
                             </form>
                         </div>
                         <!-- Tables -->
                         <div class="h-full w-screengrow">
-                            <div class="overflow-hidden mt-2 w-full">
-                            <div class="border-2 border-c rounded-lg mx-4">
-                            <!--Personal Information Table -->
-                            <div id="tb1" class="overflow-auto no-scrollbar"  style="height: 65vh;">
-                                <div class="rounded-t-sm pt-2 bg-c ">
-                                    <table id="residentTable" class="w-full border-collapse">
-                                <colgroup>
-                                    <col class="w-[200px]">
-                                    <col class="w-[400px]">
-                                    <col class="w-[200px]">
-                                </colgroup>
-                                <thead class="bg-c sticky top-0 ">
-                                    <tr class="uppercase ">
-                                        <!--Basic Information + Action-->
-                                        <th class="py-4 min-w-20">ID</th>
-                                        <th class="py-4">Name</th>
-
-                                        <th class="min-w-20">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class=" text-gray-600 bg-white">
-                                <?php 
-                                $i = 1; //auto numbering
-                                foreach ($result as $row) {
-                                ?>
-                                <tr class="hover:bg-gray-100">
-                                    <td class=" border-y-2 border-c py-4">
-                                        <div class="flex justify-center  min-w-20">
-                                            <?= $i ?>
-                                        </div>
-                                    </td>
-                                    <td class="border-y-2 border-c py-2">
-                                        <div class="flex justify-center">
-                                            <?=$row['first_name']?>
-                                            <?=$row['middle_name']?>
-                                            <?=$row['last_name']?>
-                                        </div>
-                                    </td>
-                                    <td class="border-y-2 border-c py-2">
-                                        <div class="flex justify-center items-center h-20 grow">
-                                            <a href="brgyclearance.php?id=<?= $row['id']?>">
-                                                <button name="select" class="rounded-md w-32 border-2 border-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
-                                                Select
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <?php $i++; } ?>
-                                </tbody>
-                                    </table>
+                            <div class="overflow-hidden w-full mt-2">
+                                <div class="border-2 border-c rounded-lg mx-4">
+                                    <!--Personal Information Table -->
+                                    <div id="tb1" class="overflow-auto no-scrollbar"  style="height: 70vh;">
+                                    <div class="rounded-t-sm pt-2 bg-c ">
+                                        <table id="residentTable" class="w-full border-collapse">
+                                            <colgroup>
+                                                <col class="w-[200px]">
+                                                <col class="w-[400px]">
+                                                <col class="w-[200px]">
+                                            </colgroup>
+                                            <thead class="bg-c sticky top-0 ">
+                                            <tr class="uppercase ">
+                                                <!--Basic Information + Action-->
+                                                <th class="py-4 min-w-20">ID</th>
+                                                <th class="py-4">Name</th>
+                                                <th class="min-w-20">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class=" text-gray-600 bg-white">
+                                                <?php 
+                                                $i = 1; //auto numbering
+                                                foreach ($result as $row) {
+                                                ?>
+                                                <tr class="hover:bg-gray-100">
+                                                    <td class="border-y-2 border-c ">
+                                                        <div class="flex justify-center min-w-20">
+                                                            <?= $i ?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c">
+                                                        <div class="flex justify-center">
+                                                            <?=$row['first_name']?>
+                                                            <?=$row['middle_name']?>
+                                                            <?=$row['last_name']?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c">
+                                                        <div class="flex justify-center items-center h-20 grow">
+                                                            <a href="certresidency.php?id=<?= $row['id']?>">
+                                                                <button name="select" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
+                                                                Select
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php $i++; } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    </div>
+                                    <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
                                 </div>
                             </div>
-                            <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
-                            </div>
+                            <div class="flex justify-center items-center p-4 grow ">
+                                <button class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelConfirmation()">Cancel</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="flex justify-center items-center border-2 h-20 grow">
-                        <button class="rounded-md bg-c w-32 p-2 place-self-center hover:bg-sg transition duration-300" onclick="cancelConfirmation()">Cancel</button>
                     </div>
                 </div>
             </div>
