@@ -161,8 +161,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <colgroup>
                             <col class="w-[100px]">
                             <col class="w-[200px]">
-                            <col>
-                            <col>
+                            <col class="w-[200px]">
+                            <col class="w-[200px]">
                             <col>
                             <col>
                             <col>

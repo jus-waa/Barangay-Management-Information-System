@@ -121,11 +121,12 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <table id="residentTable" class="w-full border-collapse">
                                 <colgroup>
                                     <col class="w-[100px]">
-                                    <col class="w-[250px]">
-                                    <col>
-                                    <col>
-                                    <col>
-                                    <col>
+                                    <col class="w-[200px]">
+                                    <col class="w-[200px]">
+                                    <col class="w-[200px]">
+                                    <col class="w-[200px]">
+                                    <col class="w-[200px]">
+                                    <col class="w-[100px]">
                                     <col>
                                 </colgroup>
                                 <thead class="bg-c sticky top-0 ">
@@ -136,6 +137,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <th class="py-4">Date of Printing</th>
                                         <th class="py-4">Control Number</th>
                                         <th class="py-4">Issued By</th>
+                                        <th class="py-4">Status</th>
                                         <th class="py-4">Purpose</th>
                                     </tr>
                                 </thead>
@@ -177,9 +179,12 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2"> 
                                             <div class="flex justify-center">
-                                                <button name="select" class="rounded-md w-32 border-2 border-c p-1 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
-                                                Print
-                                                </button>
+                                                <?= $row['suffix'] ?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-[#AFE1AF] py-2"> 
+                                            <div class="flex justify-center">
+                                                <?= $row['suffix'] ?>
                                             </div>
                                         </td>
                                     </tr>
@@ -191,12 +196,32 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
                 </div>
             </div>
+            <!-- Confirm Print -->
+            <div class="fixed z-50 hidden" id="confirmDeletion">
+                    <div class="border-4 w-screen h-screen flex justify-center items-center">
+                        <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                        <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
+                            <div class="grid justify-center">
+                                <div class="text-3xl font-bold place-self-center mt-12">Confirm Print?</div>
+                                <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
+                            </div>
+                            <div class="flex justify-center space-x-4 mt-6">
+                                <a id="" href="#">
+                                    <button class="bg-sg rounded-md w-32 h-12">
+                                        Yes, Delete  
+                                    </button>
+                                </a>
+                                <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 <script>
     function confirmDeletion(id) {
         document.getElementById("confirmDeletion").classList.remove("hidden");
-        document.getElementById("deleteLink").href =' backend/delete.php?id=' + id;
+        //document.getElementById("deleteLink").href =' backend/delete.php?id=' + id;
     }
     function cancelConfirmation() {
         document.getElementById("confirmDeletion").classList.add("hidden");

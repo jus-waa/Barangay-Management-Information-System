@@ -10,6 +10,24 @@ if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
 }
+// add to printhistory
+if (isset($_POST['confirm'])) {
+    try{
+        $resident_name = $_POST['resident_name'];
+        $document_type = $_POST['document_type'];
+        $print_date = $_POST['print_date'];
+        $control_number = $_POST['control_number'];
+        $issued_by = $_POST['issued_by'];
+        $status = $_POST['status'];
+        $purpose = $_POST['purpose'];
+
+        $query = "INSERT INTO `print_history`(`resident_name`, `document_type`, `print_date`, `control_number`, `issued_by`, `status`, `purpose`) VALUES (:resident_name, :document_type, :print_date, :control_number, :issued_by, :status, :purpose)";
+    } catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+} else if (isset($_POST['cancel'])){
+    header("location: brgyclearance.php?msg= operation cancelled.");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +43,6 @@ if (!isset($_SESSION['users'])) {
 </head>
 <body class="relative h-screen w-full bg-cover bg-center bg-fixed">
     <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../../img/indang.webp'); filter: blur(2px); z-index: -1;"></div>
-    <!-- Centering Wrapper -->
     <div class="flex justify-center place-items-center flex-col h-full relative z-10">
         <!-- Main Content -->
         <div class="w-4/5 p-6 mt-4 bg-white rounded-lg">
@@ -45,7 +62,7 @@ if (!isset($_SESSION['users'])) {
                     <div class="flex">
                         <p class="flex justify-end w-48 p-2 text-gray-400 ">Select from Records</p>
                         <div >
-                            <button class="rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700" onclick="confirmDeletion()"><img src="../../img/residency.svg" class="size-10 p-2" alt="select from records"></button>
+                            <button class="rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700" onclick="selectRecords()"><img src="../../img/residency.svg" class="size-10 p-2" alt="select from records"></button>
                         </div>
                     </div>
                 </div>
@@ -176,8 +193,8 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                         </div>
+                        <!-- Purpose -->
                         <div class="rounded-lg p-2 mb-8">
-                            <!-- Purpose -->
                             <div>
                                 <h2 class="text-xl font-bold mb-4">Purpose</h2>
                                 <div class="border-2 p-6 rounded-md hover:border-sg transition duration-700">
@@ -191,27 +208,51 @@ if (!isset($_SESSION['users'])) {
                         </div>
                     </div>
                 </div>
+                <!-- Buttons -->
+                <div class="flex justify-end items-center gap-2">
+                    <!-- Old Print (Copy Later)
+                    <a href="print/brgyclearance_print.php?id=<?= $row['id']?>">
+                        <button class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Print </button>
+                    </a>
+                    -->
+                    <button type="button" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="confirmPrint(<?= $row['id'] ?>)">
+                        Print
+                    </button>
+                    <a href="../generatedocuments.php">
+                        <button type="button" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button>
+                    </a>
+                </div>
+                <!-- Confirm Print -->
+                <div class="fixed inset-0 z-50 hidden" id="confirmPrint">
+                    <div class="w-screen h-screen flex justify-center items-center">
+                        <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                        <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
+                            <div class="grid justify-center">
+                                <div class="text-3xl font-bold place-self-center mt-12">Confirm Print?</div>
+                                <div class="mb-24 mt-4">Do you confirm this record?</div>
+                            </div>
+                            <div class="flex justify-center space-x-4 mt-6">
+                            <a href="print/brgyclearance_print.php?id=<?= $row['id']?>">
+                                    <button type="button" name="confirm" class="bg-sg rounded-md w-32 h-12">
+                                        Yes, Confirm 
+                                    </button>
+                                </a>
+                                <button type="button" name="cancel"  class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>   
-            <!-- Buttons -->
-            <div class="flex justify-end items-center gap-2">
-                <a href="print/brgyclearance_print.php?id=<?= $row['id']?>">
-                    <button class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Print </button>
-                </a>
-                <a href="../generatedocuments.php">
-                    <button name="cancel" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button>
-                </a>
-            </div>
         </div>
-        
         <!-- Bottom Logo -->
         <div class="w-full flex justify-center mt-12">
             <img src="../../img/coat.png" alt="Bottom Image" class="w-[100px] h-[100px] object-contain">
         </div>
         <!--Select from Records -->
-        <div class="fixed z-50 hidden" id="confirmDeletion">
-            <div class=" w-screen h-screen flex justify-center items-center flex-col">
+        <div class="fixed z-50 hidden" id="selectRecords">
+            <div class=" w-screen h-screen flex justify-center items-center flex-col ">
                 <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-                <div class="relative flex flex-col h-full w-4/12 overflow-auto rounded-md bg-white z-10 my-10 ">
+                <div class="relative flex flex-col h-full w-4/12 overflow-auto bg-white z-10 my-10  border-4 border-c rounded-xl ">
                     <div class="grid justify-center h-full w-full grow-0">
                     <!-- Search -->
                         <div class="flex justify-center items-center mt-2">
@@ -279,7 +320,7 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                             <div class="flex justify-center items-center p-4 grow ">
-                                <button class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelConfirmation()">Cancel</button>
+                                <button class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -289,11 +330,17 @@ if (!isset($_SESSION['users'])) {
     </div>
     <script>
     //confirm deletion
-    function confirmDeletion() {
-        document.getElementById("confirmDeletion").classList.remove("hidden");
+    function selectRecords() {
+        document.getElementById("selectRecords").classList.remove("hidden");
+    }
+    function cancelSelect() {
+        document.getElementById("selectRecords").classList.add("hidden");
+    }
+    function confirmPrint() {
+        document.getElementById("confirmPrint").classList.remove("hidden");
     }
     function cancelConfirmation() {
-        document.getElementById("confirmDeletion").classList.add("hidden");
+        document.getElementById("confirmPrint").classList.add("hidden");
     }
     </script>
     <script>

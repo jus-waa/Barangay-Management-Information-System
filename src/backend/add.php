@@ -1,6 +1,6 @@
 <?php
 include("connection.php");
-
+// add
 if(isset($_POST['add'])) {
     try{
         $first_name = $_POST['first_name'];
@@ -60,7 +60,7 @@ if(isset($_POST['add'])) {
         $stmt->bindParam(':blood_type', $blood_type, PDO::PARAM_STR);
         $stmt->bindParam(':religion', $religion, PDO::PARAM_STR);
         $stmt->execute();
-     
+        //display if new record is added
         if($stmt) {
             header("location: ../residentpage.php?msg= new record added.");
         } else {
