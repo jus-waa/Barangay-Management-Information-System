@@ -146,7 +146,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     $i = 1; // auto numbering
                                     foreach ($result as $row) {
                                     ?>
-                                    <tr class="hover:bg-gray-100">
+                                    <tr class="hover:bg-gray-100  text-center">
                                         <td class="border-y-2 border-[#AFE1AF] py-4"> 
                                             <div class="flex justify-center min-w-20">
                                                 <?= $i ?>
@@ -154,7 +154,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2"> 
                                             <div class="flex justify-center">
-                                                <?= $row['resident_name'] ?>
+                                                <?= $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'] ?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2"> 

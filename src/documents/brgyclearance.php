@@ -14,7 +14,9 @@ if (!isset($_SESSION['users'])) {
 // add to printhistory
 if (isset($_POST['confirm'])) {
     try{
-        $resident_name = $_POST['first_name'] . ' ' . $_POST['middle_name'] . ' ' . $_POST['last_name'];
+        $first_name = $_POST['first_name']; 
+        $middle_name =  $_POST['middle_name']; 
+        $last_name =  $_POST['last_name'];
         $document_type = 'Barangay Clearance';
         $print_date = $_POST['print_date'];
         $control_number = $_POST['control_number'];
@@ -24,7 +26,9 @@ if (isset($_POST['confirm'])) {
        
         $query = "INSERT INTO `print_history`(`resident_name`, `document_type`, `print_date`, `control_number`, `issued_by`, `status`, `purpose`) VALUES (:resident_name, :document_type, :print_date, :control_number, :issued_by, :status, :purpose)";
         $stmt = $dbh->prepare($query);
-        $stmt->bindParam(':resident_name', $resident_name, PDO::PARAM_STR);
+        $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+        $stmt->bindParam(':middle_name', $middle_name, PDO::PARAM_STR);
+        $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
         $stmt->bindParam(':document_type', $document_type, PDO::PARAM_STR);
         $stmt->bindParam(':print_date', $print_date, PDO::PARAM_STR);
         $stmt->bindParam(':control_number', $control_number, PDO::PARAM_STR);
@@ -34,11 +38,11 @@ if (isset($_POST['confirm'])) {
         $stmt->execute();
 
         // Get ID of selected record
-        $selected_id = $_POST['selected_id'];
+        $lastInsertId = $dbh->lastInsertId();
 
         if ($stmt) {
             echo "<script>alert('Data successfully inserted into print_history.');</script>";
-            header("Location: print/brgyclearance_print.php?id=" .  $selected_id);
+            header("Location: print/brgyclearance_print.php?id=" . $lastInsertId);
             exit;
             } else {
             echo "<script>alert('Failed to insert data: " . $e->getMessage() . "');</script>";
@@ -173,9 +177,11 @@ if (isset($_POST['confirm'])) {
                                     <div>
                                         <input id="control-number" name="control_number" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Control Number</label>
+                                        <span id="control-number-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
                                     <div class="relative">
                                         <input id="date-of-issuance" name="print_date" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <span id="date-of-issuance-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
                                 </div>
                             </div>
@@ -219,12 +225,14 @@ if (isset($_POST['confirm'])) {
                                 <h2 class="text-xl font-bold mb-4">Purpose & Issued By</h2>
                                 <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
                                     <div class="relative">
-                                        <input name="purpose" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <input id="purpose" name="purpose" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Purpose</label>
+                                        <span id="purpose-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
                                     <div class="relative">
-                                        <input name="issued_by" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <input id="issued-by" name="issued_by" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Issued By</label>
+                                        <span id="issued-by-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
                                 </div>
                             </div>
@@ -239,11 +247,11 @@ if (isset($_POST['confirm'])) {
                         <button class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Print </button>
                     </a>
                     -->
-                    <button type="button" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="confirmPrint(<?= $row['id'] ?>)">
+                    <button id="add-button" type="button" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="confirmPrint(<?= $row['id'] ?>)">
                         Print
                     </button>
                     <a href="../generatedocuments.php">
-                        <button type="button" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button>
+                        <button id="cancel-button" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button>
                     </a>
                 </div>
                 <!-- Confirm Print -->
@@ -256,11 +264,11 @@ if (isset($_POST['confirm'])) {
                                 <div class="mb-24 mt-4">Do you confirm this record?</div>
                             </div>
                             <div class="flex justify-center space-x-4 mt-6">
-                                <input type="hidden" name="selected_id" value="<?= $row['id'] ?>">
-                                <button type="submit" name="confirm" class="bg-sg rounded-md w-32 h-12">
+                                <button  type="submit" name="confirm" class="bg-sg rounded-md w-32 h-12">
+                                <input  type="hidden" name="selected_id" value="<?= $row['id'] ?>">
                                     Yes, Confirm 
                                 </button>
-                                <button type="button" name="cancel"  class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                                <button name="cancel"  class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
                             </div>
                         </div>
                     </div>
@@ -352,26 +360,42 @@ if (isset($_POST['confirm'])) {
         </div>
     </div>
     <script>
+    //confirm deletion
+    function selectRecords() {
+        document.getElementById("selectRecords").classList.remove("hidden");
+    }
+    function cancelSelect() {
+        document.getElementById("selectRecords").classList.add("hidden");
+    }
+    //confirm print
+    function confirmPrint() {
+        document.getElementById("confirmPrint").classList.remove("hidden");
+    }
+    function cancelConfirmation() {
+        document.getElementById("confirmPrint").classList.add("hidden");
+    }
+
+    //script for requiring input fields
     document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("personal_info");
     const firstNameInput = document.getElementById("first-name");
     const lastNameInput = document.getElementById("last-name");
-    const ageInput = document.getElementById("age");
-    const genderInput = document.getElementById("gender");
-    const contactNumberInput = document.getElementById("contact-num");
-    const contactNumber = document.getElementById("contact-num").value;
+    const controlNumberInput = document.getElementById("control-number");
+    const dateIssuedInput = document.getElementById("date-of-issuance");
+    const purposeInput = document.getElementById("purpose");
+    const issuedByInput = document.getElementById("issued-by");
 
     const firstNameError = document.getElementById("first-name-error");
     const lastNameError = document.getElementById("last-name-error");
-    const ageError = document.getElementById("age-error");
-    const genderError = document.getElementById("gender-error");
-    const contactError = document.getElementById("contact-error");
+    const controlNumberError = document.getElementById("control-number-error");
+    const dateIssuedError = document.getElementById("date-of-issuance-error");
+    const purposeError = document.getElementById("purpose-error");
+    const issuedByError = document.getElementById("issued-by-error");
 
     const addButton = document.getElementById("add-button"); // Assume the Add button has this ID
     const cancelButton = document.getElementById("cancel-button"); // Assume the Cancel button has this ID
 
     form.addEventListener("submit", (event) => {
-        
             let isValid = true;
             let firstInvalidElement = null;
 
@@ -379,9 +403,8 @@ if (isset($_POST['confirm'])) {
             if (!firstNameInput.value.trim()) {
                 isValid = false;
                 firstNameError.classList.remove("hidden");
-                firstNameInput.focus();
                 firstInvalidElement = firstInvalidElement || firstNameInput;
-            } else {
+            } else {    
                 firstNameError.classList.add("hidden");
             }
 
@@ -394,39 +417,48 @@ if (isset($_POST['confirm'])) {
                 lastNameError.classList.add("hidden");
             }
 
-            // Validate Age
-            if (!ageInput.value.trim()) {
+            // Validate Control Number
+            if (!controlNumberInput.value.trim()) {
                 isValid = false;
-                ageError.classList.remove("hidden");
-                firstInvalidElement = firstInvalidElement || ageInput;
+                controlNumberError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || controlNumberInput;
             } else {
-                ageError.classList.add("hidden");
+                controlNumberError.classList.add("hidden");
             }
 
-            // Validate Gender
-            if (!genderInput.value.trim()) {
+            // Validate Date issued
+            if (!dateIssuedInput.value.trim()) {
                 isValid = false;
-                genderError.classList.remove("hidden");
-                firstInvalidElement = firstInvalidElement || genderInput;
+                dateIssuedError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || dateIssuedInput;
             } else {
-                genderError.classList.add("hidden");
+                dateIssuedError.classList.add("hidden");
             }
 
-            // Check Contact Number
-            if (!/^\d{4} \d{3} \d{4}$/.test(contactNumberInput.value.trim())) {
+            // Validate Purpose
+            if (!purposeInput.value.trim()) {
                 isValid = false;
-                event.preventDefault();
-                contactError.classList.remove("hidden");
-                firstInvalidElement = firstInvalidElement || contactNumberInput;
+                purposeError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || purposeInput;
             } else {
-                contactError.classList.add("hidden");
+                purposeError.classList.add("hidden");
             }
 
+            // Validate Issued By
+            if (!issuedByInput.value.trim()) {
+                isValid = false;
+                issuedByError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || issuedByInput;
+            } else {
+                issuedByError.classList.add("hidden");
+            }
+            
             // Prevent form submission if validation fails
             if (!isValid) {
                 event.preventDefault();
                 firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
                 firstInvalidElement.focus();
+                document.getElementById("confirmPrint").classList.add("hidden");
             } 
         });
         // Cancel Button: Redirect to another page
@@ -436,23 +468,10 @@ if (isset($_POST['confirm'])) {
             window.location.href = "../residentpage.php"; 
         });
     });
+    
     </script>
     <script>
-    //confirm deletion
-    function selectRecords() {
-        document.getElementById("selectRecords").classList.remove("hidden");
-    }
-    function cancelSelect() {
-        document.getElementById("selectRecords").classList.add("hidden");
-    }
-    function confirmPrint() {
-        document.getElementById("confirmPrint").classList.remove("hidden");
-    }
-    function cancelConfirmation() {
-        document.getElementById("confirmPrint").classList.add("hidden");
-    }
-    </script>
-    <script>
+    //for contact number
     $(document).ready(function() {
         // Input mask for the phone number
         $('#phone').inputmask({

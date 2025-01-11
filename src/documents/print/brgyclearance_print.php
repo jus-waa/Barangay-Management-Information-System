@@ -14,15 +14,15 @@ $template = $pdf->importPage(1);
 $pdf->useTemplate($template);
 
 $id = $_GET['id'];
-$query = "SELECT * FROM `resident_info` WHERE `id` = :id";
+$query = "SELECT * FROM `print_history` WHERE `id` = :id";
 $stmt = $dbh->prepare($query);
 $stmt->execute(['id' => $_GET['id']]);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($row) {
-    $dynamicData1 = $row['first_name'];
-    $dynamicData2 = $row['middle_name'];
-    $dynamicData3 = $row['last_name'];
+    $dynamicData1 = $row['resident_name'];
+    $dynamicData2 = $row['status'];
+    $dynamicData3 = $row['purpose'];
 
     $pdf->SetXY(57, 190);
     $pdf->Write(0, $dynamicData1);
