@@ -24,7 +24,7 @@ if (isset($_POST['confirm'])) {
         $status = $_POST['status'];
         $purpose = $_POST['purpose'];
        
-        $query = "INSERT INTO `print_history`(`resident_name`, `document_type`, `print_date`, `control_number`, `issued_by`, `status`, `purpose`) VALUES (:resident_name, :document_type, :print_date, :control_number, :issued_by, :status, :purpose)";
+        $query = "INSERT INTO `print_history`(`first_name`, `middle_name`, `last_name`, `document_type`, `print_date`, `control_number`, `issued_by`, `status`, `purpose`) VALUES (:first_name, :middle_name, :last_name, :document_type, :print_date, :control_number, :issued_by, :status, :purpose)";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
         $stmt->bindParam(':middle_name', $middle_name, PDO::PARAM_STR);
@@ -41,18 +41,12 @@ if (isset($_POST['confirm'])) {
         $lastInsertId = $dbh->lastInsertId();
 
         if ($stmt) {
-            echo "<script>alert('Data successfully inserted into print_history.');</script>";
             header("Location: print/brgyclearance_print.php?id=" . $lastInsertId);
             exit;
-            } else {
-            echo "<script>alert('Failed to insert data: " . $e->getMessage() . "');</script>";
-            echo "<script>window.location.href = 'brgyclearance.php';</script>";
         }
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
-} else if (isset($_POST['cancel'])){
-    header("location: brgyclearance.php?msg= operation cancelled.");
 } 
 ?>
 <!DOCTYPE html>
@@ -175,7 +169,7 @@ if (isset($_POST['confirm'])) {
                                 <h2 class="text-xl font-bold mb-4">Control Number & Date of Issuance</h2>
                                 <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
                                     <div>
-                                        <input id="control-number" name="control_number" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <input id="control-number" name="control_number" type="number" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Control Number</label>
                                         <span id="control-number-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
@@ -208,13 +202,14 @@ if (isset($_POST['confirm'])) {
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Barangay Name</label>
                                         </div>
                                     </div>
-                                    <div for="suffix" class="flex flex-col flex-grow">
-                                        <select name="status" class="text-black border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
+                                    <div for="status" class="flex flex-col flex-grow">
+                                        <select id="status" name="status" class="text-black border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
                                             <option class="bg-white text-gray-500" value="">Status</option>
                                             <option class="bg-white" value="Pending">Pending</option>
                                             <option class="bg-white" value="Approved">Approved</option>
                                             <option class="bg-white" value="For Printing">For Printing</option>
                                         </select>
+                                        <span id="status-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
                                 </div>
                             </div>
@@ -265,10 +260,10 @@ if (isset($_POST['confirm'])) {
                             </div>
                             <div class="flex justify-center space-x-4 mt-6">
                                 <button  type="submit" name="confirm" class="bg-sg rounded-md w-32 h-12">
-                                <input  type="hidden" name="selected_id" value="<?= $row['id'] ?>">
+                                <input  type="hidden" value="<?= $row['id'] ?>">
                                     Yes, Confirm 
                                 </button>
-                                <button name="cancel"  class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                                <button name="cancel" class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
                             </div>
                         </div>
                     </div>
@@ -384,6 +379,7 @@ if (isset($_POST['confirm'])) {
     const dateIssuedInput = document.getElementById("date-of-issuance");
     const purposeInput = document.getElementById("purpose");
     const issuedByInput = document.getElementById("issued-by");
+    const statusInput = document.getElementById("status");
 
     const firstNameError = document.getElementById("first-name-error");
     const lastNameError = document.getElementById("last-name-error");
@@ -391,6 +387,7 @@ if (isset($_POST['confirm'])) {
     const dateIssuedError = document.getElementById("date-of-issuance-error");
     const purposeError = document.getElementById("purpose-error");
     const issuedByError = document.getElementById("issued-by-error");
+    const statusError = document.getElementById("status-error");
 
     const addButton = document.getElementById("add-button"); // Assume the Add button has this ID
     const cancelButton = document.getElementById("cancel-button"); // Assume the Cancel button has this ID
@@ -452,14 +449,23 @@ if (isset($_POST['confirm'])) {
             } else {
                 issuedByError.classList.add("hidden");
             }
+
+            // Validate Status
+            if (!statusInput.value.trim()) {
+                isValid = false;
+                statusError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || statusInput;
+            } else {
+                statusError.classList.add("hidden");
+            }
             
             // Prevent form submission if validation fails
             if (!isValid) {
                 event.preventDefault();
                 firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
-                firstInvalidElement.focus();
                 document.getElementById("confirmPrint").classList.add("hidden");
             } 
+
         });
         // Cancel Button: Redirect to another page
         cancelButton.addEventListener("click", (event) => {

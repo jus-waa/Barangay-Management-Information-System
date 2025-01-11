@@ -366,7 +366,6 @@ if(isset($_POST['add'])) {
             if (!firstNameInput.value.trim()) {
                 isValid = false;
                 firstNameError.classList.remove("hidden");
-                firstNameInput.focus();
                 firstInvalidElement = firstInvalidElement || firstNameInput;
             } else {
                 firstNameError.classList.add("hidden");
