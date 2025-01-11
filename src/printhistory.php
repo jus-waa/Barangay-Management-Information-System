@@ -8,7 +8,7 @@ if (!isset($_SESSION['users'])) {
     exit();
 }
 // fetch data
-$stmt = $dbh->prepare("SELECT * FROM `resident_info`");
+$stmt = $dbh->prepare("SELECT * FROM `print_history`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -154,37 +154,37 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2"> 
                                             <div class="flex justify-center">
-                                                <?= $row['first_name'] ?>
+                                                <?= $row['resident_name'] ?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2"> 
                                             <div class="flex justify-center">
-                                                <?= $row['middle_name'] ?>
+                                                <?= $row['document_type'] ?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2">
                                             <div class="flex justify-center">
-                                                <?= $row['last_name'] ?>
+                                                <?= $row['print_date'] ?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2"> 
                                             <div class="flex justify-center">
-                                                <?= $row['suffix'] ?>
+                                                <?= $row['control_number'] ?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2"> 
                                             <div class="flex justify-center">
-                                                <?= $row['suffix'] ?>
+                                                <?= $row['issued_by'] ?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2"> 
                                             <div class="flex justify-center">
-                                                <?= $row['suffix'] ?>
+                                                <?= $row['status'] ?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-[#AFE1AF] py-2"> 
                                             <div class="flex justify-center">
-                                                <?= $row['suffix'] ?>
+                                                <?= $row['purpose'] ?>
                                             </div>
                                         </td>
                                     </tr>
@@ -198,24 +198,24 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <!-- Confirm Print -->
             <div class="fixed z-50 hidden" id="confirmDeletion">
-                    <div class="border-4 w-screen h-screen flex justify-center items-center">
-                        <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-                        <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
-                            <div class="grid justify-center">
-                                <div class="text-3xl font-bold place-self-center mt-12">Confirm Print?</div>
-                                <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
-                            </div>
-                            <div class="flex justify-center space-x-4 mt-6">
-                                <a id="" href="#">
-                                    <button class="bg-sg rounded-md w-32 h-12">
-                                        Yes, Delete  
-                                    </button>
-                                </a>
-                                <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
-                            </div>
+                <div class="border-4 w-screen h-screen flex justify-center items-center">
+                    <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                    <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
+                        <div class="grid justify-center">
+                            <div class="text-3xl font-bold place-self-center mt-12">Confirm Print?</div>
+                            <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
+                        </div>
+                        <div class="flex justify-center space-x-4 mt-6">
+                            <a id="" href="#">
+                                <button class="bg-sg rounded-md w-32 h-12">
+                                    Yes, Delete  
+                                </button>
+                            </a>
+                            <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 <script>

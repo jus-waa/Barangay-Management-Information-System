@@ -10,24 +10,46 @@ if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
 }
+
 // add to printhistory
 if (isset($_POST['confirm'])) {
     try{
-        $resident_name = $_POST['resident_name'];
-        $document_type = $_POST['document_type'];
+        $resident_name = $_POST['first_name'] . ' ' . $_POST['middle_name'] . ' ' . $_POST['last_name'];
+        $document_type = 'Barangay Clearance';
         $print_date = $_POST['print_date'];
         $control_number = $_POST['control_number'];
         $issued_by = $_POST['issued_by'];
         $status = $_POST['status'];
         $purpose = $_POST['purpose'];
-
+       
         $query = "INSERT INTO `print_history`(`resident_name`, `document_type`, `print_date`, `control_number`, `issued_by`, `status`, `purpose`) VALUES (:resident_name, :document_type, :print_date, :control_number, :issued_by, :status, :purpose)";
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam(':resident_name', $resident_name, PDO::PARAM_STR);
+        $stmt->bindParam(':document_type', $document_type, PDO::PARAM_STR);
+        $stmt->bindParam(':print_date', $print_date, PDO::PARAM_STR);
+        $stmt->bindParam(':control_number', $control_number, PDO::PARAM_STR);
+        $stmt->bindParam(':issued_by', $issued_by, PDO::PARAM_STR);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':purpose', $purpose, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // Get ID of selected record
+        $selected_id = $_POST['selected_id'];
+
+        if ($stmt) {
+            echo "<script>alert('Data successfully inserted into print_history.');</script>";
+            header("Location: print/brgyclearance_print.php?id=" .  $selected_id);
+            exit;
+            } else {
+            echo "<script>alert('Failed to insert data: " . $e->getMessage() . "');</script>";
+            echo "<script>window.location.href = 'brgyclearance.php';</script>";
+        }
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
 } else if (isset($_POST['cancel'])){
     header("location: brgyclearance.php?msg= operation cancelled.");
-}
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -153,7 +175,7 @@ if (isset($_POST['confirm'])) {
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Control Number</label>
                                     </div>
                                     <div class="relative">
-                                        <input id="date-of-issuance" name="date_of_issuance" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <input id="date-of-issuance" name="print_date" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
                                     </div>
                                 </div>
                             </div>
@@ -180,32 +202,34 @@ if (isset($_POST['confirm'])) {
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Barangay Name</label>
                                         </div>
                                     </div>
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex-grow mr-2">
-                                            <input id="municipality-city" name="municipality_city" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['municipality_city'] : $defaultValues['municipality_city']?>" placeholder=" "/> 
-                                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Municipality/City</label>
-                                        </div>
-                                        <div class="flex-grow">
-                                            <input id="zip-code" name="zip_code" maxlength="4" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg"value="<?php echo $recordLoaded ? $row['zip_code'] : $defaultValues['zip_code']?>" placeholder=" "/> 
-                                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Zip Code</label>
-                                        </div>
+                                    <div for="suffix" class="flex flex-col flex-grow">
+                                        <select name="status" class="text-black border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
+                                            <option class="bg-white text-gray-500" value="">Status</option>
+                                            <option class="bg-white" value="Pending">Pending</option>
+                                            <option class="bg-white" value="Approved">Approved</option>
+                                            <option class="bg-white" value="For Printing">For Printing</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Purpose -->
+                        <!-- Issued By & Purpose -->
                         <div class="rounded-lg p-2 mb-8">
                             <div>
-                                <h2 class="text-xl font-bold mb-4">Purpose</h2>
-                                <div class="border-2 p-6 rounded-md hover:border-sg transition duration-700">
+                                <h2 class="text-xl font-bold mb-4">Purpose & Issued By</h2>
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
                                     <div class="relative">
-                                        <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <input name="purpose" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Purpose</label>
+                                    </div>
+                                    <div class="relative">
+                                        <input name="issued_by" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Issued By</label>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
+                        
                     </div>
                 </div>
                 <!-- Buttons -->
@@ -232,11 +256,10 @@ if (isset($_POST['confirm'])) {
                                 <div class="mb-24 mt-4">Do you confirm this record?</div>
                             </div>
                             <div class="flex justify-center space-x-4 mt-6">
-                            <a href="print/brgyclearance_print.php?id=<?= $row['id']?>">
-                                    <button type="button" name="confirm" class="bg-sg rounded-md w-32 h-12">
-                                        Yes, Confirm 
-                                    </button>
-                                </a>
+                                <input type="hidden" name="selected_id" value="<?= $row['id'] ?>">
+                                <button type="submit" name="confirm" class="bg-sg rounded-md w-32 h-12">
+                                    Yes, Confirm 
+                                </button>
                                 <button type="button" name="cancel"  class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
                             </div>
                         </div>
@@ -328,6 +351,92 @@ if (isset($_POST['confirm'])) {
             </div>
         </div>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("personal_info");
+    const firstNameInput = document.getElementById("first-name");
+    const lastNameInput = document.getElementById("last-name");
+    const ageInput = document.getElementById("age");
+    const genderInput = document.getElementById("gender");
+    const contactNumberInput = document.getElementById("contact-num");
+    const contactNumber = document.getElementById("contact-num").value;
+
+    const firstNameError = document.getElementById("first-name-error");
+    const lastNameError = document.getElementById("last-name-error");
+    const ageError = document.getElementById("age-error");
+    const genderError = document.getElementById("gender-error");
+    const contactError = document.getElementById("contact-error");
+
+    const addButton = document.getElementById("add-button"); // Assume the Add button has this ID
+    const cancelButton = document.getElementById("cancel-button"); // Assume the Cancel button has this ID
+
+    form.addEventListener("submit", (event) => {
+        
+            let isValid = true;
+            let firstInvalidElement = null;
+
+            // Validate First Name
+            if (!firstNameInput.value.trim()) {
+                isValid = false;
+                firstNameError.classList.remove("hidden");
+                firstNameInput.focus();
+                firstInvalidElement = firstInvalidElement || firstNameInput;
+            } else {
+                firstNameError.classList.add("hidden");
+            }
+
+            // Validate Last Name
+            if (!lastNameInput.value.trim()) {
+                isValid = false;
+                lastNameError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || lastNameInput;
+            } else {
+                lastNameError.classList.add("hidden");
+            }
+
+            // Validate Age
+            if (!ageInput.value.trim()) {
+                isValid = false;
+                ageError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || ageInput;
+            } else {
+                ageError.classList.add("hidden");
+            }
+
+            // Validate Gender
+            if (!genderInput.value.trim()) {
+                isValid = false;
+                genderError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || genderInput;
+            } else {
+                genderError.classList.add("hidden");
+            }
+
+            // Check Contact Number
+            if (!/^\d{4} \d{3} \d{4}$/.test(contactNumberInput.value.trim())) {
+                isValid = false;
+                event.preventDefault();
+                contactError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || contactNumberInput;
+            } else {
+                contactError.classList.add("hidden");
+            }
+
+            // Prevent form submission if validation fails
+            if (!isValid) {
+                event.preventDefault();
+                firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
+                firstInvalidElement.focus();
+            } 
+        });
+        // Cancel Button: Redirect to another page
+        cancelButton.addEventListener("click", (event) => {
+            event.preventDefault(); // Prevent default button behavior
+            // Redirect to another page (replace 'your-page-url' with the actual URL)
+            window.location.href = "../residentpage.php"; 
+        });
+    });
+    </script>
     <script>
     //confirm deletion
     function selectRecords() {
