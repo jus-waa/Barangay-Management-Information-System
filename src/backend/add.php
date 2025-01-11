@@ -95,7 +95,7 @@ if(isset($_POST['add'])) {
         <!-- Left Section -->
         <div class="bg-sg mr-52 rounded-r-xl">
             <!-- Back Button -->
-            <div class="grid justify-items-start pl-2 mt-2 sticky top-0">
+            <div class="grid justify-items-start pl-2 mt-2">
                 <div class="flex">
                     <div class="flex items-center p-2 rounded-md cursor-pointer transition duration-700 hover:scale-125 hover:animate-wiggle">
                         <a href="../residentpage.php"><img src="../../img/back-white.png" class="size-4" alt="select from records"></a>
@@ -104,12 +104,12 @@ if(isset($_POST['add'])) {
                 </div>
             </div>
             <div class="px-32 sticky top-0">
-                <div class="bg-sg text-sg h-64">.</div>
+                <div class="bg-sg text-sg h-64"></div>
                 <div class="bg-sg  p-16">
                     <h1 class="text-white text-3xl font-bold">Add a new record</h1>
                     <p class="text-c mt-2">Enter and save important data to keep your database updated.</p>
                 </div>
-                <div class="bg-sg text-sg h-64">.</div>
+                <div class="bg-sg text-sg h-64"></div>
             </div>
         </div>
         <!-- Main Content -->
