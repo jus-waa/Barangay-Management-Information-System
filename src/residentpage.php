@@ -189,7 +189,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         $i = 1; //auto numbering
                         foreach ($result as $row) {
                         ?>
-                        <tr class="hover:bg-gray-100">
+                        <tr class="hover:bg-gray-100  text-center">
                             <td class=" border-y-2 border-c py-4">
                                 <div class="flex justify-center  min-w-20">
                                     <?= $i ?>
@@ -294,7 +294,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         $i = 1; //auto numbering
                         foreach ($result as $row) {
                         ?>
-                        <tr class="hover:bg-gray-100">
+                        <tr class="hover:bg-gray-100  text-center">
                             <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center min-w-20">
                                     <?= $i ?>
@@ -366,9 +366,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[100px]">
-                            <col class="w-[300px]">
-                            <col >
-                            <col >
+                            <col class="w-[400px]">
+                            <col>
+                            <col>
                             <col class="w-[200px]">
                         </colgroup>
                         <thead class=" bg-c sticky top-0">
@@ -386,7 +386,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         $i = 1; //auto numbering
                         foreach ($result as $row) {
                         ?>
-                        <tr class="hover:bg-gray-100">
+                        <tr class="hover:bg-gray-100  text-center">
                             <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
@@ -481,7 +481,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         $i = 1; //auto numbering
                         foreach ($result as $row) {
                         ?>
-                        <tr class="hover:bg-gray-100">
+                        <tr class="hover:bg-gray-100  text-center">
                             <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
@@ -589,7 +589,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         $i = 1; //auto numbering
                         foreach ($result as $row) {
                         ?>
-                        <tr class="hover:bg-gray-100">
+                        <tr class="hover:bg-gray-100  text-center">
                             <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
@@ -656,9 +656,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[100px]">
-                            <col class="w-[300px]">
-                            <col>
-                            <col>
+                            <col class="w-[200px]">
+                            <col class="w-[500px]">
+                            <col class="w-[250px]">
                             <col>
                             <col class="w-[200px]">
                         </colgroup>
@@ -678,7 +678,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         $i = 1; //auto numbering
                         foreach ($result as $row) {
                         ?>
-                        <tr class="hover:bg-gray-100">
+                        <tr class="hover:bg-gray-100  text-center">
                             <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
@@ -764,7 +764,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[100px]">
-                            <col class="w-[500px]">
+                            <col class="w-[400px]">
                             <col >
                             <col >
                             <col class="w-[200px]">
@@ -784,7 +784,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         $i = 1; //auto numbering
                         foreach ($result as $row) {
                         ?>
-                        <tr class="hover:bg-gray-100">
+                        <tr class="hover:bg-gray-100  text-center">
                             <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
