@@ -117,7 +117,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="border-2 border-c rounded-lg mx-32">
                     <!-- Report Page Table -->
                     <div id="tb1" class="overflow-auto no-scrollbar" style="height: 67vh;">
-                        <div class="rounded-t-sm pt-2 bg-[#AFE1AF]">
+                        <div class="rounded-t-sm pt-2 bg-c ">
                             <table id="residentTable" class="w-full border-collapse">
                                 <colgroup>
                                     <col class="w-[100px]">
@@ -129,7 +129,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <col class="w-[100px]">
                                     <col>
                                 </colgroup>
-                                <thead class="bg-c sticky top-0 ">
+                                <thead class="bg-c sticky top-0 z-50">
                                     <tr class="uppercase ">
                                         <th class="py-4 min-w-20">ID</th>
                                         <th class="py-4">Resident Name</th>
@@ -147,42 +147,42 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     foreach ($result as $row) {
                                     ?>
                                     <tr class="hover:bg-gray-100  text-center">
-                                        <td class="border-y-2 border-[#AFE1AF] py-4"> 
+                                        <td class="border-y-2 border-c py-4"> 
                                             <div class="flex justify-center min-w-20">
                                                 <?= $i ?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-[#AFE1AF] py-2"> 
+                                        <td class="border-y-2 border-c py-2"> 
                                             <div class="flex justify-center">
                                                 <?= $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'] ?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-[#AFE1AF] py-2"> 
+                                        <td class="border-y-2 border-c py-2"> 
                                             <div class="flex justify-center">
                                                 <?= $row['document_type'] ?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-[#AFE1AF] py-2">
+                                        <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
                                                 <?= $row['print_date'] ?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-[#AFE1AF] py-2"> 
+                                        <td class="border-y-2 border-c py-2"> 
                                             <div class="flex justify-center">
                                                 <?= $row['control_number'] ?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-[#AFE1AF] py-2"> 
+                                        <td class="border-y-2 border-c py-2"> 
                                             <div class="flex justify-center">
                                                 <?= $row['issued_by'] ?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-[#AFE1AF] py-2"> 
+                                        <td class="border-y-2 border-c py-2"> 
                                             <div class="flex justify-center">
                                                 <?= $row['status'] ?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-[#AFE1AF] py-2"> 
+                                        <td class="border-y-2 border-c py-2"> 
                                             <div class="flex justify-center">
                                                 <?= $row['purpose'] ?>
                                             </div>
