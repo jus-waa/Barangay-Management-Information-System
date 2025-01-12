@@ -62,7 +62,7 @@ if(isset($_POST['add'])) {
         $stmt->execute();
         //display if new record is added
         if($stmt) {
-            header("location: ../residentpage.php?msg= new record added.");
+            header("location: ../residentpage.php?msg= Record added successfully.");
         } else {
             echo "Failed: " . $e->getMessage();
         }

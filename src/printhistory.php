@@ -95,15 +95,32 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
         <!-- Main -->
-        <div class="w-full h-screen"> 
+        <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
-            <div class="grid gap-x-10 grid-cols-2 shadow-md px-32 py-6 mb-20 ">
+            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-32 py-6 ">
                 <div class="text-3xl">
                     Print History
                 </div>
             </div>
-            <!-- Options -->
-            <div class="grid grid-cols-2 mx-32 ">
+            <!-- Body -->
+            <div class="flex flex-col h-full grow">
+                <!-- Note -->
+                <div class="h-14 mb-4 mt-8 mx-32 text-white">
+                    <?php
+                    if(isset($_GET['msg'])) {
+                        $msg = $_GET['msg'];
+                        echo '<div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100">
+                                <p>'. $msg .'</p>
+                            </div>';
+                    } else {
+                        echo '<div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0 ">
+                                <p></p>
+                            </div>';
+                    }
+                    ?>
+                </div>
+                <!-- Options -->
+                <div class="grid grid-cols-2 mx-32 ">
                 <!-- Categories -->
                 <div class="flex justify-start items-center">
                     <p class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">
@@ -118,9 +135,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </button>
                     </form>
                 </div>
-            </div>
-            <!-- Tables -->
-            <div class="overflow-hidden mt-4 w-full">
+                </div>
+                <!-- Tables -->
+                <div class="overflow-hidden mt-4 w-full">
                 <div class="border-2 border-c rounded-lg mx-32">
                     <!-- Report Page Table -->
                     <div id="tb1" class="overflow-auto no-scrollbar" style="height: 67vh;">
@@ -202,9 +219,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
                 </div>
-            </div>
-            <!-- Confirm Print -->
-            <div class="fixed z-50 hidden" id="confirmDeletion">
+                </div>
+                <!-- Confirm Print -->
+                <div class="fixed z-50 hidden" id="confirmDeletion">
                 <div class="border-4 w-screen h-screen flex justify-center items-center">
                     <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
                     <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
@@ -221,6 +238,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

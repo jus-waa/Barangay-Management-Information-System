@@ -96,9 +96,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
         <!-- Main -->
-        <div class="grow w-4/5 h-full">
+        <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
-            <div class="grid gap-x-10 grid-cols-2 shadow-md px-32 py-6 mb-20 ">
+            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-32 py-6 ">
                 <div class="text-3xl">
                     Resident Page
                 </div>
@@ -136,8 +136,25 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php } ?>
                 </div>
             </div>
-            <!-- Options -->
-            <div class="flex justify-between items-center">
+            <!-- Body -->
+            <div class="flex flex-col h-full grow">
+                <!-- Note -->
+                <div class="h-14 mb-4 mt-8 mx-32 text-white">
+                <?php
+                if(isset($_GET['msg'])) {
+                    $msg = $_GET['msg'];
+                    echo '<div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100">
+                            <p>'. $msg .'</p>
+                        </div>';
+                } else {
+                    echo '<div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0 ">
+                            <p></p>
+                        </div>';
+                }
+                ?>
+                </div>
+                <!-- Options -->
+                <div class="flex justify-between items-center">
                 <!-- Categories -->
                 <div class="ml-32">
                     <ul class="flex justify-start items-center space-x-4 ">
@@ -150,9 +167,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <li onclick="showCategory('tb7','option7')"><button id="option7" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Health</button></li>
                     </ul>
                 </div>
-            </div>
-            <!-- Tables -->
-            <div class="overflow-hidden mt-4 w-full">
+                </div>
+                <!-- Tables -->
+                <div class="overflow-hidden mt-4 w-full">
                 <div class="border-2 border-c rounded-lg mx-32">
                 <!--Personal Information Table -->
                 <div id="tb1" class="overflow-auto no-scrollbar"  style="height: 67vh;">
@@ -846,6 +863,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
+                </div>
                 </div>
             </div>
         </div>
