@@ -104,10 +104,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <!-- Body -->
             <div class="flex flex-col h-full grow">
-                <!-- Note -->
-                <div class="h-14 mb-4 mt-8 mx-32 text-white">
+                <!-- For extra space-->
+                <div class="h-14 mb-4 mt-8 mx-32 text-white pointer-events-none">
                     <div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0">
-                        Record added successfully.
+                        .
                     </div>
                 </div>
                 <!-- Options -->
@@ -235,6 +235,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 <script>
+    //remove notif
+    function notifDel(){
+        document.getElementById("notif-del").style.opacity = "0";
+    }
     function confirmDeletion(id) {
         document.getElementById("confirmDeletion").classList.remove("hidden");
         //document.getElementById("deleteLink").href =' backend/delete.php?id=' + id;

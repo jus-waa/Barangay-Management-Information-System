@@ -105,17 +105,23 @@ if (!isset($_SESSION['users'])) {
             <div class="flex flex-col h-full grow">
                 <!-- Note -->
                 <div class="h-14 mb-4 mt-8 mx-32 text-white">
-                    <?php
-                    if(isset($_GET['msg'])) {
-                        $msg = $_GET['msg'];
-                        echo '<div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100">
-                                <p>'. $msg .'</p>
-                            </div>';
-                    } else {
-                        echo '<div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0 ">
-                                <p></p>
-                            </div>';
-                    }
+                <?php
+                if(isset($_GET['msg'])) {
+                    $msg = $_GET['msg'];
+                    echo '
+                        <div id="notif-del" class="grid grid-cols-2 items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100">
+                            <p>'. $msg .'</p>
+                            <img src="../img/notif-del.png" alt="X" class="justify-self-end cursor-pointer" onclick="notifDel();">
+                        </div>
+                        ';
+                } else {
+                    echo '
+                        <div class="grid grid-cols-2 items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0">
+                            <p></p>
+                        </div>
+                        ';
+                }
+                ?>
                 ?>
                 </div>
                 <!-- Regular Section -->
@@ -348,6 +354,10 @@ if (!isset($_SESSION['users'])) {
         </div>
     </div>
 <script>
+    //remove notif
+    function notifDel(){
+        document.getElementById("notif-del").style.opacity = "0";
+    }
     //hover on nav 
     function hoverNav() {
         let generate = document.getElementById("gen_doc");

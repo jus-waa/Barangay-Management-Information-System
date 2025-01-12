@@ -23,7 +23,11 @@ if (isset($_POST['confirm'])) {
         $issued_by = $_POST['issued_by'];
         $status = $_POST['status'];
         $purpose = $_POST['purpose'];
-       
+        
+        if($middle_name == NULL) {
+            $middle_name = '';
+        }
+
         $query = "INSERT INTO `print_history`(`first_name`, `middle_name`, `last_name`, `document_type`, `print_date`, `control_number`, `issued_by`, `status`, `purpose`) VALUES (:first_name, :middle_name, :last_name, :document_type, :print_date, :control_number, :issued_by, :status, :purpose)";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
@@ -134,7 +138,7 @@ if (isset($_POST['confirm'])) {
                         <!-- Personal Information -->
                         <div class="rounded-lg p-2 mb-8 ">
                             <div>
-                                <h2 class="text-xl font-bold mb-4 text-gray-500">Personal Information</h2>
+                                <h2 class="text-xl font-bold mb-4">Personal Information</h2>
                                 <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
                                     <div>
                                         <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['first_name'] : $defaultValues['first_name']?>" placeholder=" " /> 
