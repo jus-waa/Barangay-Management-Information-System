@@ -18,6 +18,8 @@
 
         if($pass != $pass_re) {
             $_SESSION['pass_recheck'] = "Password do not match.";
+            header('location: updateaccount.php?id=' . $id);
+            exit();
         }
 
         $options = ['cost' => 13];
@@ -42,15 +44,15 @@
             try {
                 $update_data = "UPDATE `users` SET `username`='$username', `email`='$email', `password`='$encrypted', `password_re`='$encrypted_re', `contact_info`='$contact_info',`updated_at`=now() WHERE `id`='$id'";
                 $dbh->exec($update_data);
-                $response =  $username . ' successfully updated to the system.';
+                $response =  $username . ' has been successfully added to the system.';
             } catch (PDOException $e) {
                 $response = $e->getMessage();
             }
-            $_SESSION['response'] = $response;
-            header('location: accountmanagement.php?msg=' . $response);
+            header('location: accountmanagement.php?msg= Account has been updated.');
+            exit();
         } 
     } else if (isset($_POST['cancel'])) {
-        header('location: accountmanagement.php?msg= operation cancelled.');
+        header('location: accountmanagement.php?msg=  The operation has been terminated.');
     }
 ?>
 <!DOCTYPE html>

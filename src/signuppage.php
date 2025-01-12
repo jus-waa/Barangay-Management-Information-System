@@ -65,7 +65,6 @@
             } catch (PDOException $e) {
                 $response = $e->getMessage();
             }
-            $_SESSION['response'] = $response;
             if($role_id === '1') {
                 header('location: accountmanagement.php?msg= Admin account has been created.');
             } else {
