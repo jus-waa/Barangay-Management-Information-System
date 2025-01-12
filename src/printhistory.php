@@ -106,18 +106,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="flex flex-col h-full grow">
                 <!-- Note -->
                 <div class="h-14 mb-4 mt-8 mx-32 text-white">
-                    <?php
-                    if(isset($_GET['msg'])) {
-                        $msg = $_GET['msg'];
-                        echo '<div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100">
-                                <p>'. $msg .'</p>
-                            </div>';
-                    } else {
-                        echo '<div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0 ">
-                                <p></p>
-                            </div>';
-                    }
-                    ?>
+                    <div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0">
+                        Record added successfully.
+                    </div>
                 </div>
                 <!-- Options -->
                 <div class="grid grid-cols-2 mx-32 ">
@@ -138,7 +129,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <!-- Tables -->
                 <div class="overflow-hidden mt-4 w-full">
-                <div class="border-2 border-c rounded-lg mx-32">
+                    <div class="border-2 border-c rounded-lg mx-32">
                     <!-- Report Page Table -->
                     <div id="tb1" class="overflow-auto no-scrollbar" style="height: 67vh;">
                         <div class="rounded-t-sm pt-2 bg-c ">
@@ -212,13 +203,13 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
                                         </td>
                                     </tr>
-                                    <?php $i++; } ?>
+                                    <?php $i++; }?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
-                </div>
+                    </div>
                 </div>
                 <!-- Confirm Print -->
                 <div class="fixed z-50 hidden" id="confirmDeletion">

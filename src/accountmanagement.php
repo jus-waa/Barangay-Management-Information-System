@@ -94,29 +94,42 @@ if (!isset($_SESSION['users'])) {
             </div>
         </div>
         <!-- Main -->
-        <div class="w-full h-screen">
+        <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
             <div class="shadow-md px-32 py-6">
                 <div class="text-3xl">
                     Account Management
                 </div>
             </div>
-
             <!-- List of Accounts -->
-            <div class="grid content-center h-5/6">
+            <div class="flex flex-col h-full grow">
+                <!-- Note -->
+                <div class="h-14 mb-4 mt-8 mx-32 text-white">
+                    <?php
+                    if(isset($_GET['msg'])) {
+                        $msg = $_GET['msg'];
+                        echo '<div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100">
+                                <p>'. $msg .'</p>
+                            </div>';
+                    } else {
+                        echo '<div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0 ">
+                                <p></p>
+                            </div>';
+                    }
+                ?>
+                </div>
                 <!-- Regular Section -->
-                <div class="flex justify-between items-end mx-32 mt-10">
+                <div class="flex justify-between items-end mx-32 mt-4">
                     <div class="bg-c text-black py-2 px-14 rounded-xl font-bold text-3xl min-w-[200px] text-center">Regular</div>
                     <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
                 </div>
-
                 <!-- Regular Account Table -->
                 <div class="overflow-hidden w-full  mt-4">
                     <div class="border-2 border-c rounded-lg mx-32">
                     <!--Regular-->
-                    <div id="tb1" class="overflow-auto no-scrollbar" style="height: 35vh;">
-                    <div class="rounded-t-sm pt-2 bg-c ">
-                    <table id="residentTable" class="w-full border-collapse">
+                    <div id="tb1" class="overflow-auto no-scrollbar" style="height: 25vh;">
+                        <div class="rounded-t-sm pt-2 bg-c ">
+                            <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[100px]">
                             <col>
@@ -203,25 +216,24 @@ if (!isset($_SESSION['users'])) {
                         </tr>
                         <?php $i++; }} ?>
                         </tbody>
-                    </table>
+                            </table>
+                        </div>
                     </div>
-                    </div>
-                    <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
-                    </div>
+                    <div class=" h-6 rounded-b-sm border-2 border-c bg-c">
+                        </div>
                 </div>
                 <!-- Admin Section -->
-                <div class="flex justify-between items-end mx-32 mt-16">
+                <div class="flex justify-between items-end mx-32 mt-10">
                     <div class="bg-c text-black py-2 px-16 rounded-xl font-bold text-3xl min-w-[200px] text-center">Admin</div>
                     <!-- <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a> -->
                 </div>
-
                 <!-- Admin Table -->
                 <div class="w-full overflow-hidden mt-4">
-                <div class="border-2 border-c rounded-lg mx-32">
-                <!-- Admin -->
-                <div id="tb1" class="overflow-auto no-scrollbar ">
-                    <div class="rounded-t-sm pt-2 bg-c ">
-                    <table id="residentTable" class="w-full border-collapse">
+                    <div class="border-2 border-c rounded-lg mx-32">
+                        <!-- Admin -->
+                        <div id="tb1" class="overflow-auto no-scrollbar " style="height: 20vh;">
+                        <div class="rounded-t-sm pt-2 bg-c ">
+                            <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[100px]">
                             <col>
@@ -305,11 +317,12 @@ if (!isset($_SESSION['users'])) {
                         </tr>
                         <?php $i++; }} ?>
                         </tbody>
-                    </table>
+                            </table>
+                        </div>
+                        </div>
+                        <div class=" h-6 rounded-b-sm border-2 border-c bg-c">
+                        </div>
                     </div>
-                </div>
-                <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
-                </div>
                 </div>
             </div>
         </div>

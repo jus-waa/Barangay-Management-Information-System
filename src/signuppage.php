@@ -61,16 +61,20 @@
             try {
                 $insert_data = "INSERT INTO `users`(`username`, `email`, `password`, `password_re`, `contact_info`, `created_at`, `updated_at`, `role_id`) VALUES ('$username','$email','$encrypted','$encrypted_re','$contact_info',now(),now(),'$role_id')";
                 $dbh->exec($insert_data);
-                $response = $username . ' successfully added to the system.';
+                $response = $username . 'has been successfully added to the system.';
             } catch (PDOException $e) {
                 $response = $e->getMessage();
             }
             $_SESSION['response'] = $response;
-            header('location: accountmanagement.php?msg= account added.');
+            if($role_id === '1') {
+                header('location: accountmanagement.php?msg= Admin account has been created.');
+            } else {
+                header('location: accountmanagement.php?msg= Regular account has been created.');
+            }
             exit();
         } 
     } else if (isset($_POST['cancel'])) {
-        header('location: accountmanagement.php?msg= operation cancelled.');
+        header('location: accountmanagement.php?msg= The operation has been terminated.');
     }
 ?>
 <!DOCTYPE html>
