@@ -74,20 +74,29 @@ if (isset($_POST['confirm'])) {
                         <div>
                             <a href="../generatedocuments.php" class="flex items-center p-2 rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700""><img src="../../img/back.png" class="size-4" alt="select from records"></a>
                         </div>
-                        <p class="flex justify-start items-center w-48 p-2 text-gray-400 ">Back</p>
+                        <p class="flex justify-start items-center w-48 p-2 ">Back</p>
                     </div>
                 </div>
+                <?php
+                    $isEnabled = isset($_GET['id']); // Check if 'id' exists in the URL
+                ?>
                 <!-- Select from records -->
-                <div class="grid justify-items-end ">
+                <div class="grid justify-items-end">
                     <div class="flex">
-                        <p class="flex justify-end w-48 p-2 text-gray-400 ">Select from Records</p>
-                        <div >
-                            <button class="rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700" onclick="selectRecords()"><img src="../../img/residency.svg" class="size-10 p-2" alt="select from records"></button>
+                        <p class="flex justify-end w-48 p-2 ">Select from Records</p>
+                        <div>
+                            <button class=" rounded-md cursor-pointer border-2 hover:border-sg hover:bg-c transition duration-700" onclick="selectRecords();"><img src="../../img/residency.svg" class="size-10 p-2" alt="select from records"></button>
                         </div>
                     </div>
                 </div>
+                
+            </div>
+            <!-- Note -->
+            <div class="grid grid-cols-1 gap-4 mt-2 mx-2 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] <?= $isEnabled ? 'hidden' : '' ?>">
+                Kindly choose a record to proceed further.
             </div>
             <form method="post" id="personal_info">
+            <fieldset <?= $isEnabled ? '' : 'disabled' ?>>
                 <?php 
                 $id = isset($_GET['id']) ? $_GET['id'] : 0;
                 $recordLoaded = false;
@@ -118,16 +127,17 @@ if (isset($_POST['confirm'])) {
                 ];
                 ?>
                 <!-- Two-column Grid -->
-                <div class="grid grid-cols-2 gap-20">
+                <div class="grid grid-cols-2  gap-20">
+                    
                     <!-- First Column: Personal Information and Purpose -->
-                    <div>
+                    <div>                      
                         <!-- Personal Information -->
-                        <div class="rounded-lg p-2 mb-8">
+                        <div class="rounded-lg p-2 mb-8 ">
                             <div>
-                                <h2 class="text-xl font-bold mb-4">Personal Information</h2>
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
+                                <h2 class="text-xl font-bold mb-4 text-gray-500">Personal Information</h2>
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
                                     <div>
-                                        <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['first_name'] : $defaultValues['first_name']?>" placeholder=" "/> 
+                                        <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['first_name'] : $defaultValues['first_name']?>" placeholder=" " /> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">First Name</label>
                                         <span id="first-name-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
@@ -142,7 +152,7 @@ if (isset($_POST['confirm'])) {
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <div class="flex-grow mr-2">
-                                            <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['last_name'] : $defaultValues['last_name']?>" placeholder=" "/> 
+                                            <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['last_name'] : $defaultValues['last_name']?>" placeholder=" " /> 
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Last Name</label>
                                             <span id="last-name-error" class="text-red-500 text-sm hidden">Field is required</span>
                                         </div>
@@ -167,7 +177,7 @@ if (isset($_POST['confirm'])) {
                         <div class="rounded-lg p-2 mb-8">
                             <div>
                                 <h2 class="text-xl font-bold mb-4">Control Number & Date of Issuance</h2>
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700 <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
                                     <div>
                                         <input id="control-number" name="control_number" type="number" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Control Number</label>
@@ -187,14 +197,14 @@ if (isset($_POST['confirm'])) {
                         <div class="rounded-lg p-2 mb-8">
                             <div>
                                 <h2 class="text-xl font-bold mb-4">Address Details</h2>
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
                                     <div>
-                                        <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['house_num'] : $defaultValues['house_num']?>" placeholder=" "/> 
+                                        <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['house_num'] : $defaultValues['house_num']?>" placeholder=" " /> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">House Number</label>
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <div class="flex-grow mr-2">
-                                            <input id="street-name" name="street_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['street_name'] : $defaultValues['street_name']?>" placeholder=" "/> 
+                                            <input id="street-name" name="street_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['street_name'] : $defaultValues['street_name']?>" placeholder=" " /> 
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Street Name</label>
                                         </div>
                                         <div class="flex-grow">
@@ -203,7 +213,7 @@ if (isset($_POST['confirm'])) {
                                         </div>
                                     </div>
                                     <div for="status" class="flex flex-col flex-grow">
-                                        <select id="status" name="status" class="text-black border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
+                                        <select id="status" name="status" class=" border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm" >
                                             <option class="bg-white text-gray-500" value="">Status</option>
                                             <option class="bg-white" value="Pending">Pending</option>
                                             <option class="bg-white" value="Approved">Approved</option>
@@ -218,7 +228,7 @@ if (isset($_POST['confirm'])) {
                         <div class="rounded-lg p-2 mb-8">
                             <div>
                                 <h2 class="text-xl font-bold mb-4">Purpose & Issued By</h2>
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700 <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
                                     <div class="relative">
                                         <input id="purpose" name="purpose" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Purpose</label>
@@ -268,6 +278,7 @@ if (isset($_POST['confirm'])) {
                         </div>
                     </div>
                 </div>
+            </fieldset>
             </form>   
         </div>
         <!-- Bottom Logo -->
@@ -330,7 +341,7 @@ if (isset($_POST['confirm'])) {
                                                     <td class="border-y-2 border-c">
                                                         <div class="flex justify-center items-center h-20 grow">
                                                             <a href="brgyclearance.php?id=<?= $row['id']?>">
-                                                                <button name="select" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
+                                                                <button id="select-button" name="select" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
                                                                 Select
                                                                 </button>
                                                             </a>
@@ -355,6 +366,13 @@ if (isset($_POST['confirm'])) {
         </div>
     </div>
     <script>
+    //enable after selecting records
+    function enableField() {
+        const fieldset = document.getElementById("fieldset");
+        if (fieldset) {
+            fieldset.disabled = false;
+        }
+    }
     //confirm deletion
     function selectRecords() {
         document.getElementById("selectRecords").classList.remove("hidden");
@@ -471,10 +489,9 @@ if (isset($_POST['confirm'])) {
         cancelButton.addEventListener("click", (event) => {
             event.preventDefault(); // Prevent default button behavior
             // Redirect to another page (replace 'your-page-url' with the actual URL)
-            window.location.href = "../residentpage.php"; 
+            window.location.href = "../generatedocuments.php"; 
         });
     });
-    
     </script>
     <script>
     //for contact number
