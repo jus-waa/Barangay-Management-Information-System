@@ -115,12 +115,15 @@
                             <p class="text-xs"><b>NOTE:</b><br>The password must be at least 8 characters long and <br>include at least one uppercase letter, one lowercase <br> letter, one digit, and one special character. </p>
                         </div>
                     </div>
+                    <!-- Sign up form -->
                     <form action="signuppage.php" method="POST" id="account_form" >
                         <div class="grid grid-rows-3 grid-cols-2 justify-self-center">
+                            <!-- Email Address -->
                             <div class="mr-2">
                                 <input autocomplete="off" type="text" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" name="email" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-c pl-1 text-left rounded-2xl ">Email Address</label>
                             </div>
+                            <!-- Password -->
                             <div class="relative mb-4">
                                 <input type="password" id="password" name="password" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-c pl-1 text-left rounded-2xl ">Password</label>
@@ -128,11 +131,13 @@
                                     <img src="../img/eye-close.png" alt="Show password" class="h-3 w-4 mr-3 text-gray-600" id="eyeClosed">
                                     <img src="../img/eye-open.png" alt="Hide password"  class="h-2.5 w-4 mr-3 text-gray-600 hidden" id="eyeOpen">
                                 </button>
-                                </div>
+                            </div>
+                            <!-- Username -->
                             <div>
                                 <input autocomplete="off" type="text" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" name="username" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-c pl-1 text-left rounded-2xl ">Username</label>
                             </div>
+                            <!-- Re type Password -->
                             <div class="relative mb-4">
                                 <input type="password" id="passwordRe" name="password_re" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:ring-0 focus:border-bg-c" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1  pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-c pl-1 text-left rounded-2xl ">Re-type Password</label>
@@ -141,10 +146,12 @@
                                     <img src="../img/eye-open.png" alt="Hide password"  class="h-2.5 w-4 mr-3 text-gray-600 hidden" id="eyeOpenRe">
                                 </button>
                             </div>
+                            <!-- Contact Number -->
                             <div>
                                 <input id="contact-num" name="contact_info" type="text" autocomplete="off" class="block bg-transparent w-72 border-2 border-sg text-m p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
                                 <label class="absolute text-sg pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-c pl-1 text-left rounded-2xl">Contact Number</label>
                             </div>
+                            <!-- Role -->
                             <div class="flex gap-x-2 mr-2 mb-4">
                                 <div class="border-2  border-sg flex justify-center items-center h-11 w-full rounded-md ">
                                     <input type="radio" class="hidden peer" name="role_id" value="1" id="admin" onclick="adminColor()"></input>
@@ -170,6 +177,7 @@
                                 <button id="cancel-button" name="cancel" class="rounded-md w-[8.6rem] border-2 p-2 place-self-center border-red-500 bg-red-500  hover:text-white transition duration-700">Cancel</button>
                             </div>
                         </div>
+                        <!-- messages -->
                         <?php 
                         if (isset($_SESSION['response'])) {
                             $response_message = $_SESSION['response'];
