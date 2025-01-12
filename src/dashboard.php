@@ -7,10 +7,83 @@ if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
 }
-
+//for resident info
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//from resident info
+$i = 0;
+$male = 0;
+$female = 0;
+$active = 0;
+$inactive = 0;
+foreach ($result as $row) {
+    // for total residents
+    $i++;
+    // for no. of male and female
+    if ($row['gender'] == 'Male') {
+        $male++;
+    } else if ($row['gender'] == 'Female') {
+        $female++;
+    }
+    // for active residents
+    if ($row['status'] == 'Active') {
+        $active++;
+    } else if ($row['status'] == 'Inactive') {
+        $inactive++;
+    }
+}
+$maleJSON = json_encode($male); // convert into JSON
+$femaleJSON = json_encode($female);
+
+//for print history
+$stmt = $dbh->prepare("SELECT * FROM `print_history`");
+$stmt->execute();
+$result_history = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//from print history
+$n = 0; //total number of printed docs
+$brgyclr = 0;
+foreach ($result_history as $rows) {
+    $n++;
+    //for no of brgy clearance
+    if($rows['document_type'] === 'Barangay Clearance') {
+        $brgyclr++;
+    }
+}
+$brgyclrJSON = json_encode($brgyclr); // convert into JSON
+//
+// Get the current date
+$currentDate = date('Y-m-d');
+    
+// Get the start of the week (Sunday) and end of the week (Saturday)
+$startOfWeek = date('Y-m-d', strtotime('last sunday', strtotime($currentDate)));
+$endOfWeek = date('Y-m-d', strtotime('next saturday', strtotime($currentDate)));
+
+// Prepare the SQL query to fetch document counts by day of the week
+$sql = "SELECT DAYOFWEEK(print_date) AS day_of_week, COUNT(*) AS documents_count
+        FROM print_history
+        WHERE print_date BETWEEN :startOfWeek AND :endOfWeek
+        GROUP BY day_of_week";
+
+// Prepare the statement
+$stmt = $dbh->prepare($sql);
+
+// Bind parameters
+$stmt->bindParam(':startOfWeek', $startOfWeek);
+$stmt->bindParam(':endOfWeek', $endOfWeek);
+
+// Execute the statement
+$stmt->execute();
+
+// Initialize an array for storing document counts for each day
+$documentCounts = array_fill(0, 7, 0); // Default 0 for each day
+
+// Fetch the results and update the document counts array
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $dayIndex = $row['day_of_week'] - 1; // MySQL DAYOFWEEK() returns 1 for Sunday, 7 for Saturday
+    $documentCounts[$dayIndex] = $row['documents_count'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,29 +177,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <?php 
-            $i = 1;
-            $male = 0;
-            $female = 0;
-            $active = 0;
-            $inactive = 0;
-            foreach ($result as $row) {
-                // for total residents
-                $i++;
-                // for no. of male and female
-                if ($row['gender'] == 'Male') {
-                    $male++;
-                } else if ($row['gender'] == 'Female') {
-                    $female++;
-                }
-                // for active residents
-                if ($row['status'] == 'Active') {
-                    $active++;
-                } else if ($row['status'] == 'Inactive') {
-                    $inactive++;
-                }
-            }
-            $maleJSON = json_encode($male); // convert into JSON
-            $femaleJSON = json_encode($female);
+            
             ?>
             <div class="h-[90%] grid grid-cols-[auto_30rem]">
                 <div class="grid grid-rows-[13rem_auto] mb-4">
@@ -150,7 +201,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <p>Total Documents Issued</p>
                             </div>
                             <div class="w-auto flex flex-col items-center place-self-center text-center">
-                                <p class="text-xl">232<br></p>
+                                <p class="text-xl"><?php echo $n; ?><br></p>
                                 <p class="text-xs py-4">Current number of documents issued</p>                                                           
                             </div>
                         </div>
@@ -247,8 +298,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <script>
     // Document Chart
     const documentctx = document.getElementById("documentChart").getContext("2d");
-    //const male = <?php //echo $maleJSON; ?> // use the converted JSON in this script
-    //const female = <?php //echo $femaleJSON; ?>
+    const brgyclr = <?php echo $brgyclrJSON; ?> // use the converted JSON in this script
     // Data config
     const config2 = {
         type: 'pie',
@@ -256,7 +306,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         labels: ["Barangay Clearance", "Certificate of Indigency", "Certificate of Residency"],
             datasets: [{
                 label: "Documents Issued Breakdown",
-                data: [female, male, female], //Values
+                data: [brgyclr, male, female], //Values
                 backgroundColor: [
                 'rgba(0, 0, 0, 0)',
                 'rgba(175, 225, 175, 1)',
@@ -289,13 +339,16 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     // Weekly Report
     const weeklyReportctx = document.getElementById("weeklyReportChart").getContext("2d");
 
+    // Pass PHP data to JavaScript
+    const weeklyData = <?php echo json_encode($documentCounts); ?>;
+
     const config3 = {
       type: 'line', // Chart type
       data: {
         labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], // X-axis labels
         datasets: [{
           label: 'Documents Issued Weekly', // Dataset label
-          data: [65, 59, 80, 81, 56, 55, 50], // Data points
+          data: weeklyData, // Data points from PHP
           borderColor: 'rgba(175, 225, 175, 1)', // Line color
           backgroundColor: 'rgba(175, 225, 175, 0.5)', // Fill under the line
           borderWidth: 2, // Line width
@@ -324,13 +377,16 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
               display: true,
               text: 'Number of Documents Issued' // Y-axis title
             },
-            beginAtZero: true // Start Y-axis at zero
+            beginAtZero: true, // Start Y-axis at zero\
+            min: 0,
+            max: 100,
+            stepSize: 10,
           }
         }
       }
-    }
-    const weeklyChart = new Chart(weeklyReportctx, config3);
+    };
 
+    const weeklyChart = new Chart(weeklyReportctx, config3);
 </script>
 </body>
 </html>
