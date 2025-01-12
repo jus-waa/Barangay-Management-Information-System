@@ -136,7 +136,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <col class="w-[100px]">
                                     <col>
                                 </colgroup>
-                                <thead class="bg-c sticky top-0 z-50">
+                                <thead class="bg-c sticky top-0 ">
                                     <tr class="uppercase ">
                                         <th class="py-4 min-w-20">ID</th>
                                         <th class="py-4">Resident Name</th>
