@@ -103,13 +103,20 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <!-- Options -->
-            <div class="flex justify-between items-center">
+            <div class="grid grid-cols-2 mx-32 ">
                 <!-- Categories -->
-                <div class="ml-32">
+                <div class="flex justify-start items-center">
                     <p class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">
                         History of Documents Issued
                     </p>
-                    
+                </div>
+                <!-- Search -->
+                <div class="flex justify-end items-center mt-2">
+                    <form method="post">
+                        <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-c h-8 transition duration-300">
+                        <button id="searchBtn" class="rounded-md absolute right-54 top-[26px] transform -translate-y-1/2 border-gray-300 p-2 h-8 flex items-center justify-center pointer-events-none">
+                        </button>
+                    </form>
                 </div>
             </div>
             <!-- Tables -->
@@ -231,6 +238,28 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         const element = document.getElementById(elementID);
         element.style.display = show ? "block" : "none";
     }
+
+    //search funcitonality
+    $(document).ready(function() {
+        $('#search').keyup(function(event) {
+            search_table($(this).val());
+        });
+        function search_table(value) {
+            $('#residentTable tbody tr').each(function(){
+                let found = 'false';
+                $(this).each(function(){
+                    if($(this).text().toLowerCase().indexOf(value.toLowerCase())>=0){
+                        found = 'true';
+                    }
+                });
+                if(found=='true'){
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    });
 </script>
 </body>
 </html>
