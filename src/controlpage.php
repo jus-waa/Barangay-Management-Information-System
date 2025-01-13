@@ -29,86 +29,107 @@
                 <p class="font-bold">Select an Action</p>
                 <p class="border-t-4 border-c w-32 text-white rounded-sm">.</p>
             </div>
-            <div class="grid grid-cols-2 gap-10 place-self-center mb-32">
-                <!-- Dashboard -->
-                <div class="bg-c rounded-2xl grid">
-                    <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
-                        <?php
-                            if (hasPermission('data_analytics')) {
-                                echo "
-                                <a href='dashboard.php'>
-                                    <button class=' h-full py-8 px-14'>
-                                    <img class='place-self-center size-14' src='../img/dashboard.png'>
-                                        Dashboard
-                                    </button>
-                                </a>";
-                            }
-                        ?>
+            <div class="grid grid-rows-2 gap-10 place-self-center mb-32">
+                <div class="grid grid-cols-3 gap-x-10">
+                    <!-- Dashboard -->
+                    <div class="bg-c rounded-2xl grid">
+                        <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer">
+                            <?php
+                                if (hasPermission('data_analytics')) {
+                                    echo "
+                                    <a href='dashboard.php'>
+                                        <button class=' h-full py-8 px-14'>
+                                        <img class='place-self-center size-14' src='../img/dashboard.png'>
+                                            Dashboard
+                                        </button>
+                                    </a>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    <!-- Resident Info -->
+                    <div class="bg-c rounded-2xl grid ">
+                        <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
+                            <?php
+                                if (hasPermission('resident_info')) {
+                                    echo "
+                                    <a href='residentpage.php'>
+                                        <button class='h-full py-8 px-14'>
+                                        <img class='place-self-center size-12' src='../img/res_info.png'>
+                                            Resident<br>Information
+                                        </button>
+                                    </a>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    <!-- Generate Documents -->
+                    <div class="bg-c rounded-2xl grid">
+                        <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
+                            <?php
+                                if (hasPermission('generate_doc')) {
+                                    echo "
+                                    <a href='generatedocuments.php'>
+                                        <button class=' h-full py-8 px-14'>
+                                        <img class='place-self-center size-12' src='../img/gen_doc.png'>
+                                            Generate<br>Documents
+                                        </button>
+                                    </a>";
+                                }
+                            ?>
+                        </div>
                     </div>
                 </div>
-                <!-- Resident Info -->
-                <div class="bg-c rounded-2xl grid ">
-                    <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
-                        <?php
-                            if (hasPermission('resident_info')) {
-                                echo "
-                                <a href='residentpage.php'>
-                                    <button class='h-full py-8 px-14'>
-                                    <img class='place-self-center size-12' src='../img/res_info.png'>
-                                        Resident<br>Information
-                                    </button>
-                                </a>";
-                            }
-                        ?>
+                <div class="flex justify-around">
+                    <div class="grid grid-cols-2 gap-x-10">
+                        <!-- Print History -->
+                        <div class="bg-c rounded-2xl grid">
+                            <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer place-self-end">
+                                <?php
+                                    if (hasPermission('generate_doc')) {
+                                        echo "
+                                        <a href='generatedocuments.php'>
+                                            <button class=' h-full py-8 px-14'>
+                                            <img class='place-self-center size-12' src='../img/gen_doc.png'>
+                                                Generate<br>Documents
+                                            </button>
+                                        </a>";
+                                    }
+                                ?>
+                            </div>
+                        </div>
+                        <!-- Account Settings -->
+                        <?php if(hasPermission('system_settings')){ ?>
+                        <div class="bg-c rounded-2xl grid">
+                            <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
+                                <?php 
+                                    echo "
+                                    <a href='accountmanagement.php'>
+                                        <button class='h-full py-8 px-16'>
+                                        <img class='place-self-center size-12' src='../img/setting.png'>
+                                            Account<br>Settings
+                                        </button>
+                                    </a>";
+                                ?>
+                            </div>
+                        </div>  
+                        <?php } else { ?>
+                        <div class="bg-gray-300 rounded-2xl grid">
+                            <div class="border-2 border-gray-200 rounded-xl  hover:bg-gray-400 active:bg-sg transition duration-700 pointer-events-none ">
+                                <?php 
+                                    echo "
+                                    <a href=''>
+                                        <button class='h-full py-8 px-14'>
+                                        <img class='place-self-center size-12' src='../img/setting.png'>
+                                            Inaccessible
+                                        </button>
+                                    </a>";
+                                ?>
+                            </div>
+                        </div>  
+                        <?php } ?>
                     </div>
                 </div>
-                <!-- Generate Documents -->
-                <div class="bg-c rounded-2xl grid">
-                    <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
-                        <?php
-                            if (hasPermission('generate_doc')) {
-                                echo "
-                                <a href='generatedocuments.php'>
-                                    <button class=' h-full py-8 px-14'>
-                                    <img class='place-self-center size-12' src='../img/gen_doc.png'>
-                                        Generate<br>Documents
-                                    </button>
-                                </a>";
-                            }
-                        ?>
-                    </div>
-                </div>
-                
-                <!-- Account Settings -->
-                <?php if(hasPermission('system_settings')){ ?>
-                <div class="bg-c rounded-2xl grid">
-                    <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
-                        <?php 
-                            echo "
-                            <a href='accountmanagement.php'>
-                                <button class='h-full py-8 px-16'>
-                                <img class='place-self-center size-12' src='../img/setting.png'>
-                                    Account<br>Settings
-                                </button>
-                            </a>";
-                        ?>
-                    </div>
-                </div>  
-                <?php } else { ?>
-                <div class="bg-gray-300 rounded-2xl grid">
-                    <div class="border-2 border-gray-200 rounded-xl  hover:bg-gray-400 active:bg-sg transition duration-700 pointer-events-none ">
-                        <?php 
-                            echo "
-                            <a href=''>
-                                <button class='h-full py-8 px-14'>
-                                <img class='place-self-center size-12' src='../img/setting.png'>
-                                    Inaccessible
-                                </button>
-                            </a>";
-                        ?>
-                    </div>
-                </div>  
-                <?php } ?>
             </div>
         </div>
     </div>
