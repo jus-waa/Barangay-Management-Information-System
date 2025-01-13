@@ -1,7 +1,4 @@
 {
-  "devDependencies": {
-    "tailwindcss": "^3.4.14"
-  },
   "dependencies": {
     "chart.js": "^4.4.7",
     "esbuild": "^0.24.0"

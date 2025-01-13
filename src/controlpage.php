@@ -84,14 +84,14 @@
                     <div class="grid grid-cols-2 gap-x-10">
                         <!-- Print History -->
                         <div class="bg-c rounded-2xl grid">
-                            <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer place-self-end">
+                            <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
                                 <?php
-                                    if (hasPermission('generate_doc')) {
+                                    if (hasPermission('print_history')) {
                                         echo "
-                                        <a href='generatedocuments.php'>
+                                        <a href='printhistory.php'>
                                             <button class=' h-full py-8 px-14'>
                                             <img class='place-self-center size-12' src='../img/gen_doc.png'>
-                                                Generate<br>Documents
+                                                Print History
                                             </button>
                                         </a>";
                                     }
@@ -99,27 +99,25 @@
                             </div>
                         </div>
                         <!-- Account Settings -->
-                        <?php if(hasPermission('system_settings')){ ?>
                         <div class="bg-c rounded-2xl grid">
                             <div class="border-2 border-c rounded-xl  hover:bg-sg active:bg-sg transition duration-700 cursor-pointer ">
-                                <?php 
+                            <?php if(hasPermission('system_settings')){ 
                                     echo "
                                     <a href='accountmanagement.php'>
-                                        <button class='h-full py-8 px-16'>
+                                        <button class='h-full py-8 px-10'>
                                         <img class='place-self-center size-12' src='../img/setting.png'>
-                                            Account<br>Settings
+                                        Account Settings
                                         </button>
                                     </a>";
-                                ?>
+                                } else { ?>
                             </div>
                         </div>  
-                        <?php } else { ?>
                         <div class="bg-gray-300 rounded-2xl grid">
                             <div class="border-2 border-gray-200 rounded-xl  hover:bg-gray-400 active:bg-sg transition duration-700 pointer-events-none ">
                                 <?php 
                                     echo "
                                     <a href=''>
-                                        <button class='h-full py-8 px-14'>
+                                        <button class='h-full py-8 px-10'>
                                         <img class='place-self-center size-12' src='../img/setting.png'>
                                             Inaccessible
                                         </button>
