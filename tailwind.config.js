@@ -1,8 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js,php}"],
+  content: [
+    "./src/**/*.{html,js,php}",
+    "./components/**/*.{html,js,php}",
+  ],
   theme: {
     extend: {
+      screens: {
+        'std': '1367px',
+        'stl': '1441px',
+      },
       keyframes: {
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
@@ -28,10 +35,6 @@ module.exports = {
       },
       translate: {
         '13.5': '3.3rem',
-      },
-      screens: {
-        'll': '1450px',
-        'st': '1366px',
       },
       spacing: {
         '2.1': '9.5px',

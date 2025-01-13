@@ -94,7 +94,6 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
     <script src="../script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="relative">
     <div class="flex h-screen w-screen overflow-auto">
@@ -168,77 +167,74 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             </div>
         </div>
         <!-- Main -->
-        <div class="w-full h-screen"> 
+        <div class="flex flex-col w-full h-screen"> 
             <!-- Header -->
-            <div class="shadow-md px-32 py-6">
-                <div class="text-3xl">
+            <div class="shadow-md px-20 py-2 stl:px-32 stl:py-6">
+                <div class="text-xl stl:text-3xl">
                     Dashboard
                 </div>
             </div>
-            <?php 
-            
-            ?>
-            <div class="h-[90%] grid grid-cols-[auto_30rem]">
-                <div class="grid grid-rows-[13rem_auto] mb-4">
+            <!-- Body -->
+            <div class="h-full grid grid-cols-[auto_30rem] p-2 stl:p-8 border-2 border-red-500">
+                <div class="grid grid-rows-[13rem_auto]">
                     <!-- Data -->
-                    <div class="h-52 grid grid-cols-4 my-4 mx-2 ">
+                    <div class="h-32 grid grid-cols-4 stl:h-52 border-2 pb-0 stl:pb-8 w-4/5 stl:w-full space-x-2 stl:space-x-8">
                         <!-- Total Residents -->
-                        <div class="border-2 border-sg rounded-xl m-4">
-                        <div class="flex p-4 mb-4 border-b-2 border-sg bg-c rounded-t-xl ">
+                        <div class="border-2 border-sg rounded-xl ">
+                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl ">
                                 <img src="../img/total_res.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
-                                <p>Total Residents</p>
+                                <p class="text-xs stl:text-base flex items-center">Total Residents</p>
                             </div>
-                            <div class="w-auto flex flex-col items-center place-self-center text-center">
-                                <p class="text-xl"><?php echo $i; ?><br></p>
-                                <p class="text-xs py-4">Current number of registered residents</p>                                                           
+                            <div class="h-3/5 flex flex-col justify-center items-center text-center">
+                                <p class="text-lg stl:text-xl"><?php echo $i; ?><br></p>
+                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of registered residents</p>                                                           
                             </div>
                         </div>          
                         <!-- Total Documents -->
-                        <div class="border-2 border-sg rounded-xl m-4">
-                        <div class="flex p-4 mb-4 border-b-2 border-sg bg-c rounded-t-xl ">
+                        <div class="border-2 border-sg rounded-xl  ">
+                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl ">
                                 <img src="../img/indigency.svg" class="size-6 p-1 bg-white rounded-md mr-2" alt="">
-                                <p>Total Documents Issued</p>
+                                <p class="text-xs stl:text-base flex items-center">Total Documents</p>
                             </div>
-                            <div class="w-auto flex flex-col items-center place-self-center text-center">
-                                <p class="text-xl"><?php echo $n; ?><br></p>
-                                <p class="text-xs py-4">Current number of documents issued</p>                                                           
+                            <div class="h-3/5 flex flex-col justify-center items-center text-center">
+                                <p class="text-lg stl:text-xl"><?php echo $n; ?><br></p>
+                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of documents issued</p>                                                           
                             </div>
                         </div>
                         <!-- Acitve Residents Population -->
-                        <div class="border-2 border-sg rounded-xl m-4 ">
-                            <div class="flex p-4 mb-4 border-b-2 border-sg bg-c rounded-t-xl ">
+                        <div class="border-2 border-sg rounded-xl ">
+                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl ">
                                 <img src="../img/status.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
-                                <p>Active Residents</p>
+                                <p class="text-xs stl:text-base flex items-center">Active Residents</p>
                             </div>
-                            <div class="w-auto flex flex-col items-center place-self-center text-center">
-                                <p class="text-xl"><?php echo $active; ?> out of <?php echo $i; ?><br></p>
-                                <p class="text-xs py-4">Current number of active residents</p>                                                           
+                            <div class="h-3/5 flex flex-col justify-center items-center text-center">
+                                <p class="text-lg stl:text-xl"><?php echo $active; ?> out of <?php echo $i; ?><br></p>
+                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of active residents</p>                                                           
                             </div>
                         </div>
                     </div>
                     <!-- Weekly Report -->
-                    <div class="border-2 border-sg mx-6 mt-8 rounded-xl p-8">
+                    <div class="border-2 border-sg rounded-xl p-8">
                         <div class="w-full h-[33rem] justify-items-center border-2 rounded-xl border-sg">
                             <canvas id="weeklyReportChart"></canvas>
                         </div>
                     </div>
                 </div>
-                <div class="grid grid-rows-2 mb-4">
-                    <div class="border-2 border-sg mx-6 mt-8 rounded-xl p-8">
+                <!-- Pie Charts -->
+                <div class="grid grid-rows-2">
+                    <div class="border-2 border-sg rounded-xl p-8">
                         <div class="w-[20rem] h-[20rem] justify-self-center">
                             <canvas id="genderChart"></canvas>
                         </div>
                     </div>
-                    <div class="border-2 border-sg mx-6 mt-8 rounded-xl p-8">
+                    <div class="border-2 border-sg  rounded-xl p-8">
                         <div class="w-[20rem] h-[20rem] justify-self-center">
                             <canvas id="documentChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-            
         </div>
-        
     </div>
 <script>
     // Confirm Delete
@@ -378,8 +374,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             },
             beginAtZero: true, // Start Y-axis at zero\
             min: 0,
-            max: 100,
-            stepSize: 10,
+            max: 20,
+            stepSize: 2,
           }
         }
       }
