@@ -1074,6 +1074,14 @@ video {
   width: 100vw;
 }
 
+.w-24 {
+  width: 6rem;
+}
+
+.w-28 {
+  width: 7rem;
+}
+
 .min-w-20 {
   min-width: 5rem;
 }
@@ -1318,6 +1326,10 @@ video {
 
 .place-self-start {
   place-self: start;
+}
+
+.place-self-end {
+  place-self: end;
 }
 
 .place-self-center {
@@ -2142,6 +2154,10 @@ video {
 
   .stl\:w-full {
     width: 100%;
+  }
+
+  .stl\:w-32 {
+    width: 8rem;
   }
 
   .stl\:grid-rows-\[13rem_auto\] {

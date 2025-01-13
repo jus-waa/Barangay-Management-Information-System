@@ -1,8 +1,6 @@
 <?php
 session_start();
 include("connection.php");
-require("../fpdf/fpdf.php");
-
 //for resident info
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
 $stmt->execute();
@@ -29,6 +27,8 @@ foreach ($result as $row) {
         $inactive++;
     }
 }
+$maleJSON = json_encode($male); // convert into JSON
+$femaleJSON = json_encode($female);
 
 //for print history
 $stmt = $dbh->prepare("SELECT * FROM `print_history`");
@@ -44,60 +44,37 @@ foreach ($result_history as $rows) {
         $brgyclr++;
     }
 }
+$brgyclrJSON = json_encode($brgyclr); // convert into JSON
 
-$pdf = new FPDF('L','mm','A4');
-$pdf->AddPage();
-
-if($row) {
-    //Header
-    $pdf->SetFont('Arial','B',20);
-    $pdf->Cell(84, 10, 'Hello', 1, 0, 'C');
-    $pdf->Cell(108, 5, 'Barangay Buna Cerca', 1, 0, 'C'); 
-    $pdf->Cell(84, 10, 'World!', 1, 1, 'C');
-
-    $pdf->Cell(84, 10, '', 0, 1, 'C'); //Space
-
-    //Total res, total docs issued, gender breakdown
-    $pdf->SetFont('Arial','B',14);
-    $pdf->Cell(40, 10, 'Total Residents:', 1, 0, 'L');
-    $pdf->SetFont('Arial','',16);
-    $pdf->Cell(14, 10, $i, 1, 0, 'C'); 
-    $pdf->Cell(168, 10, 'New Cell Content', 1, 0, 'C');
-    $pdf->SetFont('Arial','B',14);
-    $pdf->Cell(54, 10, 'Gender Breakdown', 1, 1, 'C'); 
-
-    $pdf->SetFont('Arial','B',14);
-    $pdf->Cell(43, 10, 'Total Documents:', 1, 0, 'L');
-    $pdf->SetFont('Arial','',16);
-    $pdf->Cell(14, 10, $n, 1, 0, 'C'); 
-    $pdf->Cell(165, 10, 'New Cell Content', 1, 0, 'C');
-    $pdf->SetFont('Arial','B',14);
-    $pdf->Cell(30, 10, 'Male:', 1, 0, 'R'); 
-    $pdf->SetFont('Arial','',16);
-    $pdf->Cell(14, 10, $male, 1, 1, 'C'); 
+// Get the current date
+$currentDate = date('Y-m-d');
     
-    $pdf->SetFont('Arial','B',14);
-    $pdf->Cell(43, 10, 'Active Residents:', 1, 0, 'L');
-    $pdf->SetFont('Arial','',16);
-    $pdf->Cell(40, 10, $active . ' out of ' . $i, 1, 0, 'C'); 
-    $pdf->Cell(139, 10, 'New Cell Content', 1, 0, 'C');
-    $pdf->SetFont('Arial','B',14);
-    $pdf->Cell(30, 10, 'Female:', 1, 0, 'R'); 
-    $pdf->SetFont('Arial','',16);
-    $pdf->Cell(14, 10, $female, 1, 1, 'C'); 
+// Get the start of the week (Sunday) and end of the week (Saturday)
+$startOfWeek = date('Y-m-d', strtotime('last sunday', strtotime($currentDate)));
+$endOfWeek = date('Y-m-d', strtotime('next saturday', strtotime($currentDate)));
 
-    $pdf->Cell(84, 10, '', 0, 1, 'C'); //Space
+// Prepare the SQL query to fetch document counts by day of the week
+$sql = "SELECT DAYOFWEEK(print_date) AS day_of_week, COUNT(*) AS documents_count
+        FROM print_history
+        WHERE print_date BETWEEN :startOfWeek AND :endOfWeek
+        GROUP BY day_of_week";
 
-    $pdf->SetFont('Arial','B',14);
-    $pdf->Cell(84, 10, 'Documents Issued Breakdown', 1, 1, 'C');
-    $pdf->Cell(50, 10, 'Barangay Clearance:', 1, 0, 'C');
-    $pdf->SetFont('Arial','',16);
-    $pdf->Cell(14, 10, $brgyclr, 1, 1, 'C'); 
-    
+// Prepare the statement
+$stmt = $dbh->prepare($sql);
 
-    $pdf->Output();
-} else {
-    die('Error! no data.');
+// Bind parameters
+$stmt->bindParam(':startOfWeek', $startOfWeek);
+$stmt->bindParam(':endOfWeek', $endOfWeek);
+
+// Execute the statement
+$stmt->execute();
+
+// Initialize an array for storing document counts for each day
+$documentCounts = array_fill(0, 7, 0); // Default 0 for each day
+
+// Fetch the results and update the document counts array
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $dayIndex = $row['day_of_week'] - 1; // MySQL DAYOFWEEK() returns 1 for Sunday, 7 for Saturday
+    $documentCounts[$dayIndex] = $row['documents_count'];
 }
-
 ?>
