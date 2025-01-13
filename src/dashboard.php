@@ -7,6 +7,7 @@ if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
 }
+
 //for resident info
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
 $stmt->execute();
@@ -51,7 +52,7 @@ foreach ($result_history as $rows) {
     }
 }
 $brgyclrJSON = json_encode($brgyclr); // convert into JSON
-//
+
 // Get the current date
 $currentDate = date('Y-m-d');
     
@@ -186,7 +187,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 <p class="text-xs stl:text-base flex items-center">Total Residents</p>
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center">
-                                <p class="text-lg stl:text-xl"><?php echo $i; ?><br></p>
+                                <p class="text-lg stl:text-2xl"><?php echo $i; ?><br></p>
                                 <p class="text-[10px] stl:text-base py-2 stl:block">Total number of registered residents</p>
                             </div>
                         </div>          
@@ -197,7 +198,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 <p class="text-xs stl:text-base flex items-center">Total Documents</p>
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center">
-                                <p class="text-lg stl:text-xl"><?php echo $n; ?><br></p>
+                                <p class="text-lg stl:text-2xl"><?php echo $n; ?><br></p>
                                 <p class="text-[10px] stl:text-base py-2 stl:block">Total number of documents issued</p>
                             </div>
                         </div>
@@ -208,7 +209,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 <p class="text-xs stl:text-base flex items-center">Active Residents</p>
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center">
-                                <p class="text-lg stl:text-xl"><?php echo $active; ?> out of <?php echo $i; ?><br></p>
+                                <p class="text-lg stl:text-2xl"><?php echo $active; ?> out of <?php echo $i; ?><br></p>
                                 <p class="text-[10px] stl:text-base py-2 stl:block">Total number of active residents</p>
                             </div>
                         </div>

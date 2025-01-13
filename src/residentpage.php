@@ -161,7 +161,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <!-- Options -->
                 <div class="flex justify-between items-center">
                 <!-- Categories -->
-                <div class="ml-32">
+                <div class="ml-32 ">
                     <ul class="flex justify-start items-center space-x-4 ">
                         <li onclick="showCategory('tb1','option1')"><button id="option1" class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">Personal Information</button></li>
                         <li onclick="showCategory('tb2','option2')"><button id="option2" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Birth Details</button></li>
