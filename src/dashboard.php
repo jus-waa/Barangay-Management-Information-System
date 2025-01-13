@@ -83,7 +83,6 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $dayIndex = $row['day_of_week'] - 1; // MySQL DAYOFWEEK() returns 1 for Sunday, 7 for Saturday
     $documentCounts[$dayIndex] = $row['documents_count'];
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
