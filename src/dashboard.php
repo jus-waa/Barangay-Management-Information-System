@@ -167,7 +167,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             </div>
         </div>
         <!-- Main -->
-        <div class="flex flex-col w-full h-screen"> 
+        <div class="flex flex-col w-full h-screen overflow-hidden"> 
             <!-- Header -->
             <div class="shadow-md px-20 py-2 stl:px-32 stl:py-6">
                 <div class="text-xl stl:text-3xl">
@@ -175,61 +175,61 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 </div>
             </div>
             <!-- Body -->
-            <div class="h-full grid grid-cols-[auto_30rem] p-2 stl:p-8 border-2 border-red-500">
-                <div class="grid grid-rows-[13rem_auto]">
+            <div class="flex-1 grid grid-cols-[auto_30rem] p-2 stl:p-8 overflow-hidden">
+                <div class="grid grid-rows-[11rem_auto] stl:grid-rows-[13rem_auto]">
                     <!-- Data -->
-                    <div class="h-32 grid grid-cols-4 stl:h-52 border-2 pb-0 stl:pb-8 w-4/5 stl:w-full space-x-2 stl:space-x-8">
+                    <div class="h-32 grid grid-cols-4 mt-4 stl:mt-0 stl:h-52 pb-0 stl:pb-8 w-full stl:w-full space-x-2 stl:space-x-8">
                         <!-- Total Residents -->
-                        <div class="border-2 border-sg rounded-xl ">
-                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl ">
+                        <div class="border-2 border-sg rounded-xl">
+                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
                                 <img src="../img/total_res.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
                                 <p class="text-xs stl:text-base flex items-center">Total Residents</p>
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center">
                                 <p class="text-lg stl:text-xl"><?php echo $i; ?><br></p>
-                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of registered residents</p>                                                           
+                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of registered residents</p>
                             </div>
                         </div>          
                         <!-- Total Documents -->
-                        <div class="border-2 border-sg rounded-xl  ">
-                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl ">
+                        <div class="border-2 border-sg rounded-xl">
+                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
                                 <img src="../img/indigency.svg" class="size-6 p-1 bg-white rounded-md mr-2" alt="">
                                 <p class="text-xs stl:text-base flex items-center">Total Documents</p>
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center">
                                 <p class="text-lg stl:text-xl"><?php echo $n; ?><br></p>
-                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of documents issued</p>                                                           
+                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of documents issued</p>
                             </div>
                         </div>
-                        <!-- Acitve Residents Population -->
-                        <div class="border-2 border-sg rounded-xl ">
-                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl ">
+                        <!-- Active Residents Population -->
+                        <div class="border-2 border-sg rounded-xl">
+                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
                                 <img src="../img/status.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
                                 <p class="text-xs stl:text-base flex items-center">Active Residents</p>
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center">
                                 <p class="text-lg stl:text-xl"><?php echo $active; ?> out of <?php echo $i; ?><br></p>
-                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of active residents</p>                                                           
+                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of active residents</p>
                             </div>
                         </div>
                     </div>
                     <!-- Weekly Report -->
-                    <div class="border-2 border-sg rounded-xl p-8">
-                        <div class="w-full h-[33rem] justify-items-center border-2 rounded-xl border-sg">
+                    <div class="border-2 h-full w-full border-sg rounded-xl p-4 stl:p-8">
+                        <div class="w-auto h-full stl:w-full stl:h-[33rem] justify-items-center border-2 rounded-xl border-sg">
                             <canvas id="weeklyReportChart"></canvas>
                         </div>
                     </div>
                 </div>
                 <!-- Pie Charts -->
-                <div class="grid grid-rows-2">
-                    <div class="border-2 border-sg rounded-xl p-8">
-                        <div class="w-[20rem] h-[20rem] justify-self-center">
-                            <canvas id="genderChart"></canvas>
+                <div class="grid grid-rows-2 h-full w-full pl-8 gap-y-8 overflow-hidden">
+                    <div class="border-2 border-sg rounded-xl">
+                        <div class="h-full w-full flex justify-center p-4">
+                            <canvas id="genderChart" class="max-w-full"></canvas>
                         </div>
                     </div>
-                    <div class="border-2 border-sg  rounded-xl p-8">
-                        <div class="w-[20rem] h-[20rem] justify-self-center">
-                            <canvas id="documentChart"></canvas>
+                    <div class="border-2 border-sg rounded-xl">
+                        <div class="h-full w-full flex justify-center p-4">
+                            <canvas id="documentChart" class="max-w-full"></canvas>
                         </div>
                     </div>
                 </div>
