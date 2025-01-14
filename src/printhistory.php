@@ -140,7 +140,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <col class="w-[200px]">
                                     <col class="w-[200px]">
                                     <col class="w-[200px]">
-                                    <col class="w-[200px]">
+                                    <col class="w-[250px]">
                                     <col class="w-[100px]">
                                     <col>
                                 </colgroup>

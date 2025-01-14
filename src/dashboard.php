@@ -103,7 +103,7 @@ if (!isset($_SESSION['users'])) {
             <div class="flex-1 grid grid-cols-[auto_30rem] p-2 stl:p-8 overflow-hidden">
                 <div class="grid grid-rows-[11rem_auto] stl:grid-rows-[13rem_auto]">
                     <!-- Data -->
-                    <div class="h-32 grid grid-cols-4 mt-4 stl:mt-0 stl:h-52 pb-0 stl:pb-8 w-full stl:w-full space-x-2 stl:space-x-8">
+                    <div class="grid grid-cols-4 mt-4 stl:mt-0 h-32 stl:h-52 pb-0 stl:pb-8 w-full space-x-2 stl:space-x-8">
                         <!-- Total Residents -->
                         <div class="border-2 border-sg rounded-xl">
                             <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
@@ -112,18 +112,18 @@ if (!isset($_SESSION['users'])) {
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center">
                                 <p class="text-lg stl:text-2xl"><?php echo $i; ?><br></p>
-                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of registered residents</p>
+                                <p class="text-[10px] stl:text-base py-2">Total number of registered residents</p>
                             </div>
-                        </div>          
+                        </div> 
                         <!-- Total Documents -->
                         <div class="border-2 border-sg rounded-xl">
                             <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
                                 <img src="../img/indigency.svg" class="size-6 p-1 bg-white rounded-md mr-2" alt="">
                                 <p class="text-xs stl:text-base flex items-center">Total Documents</p>
                             </div>
-                            <div class="h-3/5 flex flex-col justify-center items-center text-center">
+                            <div class="h-3/5 flex flex-col justify-center items-center text-center ">
                                 <p class="text-lg stl:text-2xl"><?php echo $n; ?><br></p>
-                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of documents issued</p>
+                                <p class="text-[10px] stl:text-base py-2 ">Total number of documents issued</p>
                             </div>
                         </div>
                         <!-- Active Residents Population -->
@@ -134,7 +134,7 @@ if (!isset($_SESSION['users'])) {
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center">
                                 <p class="text-lg stl:text-2xl"><?php echo $active; ?> out of <?php echo $i; ?><br></p>
-                                <p class="text-[10px] stl:text-base py-2 stl:block">Total number of active residents</p>
+                                <p class="text-[10px] stl:text-base py-2">Total number of active residents</p>
                             </div>
                         </div>
                         <div class="grid">
