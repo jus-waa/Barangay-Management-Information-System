@@ -1,5 +1,10 @@
 <?php
 include("connection.php");
+//require login first
+if (!isset($_SESSION['users'])) {
+    header('location: login.php');
+    exit();
+}
 $id = $_GET['id'];
 if(isset($_POST['update'])) {
     try{

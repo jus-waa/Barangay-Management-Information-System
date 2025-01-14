@@ -27,7 +27,7 @@ foreach ($result as $row) {
         $inactive++;
     }
 }
-$maleJSON = json_encode($male); // convert into JSON
+$maleJSON = json_encode($male); 
 $femaleJSON = json_encode($female);
 
 //for print history
@@ -44,32 +44,37 @@ foreach ($result_history as $rows) {
         $brgyclr++;
     }
 }
-$brgyclrJSON = json_encode($brgyclr); // convert into JSON
+$brgyclrJSON = json_encode($brgyclr); 
 
 // Get the current date
 $currentDate = date('Y-m-d');
-    
-// Get the start of the week (Sunday) and end of the week (Saturday)
-$startOfWeek = date('Y-m-d', strtotime('last sunday', strtotime($currentDate)));
-$endOfWeek = date('Y-m-d', strtotime('next saturday', strtotime($currentDate)));
 
-// Prepare the SQL query to fetch document counts by day of the week
+// start of the week (Sunday) and end of the week (Saturday)\
+if (date('l', strtotime($currentDate)) === 'Sunday') {
+    $startOfWeek = $currentDate;
+} else {
+    $startOfWeek = date('Y-m-d', strtotime('last sunday', strtotime($currentDate)));
+}
+
+if (date('l', strtotime($currentDate)) === 'Saturday') {
+    $endOfWeek = $currentDate;
+} else {
+    $endOfWeek = date('Y-m-d', strtotime('next saturday', strtotime($currentDate)));
+}
+
+//  SQL query to fetch document counts by day of the week
 $sql = "SELECT DAYOFWEEK(print_date) AS day_of_week, COUNT(*) AS documents_count
         FROM print_history
-        WHERE print_date BETWEEN :startOfWeek AND :endOfWeek
+        WHERE DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek
         GROUP BY day_of_week";
 
-// Prepare the statement
-$stmt = $dbh->prepare($sql);
 
-// Bind parameters
+$stmt = $dbh->prepare($sql);
 $stmt->bindParam(':startOfWeek', $startOfWeek);
 $stmt->bindParam(':endOfWeek', $endOfWeek);
-
-// Execute the statement
 $stmt->execute();
 
-// Initialize an array for storing document counts for each day
+// array for storing document counts for each day
 $documentCounts = array_fill(0, 7, 0); // Default 0 for each day
 
 // Fetch the results and update the document counts array

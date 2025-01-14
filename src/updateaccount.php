@@ -1,12 +1,10 @@
 <?php
     session_start();
-    
     //require login first
     if (!isset($_SESSION['users'])) {
         header('location: login.php');
         exit();
     }
-    
     include('backend/connection.php');
     $id = $_GET["id"];
     if(isset($_POST['update_account'])) {
