@@ -151,7 +151,7 @@ if (!isset($_SESSION['users'])) {
                                 <p class="text-xs stl:text-sm flex items-center">Total Households</p>
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center ">
-                                <p class="text-lg stl:text-xl"><?php echo $i; ?><br></p>
+                                <p class="text-lg stl:text-xl"><?php echo $household; ?><br></p>
                                 <p class="text-[10px] stl:text-sm py-2">Total number of Households</p>
                             </div>
                         </div> 
@@ -170,22 +170,22 @@ if (!isset($_SESSION['users'])) {
                         <div class="border-2 border-sg rounded-xl bg-white">
                             <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
                                 <img src="../img/status.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
-                                <p class="text-xs stl:text-base flex items-center">Active Residents</p>
+                                <p class="text-xs stl:text-sm flex items-center">Active Residents</p>
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center">
-                                <p class="text-lg stl:text-2xl"><?php echo $active; ?> out of <?php echo $i; ?><br></p>
-                                <p class="text-[10px] stl:text-base py-2">Total number of active residents</p>
+                                <p class="text-lg stl:text-xl"><?php echo $active; ?> out of <?php echo $i; ?><br></p>
+                                <p class="text-[10px] stl:text-sm py-2">Total number of active residents</p>
                             </div>
                         </div>
                         <!-- Total Documents -->
                         <div class="border-2 border-sg rounded-xl bg-white">
                             <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
                                 <img src="../img/indigency.svg" class="size-6 p-1 bg-white rounded-md mr-2" alt="">
-                                <p class="text-xs stl:text-base flex items-center">Total Documents</p>
+                                <p class="text-xs stl:text-sm flex items-center">Total Documents</p>
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center ">
-                                <p class="text-lg stl:text-2xl"><?php echo $n; ?><br></p>
-                                <p class="text-[10px] stl:text-base py-2 ">Total number of documents issued</p>
+                                <p class="text-lg stl:text-xl"><?php echo $n; ?><br></p>
+                                <p class="text-[10px] stl:text-sm py-2 ">Total number of documents issued</p>
                             </div>
                         </div>
                     </div>

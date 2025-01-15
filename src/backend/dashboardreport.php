@@ -11,6 +11,7 @@ $male = 0;
 $female = 0;
 $active = 0;
 $inactive = 0;
+$household = 0;
 foreach ($result as $row) {
     // for total residents
     $i++;
@@ -27,6 +28,54 @@ foreach ($result as $row) {
         $inactive++;
     }
 }
+//Check for duplcates (household)
+$house_nums = [];
+foreach ($result as $row) {
+    $house_nums[] = $row['house_num'];
+}
+
+$arr_length = count($house_nums);
+
+// Track occurrences of each house number
+$house_count = [];
+for ($i = 0; $i < $arr_length; $i++) {
+    if (isset($house_count[$house_nums[$i]])) {
+        $house_count[$house_nums[$i]]++;  // Increment count if already in the array
+    } else {
+        $house_count[$house_nums[$i]] = 1;  // Initialize count if first time encountering
+    }
+}
+
+// Track duplicates and display with count
+$duplicates = [];
+foreach ($house_count as $house_num => $count) {
+    if ($count > 1) {  // Check if count is more than 1, which means it's a duplicate
+        $duplicates[] = ["house_num" => $house_num, "count" => $count];
+    }
+}
+
+$household = 0;
+
+if (!empty($duplicates)) {
+    foreach ($duplicates as $duplicate) {
+        if(($duplicate['house_num'] != null) || ($duplicate['house_num'] == '')) {
+            $household++;
+        } 
+    }
+    //echo $household . "<br>";
+} else {
+    echo "0";
+}
+
+/*
+if (!empty($duplicates)) {
+    foreach ($duplicates as $duplicate) {
+        echo "{$duplicate['house_num']} is a duplicate and appears {$duplicate['count']} times.<br>";
+    }
+} else {
+    echo "No duplicates found.";
+}
+*/
 $maleJSON = json_encode($male); 
 $femaleJSON = json_encode($female);
 
