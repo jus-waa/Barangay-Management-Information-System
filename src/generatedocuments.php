@@ -19,7 +19,7 @@ if (!isset($_SESSION['users'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="relative">
+<body class="relative" >
     <div class="flex h-screen w-screen overflow-auto">
         <!-- Sidebar -->
         <div class="flex-none w-20 h-full shadow-2xl">
@@ -93,20 +93,21 @@ if (!isset($_SESSION['users'])) {
         <!-- Main -->
         <div class="w-full h-screen"> 
             <!-- Header -->
-            <div class="shadow-md px-32 py-6">
+            <div class="shadow-md px-32 py-6 bg-white">
                 <div class="text-3xl">
                     Generate Documents
                 </div>
             </div>
-            <div class="grid content-center h-5/6">
+            <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
+            <div class="grid content-center h-[90%] bg-cover bg-center bg-fixed z-10" >
                 <div class=" place-items-center">
-                    <p class="font-bold">Select a Document</p>
-                    <p class="border-t-4 border-c w-40 text-white rounded-sm">.</p>
+                    <p class="font-bold text-white text-5xl mb-4">Select a Document</p>
+                    <p class="border-t-4 border-c w-1/5 rounded-sm mb-20"></p>
                 </div>
-                <div class="grid grid-cols-3  place-self-center gap-x-10">
+                <div class="grid grid-cols-3  place-self-center gap-x-28 z-20 text-lg">
                     <!-- Barangay Clearance -->
                     <div>
-                        <div class="border-2 border-sg rounded-t-xl bg-c h-32 w-48 flex justify-center items-center">
+                        <div class="border-2 border-sg rounded-t-xl bg-c h-48 w-64 flex justify-center items-center">
                             <div>
                                 <button class="cursor-default">
                                 <img class='place-self-center size-14' src='../img/dashboard.png'>
@@ -115,7 +116,7 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>
                         <a href="documents/brgyclearance.php">
-                            <div class="border-x-2 border-b-2 border-sg rounded-b-xl h-12 w-48 flex justify-center items-center bg-sg hover:text-white active:bg-sg transition duration-700 cursor-pointer ">
+                            <div class="border-x-2 border-b-2 border-sg rounded-b-xl h-12 w-64 flex justify-center items-center bg-sg hover:text-white active:bg-sg transition duration-700 cursor-pointer ">
                                 <button>
                                     Generate
                                 </button>
@@ -124,7 +125,7 @@ if (!isset($_SESSION['users'])) {
                     </div>
                     <!-- Certificate of Residency -->
                     <div>
-                        <div class="border-2 border-sg rounded-t-xl bg-c h-32 w-48 flex justify-center items-center">
+                        <div class="border-2 border-sg rounded-t-xl bg-c h-48 w-64  flex justify-center items-center">
                             <div>
                                 <button class="cursor-default">
                                 <img class='place-self-center size-14' src='../img/dashboard.png'>
@@ -133,7 +134,7 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>
                         <a href="documents/certresidency.php">
-                            <div class="border-x-2 border-b-2 border-sg rounded-b-xl h-12 w-48 flex justify-center items-center bg-sg hover:text-white active:bg-sg transition duration-700 cursor-pointer ">
+                            <div class="border-x-2 border-b-2  border-sg rounded-b-xl h-12 w-64 flex justify-center items-center bg-sg hover:text-white active:bg-sg transition duration-700 cursor-pointer ">
                                 <button>
                                     Generate
                                 </button>
@@ -142,7 +143,7 @@ if (!isset($_SESSION['users'])) {
                     </div>
                     <!-- Dashboard -->
                     <div>
-                        <div class="border-2 border-sg rounded-t-xl bg-c h-32 w-48 flex justify-center items-center">
+                        <div class="border-2 border-sg rounded-t-xl bg-c h-48 w-64  flex justify-center items-center">
                             <div>
                                 <button class="cursor-default">
                                 <img class='place-self-center size-14' src='../img/dashboard.png'>
@@ -151,7 +152,7 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>
                         <a href="documents/certindigency.php">
-                            <div class="border-x-2 border-b-2 border-sg rounded-b-xl h-12 w-48 flex justify-center items-center bg-sg hover:text-white active:bg-sg transition duration-700 cursor-pointer ">
+                            <div class="border-x-2 border-b-2 border-sg rounded-b-xl h-12 w-64 flex justify-center items-center bg-sg hover:text-white active:bg-sg transition duration-700 cursor-pointer ">
                                 <button>
                                     Generate
                                 </button>

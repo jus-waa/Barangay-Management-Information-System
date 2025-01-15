@@ -19,7 +19,7 @@ include("connection.php");
             $_SESSION['role_id'] = $result['role_id'];
             $_SESSION['login_msg'] = "User Exists.";    
             //redirect to this location
-            header('location: ../controlpage.php');
+            header('location: ../dashboard.php');
             exit();
         } else if (empty($email) || empty($pass)){
             //return to page
