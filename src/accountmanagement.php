@@ -105,7 +105,7 @@ if (!isset($_SESSION['users'])) {
             <!-- List of Accounts -->
             <div class="flex flex-col h-full grow">
                 <!-- Note -->
-                <div class="h-14 mb-4 mt-8 mx-32 text-white">
+                <div class="h-14 mb-4 mt-8 mx-8 text-white">
                 <?php
                 if(isset($_GET['msg'])) {
                     $msg = $_GET['msg'];
@@ -134,27 +134,24 @@ if (!isset($_SESSION['users'])) {
                 <div class="overflow-hidden w-full  mt-4">
                     <div class="border-2 border-c rounded-lg mx-8">
                     <!--Regular-->
-                    <div id="tb1" class="overflow-auto no-scrollbar" style="height: 25vh;">
+                    <div id="tb1" class="overflow-auto no-scrollbar" style="height: 24vh;">
                         <div class="rounded-t-sm pt-2 bg-c ">
                             <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
                             <col class="w-[100px]">
-                            <col>
-                            <col>
-                            <col>
-                            <col>
-                            <col class="w-[50px]">
+                            <col class="w-[100px]">
+                            <col class="w-[200px]">
+                            <col class="w-[200px]">
+                            <col class="w-[400px]">
                             <col class="w-[200px]">
                             <col class="w-[200px]">
                         </colgroup>
                         <thead class="bg-c sticky top-0 ">
-                            <tr class="uppercase ">
+                            <tr class="uppercase">
                                 <!--Basic Information + Action-->
-                                <th class="w-12">ID</th>
+                                <th class="w-12 py-4">ID</th>
                                 <th class="">Username</th>
                                 <th class="w-56">Email</th>
-                                <th class="w-72">Password</th>
-                                <th class="w-72">Verify Password</th>
                                 <th class="w-32">Contact Information</th>
                                 <th class="">Date Created</th>
                                 <th class="">Date Updated</th>
@@ -168,7 +165,7 @@ if (!isset($_SESSION['users'])) {
                             if ($row['role_id'] == 2) {
                         ?>
                         <tr class="hover:bg-gray-100">
-                            <td class=" border-y-2 border-c w-12">
+                            <td class=" border-y-2 border-c w-12 py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
                                 </div>
@@ -179,22 +176,12 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </td>
                             <td class="border-y-2 border-c ">
-                                <div class="flex justify-center overflow-auto w-56" >
+                                <div class="flex justify-center" >
                                     <?=$row['email']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c ">
-                                <div class="flex justify-start overflow-auto w-64">
-                                    <?=$row['password']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c ">
-                                <div class="flex justify-start overflow-auto w-64">
-                                    <?=$row['password_re']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c ">
-                                <div class="flex justify-center overflow-auto w-32">
+                                <div class="flex justify-center">
                                     <?=$row['contact_info']?>
                                 </div>
                             </td>
@@ -238,27 +225,24 @@ if (!isset($_SESSION['users'])) {
                 <div class="w-full overflow-hidden mt-4">
                     <div class="border-2 border-c rounded-lg mx-8">
                         <!-- Admin -->
-                        <div id="tb1" class="overflow-auto no-scrollbar " style="height: 20vh;">
+                        <div id="tb1" class="overflow-auto no-scrollbar" style="height: 24vh;">
                         <div class="rounded-t-sm pt-2 bg-c ">
-                            <table id="residentTable" class="w-full border-collapse">
+                            <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
+                        <col class="w-[100px]">
                             <col class="w-[100px]">
-                            <col>
-                            <col>
-                            <col>
-                            <col>
-                            <col class="w-[50px]">
+                            <col class="w-[200px]">
+                            <col class="w-[200px]">
+                            <col class="w-[400px]">
                             <col class="w-[200px]">
                             <col class="w-[200px]">
                         </colgroup>
                         <thead class="bg-c sticky top-0 ">
                             <tr class="uppercase ">
                                 <!--Basic Information + Action-->
-                                <th class="w-12">ID</th>
+                                <th class="w-12 py-4">ID</th>
                                 <th class="">Username</th>
                                 <th class="w-56">Email</th>
-                                <th class="w-72">Password</th>
-                                <th class="w-72">Verify Password</th>
                                 <th class="w-32">Contact Information</th>
                                 <th class="">Date Created</th>
                                 <th class="">Date Updated</th>
@@ -272,7 +256,7 @@ if (!isset($_SESSION['users'])) {
                             if ($row['role_id'] == 1) {
                         ?>
                         <tr class="hover:bg-gray-100">
-                            <td class=" border-y-2 border-c w-12">
+                            <td class=" border-y-2 border-c w-12 py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
                                 </div>
@@ -283,22 +267,13 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </td>
                             <td class="border-y-2 border-c ">
-                                <div class="flex justify-center overflow-auto w-56" >
+                                <div class="flex justify-center">
                                     <?=$row['email']?>
                                 </div>
                             </td>
+                            
                             <td class="border-y-2 border-c ">
-                                <div class="flex justify-start overflow-auto w-64">
-                                    <?=$row['password']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c ">
-                                <div class="flex justify-start overflow-auto w-64">
-                                    <?=$row['password_re']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c ">
-                                <div class="flex justify-center overflow-auto w-32">
+                                <div class="flex justify-center">
                                     <?=$row['contact_info']?>
                                 </div>
                             </td>
