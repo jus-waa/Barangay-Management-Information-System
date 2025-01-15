@@ -293,7 +293,7 @@ if(isset($_POST['update'])) {
                         <div class="flex grow">
                             <div class="flex flex-col w-full mr-2">
                                 <?php
-                                $residencyOptions = ["", "Owner", "Renter", "Co-owner", "Live-in Family Member", "Roommate", "Temporary Student", "Subtenant", "Occupant"];
+                                $residencyOptions = ["", "Permanent", "Temporary", "Student"];
                                 ?>
                                 <select id="residency-type" name="residency_type" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
                                     <?php foreach($residencyOptions as $residencyType): ?>

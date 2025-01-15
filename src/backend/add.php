@@ -282,14 +282,10 @@ if(isset($_POST['add'])) {
                             <div class="flex flex-col w-full mr-2">
                                 <select id="residency-type" name="residency_type" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-gray-500 text-sm">
                                     <option value="">Select Residency Type</option>
-                                    <option value="Owner">Owner</option>
-                                    <option value="Renter">Renter</option>
-                                    <option value="Co-owner">Co-owner</option>
-                                    <option value="Live-in Family Member">Live-in Family Member</option>
-                                    <option value="Roommate">Roommate</option>
-                                    <option value="Temporary Resident">Temporary Resident</option>
-                                    <option value="Subtenant">Subtenant</option>
-                                    <option value="Occupant">Occupant</option>
+                                    <option value="Permanent">Permanent</option>
+                                    <option value="Temporary">Temporary</option>
+                                    <option value="Student">Student</option>
+                                    
                                 </select>
                             </div>
                             <div class="flex flex-col w-full">
