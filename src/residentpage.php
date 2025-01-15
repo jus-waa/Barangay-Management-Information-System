@@ -21,6 +21,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../script.js"></script>
+    <script src="clock.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -105,36 +106,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <!-- Search, Add New Button, Bulk Import -->
                 <div class="flex justify-end items-center space-x-4">
-                    <!-- Search -->
-                    <div class="relative">
-                        <form method="post">
-                            <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-sg h-8" >
-                            <button id="searchBtn" class="rounded-md absolute right-0 top-1/2 transform -translate-y-1/2 bg-white border border-l-0 border-gray-300 p-2 h-full flex items-center justify-center pointer-events-none">
-                                <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
-                            </button>
-                        </form>
+                    <div class="justify-items-end">
+                        <b>Philippine Standard Time: </b><br>
+                        <p class="italic" id="liveClock"></p>
                     </div>
-                    <?php 
-                    if(hasPermission('system_settings')) {
-                    ?>
-                        <!-- Add Record -->
-                        <div>
-                            <a href="backend/add.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
-                        </div>
-                        <!--Bulk Import-->
-                        <div>
-                            <form id="formUpload"  class="flex items-center">
-                                <div>
-                                    <button id="btnUpload" name="btnUpload" class="py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm" disabled>Bulk Import</button>
-                                </div>
-                                <label for="file_input">
-                                    <img id="file_output" class="ml-2 size-8 cursor-pointer hover:animate-wiggle" src="../img/document.png">
-                                    <input type="file" id="file_input" name="file" accept="csv/*" class="hidden"></input>
-                                </label>
-                            </form>
-                            <div id="msgUpload"></div>
-                        </div>
-                    <?php } ?>
                 </div>
             </div>
             <!-- Body -->
@@ -161,19 +136,51 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ?>
                 </div>
                 <!-- Options -->
-                <div class="flex justify-between items-center">
-                <!-- Categories -->
-                <div class="ml-8 text-black ">
-                    <ul class="flex justify-start items-center space-x-4 ">
-                        <li onclick="showCategory('tb1','option1')"><button id="option1" class="border-b-4 border-sg py-1 px-3 hover:border-sg rounded-sm">Personal Information</button></li>
-                        <li onclick="showCategory('tb2','option2')"><button id="option2" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Birth Details</button></li>
-                        <li onclick="showCategory('tb3','option3')"><button id="option3" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Contact Information</button></li>
-                        <li onclick="showCategory('tb4','option4')"><button id="option4" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Address Details</button></li>
-                        <li onclick="showCategory('tb5','option5')"><button id="option5" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Citizenship and Civil Status</button></li>
-                        <li onclick="showCategory('tb6','option6')"><button id="option6" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Residency and Occupation</button></li>
-                        <li onclick="showCategory('tb7','option7')"><button id="option7" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Health</button></li>
-                    </ul>
-                </div>
+                <div class="grid grid-cols-[auto_1fr] items-center">
+                    <!-- Categories -->
+                    <div class="ml-8 text-black ">
+                        <ul class="flex justify-start items-center space-x-4 ">
+                            <li onclick="showCategory('tb1','option1')"><button id="option1" class="border-b-4 border-sg py-1 px-3 hover:border-sg rounded-sm">Personal Information</button></li>
+                            <li onclick="showCategory('tb2','option2')"><button id="option2" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Birth Details</button></li>
+                            <li onclick="showCategory('tb3','option3')"><button id="option3" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Contact Information</button></li>
+                            <li onclick="showCategory('tb4','option4')"><button id="option4" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Address Details</button></li>
+                            <li onclick="showCategory('tb5','option5')"><button id="option5" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Citizenship and Civil Status</button></li>
+                            <li onclick="showCategory('tb6','option6')"><button id="option6" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Residency and Occupation</button></li>
+                            <li onclick="showCategory('tb7','option7')"><button id="option7" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Health</button></li>
+                        </ul>
+                    </div>
+                    <!-- Search -->
+                    <div class="flex justify-end items-center space-x-4 mr-8">
+                        <div class="relative">
+                            <form method="post">
+                                <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-sg h-8" >
+                                <button id="searchBtn" class="rounded-md absolute right-0 top-1/2 transform -translate-y-1/2 bg-white border border-l-0 border-gray-300 p-2 h-full flex items-center justify-center pointer-events-none">
+                                    <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
+                                </button>
+                            </form>
+                        </div>
+                        <?php 
+                        if(hasPermission('system_settings')) {
+                        ?>
+                            <!-- Add Record -->
+                            <div>
+                                <a href="backend/add.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
+                            </div>
+                            <!--Bulk Import-->
+                            <div>
+                                <form id="formUpload"  class="flex items-center">
+                                    <div>
+                                        <button id="btnUpload" name="btnUpload" class="py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm" disabled>Bulk Import</button>
+                                    </div>
+                                    <label for="file_input">
+                                        <img id="file_output" class="ml-2 size-8 cursor-pointer hover:animate-wiggle" src="../img/document.png">
+                                        <input type="file" id="file_input" name="file" accept="csv/*" class="hidden"></input>
+                                    </label>
+                                </form>
+                                <div id="msgUpload"></div>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
                 <!-- Tables -->
                 <div class="overflow-hidden mt-4 w-full">

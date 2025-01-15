@@ -20,6 +20,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../script.js"></script>
+    <script src="clock.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -101,6 +102,12 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="text-3xl">
                     <b>Barangay Buna Cerca</b><br>
                     <p class="text-[20px] italic">Transaction History</p>
+                </div>
+                <div class="flex justify-end items-center space-x-4">
+                    <div class="justify-items-end">
+                        <b>Philippine Standard Time: </b><br>
+                        <p class="italic" id="liveClock"></p>
+                    </div>
                 </div>
             </div>
             <!-- Body -->

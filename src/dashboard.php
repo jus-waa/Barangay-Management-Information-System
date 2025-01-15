@@ -18,6 +18,7 @@ if (!isset($_SESSION['users'])) {
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
     <script src="../script.js"></script>
+    <script src="clock.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body class="relative">
@@ -94,10 +95,14 @@ if (!isset($_SESSION['users'])) {
         <!-- Main -->
         <div class="flex flex-col w-full h-screen overflow-hidden"> 
             <!-- Header -->
-            <div class="shadow-md px-8 pr-20 py-2 stl:pr-32 stl:py-2 bg-white">
+            <div class="grid grid-cols-2 items-center shadow-md px-8 py-2 stl:py-2 bg-white">
                 <div class="text-xl stl:text-3xl ">
                     <b>Barangay Buna Cerca</b><br>
                     <p class="text-[20px] italic">Dashboard</p>
+                </div>
+                <div class="justify-items-end">
+                    <b>Philippine Standard Time: </b><br>
+                    <p class="italic" id="liveClock"></p>
                 </div>
             </div>
             <!-- Body -->
