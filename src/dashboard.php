@@ -6,7 +6,7 @@ include("backend/dashboardreport.php");
 if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
-}
+} 
 
 ?>
 <!DOCTYPE html>
@@ -74,7 +74,7 @@ if (!isset($_SESSION['users'])) {
                             <?php 
                             } else {
                             ?>
-                            <button disabled id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
+                            <button disabled id="setting" onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
                                 <img  class="size-10 hover:animate-wiggle" src="../img/setting.png" >
                                 <span id="set_title" class="absolute z-10 hover:scale-110 text-sm bg-c hidden">
                                     <img  class="size-10 hover:animate-wiggle" src="../img/x.png">
@@ -83,10 +83,43 @@ if (!isset($_SESSION['users'])) {
                             <?php } ?>
                         </div>
                     </div>
-                    <div class="place-content-center h-2/5 w-full grow">
+                    <!-- Account and Logout -->
+                    <div class="place-content-center space-x-4 h-2/5 w-full grow">
+                        <div>
+                            <a href="generatedocuments.php">
+                                <button id="gen_doc" onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
+                                    <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
+                                    <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
+                                        <?php
+                                            $userId = $_SESSION['users'];
+                                            $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
+                                            $stmt = $dbh->prepare($query);
+                                            $stmt->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
+                                            $stmt->execute();
+                                            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                            if ($result) {
+                                                echo $result['username'];
+                                            }   else {
+                                                echo "No such user found.";
+                                            }
+                                        ?>
+                                    </span>
+                                </button>
+                            </a>
+                            <button class="flex place-self-center">
+                                <?php 
+                                    if(hasPermission('system_settings')) {
+                                        echo '<p>Admin</p>';
+                                    } else {
+                                        echo '<p>Regular</p>';
+                                    }
+                                ?>
+                            </button>
+                        </div>
                         <a href="backend/logout.php">
                             <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
-                            <button class="flex place-self-center">Logout</button>
+                            <p class="flex place-self-center">Logout</p>
                         </a>
                     </div>
                 </div>

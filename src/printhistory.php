@@ -7,10 +7,7 @@ if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
 }
-// fetch data
-$stmt = $dbh->prepare("SELECT * FROM `print_history`");
-$stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,10 +83,43 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php } ?>
                         </div>
                     </div>
-                    <div class="place-content-center h-2/5 w-full grow">
+                    <!-- Account and Logout -->
+                    <div class="place-content-center space-x-4 h-2/5 w-full grow">
+                        <div>
+                            <a href="generatedocuments.php">
+                                <button id="gen_doc" onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
+                                    <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
+                                    <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
+                                        <?php
+                                            $userId = $_SESSION['users'];
+                                            $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
+                                            $stmt = $dbh->prepare($query);
+                                            $stmt->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
+                                            $stmt->execute();
+                                            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                            if ($result) {
+                                                echo $result['username'];
+                                            }   else {
+                                                echo "No such user found.";
+                                            }
+                                        ?>
+                                    </span>
+                                </button>
+                            </a>
+                            <button class="flex place-self-center">
+                                <?php 
+                                    if(hasPermission('system_settings')) {
+                                        echo '<p>Admin</p>';
+                                    } else {
+                                        echo '<p>Regular</p>';
+                                    }
+                                ?>
+                            </button>
+                        </div>
                         <a href="backend/logout.php">
                             <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
-                            <button class="flex place-self-center">Logout</button>
+                            <p class="flex place-self-center">Logout</p>
                         </a>
                     </div>
                 </div>
@@ -101,7 +131,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-8 py-2 ">
                 <div class="text-3xl">
                     <b>Barangay Buna Cerca</b><br>
-                    <p class="text-[20px] italic">Transaction History</p>
+                    <p class="text-[20px] italic">Print History</p>
                 </div>
                 <div class="flex justify-end items-center space-x-4">
                     <div class="justify-items-end">
@@ -166,6 +196,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </thead>
                                 <tbody class="text-gray-600 bg-white">
                                     <?php 
+                                    // fetch data
+                                    $stmt = $dbh->prepare("SELECT * FROM `print_history`");
+                                    $stmt->execute();
+                                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     $i = 1; // auto numbering
                                     foreach ($result as $row) {
                                     ?>
