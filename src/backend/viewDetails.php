@@ -323,7 +323,46 @@ if (isset($_GET['id'])) {
                 </div>
                 <!-- Health -->
                 <div class="grid-cols-2">
-                <p class="text-xl font-bold">Residency and Occupation</p>
+                <p class="text-xl font-bold">Health</p>
+                    <!-- Height -->
+                    <div class="flex">
+                        <div class="w-6/12 ">
+                            <ul class="ml-6"> 
+                                <li>Height</li>
+                            </ul>
+                        </div>
+                        <div class="w-6/12 ">
+                            <ul class="ml-6"> 
+                                <li class="text-sg italic font-normal"><?=$row['height']?></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Weight -->
+                    <div class="flex">
+                        <div class="w-6/12 ">
+                            <ul class="ml-6"> 
+                                <li>Weight</li>
+                            </ul>
+                        </div>
+                        <div class="w-6/12 ">
+                            <ul class="ml-6"> 
+                                <li class="text-sg italic font-normal"><?=$row['weight']?></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Eye Color -->
+                    <div class="flex">
+                        <div class="w-6/12 ">
+                            <ul class="ml-6"> 
+                                <li>Eye Color</li>
+                            </ul>
+                        </div>
+                        <div class="w-6/12 ">
+                            <ul class="ml-6"> 
+                                <li class="text-sg italic font-normal"><?=$row['eye_color']?></li>
+                            </ul>
+                        </div>
+                    </div>
                     <!-- Bloodtype -->
                     <div class="flex">
                         <div class="w-6/12 ">
@@ -333,7 +372,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li class="text-sg italic font-normal"<?=$row['blood_type']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['blood_type']?></li>
                             </ul>
                         </div>
                     </div>

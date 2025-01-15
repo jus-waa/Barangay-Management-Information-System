@@ -8,8 +8,10 @@ if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
 }
-
-
+//f resident info
+$stmt = $dbh->prepare("SELECT * FROM `resident_info`");
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,14 +96,14 @@ if (!isset($_SESSION['users'])) {
                                     <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
                                         <?php
                                             $userId = $_SESSION['users'];
-                                            $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
-                                            $stmt = $dbh->prepare($query);
-                                            $stmt->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
-                                            $stmt->execute();
-                                            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                                            $querys = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
+                                            $stmts = $dbh->prepare($querys);
+                                            $stmts->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
+                                            $stmts->execute();
+                                            $results = $stmts->fetch(PDO::FETCH_ASSOC);
 
-                                            if ($result) {
-                                                echo $result['username'];
+                                            if ($results) {
+                                                echo $results['username'];
                                             }   else {
                                                 echo "No such user found.";
                                             }
@@ -149,9 +151,7 @@ if (!isset($_SESSION['users'])) {
                 <!-- Note -->
                 <div class="h-14 mb-4 mt-8 mx-8 text-white">
                 <?php
-                $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
-                $stmt->execute();
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+               
                 if(isset($_GET['msg'])) {
                     $msg = $_GET['msg'];
                     echo '
@@ -829,9 +829,12 @@ if (!isset($_SESSION['users'])) {
                     <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
                             <col class="w-[100px]">
-                            <col class="w-[400px]">
-                            <col >
-                            <col >
+                            <col class="w-[300px]">
+                            <col class="w-[200px]">
+                            <col class="w-[250px]">
+                            <col class="w-[275px]">
+                            <col class="w-[200px]">
+                            <col class="w-[275px]">
                             <col class="w-[200px]">
                         </colgroup>
                         <thead class=" bg-c sticky top-0">
@@ -839,6 +842,9 @@ if (!isset($_SESSION['users'])) {
                                 <!--Basic Information + Action-->
                                 <th class="py-4 min-w-20">ID</th>
                                 <th class="py-4  text-sg">Full Name</th>                            
+                                <th class="py-4">Height</th>
+                                <th class="py-4">Weight</th>
+                                <th class="py-4">Eye Color</th>
                                 <th class="py-4">Blood Type</th>
                                 <th class="py-4">Religion</th>
                                 <th class="py-4 min-w-20">Action</th>
@@ -860,6 +866,22 @@ if (!isset($_SESSION['users'])) {
                                     <?=$row['first_name']?>
                                     <?=$row['middle_name']?>
                                     <?=$row['last_name']?>
+                                </div>
+                            </td>
+                            
+                            <td class="border-y-2 border-c py-2">
+                                <div class="flex justify-center" >
+                                    <?=$row['height']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c py-2">
+                                <div class="flex justify-center" >
+                                    <?=$row['weight']?>
+                                </div>
+                            </td>
+                            <td class="border-y-2 border-c py-2">
+                                <div class="flex justify-center" >
+                                    <?=$row['eye_color']?>
                                 </div>
                             </td>
                             <td class="border-y-2 border-c py-2">
@@ -939,11 +961,16 @@ if (!isset($_SESSION['users'])) {
         <div class="fixed z-50 hidden" id="viewDetails">
             <div class="border-4 w-screen h-screen flex justify-end items-center">
                 <div class="absolute bg-black opacity-50 w-screen h-screen grid cursor-pointer" onclick="cancelView()"></div> <!-- Background overlay -->
-                <div class="relative grid h-screen overflow-auto rounded-l-xl bg-white z-10" style="width:60vh">
-                    <div class="pl-6 pt-2 flex items-center">
-                        <button onclick="cancelView()"><img src="../img/back.png" class="size-4"></button>
+                <div class="relative flex flex-col h-screen overflow-auto rounded-l-xl bg-white z-10 " style="width:60vh">
+                    <div class="flex ml-4">
+                        <button onclick="cancelView()" class="flex items-center ">
+                            <div class="flex items-center pr-2 py-4 rounded-md cursor-pointer ">
+                                <img src="../img/back.png" class="size-4" alt="select from records">
+                            </div>
+                            <p class="flex justify-start w-48 px-2">Back</p>
+                        </button>
                     </div>
-                    <div id="viewDetailsContent" class="px-8" style="height:90vh;">
+                    <div id="viewDetailsContent" class="pl-20 items-center ">
                     <!-- Details from viewDetails.php will be displayed here -->
                     </div>
                 </div>

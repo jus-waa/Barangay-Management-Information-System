@@ -26,6 +26,9 @@ if(isset($_POST['add'])) {
         $occupation = $_POST['occupation'];
         $residency_type = $_POST['residency_type'];
         $status = $_POST['status'];
+        $height = $_POST['height'];
+        $weight = $_POST['weight'];
+        $eye_color = $_POST['eye_color'];
         $blood_type = $_POST['blood_type'];
         $religion = $_POST['religion'];
 
@@ -33,8 +36,8 @@ if(isset($_POST['add'])) {
             $middle_name = '';
         }
 
-        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `contact_num`, `email_address`, `house_num`, `street_name`, `barangay_name`, `municipality_city`, `province`, `zip_code`, `civil_status`, `citizenship`, `occupation`, `residency_type`, `status`, `blood_type`, `religion`) 
-                                        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :contact_num, :email_address, :house_num, :street_name, :barangay_name, :municipality_city, :province, :zip_code, :civil_status, :citizenship, :occupation, :residency_type, :status, :blood_type, :religion)";
+        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `contact_num`, `email_address`, `house_num`, `street_name`, `barangay_name`, `municipality_city`, `province`, `zip_code`, `civil_status`, `citizenship`, `occupation`, `residency_type`, `status`, `height`, `weight`, `eye_color`, `blood_type`, `religion`) 
+                                        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :contact_num, :email_address, :house_num, :street_name, :barangay_name, :municipality_city, :province, :zip_code, :civil_status, :citizenship, :occupation, :residency_type, :status, :height, :weight, :eye_color, :blood_type, :religion)";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
         $stmt->bindParam(':middle_name', $middle_name, PDO::PARAM_STR);
@@ -58,6 +61,9 @@ if(isset($_POST['add'])) {
         $stmt->bindParam(':occupation', $occupation, PDO::PARAM_STR);
         $stmt->bindParam(':residency_type', $residency_type, PDO::PARAM_STR);
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':height', $height, PDO::PARAM_INT);
+        $stmt->bindParam(':weight', $weight, PDO::PARAM_INT);
+        $stmt->bindParam(':eye_color', $eye_color, PDO::PARAM_STR);
         $stmt->bindParam(':blood_type', $blood_type, PDO::PARAM_STR);
         $stmt->bindParam(':religion', $religion, PDO::PARAM_STR);
         $stmt->execute();
@@ -71,7 +77,7 @@ if(isset($_POST['add'])) {
         echo "Error: " . $e->getMessage();
     }
 } else if (isset($_POST['cancel'])){
-    header("location: ../residentpage.php?msg= operation cancelled.");
+    header("location: ../residentpage.php?msg= Operation cancelled.");
 }
 
 ?>
@@ -98,12 +104,12 @@ if(isset($_POST['add'])) {
             <div class="sticky top-0">
                 <!-- Back Button -->
                 <div class="flex">
-                <a href="../residentpage.php" class="flex items-center">
-                    <div class="flex items-center p-2 rounded-md cursor-pointer transition duration-700 hover:scale-125 hover:animate-wiggle">
-                        <img src="../../img/back-white.png" class="size-4" alt="select from records">
-                    </div>
-                    <p class="flex justify-start w-48 p-2 text-white">Back</p>
-                </a>
+                    <a href="../residentpage.php" class="flex items-center">
+                        <div class="flex items-center p-2 rounded-md cursor-pointer transition duration-700 hover:scale-125 hover:animate-wiggle">
+                            <img src="../../img/back-white.png" class="size-4" alt="select from records">
+                        </div>
+                        <p class="flex justify-start w-48 p-2 text-white">Back</p>
+                    </a>
                 </div>
                 <div class="px-32 sticky top-0 ">
                     <!-- Text -->
@@ -210,7 +216,7 @@ if(isset($_POST['add'])) {
                             <div>
                                 <input id="contact-num" name="contact_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Phone Number</label>
-                                <span class="text-gray-400 text-sm">Format: 0999 999 9999</span><br>
+                                <span class="text-gray-400 text-sm">Format: 09991239999</span><br>
                                 <span id="contact-error" class="text-red-500 text-sm hidden">Must be 11 digits</span>
                             </div>
                         </div>
@@ -324,6 +330,22 @@ if(isset($_POST['add'])) {
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Religion</label>
                             </div>
                         </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex-grow mr-2">
+                                <input maxlength="3" id="height" name="height" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Height</label>
+                                <span class="absolute transform -translate-y-8 translate-x-38 text-gray-500 text-sm">cm</span>
+                            </div>
+                            <div class="flex-grow mr-2">
+                                <input maxlength="3" id="weight" name="weight" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Weight</label>
+                                <span class="absolute transform -translate-y-8 translate-x-38 text-gray-500 text-sm">kg</span>
+                            </div>
+                            <div class="flex-grow">
+                                <input id="eye_color" name="eye_color" type="text"  autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Eye Color</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Buttons -->
@@ -399,7 +421,7 @@ if(isset($_POST['add'])) {
             }
 
             // Check Contact Number
-            if (!/^\d{4} \d{3} \d{4}$/.test(contactNumberInput.value.trim())) {
+            if (!/^\d{11}$/.test(contactNumberInput.value.trim())) {
                 isValid = false;
                 event.preventDefault();
                 contactError.classList.remove("hidden");
@@ -427,7 +449,7 @@ if(isset($_POST['add'])) {
     $(document).ready(function() {
         // Input mask for the phone number
         $('#phone').inputmask({
-            mask: '9999 999 9999',
+            mask: '99999999999',
             placeholder: ' ',
             showMaskOnHover: true,
             showMaskOnFocus: true

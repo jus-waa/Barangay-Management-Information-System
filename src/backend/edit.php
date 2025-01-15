@@ -26,6 +26,9 @@ if(isset($_POST['update'])) {
         $occupation = $_POST['occupation'];
         $residency_type = $_POST['residency_type'];
         $status = $_POST['status'];
+        $height = $_POST['height'];
+        $weight = $_POST['weight'];
+        $eye_color = $_POST['eye_color'];
         $blood_type = $_POST['blood_type'];
         $religion = $_POST['religion'];
 
@@ -55,6 +58,9 @@ if(isset($_POST['update'])) {
                 `occupation` = :occupation,
                 `residency_type` = :residency_type,
                 `status` = :status,
+                `height` = :height,
+                `weight` = :weight,
+                `eye_color` = :eye_color,
                 `blood_type` = :blood_type,
                 `religion` = :religion WHERE `id`=$id";
 
@@ -81,12 +87,15 @@ if(isset($_POST['update'])) {
         $stmt->bindParam(':occupation', $occupation, PDO::PARAM_STR);
         $stmt->bindParam(':residency_type', $residency_type, PDO::PARAM_STR);
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':height', $height, PDO::PARAM_INT);
+        $stmt->bindParam(':weight', $weight, PDO::PARAM_INT);
+        $stmt->bindParam(':eye_color', $eye_color, PDO::PARAM_STR);
         $stmt->bindParam(':blood_type', $blood_type, PDO::PARAM_STR);
         $stmt->bindParam(':religion', $religion, PDO::PARAM_STR);
         $stmt->execute();
         
         if($stmt) {
-            header("location: ../residentpage.php?msg= new record added.");
+            header("location: ../residentpage.php?msg= Record added successfully.");
         } else {
             echo "Failed: " . $e->getMessage();
         }
@@ -94,7 +103,7 @@ if(isset($_POST['update'])) {
         echo "Error: " . $e->getMessage();
     }
 } else if (isset($_POST['cancel'])){
-    header("location: ../residentpage.php?msg= operation cancelled.");
+    header("location: ../residentpage.php?msg= Operation cancelled.");
 }
 ?>
 <!DOCTYPE html>
@@ -216,7 +225,7 @@ if(isset($_POST['update'])) {
                             <div>
                                 <input id="contact-num" name="contact_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['contact_num']?>" placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Phone Number</label>
-                                <span class="text-gray-400 text-sm">Format: 0999 999 9999</span><br>
+                                <span class="text-gray-400 text-sm">Format: 09991239999</span><br>
                                 <span id="contact-error" class="text-red-500 text-sm hidden">Must be 11 digits</span>
                             </div>
                         </div>
@@ -340,6 +349,22 @@ if(isset($_POST['update'])) {
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Religion</label>
                             </div>
                         </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex-grow mr-2">
+                                <input maxlength="3" id="height" name="height" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg "value="<?php echo $row['height']?>" placeholder=" "/> 
+                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Height</label>
+                                <span class="absolute transform -translate-y-8 translate-x-38 text-gray-500 text-sm">cm</span>
+                            </div>
+                            <div class="flex-grow mr-2">
+                                <input maxlength="3" id="weight" name="weight" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg "value="<?php echo $row['weight']?>" placeholder=" "/> 
+                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Weight</label>
+                                <span class="absolute transform -translate-y-8 translate-x-38 text-gray-500 text-sm">kg</span>
+                            </div>
+                            <div class="flex-grow">
+                                <input id="eye_color" name="eye_color" type="text"  autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg "value="<?php echo $row['eye_color']?>" placeholder=" "/> 
+                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Eye Color</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Buttons -->
@@ -433,7 +458,7 @@ if(isset($_POST['update'])) {
             }
 
             // Check Contact Number
-            if (!/^\d{4} \d{3} \d{4}$/.test(contactNumberInput.value.trim())) {
+            if (!/^\d{11}$/.test(contactNumberInput.value.trim())) {
                 isValid = false;
                 event.preventDefault();
                 contactError.classList.remove("hidden");
@@ -454,7 +479,7 @@ if(isset($_POST['update'])) {
     $(document).ready(function() {
         // Input mask for the phone number
         $('#phone').inputmask({
-            mask: '9999 999 9999',
+            mask: '99999999999',
             placeholder: ' ',
             showMaskOnHover: true,
             showMaskOnFocus: true
