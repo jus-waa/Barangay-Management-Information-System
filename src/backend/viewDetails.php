@@ -1,10 +1,6 @@
 <?php
 include("connection.php");
-//require login first
-if (!isset($_SESSION['users'])) {
-    header('location: login.php');
-    exit();
-}
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     try {
