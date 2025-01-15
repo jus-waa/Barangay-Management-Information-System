@@ -134,7 +134,7 @@
                                     <button id="cancel-button" name="cancel" class="rounded-md border-2 w-[8.6rem]  p-2 place-self-center bg-red-500 border-red-500 hover:text-white transition duration-700">Cancel</button>
                                 </div>
                             </div>
-                            <span class="text-gray-500 text-sm">Format: 0999 999 9999</span><br>
+                            <span class="text-gray-500 text-sm">Format: 09991239999</span><br>
                             <span id="contact-error" class="text-red-500 text-sm hidden">Must be 11 digits</span>
                         </div>
                         <?php } ?>
@@ -208,7 +208,7 @@
             let firstInvalidElement = null;
 
             // Check Contact Number
-            if (!/^\d{4} \d{3} \d{4}$/.test(contactNumberInput.value.trim())) {
+            if (!/^\d{11}$/.test(contactNumberInput.value.trim())) {
                 isValid = false;
                 event.preventDefault();
                 contactError.classList.remove("hidden");

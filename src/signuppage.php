@@ -169,7 +169,7 @@
                                 </div>
                             </div>
                             <div>
-                                <span class="text-gray-500 text-sm">Format: 0999 999 9999</span><br>
+                                <span class="text-gray-500 text-sm">Format: 09991239999</span><br>
                                 <span id="contact-error" class="text-red-500 text-sm hidden">Must be 11 digits</span>
                             </div>
                             <div class="flex gap-x-3">
@@ -278,7 +278,7 @@
             let firstInvalidElement = null;
 
             // Check Contact Number
-            if (!/^\d{4} \d{3} \d{4}$/.test(contactNumberInput.value.trim())) {
+            if (!/^\d{11}$/.test(contactNumberInput.value.trim())) {
                 isValid = false;
                 event.preventDefault();
                 contactError.classList.remove("hidden");
