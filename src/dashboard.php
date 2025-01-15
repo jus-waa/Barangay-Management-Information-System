@@ -94,7 +94,7 @@ if (!isset($_SESSION['users'])) {
         <!-- Main -->
         <div class="flex flex-col w-full h-screen overflow-hidden"> 
             <!-- Header -->
-            <div class="shadow-md pl-8 pr-20 py-2 stl:pr-32 stl:py-2 bg-white">
+            <div class="shadow-md px-8 pr-20 py-2 stl:pr-32 stl:py-2 bg-white">
                 <div class="text-xl stl:text-3xl ">
                     <b>Barangay Buna Cerca</b><br>
                     <p class="text-[20px] italic">Dashboard</p>

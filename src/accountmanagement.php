@@ -96,9 +96,10 @@ if (!isset($_SESSION['users'])) {
         <!-- Main -->
         <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
-            <div class="shadow-md px-32 py-6">
+            <div class="shadow-md px-8 py-2">
                 <div class="text-3xl">
-                    Account Management
+                    <b>Barangay Buna Cerca</b><br>
+                    <p class="text-[20px] italic">Resident Information</p>
                 </div>
             </div>
             <!-- List of Accounts -->
@@ -125,13 +126,13 @@ if (!isset($_SESSION['users'])) {
                 ?>
                 </div>
                 <!-- Regular Section -->
-                <div class="flex justify-between items-end mx-32 mt-4">
+                <div class="flex justify-between items-end mx-8 mt-4">
                     <div class="bg-c text-black py-2 px-14 rounded-xl font-bold text-3xl min-w-[200px] text-center">Regular</div>
                     <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
                 </div>
                 <!-- Regular Account Table -->
                 <div class="overflow-hidden w-full  mt-4">
-                    <div class="border-2 border-c rounded-lg mx-32">
+                    <div class="border-2 border-c rounded-lg mx-8">
                     <!--Regular-->
                     <div id="tb1" class="overflow-auto no-scrollbar" style="height: 25vh;">
                         <div class="rounded-t-sm pt-2 bg-c ">
@@ -229,13 +230,13 @@ if (!isset($_SESSION['users'])) {
                         </div>
                 </div>
                 <!-- Admin Section -->
-                <div class="flex justify-between items-end mx-32 mt-10">
+                <div class="flex justify-between items-end mx-8 mt-10">
                     <div class="bg-c text-black py-2 px-16 rounded-xl font-bold text-3xl min-w-[200px] text-center">Admin</div>
                     <!-- <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a> -->
                 </div>
                 <!-- Admin Table -->
                 <div class="w-full overflow-hidden mt-4">
-                    <div class="border-2 border-c rounded-lg mx-32">
+                    <div class="border-2 border-c rounded-lg mx-8">
                         <!-- Admin -->
                         <div id="tb1" class="overflow-auto no-scrollbar " style="height: 20vh;">
                         <div class="rounded-t-sm pt-2 bg-c ">

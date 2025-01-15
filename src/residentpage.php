@@ -98,9 +98,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- Main -->
         <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
-            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-32 py-6 ">
+            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-8 py-2 bg-white">
                 <div class="text-3xl">
-                    Resident Page
+                    <b>Barangay Buna Cerca</b><br>
+                    <p class="text-[20px] italic">Resident Information</p>
                 </div>
                 <!-- Search, Add New Button, Bulk Import -->
                 <div class="flex justify-end items-center space-x-4">
@@ -137,6 +138,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <!-- Body -->
+            <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
             <div class="flex flex-col h-full grow">
                 <!-- Note -->
                 <div class="h-14 mb-4 mt-8 mx-32 text-white">
@@ -161,21 +163,21 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <!-- Options -->
                 <div class="flex justify-between items-center">
                 <!-- Categories -->
-                <div class="ml-32 ">
+                <div class="ml-8 text-black ">
                     <ul class="flex justify-start items-center space-x-4 ">
-                        <li onclick="showCategory('tb1','option1')"><button id="option1" class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">Personal Information</button></li>
-                        <li onclick="showCategory('tb2','option2')"><button id="option2" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Birth Details</button></li>
-                        <li onclick="showCategory('tb3','option3')"><button id="option3" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Contact Information</button></li>
-                        <li onclick="showCategory('tb4','option4')"><button id="option4" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Address Details</button></li>
-                        <li onclick="showCategory('tb5','option5')"><button id="option5" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Citizenship and Civil Status</button></li>
-                        <li onclick="showCategory('tb6','option6')"><button id="option6" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Residency and Occupation</button></li>
-                        <li onclick="showCategory('tb7','option7')"><button id="option7" class="border-b-4 border-c text-black py-1 px-3 hover:border-sg rounded-sm">Health</button></li>
+                        <li onclick="showCategory('tb1','option1')"><button id="option1" class="border-b-4 border-sg py-1 px-3 hover:border-sg rounded-sm">Personal Information</button></li>
+                        <li onclick="showCategory('tb2','option2')"><button id="option2" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Birth Details</button></li>
+                        <li onclick="showCategory('tb3','option3')"><button id="option3" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Contact Information</button></li>
+                        <li onclick="showCategory('tb4','option4')"><button id="option4" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Address Details</button></li>
+                        <li onclick="showCategory('tb5','option5')"><button id="option5" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Citizenship and Civil Status</button></li>
+                        <li onclick="showCategory('tb6','option6')"><button id="option6" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Residency and Occupation</button></li>
+                        <li onclick="showCategory('tb7','option7')"><button id="option7" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Health</button></li>
                     </ul>
                 </div>
                 </div>
                 <!-- Tables -->
                 <div class="overflow-hidden mt-4 w-full">
-                <div class="border-2 border-c rounded-lg mx-32">
+                <div class="border-2 border-c rounded-lg mx-8">
                 <!--Personal Information Table -->
                 <div id="tb1" class="overflow-auto no-scrollbar"  style="height: 67vh;">
                     <div class="rounded-t-sm pt-2 bg-c ">

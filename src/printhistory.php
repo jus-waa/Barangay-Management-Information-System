@@ -97,9 +97,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- Main -->
         <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
-            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-32 py-6 ">
+            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-8 py-2 ">
                 <div class="text-3xl">
-                    Print History
+                    <b>Barangay Buna Cerca</b><br>
+                    <p class="text-[20px] italic">Transaction History</p>
                 </div>
             </div>
             <!-- Body -->
@@ -111,7 +112,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <!-- Options -->
-                <div class="grid grid-cols-2 mx-32 ">
+                <div class="grid grid-cols-2 mx-8 ">
                 <!-- Categories -->
                 <div class="flex justify-start items-center">
                     <p class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">
@@ -129,7 +130,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <!-- Tables -->
                 <div class="overflow-hidden mt-4 w-full">
-                    <div class="border-2 border-c rounded-lg mx-32">
+                    <div class="border-2 border-c rounded-lg mx-8">
                     <!-- Report Page Table -->
                     <div id="tb1" class="overflow-auto no-scrollbar" style="height: 67vh;">
                         <div class="rounded-t-sm pt-2 bg-c ">

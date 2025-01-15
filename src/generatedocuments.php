@@ -93,9 +93,10 @@ if (!isset($_SESSION['users'])) {
         <!-- Main -->
         <div class="w-full h-screen"> 
             <!-- Header -->
-            <div class="shadow-md px-32 py-6 bg-white">
+            <div class="shadow-md px-8 py-2 bg-white">
                 <div class="text-3xl">
-                    Generate Documents
+                    <b>Barangay Buna Cerca</b><br>
+                    <p class="text-[20px] italic">Generate Documents</p>
                 </div>
             </div>
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>

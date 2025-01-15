@@ -45,7 +45,11 @@ if (isset($_POST['confirm'])) {
         $lastInsertId = $dbh->lastInsertId();
 
         if ($stmt) {
-            header("Location: print/brgyclearance_print.php?id=" . $lastInsertId);
+            //header("Location: print/brgyclearance_print.php?id=" . $lastInsertId);
+            echo "<script>
+                window.open('print/brgyclearance_print.php?id=$lastInsertId', '_blank');
+                window.open('../generatedocuments.php', '_self');
+            </script>";
             exit;
         }
     } catch(PDOException $e) {
