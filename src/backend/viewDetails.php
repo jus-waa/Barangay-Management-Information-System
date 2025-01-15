@@ -10,10 +10,10 @@ if (isset($_GET['id'])) {
         if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             ?>
             <!-- Info Details -->
-            <div class="grid gap-2 text-gray-400 ">
+            <div class="grid gap-2 text-black ">
                 <!--Personal Info Summary -->
                 <div class="grid-cols-2">
-                    <p class="text-xl">Personal Information</p>
+                    <p class="text-xl font-bold">Personal Information</p>
                     <!-- First Name -->
                     <div class="flex">
                         <div class="w-6/12 ">
@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['first_name']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['first_name']?></li>
                             </ul>
                         </div>
                     </div>
@@ -36,7 +36,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['middle_name']?></li>
+                                <li  class="text-sg italic font-normal"><?=$row['middle_name']?></li>
                             </ul>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['last_name']?></li>
+                                <li  class="text-sg italic font-normal"><?=$row['last_name']?></li>
                             </ul>
                         </div>
                     </div>
@@ -62,7 +62,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['suffix']?></li>
+                                <li  class="text-sg italic font-normal"><?=$row['suffix']?></li>
                             </ul>
                         </div>
                     </div>
@@ -75,7 +75,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['gender']?></li>
+                                <li  class="text-sg italic font-normal"><?=$row['gender']?></li>
                             </ul>
                         </div>
                     </div>
@@ -88,14 +88,14 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['age']?></li>
+                                <li  class="text-sg italic font-normal"><?=$row['age']?></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- Birth Details -->
                 <div class="grid-cols-2">
-                <p class="text-xl">Birth Details</p>
+                <p class="text-xl font-bold">Birth Details</p>
                     <!-- Birth Date-->
                     <div class="flex">
                         <div class="w-6/12 ">
@@ -105,7 +105,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['birth_date']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['birth_date']?></li>
                             </ul>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['birthplace_municipality_city']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['birthplace_municipality_city']?></li>
                             </ul>
                         </div>
                     </div>
@@ -131,14 +131,14 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['birthplace_province']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['birthplace_province']?></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- Contact Number -->
                 <div class="grid-cols-2">
-                <p class="text-xl">Contact Number</p>
+                <p class="text-xl font-bold">Contact Number</p>
                     <!-- Birthplace Province -->
                     <div class="flex">
                         <div class="w-6/12 ">
@@ -148,7 +148,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['contact_num']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['contact_num']?></li>
                             </ul>
                         </div>
                     </div>
@@ -161,14 +161,14 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['email_address']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['email_address']?></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- Address Details -->
                 <div class="grid-cols-2">
-                <p class="text-xl">Address Details</p>
+                <p class="text-xl font-bold">Address Details</p>
                     <!-- Birthplace Province -->
                     <div class="flex">
                         <div class="w-6/12 ">
@@ -178,7 +178,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['house_num']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['house_num']?></li>
                             </ul>
                         </div>
                     </div>
@@ -191,7 +191,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['street_name']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['street_name']?></li>
                             </ul>
                         </div>
                     </div>
@@ -204,7 +204,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['barangay_name']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['barangay_name']?></li>
                             </ul>
                         </div>
                     </div>
@@ -217,7 +217,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['municipality_city']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['municipality_city']?></li>
                             </ul>
                         </div>
                     </div>
@@ -230,7 +230,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['province']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['province']?></li>
                             </ul>
                         </div>
                     </div>
@@ -243,14 +243,14 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['zip_code']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['zip_code']?></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- Citizenship and Civil Status -->
                 <div class="grid-cols-2">
-                <p class="text-xl">Citizenship and Civil Status</p>
+                <p class="text-xl font-bold">Citizenship and Civil Status</p>
                     <!-- Civil Status -->
                     <div class="flex">
                         <div class="w-6/12 ">
@@ -260,7 +260,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['civil_status']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['civil_status']?></li>
                             </ul>
                         </div>
                     </div>
@@ -273,14 +273,14 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['citizenship']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['citizenship']?></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- Residency and Occupation -->
                 <div class="grid-cols-2">
-                <p class="text-xl">Residency and Occupation</p>
+                <p class="text-xl font-bold">Residency and Occupation</p>
                     <!-- Occupation -->
                     <div class="flex">
                         <div class="w-6/12 ">
@@ -290,7 +290,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['occupation']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['occupation']?></li>
                             </ul>
                         </div>
                     </div>
@@ -303,7 +303,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['residency_type']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['residency_type']?></li>
                             </ul>
                         </div>
                     </div>
@@ -316,14 +316,14 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['status']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['status']?></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- Health -->
                 <div class="grid-cols-2">
-                <p class="text-xl">Residency and Occupation</p>
+                <p class="text-xl font-bold">Residency and Occupation</p>
                     <!-- Bloodtype -->
                     <div class="flex">
                         <div class="w-6/12 ">
@@ -333,7 +333,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['blood_type']?></li>
+                                <li class="text-sg italic font-normal"<?=$row['blood_type']?></li>
                             </ul>
                         </div>
                     </div>
@@ -346,7 +346,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="w-6/12 ">
                             <ul class="ml-6"> 
-                                <li><?=$row['religion']?></li>
+                                <li class="text-sg italic font-normal"><?=$row['religion']?></li>
                             </ul>
                         </div>
                     </div>
