@@ -284,7 +284,7 @@ if (isset($_POST['confirm'])) {
                             <div class="flex justify-center space-x-4 mt-6">
                                 <button  type="submit" name="confirm" class="bg-sg rounded-md w-32 h-12">
                                 <input  type="hidden" value="<?= $row['id'] ?>">
-                                    Yes, Confirm 
+                                    Yes
                                 </button>
                                 <button name="cancel" class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
                             </div>

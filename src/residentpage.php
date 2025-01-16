@@ -949,7 +949,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="flex justify-center space-x-4 mt-6">
                         <a id="deleteLink" href="#">
                             <button class="bg-sg rounded-md w-32 h-12">
-                                Yes, Delete  
+                                Delete  
                             </button>
                         </a>
                         <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
