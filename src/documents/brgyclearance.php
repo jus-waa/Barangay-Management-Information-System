@@ -21,14 +21,13 @@ if (isset($_POST['confirm'])) {
         $print_date = $_POST['print_date'];
         $control_number = $_POST['control_number'];
         $issued_by = $_POST['issued_by'];
-        $status = $_POST['status'];
         $purpose = $_POST['purpose'];
         
         if($middle_name == NULL) {
             $middle_name = '';
         }
 
-        $query = "INSERT INTO `print_history`(`first_name`, `middle_name`, `last_name`, `document_type`, `print_date`, `control_number`, `issued_by`, `status`, `purpose`) VALUES (:first_name, :middle_name, :last_name, :document_type, :print_date, :control_number, :issued_by, :status, :purpose)";
+        $query = "INSERT INTO `print_history`(`first_name`, `middle_name`, `last_name`, `document_type`, `print_date`, `control_number`, `issued_by`, `purpose`) VALUES (:first_name, :middle_name, :last_name, :document_type, :print_date, :control_number, :issued_by, :purpose)";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
         $stmt->bindParam(':middle_name', $middle_name, PDO::PARAM_STR);
@@ -37,7 +36,6 @@ if (isset($_POST['confirm'])) {
         $stmt->bindParam(':print_date', $print_date, PDO::PARAM_STR);
         $stmt->bindParam(':control_number', $control_number, PDO::PARAM_STR);
         $stmt->bindParam(':issued_by', $issued_by, PDO::PARAM_STR);
-        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
         $stmt->bindParam(':purpose', $purpose, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -145,22 +143,22 @@ if (isset($_POST['confirm'])) {
                                 <h2 class="text-xl font-bold mb-4">Personal Information</h2>
                                 <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
                                     <div>
-                                        <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['first_name'] : $defaultValues['first_name']?>" placeholder=" " /> 
+                                        <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['first_name'] : $defaultValues['first_name']?>" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">First Name</label>
                                         <span id="first-name-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
                                     <div class="relative">
-                                        <input id="middle-name" name="middle_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['middle_name'] : $defaultValues['middle_name']?>" placeholder=" "/> 
+                                        <input id="middle-name" name="middle_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['middle_name'] : $defaultValues['middle_name']?>" placeholder=" "/> 
                                         <label id="middle-name-label" class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Middle Name</label>
                                         <div class="absolute inset-y-0 right-0 flex items-center">
                                             <span class="flex-grow"></span>
-                                            <input type="checkbox" id="no-middle-name" class="mr-2 border-gray-400" />
+                                            <input type="checkbox" id="no-middle-name" class="mr-2 border-gray-400" disabled/>
                                             <label for="no-middle-name" class="text-sm text-gray-500 mr-4">No Middle Name</label>
                                         </div>
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <div class="flex-grow mr-2">
-                                            <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['last_name'] : $defaultValues['last_name']?>" placeholder=" " /> 
+                                            <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['last_name'] : $defaultValues['last_name']?>" placeholder=" "/> 
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Last Name</label>
                                             <span id="last-name-error" class="text-red-500 text-sm hidden">Field is required</span>
                                         </div>
@@ -168,7 +166,7 @@ if (isset($_POST['confirm'])) {
                                             <?php
                                             $suffixOptions = ["", "Jr.", "Sr.", "II", "III", "IV", "V", "PhD", "MD", "Esq."];
                                             ?>
-                                            <select id="suffix" name="suffix" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
+                                            <select id="suffix" name="suffix" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm " disabled>
                                                 <?php foreach ($suffixOptions as $suffix): ?>
                                                     <option value="<?= $suffix ?>" 
                                                         <?= ($recordLoaded ? $row['suffix'] : $defaultValues['suffix']) == $suffix ? "selected" : "" ?>>
@@ -207,27 +205,26 @@ if (isset($_POST['confirm'])) {
                                 <h2 class="text-xl font-bold mb-4">Address Details</h2>
                                 <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
                                     <div>
-                                        <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['house_num'] : $defaultValues['house_num']?>" placeholder=" " /> 
+                                        <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['house_num'] : $defaultValues['house_num']?>" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">House Number</label>
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <div class="flex-grow mr-2">
-                                            <input id="street-name" name="street_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['street_name'] : $defaultValues['street_name']?>" placeholder=" " /> 
+                                            <input id="street-name" name="street_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['street_name'] : $defaultValues['street_name']?>" placeholder=" "d/> 
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Street Name</label>
                                         </div>
                                         <div class="flex-grow">
-                                            <input id="barangay-name" name="barangay_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['barangay_name'] : $defaultValues['barangay_name']?>" placeholder=" "/> 
+                                            <input id="barangay-name" name="barangay_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['barangay_name'] : $defaultValues['barangay_name']?>" placeholder=" "/> 
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Barangay Name</label>
                                         </div>
                                     </div>
                                     <div for="status" class="flex flex-col flex-grow">
-                                        <select id="status" name="status" class=" border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm" >
-                                            <option class="bg-white text-gray-500" value="">Status</option>
+                                        <select id="status" name="status" class=" border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm" disabled>
+                                            <option class="bg-white text-gray-500" value="">Leave Blank</option>
                                             <option class="bg-white" value="Pending">Pending</option>
                                             <option class="bg-white" value="Approved">Approved</option>
                                             <option class="bg-white" value="For Printing">For Printing</option>
                                         </select>
-                                        <span id="status-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
                                 </div>
                             </div>
@@ -294,7 +291,7 @@ if (isset($_POST['confirm'])) {
             <img src="../../img/coat.png" alt="Bottom Image" class="w-[100px] h-[100px] object-contain">
         </div>
         <!--Select from Records -->
-        <div class="fixed z-50 hidden" id="selectRecords">
+        <div class="fixed z-50" id="selectRecords">
             <div class=" w-screen h-screen flex justify-center items-center flex-col ">
                 <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
                 <div class="relative flex flex-col h-full w-4/12 overflow-auto bg-white z-10 my-10  border-4 border-c rounded-xl ">
@@ -364,8 +361,10 @@ if (isset($_POST['confirm'])) {
                                     <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
                                 </div>
                             </div>
-                            <div class="flex justify-center items-center p-4 grow ">
-                                <button class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button>
+                            <div class="flex justify-center items-center p-4 grow">
+                                <a href="../generatedocuments.php">
+                                    <button class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -405,7 +404,6 @@ if (isset($_POST['confirm'])) {
     const dateIssuedInput = document.getElementById("date-of-issuance");
     const purposeInput = document.getElementById("purpose");
     const issuedByInput = document.getElementById("issued-by");
-    const statusInput = document.getElementById("status");
 
     const firstNameError = document.getElementById("first-name-error");
     const lastNameError = document.getElementById("last-name-error");
@@ -413,7 +411,6 @@ if (isset($_POST['confirm'])) {
     const dateIssuedError = document.getElementById("date-of-issuance-error");
     const purposeError = document.getElementById("purpose-error");
     const issuedByError = document.getElementById("issued-by-error");
-    const statusError = document.getElementById("status-error");
 
     const addButton = document.getElementById("add-button"); // Assume the Add button has this ID
     const cancelButton = document.getElementById("cancel-button"); // Assume the Cancel button has this ID
@@ -476,15 +473,6 @@ if (isset($_POST['confirm'])) {
                 issuedByError.classList.add("hidden");
             }
 
-            // Validate Status
-            if (!statusInput.value.trim()) {
-                isValid = false;
-                statusError.classList.remove("hidden");
-                firstInvalidElement = firstInvalidElement || statusInput;
-            } else {
-                statusError.classList.add("hidden");
-            }
-            
             // Prevent form submission if validation fails
             if (!isValid) {
                 event.preventDefault();
@@ -500,13 +488,20 @@ if (isset($_POST['confirm'])) {
             window.location.href = "../generatedocuments.php"; 
         });
     });
+
+    //on load if there is id in the url close select records
+    document.addEventListener("DOMContentLoaded", function() {
+        if(window.location.href.indexOf("id=") > 1) {
+            document.getElementById("selectRecords").classList.add("hidden");
+        }
+    });
     </script>
     <script>
     //for contact number
     $(document).ready(function() {
         // Input mask for the phone number
         $('#phone').inputmask({
-            mask: '+63 999 999 9999',
+            mask: '+63 9999999999',
             placeholder: ' ',
             showMaskOnHover: true,
             showMaskOnFocus: true

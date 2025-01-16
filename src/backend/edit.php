@@ -95,7 +95,7 @@ if(isset($_POST['update'])) {
         $stmt->execute();
         
         if($stmt) {
-            header("location: ../residentpage.php?msg= Record added successfully.");
+            header("location: ../residentpage.php?msg= Record updated successfully.");
         } else {
             echo "Failed: " . $e->getMessage();
         }
@@ -311,6 +311,7 @@ if(isset($_POST['update'])) {
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
+                                <span id="residency-type-error" class="text-red-500 text-sm hidden">Field is required</span>
                             </div>
                             <div class="flex flex-col w-full">
                                 <?php
@@ -323,6 +324,7 @@ if(isset($_POST['update'])) {
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
+                                <span id="status-error" class="text-red-500 text-sm hidden">Field is required</span>
                             </div>
                         </div>
                     </div>
@@ -409,12 +411,16 @@ if(isset($_POST['update'])) {
     const genderInput = document.getElementById("gender");
     const contactNumberInput = document.getElementById("contact-num");
     const contactNumber = document.getElementById("contact-num").value;
+    const residencyTypeInput = document.getElementById("residency-type");
+    const statusInput = document.getElementById("status");
 
     const firstNameError = document.getElementById("first-name-error");
     const lastNameError = document.getElementById("last-name-error");
     const ageError = document.getElementById("age-error");
     const genderError = document.getElementById("gender-error");
     const contactError = document.getElementById("contact-error");
+    const residencyTypeError = document.getElementById("residency-type-error");
+    const statusError = document.getElementById("status-error");
 
     form.addEventListener("submit", (event) => {
             let isValid = true;
@@ -465,6 +471,24 @@ if(isset($_POST['update'])) {
                 firstInvalidElement = firstInvalidElement || contactNumberInput;
             } else {
                 contactError.classList.add("hidden");
+            }
+            
+            // Validate Residency
+            if (!residencyTypeInput.value.trim()) {
+                isValid = false;
+                residencyTypeError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || residencyTypeInput;
+            } else {
+                residencyTypeError.classList.add("hidden");
+            }
+
+            // Validate Status
+            if (!statusInput.value.trim()) {
+                isValid = false;
+                statusError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || statusInput;
+            } else {
+                statusError.classList.add("hidden");
             }
 
             // Prevent form submission if validation fails

@@ -150,7 +150,6 @@ if(isset($_POST['add'])) {
                                     <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                     <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Last Name</label>
                                     <span id="last-name-error" class="text-red-500 text-sm hidden">Field is required</span>
-
                                 </div>
                                 <div for="suffix" class="flex flex-col flex-grow">
                                     <select id="suffix" name="suffix" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-gray-500 text-sm">
@@ -294,8 +293,8 @@ if(isset($_POST['add'])) {
                                     <option value="Permanent">Permanent</option>
                                     <option value="Temporary">Temporary</option>
                                     <option value="Student">Student</option>
-                                    
                                 </select>
+                                <span id="residency-type-error" class="text-red-500 text-sm hidden">Field is required</span>
                             </div>
                             <div class="flex flex-col w-full">
                                 <select id="status" name="status" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-gray-500 text-sm">
@@ -303,6 +302,7 @@ if(isset($_POST['add'])) {
                                     <option value="Active">Active</option>
                                     <option value="Inactive">Inactive</option>
                                 </select>    
+                                <span id="status-error" class="text-red-500 text-sm hidden">Field is required</span>
                             </div>
                         </div>
                     </div>
@@ -369,15 +369,19 @@ if(isset($_POST['add'])) {
     const genderInput = document.getElementById("gender");
     const contactNumberInput = document.getElementById("contact-num");
     const contactNumber = document.getElementById("contact-num").value;
+    const residencyTypeInput = document.getElementById("residency-type");
+    const statusInput = document.getElementById("status");
 
     const firstNameError = document.getElementById("first-name-error");
     const lastNameError = document.getElementById("last-name-error");
     const ageError = document.getElementById("age-error");
     const genderError = document.getElementById("gender-error");
     const contactError = document.getElementById("contact-error");
+    const residencyTypeError = document.getElementById("residency-type-error");
+    const statusError = document.getElementById("status-error");
 
-    const addButton = document.getElementById("add-button"); // Assume the Add button has this ID
-    const cancelButton = document.getElementById("cancel-button"); // Assume the Cancel button has this ID
+    const addButton = document.getElementById("add-button"); 
+    const cancelButton = document.getElementById("cancel-button"); 
 
     form.addEventListener("submit", (event) => {
         
@@ -428,6 +432,24 @@ if(isset($_POST['add'])) {
                 firstInvalidElement = firstInvalidElement || contactNumberInput;
             } else {
                 contactError.classList.add("hidden");
+            }
+
+            // Validate Residency
+            if (!residencyTypeInput.value.trim()) {
+                isValid = false;
+                residencyTypeError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || residencyTypeInput;
+            } else {
+                residencyTypeError.classList.add("hidden");
+            }
+
+            // Validate Status
+            if (!statusInput.value.trim()) {
+                isValid = false;
+                statusError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || statusInput;
+            } else {
+                statusError.classList.add("hidden");
             }
 
             // Prevent form submission if validation fails

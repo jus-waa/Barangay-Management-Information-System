@@ -128,10 +128,10 @@ if (!isset($_SESSION['users'])) {
         <!-- Main -->
         <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
-            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-8 py-2 ">
+            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-8 py-2 bg-white">
                 <div class="text-3xl">
                     <b>Barangay Buna Cerca</b><br>
-                    <p class="text-[20px] italic">Print History</p>
+                    <p class="text-[20px] italic">Transaction History</p>
                 </div>
                 <div class="flex justify-end items-center space-x-4">
                     <div class="justify-items-end">
@@ -141,6 +141,7 @@ if (!isset($_SESSION['users'])) {
                 </div>
             </div>
             <!-- Body -->
+            <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
             <div class="flex flex-col h-full grow">
                 <!-- For extra space-->
                 <div class="h-14 mb-4 mt-8 mx-32 text-white pointer-events-none">
