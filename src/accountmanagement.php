@@ -128,6 +128,7 @@ if (!isset($_SESSION['users'])) {
             </div>
         </div>
         <!-- Main -->
+        <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
         <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
             <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-8 py-2 bg-white">
@@ -162,7 +163,6 @@ if (!isset($_SESSION['users'])) {
                         </div>
                         ';
                 }
-                ?>
                 ?>
                 </div>
                 <!-- Regular Section -->

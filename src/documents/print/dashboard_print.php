@@ -16,13 +16,12 @@ $pdf->Cell(84, 10, '', 0, 1, 'C');
 $pdf->Ln(10);
 $pdf->SetFont('Arial', '', 16);
 $pdf->Cell(276, 10, 'Report Overview', 0, 1, 'C');
-$pdf->Ln(5);
 // total res, total docs issued, gender breakdown
 $pdf->SetFont('Arial','B',12);
 $pdf->Cell(30, 10, '', 0, 0, 'C'); //Space
-$pdf->Cell(34, 10, 'Total Residents:', 0, 0, 'L');
+$pdf->Cell(38, 10, 'Total Households:', 0, 0, 'L');
 $pdf->SetFont('Arial','',14);
-$pdf->Cell(12, 10, $i, 0, 0, 'C'); 
+$pdf->Cell(12, 10, $household, 0, 0, 'C'); 
 
 $pdf->Cell(120.5, 10, '', 0, 0, 'C');
 $pdf->SetFont('Arial','B',12);
@@ -30,13 +29,13 @@ $pdf->Cell(54, 10, 'Gender Breakdown', 0, 1, 'C');
 
 $pdf->SetFont('Arial','B',12);
 $pdf->Cell(30, 10, '', 0, 0, 'C'); //Space
-$pdf->Cell(37, 10, 'Total Documents:', 0, 0, 'L');
+$pdf->Cell(34, 10, 'Total Residents:', 0, 0, 'L');
 $pdf->SetFont('Arial','',14);
-$pdf->Cell(10, 10, $n, 0, 0, 'C'); 
+$pdf->Cell(12, 10, $i, 0, 0, 'C'); 
 
 $pdf->Cell(104, 10, '', 0, 0, 'C');
 $pdf->SetFont('Arial','B',12);
-$pdf->Cell(35, 10, 'Male:', 0, 0, 'R'); 
+$pdf->Cell(40, 10, 'Male:', 0, 0, 'R'); 
 $pdf->SetFont('Arial','',14);
 $pdf->Cell(22, 10, $male, 0, 1, 'C'); 
 
@@ -46,11 +45,19 @@ $pdf->Cell(37, 10, 'Active Residents:', 0, 0, 'L');
 $pdf->SetFont('Arial','',14);
 $pdf->Cell(34, 10, $active . ' out of ' . $i, 0, 0, 'C'); 
 $pdf->Cell(90.5, 10, '', 0, 0, 'C');
+
 $pdf->SetFont('Arial','B',12);
-$pdf->Cell(30, 10, 'Female:', 0, 0, 'R'); 
+$pdf->Cell(34, 10, 'Female:', 0, 0, 'R'); 
 $pdf->SetFont('Arial','',14);
 $pdf->Cell(12, 10, $female, 0, 1, 'C'); 
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(30, 10, '', 0, 0, 'C'); //Space
+$pdf->Cell(37, 10, 'Total Documents:', 0, 0, 'L');
+$pdf->SetFont('Arial','',14);
+$pdf->Cell(10, 10, $n, 0, 1, 'C'); 
 $pdf->Ln(10);
+
 
 // Weekly Document Issuance Report
 $tableWidth = 124;

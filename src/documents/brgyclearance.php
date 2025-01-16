@@ -68,7 +68,7 @@ if (isset($_POST['confirm'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
 <body class="relative h-screen w-full bg-cover bg-center bg-fixed">
-    <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../../img/indang.webp'); filter: blur(2px); z-index: -1;"></div>
+    <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
     <div class="flex justify-center place-items-center flex-col h-full relative z-10">
         <!-- Main Content -->
         <div class="w-4/5 p-6 mt-4 bg-white rounded-lg">
@@ -134,7 +134,6 @@ if (isset($_POST['confirm'])) {
                 ?>
                 <!-- Two-column Grid -->
                 <div class="grid grid-cols-2  gap-20">
-                    
                     <!-- First Column: Personal Information and Purpose -->
                     <div>                      
                         <!-- Personal Information -->
@@ -179,7 +178,6 @@ if (isset($_POST['confirm'])) {
                                 </div>
                             </div>
                         </div>
-                        
                         <!-- Control Number and Date of Issuance -->
                         <div class="rounded-lg p-2 mb-8">
                             <div>
