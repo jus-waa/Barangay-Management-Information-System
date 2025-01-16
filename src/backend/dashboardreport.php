@@ -63,9 +63,7 @@ if (!empty($duplicates)) {
         } 
     }
     //echo $household . "<br>";
-} else {
-    echo "0";
-}
+} 
 
 /*
 if (!empty($duplicates)) {

@@ -217,8 +217,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <!-- Tables -->
-                <div class="overflow-hidden mt-4 w-full">
-                <div class="border-2 border-c rounded-lg mx-8">
+                <div class="overflow-hidden mt-4 w-full ">
+                <div class="border-2 border-c rounded-lg mx-8 bg-white">
                 <!--Personal Information Table -->
                 <div id="tb1" class="overflow-auto no-scrollbar"  style="height: 67vh;">
                     <div class="rounded-t-sm pt-2 bg-c ">
@@ -855,7 +855,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         $i = 1; //auto numbering
                         foreach ($result as $row) {
                         ?>
-                        <tr class="hover:bg-gray-100  text-center">
+                        <tr class="hover:bg-gray-100  text-center ">
                             <td class="border-y-2 border-c py-4">
                                 <div class="flex justify-center">
                                     <?= $i ?>
