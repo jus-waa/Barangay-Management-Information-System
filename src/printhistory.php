@@ -201,7 +201,7 @@ if (!isset($_SESSION['users'])) {
                                     $stmt = $dbh->prepare("SELECT * FROM `print_history`");
                                     $stmt->execute();
                                     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    $i = 1; // auto numbering
+                                    $i = 0; // auto numbering
                                     foreach ($result as $row) {
                                     ?>
                                     <tr class="hover:bg-gray-100  text-center">

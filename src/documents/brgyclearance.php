@@ -179,15 +179,23 @@ if (isset($_POST['confirm'])) {
                                 </div>
                             </div>
                         </div>
+                        
                         <!-- Control Number and Date of Issuance -->
                         <div class="rounded-lg p-2 mb-8">
                             <div>
                                 <h2 class="text-xl font-bold mb-4">Control Number & Date of Issuance</h2>
                                 <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700 <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
+                                    <?php 
+                                    // fetch data
+                                    $stmt = $dbh->prepare("SELECT * FROM `print_history`");
+                                    $stmt->execute();
+                                    $print = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    $controlNumber = count($print);
+                                    $formattedControlNumber = sprintf("%04d", $controlNumber);
+                                    ?>
                                     <div>
-                                        <input id="control-number" name="control_number" type="number" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <input id="control-number" name="control_number" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="BC-<?= $formattedControlNumber ?>" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Control Number</label>
-                                        <span id="control-number-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
                                     <div class="relative">
                                         <input id="date-of-issuance" name="print_date" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
@@ -271,7 +279,7 @@ if (isset($_POST['confirm'])) {
                         <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
                             <div class="grid justify-center">
                                 <div class="text-3xl font-bold place-self-center mt-12">Confirm Print?</div>
-                                <div class="mb-24 mt-4">Do you confirm this record?</div>
+                                <div class="mb-24 mt-4">Do you want to print this record?</div>
                             </div>
                             <div class="flex justify-center space-x-4 mt-6">
                                 <button  type="submit" name="confirm" class="bg-sg rounded-md w-32 h-12">
@@ -400,14 +408,12 @@ if (isset($_POST['confirm'])) {
     const form = document.getElementById("personal_info");
     const firstNameInput = document.getElementById("first-name");
     const lastNameInput = document.getElementById("last-name");
-    const controlNumberInput = document.getElementById("control-number");
     const dateIssuedInput = document.getElementById("date-of-issuance");
     const purposeInput = document.getElementById("purpose");
     const issuedByInput = document.getElementById("issued-by");
 
     const firstNameError = document.getElementById("first-name-error");
     const lastNameError = document.getElementById("last-name-error");
-    const controlNumberError = document.getElementById("control-number-error");
     const dateIssuedError = document.getElementById("date-of-issuance-error");
     const purposeError = document.getElementById("purpose-error");
     const issuedByError = document.getElementById("issued-by-error");
@@ -435,15 +441,6 @@ if (isset($_POST['confirm'])) {
                 firstInvalidElement = firstInvalidElement || lastNameInput;
             } else {
                 lastNameError.classList.add("hidden");
-            }
-
-            // Validate Control Number
-            if (!controlNumberInput.value.trim()) {
-                isValid = false;
-                controlNumberError.classList.remove("hidden");
-                firstInvalidElement = firstInvalidElement || controlNumberInput;
-            } else {
-                controlNumberError.classList.add("hidden");
             }
 
             // Validate Date issued

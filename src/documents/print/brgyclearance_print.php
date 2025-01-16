@@ -22,7 +22,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row) {
     $dynamicData1 = $row['first_name'];
     $dynamicData2 = $row['middle_name'];
-    $dynamicData3 = $row['last_name'];
+    $dynamicData3 = $row['control_number'];
 
     $pdf->SetXY(57, 190);
     $pdf->Write(0, $dynamicData1);
