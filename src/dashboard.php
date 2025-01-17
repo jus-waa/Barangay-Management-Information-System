@@ -1,13 +1,17 @@
 <?php
+session_start();
 include("backend/connection.php");
 include("backend/helper.php");
+
+if(!hasPermission('system_settings')){
+    include("backend/session_timer.php");
+}   
 include("backend/dashboardreport.php");
 //require login first
 if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
 } 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -137,6 +141,9 @@ if (!isset($_SESSION['users'])) {
                     <b>Philippine Standard Time: </b><br>
                     <p class="italic" id="liveClock"></p>
                 </div>
+                <div id="timer" class="border-2 absolute top-0" style="right: 65%">
+                    Session expires in: 
+                </div>
             </div>
             <!-- Body -->
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
@@ -233,6 +240,34 @@ if (!isset($_SESSION['users'])) {
         const element = document.getElementById(elementID);
         element.style.display = show ? "block" : "none";
     }
+
+</script>
+<script>
+    // Initialize remaining time from PHP
+    var remainingTime = <?php echo $remaining_time; ?>;
+    // If remaining time exists in sessionStorage, use it, otherwise, set it
+    if (sessionStorage.getItem('remainingTime') === null) {
+        sessionStorage.setItem('remainingTime', remainingTime);
+    } else {
+        remainingTime = parseInt(sessionStorage.getItem('remainingTime'));
+    }
+    // Update the timer display every second
+    function updateTimer() {
+        // Calculate minutes and seconds
+        var minutes = Math.floor(remainingTime / 60);
+        var seconds = remainingTime % 60;
+        // Update the timer display
+        document.getElementById('timer').innerHTML = "Session expires in: " + minutes + "m " + seconds + "s";
+        // Decrease remaining time and store it in sessionStorage
+        if (remainingTime <= 0) {
+            window.location.href = 'login.php'; // Redirect to login page when session expires
+        } else {
+            remainingTime--;
+            sessionStorage.setItem('remainingTime', remainingTime);
+        }
+    }
+    // Call updateTimer every second
+    setInterval(updateTimer, 1000);
 </script>
 <script>
     // Gender Chart

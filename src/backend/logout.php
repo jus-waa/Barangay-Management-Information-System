@@ -6,4 +6,5 @@
     session_destroy();
 
     header('location: ../loginpage.php');
+    exit();
 ?>

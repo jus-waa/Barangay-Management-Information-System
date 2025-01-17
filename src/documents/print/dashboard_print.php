@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("../../backend/connection.php");
 include("../../backend/dashboardreport.php");
 require("../../fpdf/fpdf.php");

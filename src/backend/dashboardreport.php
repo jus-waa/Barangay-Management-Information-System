@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("connection.php");
 //for resident info
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
