@@ -43,11 +43,11 @@ $pdf->SetFont('Arial','B',12);
 $pdf->Cell(30, 10, '', 0, 0, 'C'); //Space
 $pdf->Cell(37, 10, 'Active Residents:', 0, 0, 'L');
 $pdf->SetFont('Arial','',14);
-$pdf->Cell(34, 10, $active . ' out of ' . $i, 0, 0, 'C'); 
+$pdf->Cell(38, 10, $active . ' out of ' . $i, 0, 0, 'C'); 
 $pdf->Cell(90.5, 10, '', 0, 0, 'C');
 
 $pdf->SetFont('Arial','B',12);
-$pdf->Cell(34, 10, 'Female:', 0, 0, 'R'); 
+$pdf->Cell(30, 10, 'Female:', 0, 0, 'R'); 
 $pdf->SetFont('Arial','',14);
 $pdf->Cell(12, 10, $female, 0, 1, 'C'); 
 

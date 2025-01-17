@@ -1,7 +1,8 @@
 <?php
-session_start();
 include("../backend/connection.php");
+include("../backend/pagination.php");
 require("../backend/helper.php");
+
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -300,57 +301,73 @@ if (isset($_POST['confirm'])) {
         <div class="fixed z-50" id="selectRecords">
             <div class=" w-screen h-screen flex justify-center items-center flex-col ">
                 <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-                <div class="relative flex flex-col h-full w-4/12 overflow-auto bg-white z-10 my-10  border-4 border-c rounded-xl ">
+                <div class="relative flex flex-col h-full w-[51%] overflow-auto bg-white z-10 my-14  border-4 border-c rounded-xl ">
                     <div class="grid justify-center h-full w-full grow-0">
                     <!-- Search -->
-                        <div class="flex justify-center items-center mt-2">
-                            <form method="post">
-                                <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-c h-8 transition duration-300">
-                                <button id="searchBtn" class="rounded-md absolute right-54 top-[26px] transform -translate-y-1/2 border-gray-300 p-2 h-8 flex items-center justify-center pointer-events-none">
+                        <div class="relative">
+                            <form method="GET" class="flex justify-center items-center py-1 pt-4">
+                                <input name="search" id="search" type="text" placeholder="Search..." value="<?=$search?>" class="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 ring-sg h-8 z-10 transform translate-x-4 " >
+                                <button type="submit" id="searchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20 transform -translate-x-4 ">
+                                    <img class="w-4" src="../../img/search.svg" alt="Search Icon"/>
                                 </button>
                             </form>
                         </div>
                         <!-- Tables -->
-                        <div class="h-full w-screengrow">
+                        <?php if ($searchResult) { ?>
+                        <div class="h-full w-screengrow ">
                             <div class="overflow-hidden w-full mt-2">
                                 <div class="border-2 border-c rounded-lg mx-4">
                                     <!--Personal Information Table -->
-                                    <div id="tb1" class="overflow-auto no-scrollbar"  style="height: 70vh;">
-                                    <div class="rounded-t-sm pt-2 bg-c ">
+                                    <div id="tb1" class="h-[67.5vh]" >
+                                        <div class="rounded-t-sm pt-2 bg-c ">
                                         <table id="residentTable" class="w-full border-collapse">
                                             <colgroup>
+                                                <col class="w-[100px]">
                                                 <col class="w-[200px]">
-                                                <col class="w-[400px]">
+                                                <col class="w-[200px]">
+                                                <col class="w-[200px]">
                                                 <col class="w-[200px]">
                                             </colgroup>
                                             <thead class="bg-c sticky top-0 ">
                                             <tr class="uppercase ">
                                                 <!--Basic Information + Action-->
-                                                <th class="py-4 min-w-20">ID</th>
-                                                <th class="py-4">Name</th>
-                                                <th class="min-w-20">Action</th>
+                                                <th class="py-2 min-w-20">ID</th>
+                                                <th class="py-2">First Name</th>
+                                                <th class="py-2">Middle Name</th>
+                                                <th class="py-2">Last Name</th> 
+                                                <th class="py-2 min-w-20">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody class=" text-gray-600 bg-white">
                                                 <?php 
                                                 $i = 1; //auto numbering
-                                                foreach ($result as $row) {
+                                                $i = 1; //auto numbering
+                                                $j = 10 * $page - 10; // adjust depending on page
+                                                foreach ($searchResult as $row) {
                                                 ?>
                                                 <tr class="hover:bg-gray-100">
-                                                    <td class="border-y-2 border-c ">
+                                                    <td class="border-y-2 border-c">
                                                         <div class="flex justify-center min-w-20">
-                                                            <?= $i ?>
+                                                        <?php echo $page > 1 ? $i + $j : $i; ?>
                                                         </div>
                                                     </td>
                                                     <td class="border-y-2 border-c">
                                                         <div class="flex justify-center">
                                                             <?=$row['first_name']?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c">
+                                                        <div class="flex justify-center">
                                                             <?=$row['middle_name']?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c">
+                                                        <div class="flex justify-center">
                                                             <?=$row['last_name']?>
                                                         </div>
                                                     </td>
                                                     <td class="border-y-2 border-c">
-                                                        <div class="flex justify-center items-center h-20 grow">
+                                                        <div class="flex justify-center items-center h-14 grow">
                                                             <a href="brgyclearance.php?id=<?= $row['id']?>">
                                                                 <button id="select-button" name="select" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
                                                                 Select
@@ -362,17 +379,48 @@ if (isset($_POST['confirm'])) {
                                             <?php $i++; } ?>
                                             </tbody>
                                         </table>
+                                        </div>
                                     </div>
+                                    <!-- Page Links -->
+                                    <div class=" h-12 rounded-b-sm bg-c">
+                                        <?php
+                                            //display first and prev
+                                            echo "<div class='place-self-end pt-3 p-2'>";
+                                            if ($page > 1) {
+                                                echo "<a href='brgyclearance.php?page=1&search=$search' class='px-4 py-2 text-sm  text-white bg-sg rounded-l-lg hover:opacity-80'>&laquo; First</a>";
+                                                echo "<a href='brgyclearance.php?page=" . ($page - 1) . "&search=$search' class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>&lt; Previous</a>"; // Previous page link
+                                            } else {
+                                                echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200 rounded-l-lg'>&laquo; First</span>";
+                                                echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200'>&lt; Previous</span>";
+                                            }
+                                            //display range of page link
+                                            for ($i = max(1, $page - 5); $i <= min($total_pages, $page + 5); $i++) {
+                                                if ($i == $page) {
+                                                    echo "<span class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</span>";
+                                                } else {
+                                                    echo "<a href='brgyclearance.php?page=" . $i . "&search=$search' class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</a>";
+                                                }
+                                            }
+                                            // Display next and last
+                                            if ($page < $total_pages) {
+                                               echo "<a href='brgyclearance.php?page=" . ($page + 1) . "&search=$search' class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>Next &gt;</a>"; // Next page link
+                                               echo "<a href='brgyclearance.php?page=$total_pages&search=$search' class='px-4 py-2 text-sm  text-white bg-sg rounded-r-lg hover:opacity-80'>Last &raquo;</a>"; // Last page link
+                                            } else {
+                                               echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200'>Next &gt;</span>";
+                                               echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200 rounded-r-lg'>Last &raquo;</span>";
+                                            }
+                                            echo "</div>";
+                                        ?>
                                     </div>
-                                    <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
                                 </div>
                             </div>
-                            <div class="flex justify-center items-center p-4 grow">
+                            <div class="flex justify-center items-center py-2 pt-3 grow">
                                 <a href="../generatedocuments.php">
-                                    <button class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button>
+                                    <button class="rounded-md border-2 border-c p-2 w-52 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button>
                                 </a>
                             </div>
                         </div>
+                    <?php } ?>
                     </div>
                 </div>
             </div>
@@ -512,27 +560,6 @@ if (isset($_POST['confirm'])) {
                 $('#middle-name-label').prop('disabled', false).css('background-color', 'white'); // Enable and reset color
             }
         });
-    });
-    //search funcitonality
-    $(document).ready(function() {
-        $('#search').keyup(function(event) {
-            search_table($(this).val());
-        });
-        function search_table(value) {
-            $('#residentTable tbody tr').each(function(){
-                let found = 'false';
-                $(this).each(function(){
-                    if($(this).text().toLowerCase().indexOf(value.toLowerCase())>=0){
-                        found = 'true';
-                    }
-                });
-                if(found=='true'){
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        }
     });
 </script>
 </body>

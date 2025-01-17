@@ -9,7 +9,7 @@ include("connection.php");
             $sql = "ALTER TABLE `resident_info` AUTO_INCREMENT=1";
             $sth = $dbh->prepare($sql);
             $sth->execute();
-            header("location: ../residentpage.php?msg= data removed successfully");
+            header("location: ../residentpage.php?msg= The data has been successfully removed from the system.");
         } else {
             echo "Error: " . $e->getMessage();
         }
