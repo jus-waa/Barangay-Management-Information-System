@@ -2,10 +2,10 @@
 session_start();
 include("backend/connection.php");
 include("backend/helper.php");
-
+//for timer
 if(!hasPermission('system_settings')){
     include("backend/session_timer.php");
-}   
+} 
 include("backend/dashboardreport.php");
 //require login first
 if (!isset($_SESSION['users'])) {
@@ -134,15 +134,18 @@ if (!isset($_SESSION['users'])) {
             <!-- Header -->
             <div class="grid grid-cols-2 items-center shadow-md px-8 py-2 stl:py-2 bg-white">
                 <div class="text-xl stl:text-3xl ">
-                    <b>Barangay Buna Cerca</b><br>
-                    <p class="text-[20px] italic">Dashboard</p>
+                    <b>Barangay Buna Cerca</b>
+                    <br>
+                    <div class="flex items-center">
+                        <p class="text-[20px] italic">Dashboard</p>
+                        <?php if(!hasPermission('system_settings')) : ?>
+                            <p class="text-[16px] italic transform translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
+                        <?php endif ?>
+                    </div>
                 </div>
                 <div class="justify-items-end">
                     <b>Philippine Standard Time: </b><br>
                     <p class="italic" id="liveClock"></p>
-                </div>
-                <div id="timer" class="border-2 absolute top-0" style="right: 65%">
-                    Session expires in: 
                 </div>
             </div>
             <!-- Body -->
@@ -240,19 +243,17 @@ if (!isset($_SESSION['users'])) {
         const element = document.getElementById(elementID);
         element.style.display = show ? "block" : "none";
     }
-
-</script>
-<script>
-    // Initialize remaining time from PHP
+    // Display Session TImer
     var remainingTime = <?php echo $remaining_time; ?>;
     // If remaining time exists in sessionStorage, use it, otherwise, set it
     if (sessionStorage.getItem('remainingTime') === null) {
         sessionStorage.setItem('remainingTime', remainingTime);
     } else {
-        remainingTime = parseInt(sessionStorage.getItem('remainingTime'));
+        sessionStorage.setItem('remainingTime', remainingTime);
     }
     // Update the timer display every second
     function updateTimer() {
+        var remainingTime = parseInt(sessionStorage.getItem('remainingTime'), 10);
         // Calculate minutes and seconds
         var minutes = Math.floor(remainingTime / 60);
         var seconds = remainingTime % 60;
@@ -260,7 +261,7 @@ if (!isset($_SESSION['users'])) {
         document.getElementById('timer').innerHTML = "Session expires in: " + minutes + "m " + seconds + "s";
         // Decrease remaining time and store it in sessionStorage
         if (remainingTime <= 0) {
-            window.location.href = 'login.php'; // Redirect to login page when session expires
+            window.location.href = 'backend/logout.php';
         } else {
             remainingTime--;
             sessionStorage.setItem('remainingTime', remainingTime);

@@ -2,6 +2,10 @@
 session_start();
 include("backend/connection.php");
 include("backend/helper.php");
+//for timer
+if(!hasPermission('system_settings')){
+    include("backend/session_timer.php");
+} 
 //require login first
 if (!isset($_SESSION['users'])) {
     header('location: login.php');
@@ -130,7 +134,12 @@ if (!isset($_SESSION['users'])) {
             <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-8 py-2 bg-white">
                 <div class="text-3xl">
                     <b>Barangay Buna Cerca</b><br>
-                    <p class="text-[20px] italic">Generate Documents</p>
+                    <div class="flex items-center">
+                        <p class="text-[20px] italic">Generate Documents</p>
+                        <?php if(!hasPermission('system_settings')) : ?>
+                            <p class="text-[16px] italic transform translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
+                        <?php endif ?>
+                    </div>
                 </div>
                 <div class="flex justify-end items-center space-x-4">
                     <div class="justify-items-end">
@@ -218,6 +227,32 @@ if (!isset($_SESSION['users'])) {
         const element = document.getElementById(elementID);
         element.style.display = show ? "block" : "none";
     }
+    // Display Session TImer
+    var remainingTime = <?php echo $remaining_time; ?>;
+    // If remaining time exists in sessionStorage, use it, otherwise, set it
+    if (sessionStorage.getItem('remainingTime') === null) {
+        sessionStorage.setItem('remainingTime', remainingTime);
+    } else {
+        sessionStorage.setItem('remainingTime', remainingTime);
+    }
+    // Update the timer display every second
+    function updateTimer() {
+        var remainingTime = parseInt(sessionStorage.getItem('remainingTime'), 10);
+        // Calculate minutes and seconds
+        var minutes = Math.floor(remainingTime / 60);
+        var seconds = remainingTime % 60;
+        // Update the timer display
+        document.getElementById('timer').innerHTML = "Session expires in: " + minutes + "m " + seconds + "s";
+        // Decrease remaining time and store it in sessionStorage
+        if (remainingTime <= 0) {
+            window.location.href = 'backend/logout.php';
+        } else {
+            remainingTime--;
+            sessionStorage.setItem('remainingTime', remainingTime);
+        }
+    }
+    // Call updateTimer every second
+    setInterval(updateTimer, 1000);
 </script>
 </body>
 </html>
