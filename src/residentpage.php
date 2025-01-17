@@ -1034,7 +1034,7 @@ try {
                                                 <th class="min-w-20">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody class=" text-gray-600 bg-white h-[60vh]">
+                                        <tbody class=" text-gray-600 bg-white h-[60vh] border-2 border-red-500">
                                         <tr class=" text-center">
                                             <td class=" border-y-2 border-c py-4">
                                                 <div class="flex justify-center  min-w-20">
@@ -1255,6 +1255,7 @@ window.onload = loadCategory;
                 document.querySelector("#btnUpload").classList.add("bg-c");
                 document.querySelector("#btnUpload").classList.add("hover:bg-sg");
                 document.querySelector("#btnUpload").classList.remove("text-gray-600");
+
             };
         } else {
             fileOutput.src="../img/lock.png";
@@ -1262,9 +1263,9 @@ window.onload = loadCategory;
             document.querySelector("#btnUpload").classList.add("w-26");
             document.querySelector("#btnUpload").classList.add("h-8");
             document.querySelector("#btnUpload").classList.remove("px-3");
-            document.querySelector("#btnUpload").textContent = "That's not csv.";
+            document.querySelector("#btnUpload").textContent = "Not csv, Please refresh.";
             document.querySelector("#btnUpload").classList.add("bg-gray-400");
-            document.querySelector("#btnUpload").classList.add("text-sm");
+            document.querySelector("#btnUpload").classList.add("text-[10px]");
             document.querySelector("#btnUpload").classList.remove("bg-c");
             document.querySelector("#btnUpload").classList.remove("hover:bg-sg");
             document.querySelector("#btnUpload").classList.add("text-gray-600");
