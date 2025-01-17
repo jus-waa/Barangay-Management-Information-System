@@ -8,10 +8,42 @@ if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
 }
-//f resident info
-$stmt = $dbh->prepare("SELECT * FROM `resident_info`");
-$stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//pagination & search
+try {
+    $records = 10;
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $offset = ($page - 1) * $records;
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+    //count total records based on based query
+    if (empty($search)) {
+        $total_sql = "SELECT COUNT(*) AS total FROM `resident_info`";
+        $stmt_total = $dbh->prepare($total_sql);
+    } else {
+        $total_sql = "SELECT COUNT(*) AS total FROM `resident_info` WHERE first_name LIKE :search";
+        $stmt_total = $dbh->prepare($total_sql);
+        $stmt_total->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+    }
+    $stmt_total->execute();
+    $total_row = $stmt_total->fetch(PDO::FETCH_ASSOC);
+    $total_records = $total_row['total']; // Total number of records
+    $total_pages = ceil($total_records / $records); // Total number of pages
+    //fetch based on query
+    if (empty($search)) {
+        $stmt2 = $dbh->prepare("SELECT * FROM `resident_info` LIMIT :limit OFFSET :offset");
+        $stmt2->bindParam(':limit', $records, PDO::PARAM_INT);
+        $stmt2->bindParam(':offset', $offset, PDO::PARAM_INT);
+    } else {
+        $stmt2 = $dbh->prepare("SELECT * FROM `resident_info` WHERE first_name LIKE :search LIMIT :limit OFFSET :offset");
+        $stmt2->bindValue(':search', '%'.$search.'%', PDO::PARAM_STR);
+        $stmt2->bindParam(':limit', $records, PDO::PARAM_INT);
+        $stmt2->bindParam(':offset', $offset, PDO::PARAM_INT);
+    }
+    $stmt2->execute();
+    $searchResult = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo $e->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -137,7 +169,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <b>Barangay Buna Cerca</b><br>
                     <p class="text-[20px] italic">Resident Information</p>
                 </div>
-                <!-- Search, Add New Button, Bulk Import -->
+                <!-- Time -->
                 <div class="flex justify-end items-center space-x-4">
                     <div class="justify-items-end">
                         <b>Philippine Standard Time: </b><br>
@@ -149,9 +181,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
             <div class="flex flex-col h-full grow">
                 <!-- Note -->
-                <div class="h-14 mb-4 mt-8 mx-8 text-white">
+                <div class="h-14 my-4 mx-8 text-white "
+                >
                 <?php
-               
+                //displays message
                 if(isset($_GET['msg'])) {
                     $msg = $_GET['msg'];
                     echo '
@@ -186,9 +219,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <!-- Search -->
                     <div class="flex justify-end items-center space-x-4 mr-8">
                         <div class="relative">
-                            <form method="post">
-                                <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-sg h-8" >
-                                <button id="searchBtn" class="rounded-md absolute right-0 top-1/2 transform -translate-y-1/2 bg-white border border-l-0 border-gray-300 p-2 h-full flex items-center justify-center pointer-events-none">
+                            <form method="GET" class="flex justify-end items-center">
+                                <input name="search" id="search" type="text" placeholder="Search..." value="<?=$search?>" class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-sg h-8 z-10  transform translate-x-8" >
+                                <button type="submit" id="searchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20">
                                     <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
                                 </button>
                             </form>
@@ -217,724 +250,874 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <!-- Tables -->
+                <?php if ($searchResult) { ?>
                 <div class="overflow-hidden mt-4 w-full ">
-                <div class="border-2 border-c rounded-lg mx-8 bg-white">
-                <!--Personal Information Table -->
-                <div id="tb1" class="overflow-auto no-scrollbar"  style="height: 67vh;">
-                    <div class="rounded-t-sm pt-2 bg-c ">
-                    <table id="residentTable" class="w-full border-collapse">
-                        <colgroup>
-                            <col class="w-[100px]">
-                            <col class="w-[200px]">
-                            <col class="w-[200px]">
-                            <col class="w-[200px]">
-                            <col>
-                            <col>
-                            <col>
-                            <col class="w-[200px]">
-                        </colgroup>
-                        <thead class="bg-c sticky top-0 ">
-                            <tr class="uppercase ">
-                                <!--Basic Information + Action-->
-                                <th class="py-4 min-w-20">ID</th>
-                                <th class="py-4">First Name</th>
-                                <th class="py-4">Middle Name</th>
-                                <th class="py-4">Last Name</th>
-                                <th class="py-4">Suffix</th>
-                                <th class="py-4">Gender</th>
-                                <th class="py-4">Age</th>
-
-                                <th class="min-w-20">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class=" text-gray-600 bg-white">
-                        <?php 
-                        $male = 0;
-                        $female = 0;
-                        $i = 1; //auto numbering
-                        foreach ($result as $row) {
-                        ?>
-                        <tr class="hover:bg-gray-100  text-center">
-                            <td class=" border-y-2 border-c py-4">
-                                <div class="flex justify-center  min-w-20">
-                                    <?= $i ?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['first_name']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['middle_name']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['last_name']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['suffix']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['gender']?>
-                                    
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['age']?>
-                                </div>
-                            </td>
-                            <?php
-                            if (hasPermission('system_settings')){
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <a href="backend/edit.php?id=<?= $row['id']?>">
-                                        <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                        <img src="../img/edit.svg" alt="edit"/>
-                                        </button>
-                                    </a>
-                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
-                                        <img name="delete" src="../img/trash.svg" alt="delete"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php
-                            } else {
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button disabled class="w-6 mr-1"> 
-                                        <img src="../img/lock.png" alt="edit"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php } ?>
-                        </tr>
-                        <?php $i++; }
-                        $last_number = substr((string)$i, -3); // Final number
-                        ?>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-                <!--Birth Details Table -->
-                <div  id="tb2" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                    <div class="rounded-t-sm pt-2 bg-c ">
-                    <table id="residentTable" class="w-full border-collapse ">
-                        <colgroup>
-                            <col class="w-[100px]">
-                            <col class="w-[200px]">
-                            <col>
-                            <col>
-                            <col>
-                            <col class="w-[200px]">
-                        </colgroup>
-                        <thead class=" bg-c sticky top-0">
-                            <tr class="uppercase ">
-                                <!--Basic Information + Action-->
-                                <th class="py-4 min-w-20">ID</th>
-                                <th class="py-4 text-sg">Full Name</th>                            
-                                <th class="py-4">Date of Birth</th>
-                                <th class="py-4">Place of Birth Municipality/City</th>
-                                <th class="py-4">Place of Birth Province</th>
-                                <th class="py-4 min-w-20">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class=" text-gray-600 bg-white">
-                        <?php 
-                        $i = 1; //auto numbering
-                        foreach ($result as $row) {
-                        ?>
-                        <tr class="hover:bg-gray-100  text-center">
-                            <td class="border-y-2 border-c py-4">
-                                <div class="flex justify-center min-w-20">
-                                    <?= $i ?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c text-sg">
-                                <div class="flex justify-center ">
-                                    <?=$row['first_name']?>
-                                    <?=$row['middle_name']?>
-                                    <?=$row['last_name']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['birth_date']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['birthplace_municipality_city']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['birthplace_province']?>
-                                </div>
-                            </td>
-                            <?php
-                            if (hasPermission('system_settings')){
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                        <a href="backend/edit.php?id=<?= $row['id']?>">
-                                            <img src="../img/edit.svg" alt="edit"/>
-                                        </a>
-                                    </button>
-                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
-                                        <img name="delete" src="../img/trash.svg" alt="delete"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php
-                            } else {
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button disabled class="w-6 mr-1"> 
-                                        <img src="../img/lock.png" alt="edit"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php } ?>
-                        </tr>
-                        <?php $i++; } ?>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-                <!--Contact Information Table -->
-                <div id="tb3" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                    <div class="rounded-t-sm pt-2 bg-c ">
-                    <table id="residentTable" class="w-full border-collapse">
-                        <colgroup>
-                            <col class="w-[100px]">
-                            <col class="w-[400px]">
-                            <col>
-                            <col>
-                            <col class="w-[200px]">
-                        </colgroup>
-                        <thead class=" bg-c sticky top-0">
-                            <tr class="uppercase ">
-                                <!--Basic Information + Action-->
-                                <th class="py-4 min-w-20">ID</th>
-                                <th class="py-4  text-sg">Full Name</th>                            
-                                <th class="py-4">Contact Information</th>
-                                <th class="py-4">Email Address</th>
-                                <th class="py-4 min-w-20">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class=" text-gray-600 bg-white">
-                        <?php 
-                        $i = 1; //auto numbering
-                        foreach ($result as $row) {
-                        ?>
-                        <tr class="hover:bg-gray-100  text-center">
-                            <td class="border-y-2 border-c py-4">
-                                <div class="flex justify-center">
-                                    <?= $i ?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c text-sg">
-                                <div class="flex justify-center ">
-                                    <?=$row['first_name']?>
-                                    <?=$row['middle_name']?>
-                                    <?=$row['last_name']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['contact_num']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['email_address']?>
-                                </div>
-                            </td>
-                            <?php
-                            if (hasPermission('system_settings')){
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                        <a href="backend/edit.php?id=<?= $row['id']?>">
-                                            <img src="../img/edit.svg" alt="edit"/>
-                                        </a>
-                                    </button>
-                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
-                                        <img name="delete" src="../img/trash.svg" alt="delete"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php
-                            } else {
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button disabled class="w-6 mr-1"> 
-                                        <img src="../img/lock.png" alt="edit"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php } ?>
-                        </tr>
-                        <?php $i++; } ?>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-                <!--Address Table -->
-                <div id="tb4" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                    <div class="rounded-t-sm pt-2 bg-c ">
-                    <table id="residentTable" class="w-full border-collapse ">
-                        <colgroup>
-                            <col class="w-[100px]">
-                            <col class="w-[150px]">
-                            <col>
-                            <col>
-                            <col>
-                            <col>
-                            <col>
-                            <col>
-                            <col class="w-[200px]">
-                        </colgroup>
-                        <thead class=" bg-c sticky top-0">
-                            <tr class="uppercase">
-                                <!--Basic Information + Action-->
-                                <th class="py-4 min-w-20 ">ID</th>
-                                <th class="py-4  text-sg">Full Name</th>                            
-                                <th class="py-4">House Number</th>
-                                <th class="py-4">Street Name</th>
-                                <th class="py-4">Barangay Name</th>
-                                <th class="py-4">Municipality/City</th>                            
-                                <th class="py-4">Province</th>
-                                <th class="py-4">Zip Code</th>
-                                <th class="py-4 min-w-24">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class=" text-gray-600 bg-white">
-                        <?php 
-                        $i = 1; //auto numbering
-                        foreach ($result as $row) {
-                        ?>
-                        <tr class="hover:bg-gray-100  text-center">
-                            <td class="border-y-2 border-c py-4">
-                                <div class="flex justify-center">
-                                    <?= $i ?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c text-sg">
-                                <div class="flex justify-center ">
-                                    <?=$row['first_name']?>
-                                    <?=$row['middle_name']?>
-                                    <?=$row['last_name']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['house_num']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['street_name']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['barangay_name']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['municipality_city']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['province']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['zip_code']?>
-                                </div>
-                            </td>
-                            <?php
-                            if (hasPermission('system_settings')){
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                        <a href="backend/edit.php?id=<?= $row['id']?>">
-                                            <img src="../img/edit.svg" alt="edit"/>
-                                        </a>
-                                    </button>
-                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
-                                        <img name="delete" src="../img/trash.svg" alt="delete"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php
-                            } else {
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button disabled class="w-6 mr-1"> 
-                                        <img src="../img/lock.png" alt="edit"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php } ?>
-                        </tr>
-                        <?php $i++; } ?>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>         
-                <!--Civil Status & Citizenship Table -->
-                <div id="tb5" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                    <div class="rounded-t-sm pt-2 bg-c ">
-                    <table id="residentTable" class="w-full border-collapse ">
-                        <colgroup>
-                            <col class="w-[100px]">
-                            <col class="w-[400px]">
-                            <col >
-                            <col >
-                            <col class="w-[200px]">
-                        </colgroup>
-                        <thead class=" bg-c sticky top-0">
-                            <tr class="uppercase ">
-                                <!--Basic Information + Action-->
-                                <th class="py-4 min-w-20">ID</th>
-                                <th class="py-4  text-sg">Full Name</th>                            
-                                <th class="py-4">Civil Status</th>
-                                <th class="py-4">Citizenship</th>
-
-                                <th class="py-4 min-w-20">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class=" text-gray-600 bg-white">
-                        <?php 
-                        $i = 1; //auto numbering
-                        foreach ($result as $row) {
-                        ?>
-                        <tr class="hover:bg-gray-100  text-center">
-                            <td class="border-y-2 border-c py-4">
-                                <div class="flex justify-center">
-                                    <?= $i ?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c text-sg">
-                                <div class="flex justify-center">
-                                    <?=$row['first_name']?>
-                                    <?=$row['middle_name']?>
-                                    <?=$row['last_name']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['civil_status']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['citizenship']?>
-                                </div>
-                            </td>
-                            <?php
-                            if (hasPermission('system_settings')){
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                        <a href="backend/edit.php?id=<?= $row['id']?>">
-                                            <img src="../img/edit.svg" alt="edit"/>
-                                        </a>
-                                    </button>
-                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
-                                        <img name="delete" src="../img/trash.svg" alt="delete"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php
-                            } else {
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button disabled class="w-6 mr-1"> 
-                                        <img src="../img/lock.png" alt="edit"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php } ?>
-                        </tr>
-                        <?php $i++; } ?>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-                <!--Residentcy & Occupation Table -->
-                <div id="tb6" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                    <div class="rounded-t-sm pt-2 bg-c ">
-                    <table id="residentTable" class="w-full border-collapse ">
-                        <colgroup>
-                            <col class="w-[100px]">
-                            <col class="w-[200px]">
-                            <col class="w-[500px]">
-                            <col class="w-[250px]">
-                            <col>
-                            <col class="w-[200px]">
-                        </colgroup>
-                        <thead class=" bg-c sticky top-0">
-                            <tr class="uppercase ">
-                                <!--Basic Information + Action-->
-                                <th class="py-4 min-w-20">ID</th>
-                                <th class="py-4  text-sg">Full Name</th>                            
-                                <th class="py-4">Occupation</th>
-                                <th class="py-4">Type Of Residency</th>
-                                <th class="py-4">Status</th>
-                                <th class="py-4 min-w-20">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class=" text-gray-600 bg-white">
-                        <?php 
-                        $i = 1; //auto numbering
-                        foreach ($result as $row) {
-                        ?>
-                        <tr class="hover:bg-gray-100  text-center">
-                            <td class="border-y-2 border-c py-4">
-                                <div class="flex justify-center">
-                                    <?= $i ?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c text-sg">
-                                <div class="flex justify-center">
-                                    <?=$row['first_name']?>
-                                    <?=$row['middle_name']?>
-                                    <?=$row['last_name']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['occupation']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['residency_type']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?php
-                                    if ($row['status'] === 'Active') {
-                                        ?>
-                                        <div class="flex items-center mr-1">
-                                            <img src="../img/active.png" class="size-4 flex items-center" alt="">
-                                        </div>
-                                    <?=$row['status']?>
-                                    <?php 
-                                    } else if ($row['status'] === 'Inactive') {
-                                        ?>
-                                        <div class="flex items-center mr-1">
-                                            <img src="../img/inactive.png" class="size-4 flex items-center" alt="">
-                                        </div>
-                                        <?=$row['status']?>
-                                    <?php } ?>
-                                </div>
-                            </td>
-                            <?php
-                            if (hasPermission('system_settings')){
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                        <a href="backend/edit.php?id=<?= $row['id']?>">
-                                            <img src="../img/edit.svg" alt="edit"/>
-                                        </a>
-                                    </button>
-                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
-                                        <img name="delete" src="../img/trash.svg" alt="delete"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php
-                            } else {
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button disabled class="w-6 mr-1"> 
-                                        <img src="../img/lock.png" alt="edit"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php } ?>
-                        </tr>
-                        <?php $i++; } ?>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-                <!--Health Table -->
-                <div id="tb7" class="overflow-auto no-scrollbar hidden" style="height: 67vh;">
-                    <div class="rounded-t-sm pt-2 bg-c ">
-                    <table id="residentTable" class="w-full border-collapse ">
-                        <colgroup>
-                            <col class="w-[100px]">
-                            <col class="w-[300px]">
-                            <col class="w-[200px]">
-                            <col class="w-[250px]">
-                            <col class="w-[275px]">
-                            <col class="w-[200px]">
-                            <col class="w-[275px]">
-                            <col class="w-[200px]">
-                        </colgroup>
-                        <thead class=" bg-c sticky top-0">
-                            <tr class="uppercase ">
-                                <!--Basic Information + Action-->
-                                <th class="py-4 min-w-20">ID</th>
-                                <th class="py-4  text-sg">Full Name</th>                            
-                                <th class="py-4">Height</th>
-                                <th class="py-4">Weight</th>
-                                <th class="py-4">Eye Color</th>
-                                <th class="py-4">Blood Type</th>
-                                <th class="py-4">Religion</th>
-                                <th class="py-4 min-w-20">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class=" text-gray-600 bg-white">
-                        <?php 
-                        $i = 1; //auto numbering
-                        foreach ($result as $row) {
-                        ?>
-                        <tr class="hover:bg-gray-100  text-center ">
-                            <td class="border-y-2 border-c py-4">
-                                <div class="flex justify-center">
-                                    <?= $i ?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c text-sg">
-                                <div class="flex justify-center">
-                                    <?=$row['first_name']?>
-                                    <?=$row['middle_name']?>
-                                    <?=$row['last_name']?>
-                                </div>
-                            </td>
+                    <div class="border-2 border-c rounded-lg mx-8 bg-white">
+                        <!--Personal Information Table -->
+                        <div id="tb1" class="h[67vh]">
+                            <div class="rounded-t-sm pt-2 bg-c ">
+                                <table id="residentTable" class="w-full border-collapse">
+                                    <colgroup>
+                                        <col class="w-[100px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col>
+                                        <col>
+                                        <col>
+                                        <col class="w-[200px]">
+                                    </colgroup>
+                                    <thead class="bg-c sticky top-0 ">
+                                        <tr class="uppercase ">
+                                            <!--Basic Information + Action-->
+                                            <th class="py-4 min-w-20">ID</th>
+                                            <th class="py-4">First Name</th>
+                                            <th class="py-4">Middle Name</th>
+                                            <th class="py-4">Last Name</th>
+                                            <th class="py-4">Suffix</th>
+                                            <th class="py-4">Gender</th>
+                                            <th class="py-4">Age</th>
                             
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['height']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['weight']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['eye_color']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center" >
-                                    <?=$row['blood_type']?>
-                                </div>
-                            </td>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center">
-                                    <?=$row['religion']?>
-                                </div>
-                            </td>
+                                            <th class="min-w-20">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" text-gray-600 bg-white">
+                                    <?php 
+                                    $male = 0;
+                                    $female = 0;
+                                    $i = 1; //auto numbering
+                                    $j = 10 * $page - 10; // adjust depending on page
+                                    foreach ($searchResult as $row) {
+                                    ?>
+                                    <tr class="hover:bg-gray-100  text-center">
+                                        <td class=" border-y-2 border-c py-4">
+                                            <div class="flex justify-center  min-w-20">
+                                                <?php echo $page > 1 ? $i + $j : $i; ?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['first_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['middle_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['last_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['suffix']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['gender']?>
+                                    
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['age']?>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        if (hasPermission('system_settings')){
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <a href="backend/edit.php?id=<?= $row['id']?>">
+                                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
+                                                    <img src="../img/edit.svg" alt="edit"/>
+                                                    </button>
+                                                </a>
+                                                <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                                    <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button disabled class="w-6 mr-1"> 
+                                                    <img src="../img/lock.png" alt="edit"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php } ?>
+                                    </tr>
+                                    <?php $i++; } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--Birth Details Table -->
+                        <div  id="tb2" class="hidden h[67vh]">
+                            <div class="rounded-t-sm pt-2 bg-c ">
+                                <table id="residentTable" class="w-full border-collapse ">
+                                    <colgroup>
+                                        <col class="w-[100px]">
+                                        <col class="w-[200px]">
+                                        <col>
+                                        <col>
+                                        <col>
+                                        <col class="w-[200px]">
+                                    </colgroup>
+                                    <thead class=" bg-c sticky top-0">
+                                        <tr class="uppercase ">
+                                            <!--Basic Information + Action-->
+                                            <th class="py-4 min-w-20">ID</th>
+                                            <th class="py-4 text-sg">Full Name</th>                            
+                                            <th class="py-4">Date of Birth</th>
+                                            <th class="py-4">Place of Birth Municipality/City</th>
+                                            <th class="py-4">Place of Birth Province</th>
+                                            <th class="py-4 min-w-20">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" text-gray-600 bg-white">
+                                    <?php 
+                                    $i = 1; //auto numbering
+                                    $j = 10 * $page - 10;
+                                    foreach ($searchResult as $row) {
+                                    ?>
+                                    <tr class="hover:bg-gray-100  text-center">
+                                        <td class="border-y-2 border-c py-4">
+                                            <div class="flex justify-center min-w-20">
+                                                <?php echo $page > 1 ? $i + $j : $i; ?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c text-sg">
+                                            <div class="flex justify-center ">
+                                                <?=$row['first_name']?>
+                                                <?=$row['middle_name']?>
+                                                <?=$row['last_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['birth_date']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['birthplace_municipality_city']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['birthplace_province']?>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        if (hasPermission('system_settings')){
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
+                                                    <a href="backend/edit.php?id=<?= $row['id']?>">
+                                                        <img src="../img/edit.svg" alt="edit"/>
+                                                    </a>
+                                                </button>
+                                                <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                                    <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button disabled class="w-6 mr-1"> 
+                                                    <img src="../img/lock.png" alt="edit"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php } ?>
+                                    </tr>
+                                    <?php $i++; } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--Contact Information Table -->
+                        <div id="tb3" class="hidden h[67vh]">
+                            <div class="rounded-t-sm pt-2 bg-c ">
+                                <table id="residentTable" class="w-full border-collapse">
+                                    <colgroup>
+                                        <col class="w-[100px]">
+                                        <col class="w-[400px]">
+                                        <col>
+                                        <col>
+                                        <col class="w-[200px]">
+                                    </colgroup>
+                                    <thead class=" bg-c sticky top-0">
+                                        <tr class="uppercase ">
+                                            <!--Basic Information + Action-->
+                                            <th class="py-4 min-w-20">ID</th>
+                                            <th class="py-4  text-sg">Full Name</th>                            
+                                            <th class="py-4">Contact Information</th>
+                                            <th class="py-4">Email Address</th>
+                                            <th class="py-4 min-w-20">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" text-gray-600 bg-white">
+                                    <?php 
+                                    $i = 1; //auto numbering
+                                    $j = 10 * $page - 10; // adjust depending on page
+                                    foreach ($searchResult as $row) {
+                                    ?>
+                                    <tr class="hover:bg-gray-100  text-center">
+                                        <td class="border-y-2 border-c py-4">
+                                            <div class="flex justify-center">
+                                                <?php echo $page > 1 ? $i + $j : $i; ?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c text-sg">
+                                            <div class="flex justify-center ">
+                                                <?=$row['first_name']?>
+                                                <?=$row['middle_name']?>
+                                                <?=$row['last_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['contact_num']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['email_address']?>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        if (hasPermission('system_settings')){
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
+                                                    <a href="backend/edit.php?id=<?= $row['id']?>">
+                                                        <img src="../img/edit.svg" alt="edit"/>
+                                                    </a>
+                                                </button>
+                                                <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                                    <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button disabled class="w-6 mr-1"> 
+                                                    <img src="../img/lock.png" alt="edit"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php } ?>
+                                    </tr>
+                                    <?php $i++; } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--Address Table -->
+                        <div id="tb4" class="hidden h[67vh]">
+                            <div class="rounded-t-sm pt-2 bg-c ">
+                                <table id="residentTable" class="w-full border-collapse ">
+                                    <colgroup>
+                                        <col class="w-[100px]">
+                                        <col class="w-[150px]">
+                                        <col>
+                                        <col>
+                                        <col>
+                                        <col>
+                                        <col>
+                                        <col>
+                                        <col class="w-[200px]">
+                                    </colgroup>
+                                    <thead class=" bg-c sticky top-0">
+                                        <tr class="uppercase">
+                                            <!--Basic Information + Action-->
+                                            <th class="py-4 min-w-20 ">ID</th>
+                                            <th class="py-4  text-sg">Full Name</th>                            
+                                            <th class="py-4">House Number</th>
+                                            <th class="py-4">Street Name</th>
+                                            <th class="py-4">Barangay Name</th>
+                                            <th class="py-4">Municipality/City</th>                            
+                                            <th class="py-4">Province</th>
+                                            <th class="py-4">Zip Code</th>
+                                            <th class="py-4 min-w-24">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" text-gray-600 bg-white">
+                                    <?php 
+                                    $i = 1; //auto numbering
+                                    $j = 10 * $page - 10; // adjust depending on page
+                                    foreach ($searchResult as $row) {
+                                    ?>
+                                    <tr class="hover:bg-gray-100  text-center">
+                                        <td class="border-y-2 border-c py-4">
+                                            <div class="flex justify-center">
+                                                <?php echo $page > 1 ? $i + $j : $i; ?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c text-sg">
+                                            <div class="flex justify-center ">
+                                                <?=$row['first_name']?>
+                                                <?=$row['middle_name']?>
+                                                <?=$row['last_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['house_num']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['street_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['barangay_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['municipality_city']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['province']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['zip_code']?>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        if (hasPermission('system_settings')){
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
+                                                    <a href="backend/edit.php?id=<?= $row['id']?>">
+                                                        <img src="../img/edit.svg" alt="edit"/>
+                                                    </a>
+                                                </button>
+                                                <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                                    <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button disabled class="w-6 mr-1"> 
+                                                    <img src="../img/lock.png" alt="edit"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php } ?>
+                                    </tr>
+                                    <?php $i++; } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>         
+                        <!--Civil Status & Citizenship Table -->
+                        <div id="tb5" class="hidden h[67vh]">
+                            <div class="rounded-t-sm pt-2 bg-c ">
+                                <table id="residentTable" class="w-full border-collapse ">
+                                    <colgroup>
+                                        <col class="w-[100px]">
+                                        <col class="w-[400px]">
+                                        <col >
+                                        <col >
+                                        <col class="w-[200px]">
+                                    </colgroup>
+                                    <thead class=" bg-c sticky top-0">
+                                        <tr class="uppercase ">
+                                            <!--Basic Information + Action-->
+                                            <th class="py-4 min-w-20">ID</th>
+                                            <th class="py-4  text-sg">Full Name</th>                            
+                                            <th class="py-4">Civil Status</th>
+                                            <th class="py-4">Citizenship</th>
+
+                                            <th class="py-4 min-w-20">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" text-gray-600 bg-white">
+                                    <?php 
+                                    $i = 1; //auto numbering
+                                    $j = 10 * $page - 10; // adjust depending on page
+                                    foreach ($searchResult as $row) {
+                                    ?>
+                                    <tr class="hover:bg-gray-100  text-center">
+                                        <td class="border-y-2 border-c py-4">
+                                            <div class="flex justify-center">
+                                                <?php echo $page > 1 ? $i + $j : $i; ?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c text-sg">
+                                            <div class="flex justify-center">
+                                                <?=$row['first_name']?>
+                                                <?=$row['middle_name']?>
+                                                <?=$row['last_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['civil_status']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['citizenship']?>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        if (hasPermission('system_settings')){
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
+                                                    <a href="backend/edit.php?id=<?= $row['id']?>">
+                                                        <img src="../img/edit.svg" alt="edit"/>
+                                                    </a>
+                                                </button>
+                                                <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                                    <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button disabled class="w-6 mr-1"> 
+                                                    <img src="../img/lock.png" alt="edit"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php } ?>
+                                    </tr>
+                                    <?php $i++; } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--Residentcy & Occupation Table -->
+                        <div id="tb6" class="hidden h[67vh]">
+                            <div class="rounded-t-sm pt-2 bg-c ">
+                                <table id="residentTable" class="w-full border-collapse ">
+                                    <colgroup>
+                                        <col class="w-[100px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[500px]">
+                                        <col class="w-[250px]">
+                                        <col>
+                                        <col class="w-[200px]">
+                                    </colgroup>
+                                    <thead class=" bg-c sticky top-0">
+                                        <tr class="uppercase ">
+                                            <!--Basic Information + Action-->
+                                            <th class="py-4 min-w-20">ID</th>
+                                            <th class="py-4  text-sg">Full Name</th>                            
+                                            <th class="py-4">Occupation</th>
+                                            <th class="py-4">Type Of Residency</th>
+                                            <th class="py-4">Status</th>
+                                            <th class="py-4 min-w-20">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" text-gray-600 bg-white">
+                                    <?php 
+                                    $i = 1; //auto numbering
+                                    $j = 10 * $page - 10; // adjust depending on page
+                                    foreach ($searchResult as $row) {
+                                    ?>
+                                    <tr class="hover:bg-gray-100  text-center">
+                                        <td class="border-y-2 border-c py-4">
+                                            <div class="flex justify-center">
+                                                <?php echo $page > 1 ? $i + $j : $i; ?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c text-sg">
+                                            <div class="flex justify-center">
+                                                <?=$row['first_name']?>
+                                                <?=$row['middle_name']?>
+                                                <?=$row['last_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['occupation']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['residency_type']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?php
+                                                if ($row['status'] === 'Active') {
+                                                    ?>
+                                                    <div class="flex items-center mr-1">
+                                                        <img src="../img/active.png" class="size-4 flex items-center" alt="">
+                                                    </div>
+                                                <?=$row['status']?>
+                                                <?php 
+                                                } else if ($row['status'] === 'Inactive') {
+                                                    ?>
+                                                    <div class="flex items-center mr-1">
+                                                        <img src="../img/inactive.png" class="size-4 flex items-center" alt="">
+                                                    </div>
+                                                    <?=$row['status']?>
+                                                <?php } ?>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        if (hasPermission('system_settings')){
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
+                                                    <a href="backend/edit.php?id=<?= $row['id']?>">
+                                                        <img src="../img/edit.svg" alt="edit"/>
+                                                    </a>
+                                                </button>
+                                                <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                                    <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button disabled class="w-6 mr-1"> 
+                                                    <img src="../img/lock.png" alt="edit"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php } ?>
+                                    </tr>
+                                    <?php $i++; } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--Health Table -->
+                        <div id="tb7" class="hidden h[67vh]">
+                            <div class="rounded-t-sm pt-2 bg-c ">
+                                <table id="residentTable" class="w-full border-collapse ">
+                                    <colgroup>
+                                        <col class="w-[100px]">
+                                        <col class="w-[300px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[250px]">
+                                        <col class="w-[275px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[275px]">
+                                        <col class="w-[200px]">
+                                    </colgroup>
+                                    <thead class=" bg-c sticky top-0">
+                                        <tr class="uppercase ">
+                                            <!--Basic Information + Action-->
+                                            <th class="py-4 min-w-20">ID</th>
+                                            <th class="py-4  text-sg">Full Name</th>                            
+                                            <th class="py-4">Height</th>
+                                            <th class="py-4">Weight</th>
+                                            <th class="py-4">Eye Color</th>
+                                            <th class="py-4">Blood Type</th>
+                                            <th class="py-4">Religion</th>
+                                            <th class="py-4 min-w-20">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" text-gray-600 bg-white">
+                                    <?php 
+                                    $i = 1; //auto numbering
+                                    $j = 10 * $page - 10; // adjust depending on page
+                                    foreach ($searchResult as $row) {
+                                    ?>
+                                    <tr class="hover:bg-gray-100  text-center ">
+                                        <td class="border-y-2 border-c py-4">
+                                            <div class="flex justify-center">
+                                                <?php echo $page > 1 ? $i + $j : $i; ?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c text-sg">
+                                            <div class="flex justify-center">
+                                                <?=$row['first_name']?>
+                                                <?=$row['middle_name']?>
+                                                <?=$row['last_name']?>
+                                            </div>
+                                        </td>
+
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['height']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['weight']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['eye_color']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['blood_type']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['religion']?>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        if (hasPermission('system_settings')){
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
+                                                    <a href="backend/edit.php?id=<?= $row['id']?>">
+                                                        <img src="../img/edit.svg" alt="edit"/>
+                                                    </a>
+                                                </button>
+                                                <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                                    <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                                <button disabled class="w-6 mr-1"> 
+                                                    <img src="../img/lock.png" alt="edit"/>
+                                                </button>
+                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
+                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <?php } ?>
+                                    </tr>
+                                    <?php $i++; } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Page Links -->
+                        <div class=" h-12 rounded-b-sm bg-c">
                             <?php
-                            if (hasPermission('system_settings')){
+                                //display first and prev
+                                echo "<div class='place-self-end pt-3 p-2'>";
+                                if ($page > 1) {
+                                    echo "<a href='residentpage.php?page=1&search=$search' class='px-4 py-2 text-sm  text-white bg-sg rounded-l-lg hover:opacity-80'>&laquo; First</a>";
+                                    echo "<a href='residentpage.php?page=" . ($page - 1) . "&search=$search' class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>&lt; Previous</a>"; // Previous page link
+                                } else {
+                                    echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200 rounded-l-lg'>&laquo; First</span>";
+                                    echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200'>&lt; Previous</span>";
+                                }
+                                //display range of page link
+                                for ($i = max(1, $page - 5); $i <= min($total_pages, $page + 5); $i++) {
+                                    if ($i == $page) {
+                                        echo "<span class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</span>";
+                                    } else {
+                                        echo "<a href='residentpage.php?page=" . $i . "&search=$search' class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</a>";
+                                    }
+                                }
+                                // Display next and last
+                                if ($page < $total_pages) {
+                                   echo "<a href='residentpage.php?page=" . ($page + 1) . "&search=$search' class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>Next &gt;</a>"; // Next page link
+                                   echo "<a href='residentpage.php?page=$total_pages&search=$search' class='px-4 py-2 text-sm  text-white bg-sg rounded-r-lg hover:opacity-80'>Last &raquo;</a>"; // Last page link
+                                } else {
+                                   echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200'>Next &gt;</span>";
+                                   echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200 rounded-r-lg'>Last &raquo;</span>";
+                                }
+                                echo "</div>";
                             ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
-                                        <a href="backend/edit.php?id=<?= $row['id']?>">
-                                            <img src="../img/edit.svg" alt="edit"/>
-                                        </a>
-                                    </button>
-                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
-                                        <img name="delete" src="../img/trash.svg" alt="delete"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php
-                            } else {
-                            ?>
-                            <td class="border-y-2 border-c py-2">
-                                <div class="flex justify-center items-center">
-                                    <button disabled class="w-6 mr-1"> 
-                                        <img src="../img/lock.png" alt="edit"/>
-                                    </button>
-                                    <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                        <img name="view_details" src="../img/view.png" alt="delete"/>
-                                    </button>
-                                </div>
-                            </td>
-                            <?php } ?>
-                        </tr>
-                        <?php $i++; } ?>
-                        </tbody>
-                    </table>
+                        </div>
                     </div>
                 </div>
-                <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
-                </div>
-                </div>
+                <?php } else { ?>
+                    <div class="overflow-hidden mt-4 w-full ">
+                        <div class="border-2 border-c rounded-lg mx-8 bg-white">
+                            <!--Personal Information Table -->
+                            <div class="h[67vh]">
+                                <div class="rounded-t-sm pt-2 bg-c ">
+                                    <table id="residentTable" class="w-full border-collapse">
+                                        <colgroup>
+                                            <col class="w-[100px]">
+                                            <col class="w-[200px]">
+                                            <col class="w-[200px]">
+                                            <col class="w-[200px]">
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col class="w-[200px]">
+                                        </colgroup>
+                                        <thead class="bg-c sticky top-0 ">
+                                            <tr class="uppercase ">
+                                                <!--Basic Information + Action-->
+                                                <th class="py-4 min-w-20">ID</th>
+                                                <th class="py-4">First Name</th>
+                                                <th class="py-4">Middle Name</th>
+                                                <th class="py-4">Last Name</th>
+                                                <th class="py-4">Suffix</th>
+                                                <th class="py-4">Gender</th>
+                                                <th class="py-4">Age</th>
+                                                <th class="min-w-20">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class=" text-gray-600 bg-white h-[60vh]">
+                                        <tr class=" text-center">
+                                            <td class=" border-y-2 border-c py-4">
+                                                <div class="flex justify-center  min-w-20">
+                                                </div>
+                                            </td>
+                                            <td class="border-y-2 border-c py-2">
+                                                <div class="flex justify-center">
+                                                </div>
+                                            </td>
+                                            <td class="border-y-2 border-c py-2">
+                                                <div class="flex justify-center" >
+                                                </div>
+                                            </td>
+                                            <td class="border-y-2 border-c py-2">
+                                                <div class="flex justify-center">
+                                                </div>
+                                            </td>
+                                            <td class="border-y-2 border-c py-2">
+                                                <div class="flex justify-center">
+                                                    No records found
+                                                </div>
+                                            </td>
+                                            <td class="border-y-2 border-c py-2">
+                                                <div class="flex justify-center">
+                                                </div>
+                                            </td>
+                                            <td class="border-y-2 border-c py-2">
+                                                <div class="flex justify-center">
+                                                </div>
+                                            </td>
+                                            <?php
+                                            if (hasPermission('system_settings')){
+                                            ?>
+                                            <td class="border-y-2 border-c py-2">
+                                                <div class="flex justify-center items-center">
+                                                </div>
+                                            </td>
+                                            <?php
+                                            } else {
+                                            ?>
+                                            <td class="border-y-2 border-c py-2">
+                                                <div class="flex justify-center items-center">
+                                                </div>
+                                            </td>
+                                            <?php } ?>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class=" h-12 rounded-b-sm bg-c">
+                            <?php
+                                //display first and prev
+                                echo "<div class='place-self-end pt-3 p-2'>";
+                                if ($page > 1) {
+                                    echo "<a href='residentpage.php?page=1&search=$search' class='px-4 py-2 text-sm  text-white bg-sg rounded-l-lg hover:opacity-80'>&laquo; First</a>";
+                                    echo "<a href='residentpage.php?page=" . ($page - 1) . "&search=$search' class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>&lt; Previous</a>"; // Previous page link
+                                } else {
+                                    echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200 rounded-l-lg'>&laquo; First</span>";
+                                    echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200'>&lt; Previous</span>";
+                                }
+                                //display range of page link
+                                for ($i = max(1, $page - 5); $i <= min($total_pages, $page + 5); $i++) {
+                                    if ($i == $page) {
+                                        echo "<span class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</span>";
+                                    } else {
+                                        echo "<a href='residentpage.php?page=" . $i . "&search=$search' class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</a>";
+                                    }
+                                }
+                                // Display next and last
+                                if ($page < $total_pages) {
+                                   echo "<a href='residentpage.php?page=" . ($page + 1) . "&search=$search' class='px-4 py-2 text-sm  text-white bg-sg hover:opacity-80'>Next &gt;</a>"; // Next page link
+                                   echo "<a href='residentpage.php?page=$total_pages&search=$search' class='px-4 py-2 text-sm  text-white bg-sg rounded-r-lg hover:opacity-80'>Last &raquo;</a>"; // Last page link
+                                } else {
+                                   echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200'>Next &gt;</span>";
+                                   echo "<span class='px-4 py-2 text-sm  text-gray-400 bg-gray-200 rounded-r-lg'>Last &raquo;</span>";
+                                }
+                                echo "</div>";
+                            ?>
+                        </div>
+                        </div>
+                    </div>
+                <?php }  ?>
             </div>
         </div>
         <!--Delete Confirmation -->
@@ -990,7 +1173,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     function cancelConfirmation() {
         document.getElementById("confirmDeletion").classList.add("hidden");
     }
-
+    //view details
     function viewDetails(event, id) {
         event.preventDefault(); // Prevent page reload
 
@@ -1009,51 +1192,46 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     function cancelView() {
         document.getElementById("viewDetails").classList.add("hidden");
     }
-
-
     //toggle display
     function toggleDisplay(elementID, show) {
         const element = document.getElementById(elementID);
         element.style.display = show ? "block" : "none";
     }
 
+    // show category
     function showCategory(categoryID, option){
         const tables = ["tb1", "tb2", "tb3", "tb4", "tb5", "tb6", "tb7"];
+        // Hide all tables except the selected one
         tables.forEach(id => {
             document.getElementById(id).classList.toggle("hidden", id !== categoryID);
         });
+
         const options = ["option1", "option2", "option3", "option4", "option5", "option6", "option7"];
+
+        // toggle active
         options.forEach(border => {
             const button = document.getElementById(border);
             button.classList.toggle("border-sg", option === border);
             button.classList.toggle("border-c", option !== border);
         });
+
+        // store the selected categ and opt in localStorage
+        localStorage.setItem('selectedCategory', categoryID);
+        localStorage.setItem('selectedOption', option);
     }
-</script>
-<script>
-    //search funcitonality
-    $(document).ready(function() {
-        $('#search').keyup(function(event) {
-            search_table($(this).val());
-        });
-        function search_table(value) {
-            $('#residentTable tbody tr').each(function(){
-                let found = 'false';
-                $(this).each(function(){
-                    if($(this).text().toLowerCase().indexOf(value.toLowerCase())>=0){
-                        found = 'true';
-                    }
-                });
-                if(found=='true'){
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
+    // load the previously selected categ and page on page load
+    function loadCategory() {
+        const selectedCategory = localStorage.getItem('selectedCategory');
+        const selectedOption = localStorage.getItem('selectedOption');
+        if (selectedCategory) {
+            showCategory(selectedCategory, selectedOption);
         }
-    });
+    }
+// Call the loadCategory function on page load to restore the previous state
+window.onload = loadCategory;
 </script>
 <script>
+    // bulk import
     const fileInput = document.querySelector("#file_input");
     const fileOutput = document.querySelector("#file_output");
 
