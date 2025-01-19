@@ -166,13 +166,13 @@ if(isset($_POST['update'])) {
                                     <label for="no-middle-name" class="text-sm text-gray-500 mr-4">No Middle Name</label>
                                 </div>
                             </div>
+                            <div class="flex-grow">
+                                <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg"  value="<?php echo $row['last_name']?>" placeholder=" "/> 
+                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Last Name</label>
+                                <span id="last-name-error" class="text-red-500 text-sm hidden">Field is required</span>
+                            </div>
                             <div class="flex items-start justify-between">
-                                <div class="flex-grow mr-2">
-                                    <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg"  value="<?php echo $row['last_name']?>" placeholder=" "/> 
-                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Last Name</label>
-                                    <span id="last-name-error" class="text-red-500 text-sm hidden">Field is required</span>
-                                </div>
-                                <div for="suffix" class="flex flex-col flex-grow">
+                                <div for="suffix" class="flex flex-col flex-grow mr-2">
                                     <?php
                                     $suffixOptions = ["", "Jr.", "Sr.", "II", "III", "IV", "V", "PhD", "MD", "Esq."];
                                     ?>
@@ -184,9 +184,6 @@ if(isset($_POST['update'])) {
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                
                                 <div for="gender" class="flex flex-col flex-grow">
                                     <?php
                                     $genderOptions = ["", "Male", "Female"];
