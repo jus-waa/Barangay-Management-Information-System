@@ -487,6 +487,7 @@ if(isset($_POST['add'])) {
             window.location.href = "../residentpage.php"; 
         });
     });
+    //sample
     </script>
     <script>
     $(document).ready(function() {
