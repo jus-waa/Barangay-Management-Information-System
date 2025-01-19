@@ -87,34 +87,38 @@ if (!isset($_SESSION['users'])) {
                     </div>
                     <!-- Account and Logout -->
                     <div class="place-content-center space-x-4 h-2/5 w-full grow">
+                        <!-- Account -->
                         <div>
-                            <a href="generatedocuments.php">
-                                <button id="gen_doc" onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
-                                    <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
-                                    <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
-                                        <?php
-                                            $userId = $_SESSION['users'];
-                                            $querys = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
-                                            $stmts = $dbh->prepare($querys);
-                                            $stmts->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
-                                            $stmts->execute();
-                                            $results = $stmts->fetch(PDO::FETCH_ASSOC);
-
-                                            if ($results) {
-                                                echo $results['username'];
-                                            }   else {
-                                                echo "No such user found.";
-                                            }
-                                        ?>
-                                    </span>
-                                </button>
-                            </a>
+                            <button onmouseover="toggleDisplay('accounts', true)" onmouseleave="toggleDisplay('accounts', false)" class="flex place-content-center w-full">
+                                <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
+                                <span id="accounts" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
+                                    <?php
+                                        $userId = $_SESSION['users'];
+                                        $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
+                                        $stmt = $dbh->prepare($query);
+                                        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
+                                        $stmt->execute();
+                                        $resultz = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        if ($resultz) {
+                                            echo $resultz['username'];
+                                        }   else {
+                                            echo "No such user found.";
+                                        }
+                                    ?>
+                                </span>
+                            </button>
                             <button class="flex place-self-center">
-                                <?php 
-                                    if(hasPermission('system_settings')) {
-                                        echo '<p>Admin</p>';
-                                    } else {
-                                        echo '<p>Regular</p>';
+                                <?php
+                                    $userId = $_SESSION['users'];
+                                    $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
+                                    $stmt = $dbh->prepare($query);
+                                    $stmt->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
+                                    $stmt->execute();
+                                    $resultz = $stmt->fetch(PDO::FETCH_ASSOC);
+                                    if ($resultz) {
+                                        echo $resultz['email'];
+                                    }   else {
+                                        echo "No such user found.";
                                     }
                                 ?>
                             </button>

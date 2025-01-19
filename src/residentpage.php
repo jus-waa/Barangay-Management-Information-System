@@ -1,4 +1,5 @@
 <?php
+
 include("backend/connection.php");
 include("backend/pagination.php");
 require("backend/helper.php");
@@ -22,7 +23,6 @@ if (!isset($_SESSION['users'])) {
     <script src="../script.js"></script>
     <script src="clock.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="relative"> 
     <div class="flex h-screen w-screen overflow-auto">
@@ -34,7 +34,7 @@ if (!isset($_SESSION['users'])) {
                     <div class="place-content-center h-full grow-0 space-y-14 ">
                         <div>
                             <a href="dashboard.php">
-                                <button  onmouseover="toggleDisplay('dashboard_title', true)" onmouseleave="toggleDisplay('dashboard_title', false)" class="flex place-content-center w-full">
+                                <button onmouseover="toggleDisplay('dashboard_title', true)" onmouseleave="toggleDisplay('dashboard_title', false)" class="flex place-content-center w-full">
                                     <img  class="size-10 hover:animate-wiggle" src="../img/dashboard.png ">
                                     <span id="dashboard_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Dashboard</span>
                                 </button>
@@ -88,34 +88,38 @@ if (!isset($_SESSION['users'])) {
                     </div>
                     <!-- Account and Logout -->
                     <div class="place-content-center space-x-4 h-2/5 w-full grow">
+                        <!-- Account -->
                         <div>
-                            <a href="generatedocuments.php">
-                                <button id="gen_doc" onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
-                                    <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
-                                    <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
-                                        <?php
-                                            $userId = $_SESSION['users'];
-                                            $querys = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
-                                            $stmts = $dbh->prepare($querys);
-                                            $stmts->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
-                                            $stmts->execute();
-                                            $results = $stmts->fetch(PDO::FETCH_ASSOC);
-
-                                            if ($results) {
-                                                echo $results['username'];
-                                            }   else {
-                                                echo "No such user found.";
-                                            }
-                                        ?>
-                                    </span>
-                                </button>
-                            </a>
+                            <button onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
+                                <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
+                                <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
+                                    <?php
+                                        $userId = $_SESSION['users'];
+                                        $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
+                                        $stmt = $dbh->prepare($query);
+                                        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
+                                        $stmt->execute();
+                                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        if ($result) {
+                                            echo $result['username'];
+                                        }   else {
+                                            echo "No such user found.";
+                                        }
+                                    ?>
+                                </span>
+                            </button>
                             <button class="flex place-self-center">
-                                <?php 
-                                    if(hasPermission('system_settings')) {
-                                        echo '<p>Admin</p>';
-                                    } else {
-                                        echo '<p>Regular</p>';
+                                <?php
+                                    $userId = $_SESSION['users'];
+                                    $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
+                                    $stmt = $dbh->prepare($query);
+                                    $stmt->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
+                                    $stmt->execute();
+                                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                                    if ($result) {
+                                        echo $result['email'];
+                                    }   else {
+                                        echo "No such user found.";
                                     }
                                 ?>
                             </button>
