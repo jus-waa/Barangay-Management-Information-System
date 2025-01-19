@@ -11,31 +11,48 @@ if (!isset($_SESSION['users'])) {
     header('location: login.php');
     exit();
 }
-
+//check user for issued by
+$userId = $_SESSION['users'];
+$sql = 'SELECT * FROM users WHERE id = :id';  
+$stmtuser = $dbh->prepare($sql);
+$stmtuser->bindParam(':id', $userId, PDO::PARAM_INT);  
+$stmtuser->execute();
+$resultUser = $stmtuser->fetch(PDO::FETCH_ASSOC);
 // add to printhistory
 if (isset($_POST['confirm'])) {
     try{
         $first_name = $_POST['first_name']; 
         $middle_name =  $_POST['middle_name']; 
         $last_name =  $_POST['last_name'];
+        $suffix = $_POST['suffix'];
+        $age = $_POST['age'];
         $document_type = 'Barangay Clearance';
+        $barangay_name = 'Barangay Buna Cerca';
         $print_date = $_POST['print_date'];
         $control_number = $_POST['control_number'];
-        $issued_by = $_POST['issued_by'];
+        $ctc_number = $_POST['ctc_number'];
+        $issued_by = $resultUser['username'];
         $purpose = $_POST['purpose'];
         
         if($middle_name == NULL) {
             $middle_name = '';
         }
-
-        $query = "INSERT INTO `print_history`(`first_name`, `middle_name`, `last_name`, `document_type`, `print_date`, `control_number`, `issued_by`, `purpose`) VALUES (:first_name, :middle_name, :last_name, :document_type, :print_date, :control_number, :issued_by, :purpose)";
+        if($suffix == NULL) {
+            $suffix = '';
+        }
+ 
+        $query = "INSERT INTO `print_history`(`first_name`, `middle_name`, `last_name`,  `suffix`, `age`, `document_type`, `barangay_name` ,`print_date`, `control_number`, `ctc_number`,  `issued_by`, `purpose`) VALUES (:first_name, :middle_name, :last_name, :suffix, :age, :document_type, :barangay_name, :print_date, :control_number, :ctc_number, :issued_by, :purpose)";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
         $stmt->bindParam(':middle_name', $middle_name, PDO::PARAM_STR);
         $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+        $stmt->bindParam(':suffix', $suffix, PDO::PARAM_STR);
+        $stmt->bindParam(':age', $age, PDO::PARAM_INT);
         $stmt->bindParam(':document_type', $document_type, PDO::PARAM_STR);
+        $stmt->bindParam(':barangay_name', $barangay_name, PDO::PARAM_STR);
         $stmt->bindParam(':print_date', $print_date, PDO::PARAM_STR);
         $stmt->bindParam(':control_number', $control_number, PDO::PARAM_STR);
+        $stmt->bindParam(':ctc_number', $ctc_number, PDO::PARAM_STR);
         $stmt->bindParam(':issued_by', $issued_by, PDO::PARAM_STR);
         $stmt->bindParam(':purpose', $purpose, PDO::PARAM_STR);
         $stmt->execute();
@@ -55,6 +72,7 @@ if (isset($_POST['confirm'])) {
         echo "Error: " . $e->getMessage();
     }
 } 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,11 +121,10 @@ if (isset($_POST['confirm'])) {
                 Kindly choose a record to proceed further.
             </div>
             <form method="post" id="personal_info">
-            <fieldset <?= $isEnabled ? '' : 'disabled' ?>>
+                <fieldset <?= $isEnabled ? '' : 'disabled' ?>>
                 <?php 
                 $id = isset($_GET['id']) ? $_GET['id'] : 0;
                 $recordLoaded = false;
-
                 if($id) {
                     $query = "SELECT * FROM `resident_info` WHERE `id` = :id";
                     $stmt = $dbh->prepare($query);
@@ -120,17 +137,13 @@ if (isset($_POST['confirm'])) {
                         $row = [];
                     }
                 }
-                
                 $defaultValues = [
                     'first_name' => '',
                     'middle_name' => '',
                     'last_name' => '',
                     'suffix' => '',
-                    'house_num' => '',
-                    'street_name' => '',
-                    'barangay_name' => '',
-                    'municipality_city' => '',
-                    'zip_code' => '',
+                    'age' => '',
+                    'barangay_name' => 'Barangay Buna Cerca',
                 ];
                 ?>
                 <!-- Two-column Grid -->
@@ -141,7 +154,7 @@ if (isset($_POST['confirm'])) {
                         <div class="rounded-lg p-2 mb-8 ">
                             <div>
                                 <h2 class="text-xl font-bold mb-4">Personal Information</h2>
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg">
                                     <div>
                                         <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['first_name'] : $defaultValues['first_name']?>" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">First Name</label>
@@ -156,49 +169,42 @@ if (isset($_POST['confirm'])) {
                                             <label for="no-middle-name" class="text-sm text-gray-500 mr-4">No Middle Name</label>
                                         </div>
                                     </div>
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex-grow mr-2">
+                                    <div class="flex-grow">
                                             <input id="last-name" name="last_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['last_name'] : $defaultValues['last_name']?>" placeholder=" "/> 
                                             <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Last Name</label>
                                             <span id="last-name-error" class="text-red-500 text-sm hidden">Field is required</span>
+                                        </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex-grow mr-2">
+                                            <input id="age" name="age" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['age'] : $defaultValues['age']?>" placeholder=" "/> 
+                                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Age</label>
                                         </div>
                                         <div for="suffix" class="flex flex-col flex-grow">
                                             <?php
                                             $suffixOptions = ["", "Jr.", "Sr.", "II", "III", "IV", "V", "PhD", "MD", "Esq."];
                                             ?>
-                                            <select id="suffix" name="suffix" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm " disabled>
+                                            <select id="suffix" name="suffix" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg p-2.1 text-sm pointer-events-none">
                                                 <?php foreach ($suffixOptions as $suffix): ?>
                                                     <option value="<?= $suffix ?>" 
-                                                        <?= ($recordLoaded ? $row['suffix'] : $defaultValues['suffix']) == $suffix ? "selected" : "" ?>>
-                                                        <?= $suffix == "" ? "Select Suffix" : $suffix?>
+                                                        <?= ($recordLoaded ? ($row['suffix'] ?? '') : ($defaultValues['suffix'] ?? '')) == $suffix ? "selected" : "" ?>>
+                                                        <?= $suffix == "" ? "Select Suffix" : $suffix ?>
                                                     </option>
                                                 <?php endforeach; ?>
                                             </select>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Control Number and Date of Issuance -->
+                        <!-- Barangay -->
                         <div class="rounded-lg p-2 mb-8">
                             <div>
-                                <h2 class="text-xl font-bold mb-4">Control Number & Date of Issuance</h2>
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700 <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
-                                    <?php 
-                                    // fetch data
-                                    $stmt = $dbh->prepare("SELECT * FROM `print_history`");
-                                    $stmt->execute();
-                                    $print = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    $controlNumber = count($print);
-                                    $formattedControlNumber = sprintf("%04d", $controlNumber);
-                                    ?>
-                                    <div>
-                                        <input id="control-number" name="control_number" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="BC-<?= $formattedControlNumber ?>" placeholder=" "/> 
-                                        <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Control Number</label>
-                                    </div>
-                                    <div class="relative">
-                                        <input id="date-of-issuance" name="print_date" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
-                                        <span id="date-of-issuance-error" class="text-red-500 text-sm hidden">Field is required</span>
+                                <h2 class="text-xl font-bold mb-4">Barangay</h2>
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
+                                    <div class="flex-grow">
+                                        <input id="barangay-name" name="barangay_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['barangay_name'] : $defaultValues['barangay_name']?>" placeholder=" " disabled/>
+                                        <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Barangay Name</label>
                                     </div>
                                 </div>
                             </div>
@@ -206,32 +212,31 @@ if (isset($_POST['confirm'])) {
                     </div>
                     <!-- Second Column: Address, Control Number, and Date of Issuance -->
                     <div>
-                        <!-- Address Details -->
+                        <!-- CTC number, Control Number and Date of Issuance -->
                         <div class="rounded-lg p-2 mb-8">
                             <div>
-                                <h2 class="text-xl font-bold mb-4">Address Details</h2>
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
+                                <h2 class="text-xl font-bold mb-4">CTC number, Control Number & Date of Issuance</h2>
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700 <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
+                                    <?php 
+                                    // fetch data
+                                    $stmt = $dbh->prepare("SELECT * FROM `print_history`");
+                                    $stmt->execute();
+                                    $print = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    $controlNumber = count($print) + 80;
+                                    $formattedControlNumber = sprintf("%04d", $controlNumber);
+                                    ?>
                                     <div>
-                                        <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['house_num'] : $defaultValues['house_num']?>" placeholder=" "/> 
-                                        <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">House Number</label>
+                                        <input id="control-number" name="control_number" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="BC-<?= $formattedControlNumber ?>" placeholder=" "/> 
+                                        <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Control Number</label>
                                     </div>
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex-grow mr-2">
-                                            <input id="street-name" name="street_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['street_name'] : $defaultValues['street_name']?>" placeholder=" "d/> 
-                                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Street Name</label>
-                                        </div>
-                                        <div class="flex-grow">
-                                            <input id="barangay-name" name="barangay_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['barangay_name'] : $defaultValues['barangay_name']?>" placeholder=" "/> 
-                                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Barangay Name</label>
-                                        </div>
+                                    <div class="relative">
+                                        <input id="ctc-number" name="ctc_number" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/>
+                                        <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">CTC Number</label>
+                                        <span id="ctc-number-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
-                                    <div for="status" class="flex flex-col flex-grow">
-                                        <select id="status" name="status" class=" border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm" disabled>
-                                            <option class="bg-white text-gray-500" value="">Leave Blank</option>
-                                            <option class="bg-white" value="Pending">Pending</option>
-                                            <option class="bg-white" value="Approved">Approved</option>
-                                            <option class="bg-white" value="For Printing">For Printing</option>
-                                        </select>
+                                    <div class="relative">
+                                        <input id="date-of-issuance" name="print_date" type="date" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <span id="date-of-issuance-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
                                 </div>
                             </div>
@@ -246,15 +251,22 @@ if (isset($_POST['confirm'])) {
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Purpose</label>
                                         <span id="purpose-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
+                                    <?php
+                                        if ($resultUser) {
+                                    ?>
                                     <div class="relative">
-                                        <input id="issued-by" name="issued_by" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
+                                        <input id="issued-by" name="issued_by" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?= $resultUser['username'] ?>" placeholder=" " disabled/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Issued By</label>
                                         <span id="issued-by-error" class="text-red-500 text-sm hidden">Field is required</span>
                                     </div>
+                                    <?php 
+                                        }   else {
+                                            echo "No such user found.";
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 <!-- Buttons -->
@@ -290,7 +302,7 @@ if (isset($_POST['confirm'])) {
                         </div>
                     </div>
                 </div>
-            </fieldset>
+                </fieldset>
             </form>   
         </div>
         <!-- Bottom Logo -->
@@ -457,12 +469,14 @@ if (isset($_POST['confirm'])) {
     const dateIssuedInput = document.getElementById("date-of-issuance");
     const purposeInput = document.getElementById("purpose");
     const issuedByInput = document.getElementById("issued-by");
+    const ctcNumberInput = document.getElementById("ctc-number");
 
     const firstNameError = document.getElementById("first-name-error");
     const lastNameError = document.getElementById("last-name-error");
     const dateIssuedError = document.getElementById("date-of-issuance-error");
     const purposeError = document.getElementById("purpose-error");
     const issuedByError = document.getElementById("issued-by-error");
+    const ctcNumberError = document.getElementById("ctc-number-error");
 
     const addButton = document.getElementById("add-button"); // Assume the Add button has this ID
     const cancelButton = document.getElementById("cancel-button"); // Assume the Cancel button has this ID
@@ -487,6 +501,15 @@ if (isset($_POST['confirm'])) {
                 firstInvalidElement = firstInvalidElement || lastNameInput;
             } else {
                 lastNameError.classList.add("hidden");
+            }
+
+            // Validate CTC Number
+            if (!ctcNumberInput.value.trim()) {
+                isValid = false;
+                ctcNumberError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || ctcNumberInput;
+            } else {
+                ctcNumberError.classList.add("hidden");
             }
 
             // Validate Date issued
