@@ -13,6 +13,8 @@ if(isset($_POST['add'])) {
         $birth_date = $_POST['birth_date'];
         $bp_municipality_city = $_POST['birthplace_municipality_city'];
         $bp_province = $_POST['birthplace_province'];
+        $father_name = $_POST['father_name'];
+        $mother_maiden_name = $_POST['mother_maiden_name'];
         $contact = $_POST['contact_num'];
         $email = $_POST['email_address'];
         $house_num = $_POST['house_num'];
@@ -23,6 +25,7 @@ if(isset($_POST['add'])) {
         $zip_code = "4122";
         $civil_status = $_POST['civil_status'];
         $citizenship = $_POST['citizenship'];
+        $ethnicity = $_POST['ethnicity'];
         $occupation = $_POST['occupation'];
         $residency_type = $_POST['residency_type'];
         $status = $_POST['status'];
@@ -36,8 +39,8 @@ if(isset($_POST['add'])) {
             $middle_name = '';
         }
 
-        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `contact_num`, `email_address`, `house_num`, `street_name`, `barangay_name`, `municipality_city`, `province`, `zip_code`, `civil_status`, `citizenship`, `occupation`, `residency_type`, `status`, `height`, `weight`, `eye_color`, `blood_type`, `religion`) 
-                                        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :contact_num, :email_address, :house_num, :street_name, :barangay_name, :municipality_city, :province, :zip_code, :civil_status, :citizenship, :occupation, :residency_type, :status, :height, :weight, :eye_color, :blood_type, :religion)";
+        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `contact_num`, `email_address`, `house_num`, `street_name`, `barangay_name`, `municipality_city`, `province`, `father_name`, `mother_maiden_name`, `zip_code`, `civil_status`, `citizenship`, `ethnicity` ,`occupation`, `residency_type`, `status`, `height`, `weight`, `eye_color`, `blood_type`, `religion`) 
+                                        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :contact_num, :email_address, :house_num, :street_name, :barangay_name, :municipality_city, :province, :father_name, :mother_maiden_name , :zip_code, :civil_status, :citizenship, :ethnicity ,:occupation, :residency_type, :status, :height, :weight, :eye_color, :blood_type, :religion)";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
         $stmt->bindParam(':middle_name', $middle_name, PDO::PARAM_STR);
@@ -48,6 +51,8 @@ if(isset($_POST['add'])) {
         $stmt->bindParam(':birth_date', $birth_date, PDO::PARAM_STR);
         $stmt->bindParam(':birthplace_municipality_city', $bp_municipality_city, PDO::PARAM_STR);
         $stmt->bindParam(':birthplace_province', $bp_province, PDO::PARAM_STR);
+        $stmt->bindParam(':father_name', $father_name, PDO::PARAM_STR);
+        $stmt->bindParam(':mother_maiden_name', $mother_maiden_name, PDO::PARAM_STR);
         $stmt->bindParam(':contact_num', $contact, PDO::PARAM_STR);
         $stmt->bindParam(':email_address', $email, PDO::PARAM_STR);
         $stmt->bindParam(':house_num', $house_num, PDO::PARAM_STR);
@@ -58,6 +63,7 @@ if(isset($_POST['add'])) {
         $stmt->bindParam(':zip_code', $zip_code, PDO::PARAM_STR);
         $stmt->bindParam(':civil_status', $civil_status, PDO::PARAM_STR);
         $stmt->bindParam(':citizenship', $citizenship, PDO::PARAM_STR);
+        $stmt->bindParam(':ethnicity', $ethnicity, PDO::PARAM_STR);
         $stmt->bindParam(':occupation', $occupation, PDO::PARAM_STR);
         $stmt->bindParam(':residency_type', $residency_type, PDO::PARAM_STR);
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
@@ -129,7 +135,6 @@ if(isset($_POST['add'])) {
                 <div class="rounded-lg p-2 mb-8">
                     <div>
                         <h2 class="text-xl font-bold mb-4 ">Personal Information</h2>
-                     
                         <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
                             <div>
                                 <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
@@ -200,7 +205,19 @@ if(isset($_POST['add'])) {
                                 <input id="place-of-birth-province" name="birthplace_province" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-4 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Place of Birth (Province)</label>
                             </div>
+                            <!-- Father's Name & Mother's Maiden Name -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex-grow mr-2">
+                                    <input id="father" name="father_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Father's Name</label>
+                                </div>
+                                <div class="flex-grow">
+                                    <input id="mother" name="mother_maiden_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Mother's Maiden Name</label>
+                                </div>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
                 <!-- Contact Information -->
@@ -261,19 +278,23 @@ if(isset($_POST['add'])) {
                 <div class="rounded-lg p-2 mb-8">
                     <h2 class="text-xl font-bold mb-4 ">Civil Status and Citizenship</h2>
                     <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
+                        <div for="suffix" class="flex flex-col flex-grow">
+                            <select id="civil-status" name="civil_status" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-gray-500 text-sm">
+                                <option value="">Select Civil Status</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Divorced">Divorced</option>
+                                <option value="Widowed">Widowed</option>
+                            </select>
+                        </div>
                         <div class="flex items-center justify-between">
-                            <div for="suffix" class="flex flex-col flex-grow mr-2">
-                                <select id="civil-status" name="civil_status" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-gray-500 text-sm">
-                                    <option value="">Select Civil Status</option>
-                                    <option value="Single">Single</option>
-                                    <option value="Married">Married</option>
-                                    <option value="Divorced">Divorced</option>
-                                    <option value="Widowed">Widowed</option>
-                                </select>
-                            </div>
-                            <div class="flex-grow">
+                            <div class="flex-grow mr-2">
                                 <input id="citizenship" name="citizenship" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Citizenship</label>
+                            </div>
+                            <div class="flex-grow">
+                                <input id="ethnicity" name="ethnicity" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Ethnicity</label>
                             </div>
                         </div>
                     </div>

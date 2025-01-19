@@ -13,6 +13,8 @@ if(isset($_POST['update'])) {
         $birth_date = $_POST['birth_date'];
         $bp_municipality_city = $_POST['birthplace_municipality_city'];
         $bp_province = $_POST['birthplace_province'];
+        $father_name = $_POST['father_name'];
+        $mother_maiden_name = $_POST['mother_maiden_name'];
         $contact = $_POST['contact_num'];
         $email = $_POST['email_address'];
         $house_num = $_POST['house_num'];
@@ -23,6 +25,7 @@ if(isset($_POST['update'])) {
         $zip_code = $_POST['zip_code'];
         $civil_status = $_POST['civil_status'];
         $citizenship = $_POST['citizenship'];
+        $ethnicity = $_POST['ethnicity'];
         $occupation = $_POST['occupation'];
         $residency_type = $_POST['residency_type'];
         $status = $_POST['status'];
@@ -52,9 +55,12 @@ if(isset($_POST['update'])) {
                 `barangay_name` = :barangay_name,
                 `municipality_city` = :municipality_city, 
                 `province` = :province, 
+                `father_name` = :father_name,
+                `mother_maiden_name` = :mother_maiden_name, 
                 `zip_code` = :zip_code, 
                 `civil_status` = :civil_status, 
                 `citizenship` = :citizenship,
+                `ethnicity` = :ethnicity,
                 `occupation` = :occupation,
                 `residency_type` = :residency_type,
                 `status` = :status,
@@ -81,9 +87,12 @@ if(isset($_POST['update'])) {
         $stmt->bindParam(':barangay_name', $barangay_name, PDO::PARAM_STR);
         $stmt->bindParam(':municipality_city', $municipality_city, PDO::PARAM_STR);
         $stmt->bindParam(':province', $province, PDO::PARAM_STR);
+        $stmt->bindParam(':father_name', $father_name, PDO::PARAM_STR);
+        $stmt->bindParam(':mother_maiden_name', $mother_maiden_name, PDO::PARAM_STR);
         $stmt->bindParam(':zip_code', $zip_code, PDO::PARAM_STR);
         $stmt->bindParam(':civil_status', $civil_status, PDO::PARAM_STR);
         $stmt->bindParam(':citizenship', $citizenship, PDO::PARAM_STR);
+        $stmt->bindParam(':ethnicity', $ethnicity, PDO::PARAM_STR);
         $stmt->bindParam(':occupation', $occupation, PDO::PARAM_STR);
         $stmt->bindParam(':residency_type', $residency_type, PDO::PARAM_STR);
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
@@ -210,6 +219,17 @@ if(isset($_POST['update'])) {
                                 <input id="place-of-birth-province" name="birthplace_province" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['birthplace_province']?>" placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-4 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Place of Birth (Province)</label>
                             </div>
+                            <!-- Father's Name & Mother's Maiden Name -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex-grow mr-2">
+                                    <input id="father" name="father_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['father_name']?>" placeholder=" "/> 
+                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Father's Name</label>
+                                </div>
+                                <div class="flex-grow">
+                                    <input id="mother" name="mother_maiden_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['mother_maiden_name']?>" placeholder=" "/> 
+                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Mother's Maiden Name</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -275,7 +295,7 @@ if(isset($_POST['update'])) {
                             <?php 
                             $civilStatusOptions = ["", "Single", "Married", "Divorced", "Widowed"];
                             ?>
-                            <div for="suffix" class="flex flex-col flex-grow mr-2">
+                            <div for="suffix" class="flex flex-col flex-grow">
                                 <select id="civil-status" name="civil_status" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
                                     <?php foreach($civilStatusOptions as $civilStatus): ?>
                                         <option value="<?=$civilStatus?>" <?= $row['civil_status'] == $civilStatus ? "selected" : "" ?>>
@@ -284,9 +304,15 @@ if(isset($_POST['update'])) {
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="flex-grow">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex-grow mr-2">
                                 <input id="citizenship" name="citizenship" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['citizenship']?>" placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Citizenship</label>
+                            </div>
+                            <div class="flex-grow">
+                                <input id="ethnicity" name="ethnicity" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['ethnicity']?>" placeholder=" "/> 
+                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Ethnicity</label>
                             </div>
                         </div>
                     </div>
