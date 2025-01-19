@@ -1201,6 +1201,9 @@ if (!isset($_SESSION['users'])) {
     }
     // Call the loadCategory function on page load to restore the previous state
     window.onload = loadCategory;
+    
+</script>
+<script>
     // Display Session TImer
     var remainingTime = <?php echo $remaining_time; ?>;
         // If remaining time exists in sessionStorage, use it, otherwise, set it
