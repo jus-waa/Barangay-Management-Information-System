@@ -153,26 +153,25 @@ if (!isset($_SESSION['users'])) {
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
             <div class="flex flex-col h-full grow">
                 <!-- Note -->
-                <div class="h-14 my-4 mx-8 text-white "
-                >
-                <?php
-                //displays message
-                if(isset($_GET['msg'])) {
-                    $msg = $_GET['msg'];
-                    echo '
-                        <div id="notif-del" class="grid grid-cols-2 items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100">
-                            <p>'. $msg .'</p>
-                            <img src="../img/notif-del.png" alt="X" class="justify-self-end cursor-pointer" onclick="notifDel();">
-                        </div>
-                        ';
-                } else {
-                    echo '
-                        <div class="grid grid-cols-2 items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0">
-                            <p></p>
-                        </div>
-                        ';
-                }
-                ?>
+                <div class="h-14 my-4 mx-8 text-white ">
+                    <?php
+                    //displays message
+                    if(isset($_GET['msg'])) {
+                        $msg = $_GET['msg'];
+                        echo '
+                            <div id="notif-del" class="grid grid-cols-2 items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100">
+                                <p>'. $msg .'</p>
+                                <img src="../img/notif-del.png" alt="X" class="justify-self-end cursor-pointer" onclick="notifDel();">
+                            </div>
+                            ';
+                    } else {
+                        echo '
+                            <div class="grid grid-cols-2 items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0">
+                                <p></p>
+                            </div>
+                            ';
+                    }
+                    ?>
                 </div>
                 <!-- Options -->
                 <div class="grid grid-cols-[auto_1fr] items-center">
@@ -290,7 +289,6 @@ if (!isset($_SESSION['users'])) {
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
                                                 <?=$row['gender']?>
-                                    
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-c py-2">
@@ -1026,7 +1024,7 @@ if (!isset($_SESSION['users'])) {
                                                 <th class="min-w-20">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody class=" text-gray-600 bg-white h-[60vh] border-2 border-red-500">
+                                        <tbody class=" text-gray-600 bg-white h-[60vh] ">
                                         <tr class=" text-center">
                                             <td class=" border-y-2 border-c py-4">
                                                 <div class="flex justify-center  min-w-20">
