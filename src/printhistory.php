@@ -1,6 +1,6 @@
 <?php
-session_start();
 include("backend/connection.php");
+include("backend/pagination.php");
 include("backend/helper.php");
 //for timer
 if(!hasPermission('system_settings')){
@@ -150,137 +150,267 @@ if (!isset($_SESSION['users'])) {
             </div>
             <!-- Body -->
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
-            <div class="flex flex-col h-full grow">
-                <!-- For extra space-->
-                <div class="h-14 mb-4 mt-8 mx-32 text-white pointer-events-none">
-                    <div class="grid grid-cols-1 gap-4 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-0">
-                        .
+                <div class="flex flex-col h-full grow mt-[5.5rem]">
+                    <!-- Options -->
+                    <div class="grid grid-cols-2 mx-8 ">
+                    <!-- Categories -->
+                    <div class="flex justify-start items-center">
+                        <p class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">
+                            History of Documents Issued
+                        </p>
+                    </div>
+                    <!-- Search -->
+                    <div class="relative">
+                        <form method="GET" class="flex justify-end items-center">
+                            <input name="search" id="search" type="text" placeholder="Search..." value="<?=$search?>" class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-sg h-8 z-10  transform translate-x-8" >
+                            <button type="submit" id="searchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20">
+                                <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
+                            </button>
+                        </form>
                     </div>
                 </div>
-                <!-- Options -->
-                <div class="grid grid-cols-2 mx-8 ">
-                <!-- Categories -->
-                <div class="flex justify-start items-center">
-                    <p class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">
-                        History of Documents Issued
-                    </p>
-                </div>
-                <!-- Search -->
-                <div class="flex justify-end items-center mt-2">
-                    <form method="post">
-                        <input name="search" id="search" type="text" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-c h-8 transition duration-300">
-                        <button id="searchBtn" class="rounded-md absolute right-54 top-[26px] transform -translate-y-1/2 border-gray-300 p-2 h-8 flex items-center justify-center pointer-events-none">
-                        </button>
-                    </form>
-                </div>
-                </div>
                 <!-- Tables -->
+                <?php if ($printSearchResult) { ?>
                 <div class="overflow-hidden mt-4 w-full">
-                    <div class="border-2 border-c rounded-lg mx-8">
-                    <!-- Report Page Table -->
-                    <div id="tb1" class="overflow-auto no-scrollbar" style="height: 67vh;">
-                        <div class="rounded-t-sm pt-2 bg-c ">
-                            <table id="residentTable" class="w-full border-collapse">
-                                <colgroup>
-                                    <col class="w-[100px]">
-                                    <col class="w-[200px]">
-                                    <col class="w-[200px]">
-                                    <col class="w-[200px]">
-                                    <col class="w-[200px]">
-                                    <col class="w-[250px]">
-                                    <col class="w-[100px]">
-                                    <col>
-                                </colgroup>
-                                <thead class="bg-c sticky top-0 ">
-                                    <tr class="uppercase ">
-                                        <th class="py-4 min-w-20">ID</th>
-                                        <th class="py-4">Resident Name</th>
-                                        <th class="py-4">Type of Document</th>
-                                        <th class="py-4">Issued Date</th>
-                                        <th class="py-4">Control Number</th>
-                                        <th class="py-4">Issued By</th>
-                                        <th class="py-4">Status</th>
-                                        <th class="py-4">Purpose</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-gray-600 bg-white">
+                    <div class="border-2 border-c rounded-lg mx-8 bg-white">
+                        <!--No Records Table -->
+                        <div class="h[67vh]">
+                            <div class="rounded-t-sm pt-2 bg-c ">
+                                <table id="residentTable" class="w-full border-collapse">
+                                    <colgroup>
+                                        <col class="w-[100px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[100px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col>
+                                    </colgroup>
+                                    <thead class="bg-c sticky top-0 ">
+                                        <tr class="uppercase">
+                                            <!--Basic Information + Action-->
+                                            <th class="py-4 min-w-20">ID</th>
+                                            <th class="py-4">First Name</th>
+                                            <th class="py-4">Age</th>
+                                            <th class="py-4">Document Type</th>
+                                            <th class="py-4">Control Number</th>
+                                            <th class="py-4">CTC Number</th>
+                                            <th class="py-4">Issued By</th>
+                                            <th class="min-w-20">Purpose</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" text-gray-600 bg-white">
                                     <?php 
-                                    // fetch data
-                                    $stmt = $dbh->prepare("SELECT * FROM `print_history`");
-                                    $stmt->execute();
-                                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    $i = 0; // auto numbering
-                                    foreach ($result as $row) {
+                                    $male = 0;
+                                    $female = 0;
+                                    $i = 1; //auto numbering
+                                    $j = 10 * $page - 10; // adjust depending on page
+                                    foreach ($printSearchResult as $row) {
                                     ?>
                                     <tr class="hover:bg-gray-100  text-center">
-                                        <td class="border-y-2 border-c py-4"> 
-                                            <div class="flex justify-center min-w-20">
-                                                <?= $i ?>
-                                            </div>
-                                        </td>
-                                        <td class="border-y-2 border-c py-2"> 
-                                            <div class="flex justify-center">
-                                                <?= $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'] ?>
-                                            </div>
-                                        </td>
-                                        <td class="border-y-2 border-c py-2"> 
-                                            <div class="flex justify-center">
-                                                <?= $row['document_type'] ?>
+                                        <td class=" border-y-2 border-c py-4">
+                                            <div class="flex justify-center  min-w-20">
+                                                <?php echo $page > 1 ? $i + $j : $i; ?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
-                                                <?= $row['print_date'] ?>
+                                                <?=$row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'] . ' ' . $row['suffix']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2"> 
-                                            <div class="flex justify-center">
-                                                <?= $row['control_number'] ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                                <?=$row['age']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2"> 
+                                        <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
-                                                <?= $row['issued_by'] ?>
+                                                <?=$row['document_type']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2"> 
+                                        <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
-                                                <?= $row['status'] ?>
+                                                <?=$row['control_number']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2"> 
+                                        <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
-                                                <?= $row['purpose'] ?>
+                                                <?=$row['ctc_number']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['issued_by']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['purpose']?>
                                             </div>
                                         </td>
                                     </tr>
-                                    <?php $i++; }?>
-                                </tbody>
-                            </table>
+                                    <?php $i++; } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Page Links -->
+                        <div class=" h-12 rounded-b-sm bg-c">
+                            <?php
+                                //display first and prev
+                                echo "<div class='place-self-end pt-3 p-2'>";
+                                if ($page > 1) {
+                                    echo "<a href='printhistory.php?page=1&search=$search' class='px-4 py-2  text-sm  text-white bg-sg rounded-l-lg hover:opacity-80'>&laquo; First</a>";
+                                    echo "<a href='printhistory.php?page=" . ($page - 1) . "&search=$search' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>&lt; Previous</a>"; // Previous page link
+                                } else {
+                                    echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200 rounded-l-lg'>&laquo; First</span>";
+                                    echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200'>&lt; Previous</span>";
+                                }
+                                //display range of page link
+                                for ($i = max(1, $page - 5); $i <= min($print_total_pages, $page + 5); $i++) {
+                                    if ($i == $page) {
+                                        echo "<span class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</span>";
+                                    } else {
+                                        echo "<a href='printhistory.php?page=" . $i . "&search=$search' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</a>";
+                                    }
+                                }
+                                // Display next and last
+                                if ($page < $print_total_pages) {
+                                   echo "<a href='printhistory.php?page=" . ($page + 1) . "&search=$search' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>Next &gt;</a>"; // Next page link
+                                   echo "<a href='printhistory.php?page=$print_total_pages&search=$search' class='px-4 py-2  text-sm  text-white bg-sg rounded-r-lg hover:opacity-80'>Last &raquo;</a>"; // Last page link
+                                } else {
+                                   echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200'>Next &gt;</span>";
+                                   echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200 rounded-r-lg'>Last &raquo;</span>";
+                                }
+                                echo "</div>";
+                            ?>
                         </div>
                     </div>
-                    <div class=" h-6 rounded-b-sm border-2 border-c bg-c"></div>
+                </div>
+                <?php } else { ?>
+                <!-- No records -->
+                <div class="overflow-hidden mt-4 w-full ">
+                    <div class="border-2 border-c rounded-lg mx-8 bg-white">
+                        <!--No Records Table -->
+                        <div class="h[67vh]">
+                            <div class="rounded-t-sm pt-2 bg-c ">
+                                <table id="residentTable" class="w-full border-collapse">
+                                    <colgroup>
+                                        <col class="w-[100px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[100px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col>
+                                    </colgroup>
+                                    <thead class="bg-c sticky top-0 ">
+                                        <tr class="uppercase">
+                                            <!--Basic Information + Action-->
+                                            <th class="py-4 min-w-20">ID</th>
+                                            <th class="py-4">First Name</th>
+                                            <th class="py-4">Age</th>
+                                            <th class="py-4">Document Type</th>
+                                            <th class="py-4">Control Number</th>
+                                            <th class="py-4">CTC Number</th>
+                                            <th class="py-4">Issued By</th>
+                                            <th class="min-w-20">Purpose</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" text-gray-600 bg-white h-[60vh]">
+                                    <tr class=" text-center">
+                                        <td class=" border-y-2 border-c py-4">
+                                            <div class="flex justify-center  min-w-20">
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                No records found
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class=" h-12 rounded-b-sm bg-c">
+                            <?php
+                                //display first and prev
+                                echo "<div class='place-self-end pt-3 p-2'>";
+                                if ($page > 1) {
+                                    echo "<a href='residentpage.php?page=1&search=$search' class='px-4 py-2  text-sm  text-white bg-sg rounded-l-lg hover:opacity-80'>&laquo; First</a>";
+                                    echo "<a href='residentpage.php?page=" . ($page - 1) . "&search=$search' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>&lt; Previous</a>"; // Previous page link
+                                } else {
+                                    echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200 rounded-l-lg'>&laquo; First</span>";
+                                    echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200'>&lt; Previous</span>";
+                                }
+                                //display range of page link
+                                for ($i = max(1, $page - 5); $i <= min($total_pages, $page + 5); $i++) {
+                                    if ($i == $page) {
+                                        echo "<span class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</span>";
+                                    } else {
+                                        echo "<a href='residentpage.php?page=" . $i . "&search=$search' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</a>";
+                                    }
+                                }
+                                // Display next and last
+                                if ($page < $total_pages) {
+                                   echo "<a href='residentpage.php?page=" . ($page + 1) . "&search=$search' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>Next &gt;</a>"; // Next page link
+                                   echo "<a href='residentpage.php?page=$total_pages&search=$search' class='px-4 py-2  text-sm  text-white bg-sg rounded-r-lg hover:opacity-80'>Last &raquo;</a>"; // Last page link
+                                } else {
+                                   echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200'>Next &gt;</span>";
+                                   echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200 rounded-r-lg'>Last &raquo;</span>";
+                                }
+                                echo "</div>";
+                            ?>
+                        </div>
                     </div>
                 </div>
+                <?php }  ?>
                 <!-- Confirm Print -->
                 <div class="fixed z-50 hidden" id="confirmDeletion">
-                <div class="border-4 w-screen h-screen flex justify-center items-center">
-                    <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-                    <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
-                        <div class="grid justify-center">
-                            <div class="text-3xl font-bold place-self-center mt-12">Confirm Print?</div>
-                            <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
-                        </div>
-                        <div class="flex justify-center space-x-4 mt-6">
-                            <a id="" href="#">
-                                <button class="bg-sg rounded-md w-32 h-12">
-                                    Yes, Delete  
-                                </button>
-                            </a>
-                            <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                    <div class="border-4 w-screen h-screen flex justify-center items-center">
+                        <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                        <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
+                            <div class="grid justify-center">
+                                <div class="text-3xl font-bold place-self-center mt-12">Confirm Print?</div>
+                                <div class="mb-24 mt-4">Are you sure you want to delete this record?</div>
+                            </div>
+                            <div class="flex justify-center space-x-4 mt-6">
+                                <a id="" href="#">
+                                    <button class="bg-sg rounded-md w-32 h-12">
+                                        Yes, Delete  
+                                    </button>
+                                </a>
+                                <button class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

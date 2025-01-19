@@ -27,6 +27,7 @@ foreach ($result as $row) {
         $inactive++;
     }
 }
+
 //Check for duplcates (household)
 $house_nums = [];
 foreach ($result as $row) {
@@ -34,7 +35,6 @@ foreach ($result as $row) {
 }
 
 $arr_length = count($house_nums);
-
 // Track occurrences of each house number
 $house_count = [];
 for ($i = 0; $i < $arr_length; $i++) {
@@ -44,7 +44,6 @@ for ($i = 0; $i < $arr_length; $i++) {
         $house_count[$house_nums[$i]] = 1;  // Initialize count if first time encountering
     }
 }
-
 // Track duplicates and display with count
 $duplicates = [];
 foreach ($house_count as $house_num => $count) {
@@ -52,9 +51,7 @@ foreach ($house_count as $house_num => $count) {
         $duplicates[] = ["house_num" => $house_num, "count" => $count];
     }
 }
-
 $household = 0;
-
 if (!empty($duplicates)) {
     foreach ($duplicates as $duplicate) {
         if(($duplicate['house_num'] != null) || ($duplicate['house_num'] == '')) {
@@ -63,7 +60,8 @@ if (!empty($duplicates)) {
     }
     //echo $household . "<br>";
 } 
-
+$totalHouseHold = $arr_length - $household;
+//for checking
 /*
 if (!empty($duplicates)) {
     foreach ($duplicates as $duplicate) {

@@ -161,7 +161,7 @@ if (!isset($_SESSION['users'])) {
                                 <p class="text-xs stl:text-sm flex items-center">Total Households</p>
                             </div>
                             <div class="h-3/5 flex flex-col justify-center items-center text-center ">
-                                <p class="text-lg stl:text-xl"><?php echo $household; ?><br></p>
+                                <p class="text-lg stl:text-xl"><?php echo $totalHouseHold; ?><br></p>
                                 <p class="text-[10px] stl:text-sm py-2">Total number of Households</p>
                             </div>
                         </div> 

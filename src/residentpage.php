@@ -239,7 +239,7 @@ if (!isset($_SESSION['users'])) {
                                         <col class="w-[200px]">
                                     </colgroup>
                                     <thead class="bg-c sticky top-0 ">
-                                        <tr class="uppercase ">
+                                        <tr class="uppercase">
                                             <!--Basic Information + Action-->
                                             <th class="py-4 min-w-20">ID</th>
                                             <th class="py-4">First Name</th>
@@ -995,87 +995,88 @@ if (!isset($_SESSION['users'])) {
                     </div>
                 </div>
                 <?php } else { ?>
-                    <div class="overflow-hidden mt-4 w-full ">
-                        <div class="border-2 border-c rounded-lg mx-8 bg-white">
-                            <!--Personal Information Table -->
-                            <div class="h[67vh]">
-                                <div class="rounded-t-sm pt-2 bg-c ">
-                                    <table id="residentTable" class="w-full border-collapse">
-                                        <colgroup>
-                                            <col class="w-[100px]">
-                                            <col class="w-[200px]">
-                                            <col class="w-[200px]">
-                                            <col class="w-[200px]">
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col class="w-[200px]">
-                                        </colgroup>
-                                        <thead class="bg-c sticky top-0 ">
-                                            <tr class="uppercase ">
-                                                <!--Basic Information + Action-->
-                                                <th class="py-4 min-w-20">ID</th>
-                                                <th class="py-4">First Name</th>
-                                                <th class="py-4">Middle Name</th>
-                                                <th class="py-4">Last Name</th>
-                                                <th class="py-4">Suffix</th>
-                                                <th class="py-4">Gender</th>
-                                                <th class="py-4">Age</th>
-                                                <th class="min-w-20">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class=" text-gray-600 bg-white h-[60vh] ">
-                                        <tr class=" text-center">
-                                            <td class=" border-y-2 border-c py-4">
-                                                <div class="flex justify-center  min-w-20">
-                                                </div>
-                                            </td>
-                                            <td class="border-y-2 border-c py-2">
-                                                <div class="flex justify-center">
-                                                </div>
-                                            </td>
-                                            <td class="border-y-2 border-c py-2">
-                                                <div class="flex justify-center" >
-                                                </div>
-                                            </td>
-                                            <td class="border-y-2 border-c py-2">
-                                                <div class="flex justify-center">
-                                                </div>
-                                            </td>
-                                            <td class="border-y-2 border-c py-2">
-                                                <div class="flex justify-center">
-                                                    No records found
-                                                </div>
-                                            </td>
-                                            <td class="border-y-2 border-c py-2">
-                                                <div class="flex justify-center">
-                                                </div>
-                                            </td>
-                                            <td class="border-y-2 border-c py-2">
-                                                <div class="flex justify-center">
-                                                </div>
-                                            </td>
-                                            <?php
-                                            if (hasPermission('system_settings')){
-                                            ?>
-                                            <td class="border-y-2 border-c py-2">
-                                                <div class="flex justify-center items-center">
-                                                </div>
-                                            </td>
-                                            <?php
-                                            } else {
-                                            ?>
-                                            <td class="border-y-2 border-c py-2">
-                                                <div class="flex justify-center items-center">
-                                                </div>
-                                            </td>
-                                            <?php } ?>
+                <!-- No records -->
+                <div class="overflow-hidden mt-4 w-full ">
+                    <div class="border-2 border-c rounded-lg mx-8 bg-white">
+                        <!--Personal Information Table -->
+                        <div class="h[67vh]">
+                            <div class="rounded-t-sm pt-2 bg-c ">
+                                <table id="residentTable" class="w-full border-collapse">
+                                    <colgroup>
+                                        <col class="w-[100px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col>
+                                        <col>
+                                        <col>
+                                        <col class="w-[200px]">
+                                    </colgroup>
+                                    <thead class="bg-c sticky top-0 ">
+                                        <tr class="uppercase ">
+                                            <!--Basic Information + Action-->
+                                            <th class="py-4 min-w-20">ID</th>
+                                            <th class="py-4">First Name</th>
+                                            <th class="py-4">Middle Name</th>
+                                            <th class="py-4">Last Name</th>
+                                            <th class="py-4">Suffix</th>
+                                            <th class="py-4">Gender</th>
+                                            <th class="py-4">Age</th>
+                                            <th class="min-w-20">Action</th>
                                         </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </thead>
+                                    <tbody class=" text-gray-600 bg-white h-[60vh] ">
+                                    <tr class=" text-center">
+                                        <td class=" border-y-2 border-c py-4">
+                                            <div class="flex justify-center  min-w-20">
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center" >
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                No records found
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                            </div>
+                                        </td>
+                                        <?php
+                                        if (hasPermission('system_settings')){
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                            </div>
+                                        </td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center items-center">
+                                            </div>
+                                        </td>
+                                        <?php } ?>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class=" h-12 rounded-b-sm bg-c">
+                        </div>
+                        <div class=" h-12 rounded-b-sm bg-c">
                             <?php
                                 //display first and prev
                                 echo "<div class='place-self-end pt-3 p-2'>";
@@ -1105,8 +1106,8 @@ if (!isset($_SESSION['users'])) {
                                 echo "</div>";
                             ?>
                         </div>
-                        </div>
                     </div>
+                </div>
                 <?php }  ?>
             </div>
         </div>
