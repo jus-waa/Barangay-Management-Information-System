@@ -187,8 +187,9 @@ if (!isset($_SESSION['users'])) {
                                         <col class="w-[100px]">
                                         <col class="w-[200px]">
                                         <col class="w-[200px]">
+                                        <col class="w-[150px]">
                                         <col class="w-[200px]">
-                                        <col class="w-[200px]">
+                                        <col>
                                         <col>
                                     </colgroup>
                                     <thead class="bg-c sticky top-0 ">
@@ -201,6 +202,7 @@ if (!isset($_SESSION['users'])) {
                                             <th class="py-4">Control Number</th>
                                             <th class="py-4">CTC Number</th>
                                             <th class="py-4">Issued By</th>
+                                            <th class="py-4">Issued Date</th>
                                             <th class="min-w-20">Purpose</th>
                                         </tr>
                                     </thead>
@@ -246,6 +248,11 @@ if (!isset($_SESSION['users'])) {
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
                                                 <?=$row['issued_by']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['print_date']?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-c py-2">

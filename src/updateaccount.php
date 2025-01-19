@@ -32,9 +32,7 @@
         //check if empty, check for email validation, then email duplicates
         if (empty($username) || empty($email) || empty($pass) || empty($pass_re) || empty($contact_info)) {
             $_SESSION['empty_info'] = "Please fill in required information.";
-        } else  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['email_format'] = "Invalid email format";
-        }
+        } 
         //check for password strength
         if(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', $pass)) {
             $_SESSION['pass_min'] = "Password too weak.";
