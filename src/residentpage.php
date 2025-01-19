@@ -304,7 +304,7 @@ if (!isset($_SESSION['users'])) {
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
                                                 <a href="backend/edit.php?id=<?= $row['id']?>">
-                                                    <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
+                                                    <button class="w-6 mr-1 cursor-pointer flex justify-center items-center" name="id" id="editBtn"> 
                                                     <img src="../img/edit.svg" alt="edit"/>
                                                     </button>
                                                 </a>
@@ -343,9 +343,11 @@ if (!isset($_SESSION['users'])) {
                                     <colgroup>
                                         <col class="w-[100px]">
                                         <col class="w-[200px]">
-                                        <col>
-                                        <col>
-                                        <col>
+                                        <col class="w-[200px]">
+                                        <col class="w-[300px]">
+                                        <col class="w-[300px]">
+                                        <col class="w-[250px]">
+                                        <col class="w-[250px]">
                                         <col class="w-[200px]">
                                     </colgroup>
                                     <thead class=" bg-c sticky top-0">
@@ -354,8 +356,10 @@ if (!isset($_SESSION['users'])) {
                                             <th class="py-4 min-w-20">ID</th>
                                             <th class="py-4 text-sg">Full Name</th>                            
                                             <th class="py-4">Date of Birth</th>
-                                            <th class="py-4">Place of Birth Municipality/City</th>
-                                            <th class="py-4">Place of Birth Province</th>
+                                            <th>Place of Birth Municipality/City</th>
+                                            <th>Place of Birth Province</th>
+                                            <th class="py-4">Father's Name</th>                            
+                                            <th class="py-4">Mother's Maiden Name</th>
                                             <th class="py-4 min-w-20">Action</th>
                                         </tr>
                                     </thead>
@@ -391,6 +395,16 @@ if (!isset($_SESSION['users'])) {
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
                                                 <?=$row['birthplace_province']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['father_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['mother_maiden_name']?>
                                             </div>
                                         </td>
                                         <?php
@@ -437,8 +451,8 @@ if (!isset($_SESSION['users'])) {
                                 <table id="residentTable" class="w-full border-collapse">
                                     <colgroup>
                                         <col class="w-[100px]">
-                                        <col class="w-[400px]">
-                                        <col>
+                                        <col class="w-[200px]">
+                                        <col class="w-[600px]">
                                         <col>
                                         <col class="w-[200px]">
                                     </colgroup>
@@ -641,7 +655,8 @@ if (!isset($_SESSION['users'])) {
                                 <table id="residentTable" class="w-full border-collapse ">
                                     <colgroup>
                                         <col class="w-[100px]">
-                                        <col class="w-[400px]">
+                                        <col class="w-[200px]">
+                                        <col >
                                         <col >
                                         <col >
                                         <col class="w-[200px]">
@@ -653,7 +668,7 @@ if (!isset($_SESSION['users'])) {
                                             <th class="py-4  text-sg">Full Name</th>                            
                                             <th class="py-4">Civil Status</th>
                                             <th class="py-4">Citizenship</th>
-
+                                            <th class="py-4">Ethnicity</th>
                                             <th class="py-4 min-w-20">Action</th>
                                         </tr>
                                     </thead>
@@ -684,6 +699,11 @@ if (!isset($_SESSION['users'])) {
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
                                                 <?=$row['citizenship']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['ethnicity']?>
                                             </div>
                                         </td>
                                         <?php
@@ -839,7 +859,7 @@ if (!isset($_SESSION['users'])) {
                                 <table id="residentTable" class="w-full border-collapse ">
                                     <colgroup>
                                         <col class="w-[100px]">
-                                        <col class="w-[300px]">
+                                        <col class="w-[200px]">
                                         <col class="w-[200px]">
                                         <col class="w-[250px]">
                                         <col class="w-[275px]">
