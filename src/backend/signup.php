@@ -5,7 +5,7 @@
         header('location: login.php');
         exit();
     }
-    
+
     include('connection.php');
     if (isset($_POST['signup'])) {
         $username = $_POST['username'];

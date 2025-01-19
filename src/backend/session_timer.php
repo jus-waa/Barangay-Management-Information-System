@@ -13,5 +13,5 @@ if ($remaining_time <= 0) {
     session_destroy(); // Destroy the session
     header("Location: loginpage.php");  // Redirect to login page after session expiration
     exit();
-}
+}//
 ?>

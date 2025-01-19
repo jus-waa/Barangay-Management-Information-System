@@ -16,7 +16,7 @@ try {
         $total_sql = "SELECT COUNT(*) AS total FROM `resident_info` WHERE first_name LIKE :search";
         $stmt_total = $dbh->prepare($total_sql);
         $stmt_total->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
-    }
+    }//
     $stmt_total->execute();
     $total_row = $stmt_total->fetch(PDO::FETCH_ASSOC);
     $total_records = $total_row['total']; // Total number of records

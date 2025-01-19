@@ -4,7 +4,7 @@ $file_name = $_FILES["file"]["tmp_name"];
 if(empty($file_name)) {
     echo "<div class=error_message> Upload File.</div>";
     exit();
-}
+}//
 $i = 0;
 if($_FILES["file"]["size"] > 0) {
     $file = fopen($file_name, "r");

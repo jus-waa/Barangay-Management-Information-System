@@ -1,7 +1,7 @@
 <?php
 $timeTarget = 0.350; //miliseonds
 $cost = 10; //base cost (default aslo)
-
+//
 do {
     $cost++;
     $start = microtime(true);

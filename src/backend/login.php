@@ -29,5 +29,5 @@ include("connection.php");
         $_SESSION['login_msg'] = "Invalid credentials!";
         header('location: ../loginpage.php');
         exit();
-    }   
+    }   //
 ?>

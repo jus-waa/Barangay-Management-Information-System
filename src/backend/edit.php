@@ -69,7 +69,7 @@ if(isset($_POST['update'])) {
                 `eye_color` = :eye_color,
                 `blood_type` = :blood_type,
                 `religion` = :religion WHERE `id`=$id";
-
+//
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
         $stmt->bindParam(':middle_name', $middle_name, PDO::PARAM_STR);

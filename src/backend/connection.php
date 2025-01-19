@@ -7,5 +7,5 @@
     } catch (PDOException $e) {
         $error_message = $e->getMessage();
         exit();
-    }
+    }//
 ?>

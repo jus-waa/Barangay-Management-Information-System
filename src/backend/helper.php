@@ -11,5 +11,5 @@ function hasPermission($permission_name) {
     $stmt->execute(['role_id' => $role_id, 'permission_name' => $permission_name]);
     return $stmt->fetchColumn() > 0;
 }
-
+//
 ?>

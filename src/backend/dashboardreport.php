@@ -6,7 +6,7 @@ $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 //from resident info
 $i = 0;
-$male = 0;
+$male = 0;//
 $female = 0;
 $active = 0;
 $inactive = 0;
