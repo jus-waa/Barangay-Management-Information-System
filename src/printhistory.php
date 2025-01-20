@@ -3,7 +3,7 @@ include("backend/connection.php");
 include("backend/pagination.php");
 include("backend/helper.php");
 //for timer
-if(!hasPermission('system_settings')){
+if(hasPermission('system_settings')){
     include("backend/session_timer.php");
 } 
 //require login first
@@ -140,7 +140,7 @@ if (!isset($_SESSION['users'])) {
                     <b>Barangay Buna Cerca</b><br>
                     <div class="flex items-center">
                         <p class="text-[20px] italic">Transaction History</p>
-                        <?php if(!hasPermission('system_settings')) : ?>
+                        <?php if(hasPermission('system_settings')) : ?>
                             <p class="text-[16px] italic transform translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
                         <?php endif ?>
                     </div>

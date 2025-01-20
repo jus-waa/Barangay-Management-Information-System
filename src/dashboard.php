@@ -3,7 +3,7 @@ session_start();
 include("backend/connection.php");
 include("backend/helper.php");
 //for timer
-if(!hasPermission('system_settings')){
+if(hasPermission('system_settings')){
     include("backend/session_timer.php");
 } 
 include("backend/dashboardreport.php");
@@ -142,7 +142,7 @@ if (!isset($_SESSION['users'])) {
                     <br>
                     <div class="flex items-center">
                         <p class="text-[20px] italic">Dashboard</p>
-                        <?php if(!hasPermission('system_settings')) : ?>
+                        <?php if(hasPermission('system_settings')) : ?>
                             <p class="text-[16px] italic transform translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
                         <?php endif ?>
                     </div>
