@@ -194,8 +194,8 @@ if (!isset($_SESSION['users'])) {
                             <tr class="uppercase">
                                 <!--Basic Information + Action-->
                                 <th class="w-12 py-4">ID</th>
-                                <th class="">Username</th>
-                                <th class="w-56">Email</th>
+                                <th class="">Name</th>
+                                <th class="w-56">Username</th>
                                 <th class="w-32">Contact Information</th>
                                 <th class="">Date Created</th>
                                 <th class="">Date Updated</th>
@@ -285,8 +285,8 @@ if (!isset($_SESSION['users'])) {
                             <tr class="uppercase ">
                                 <!--Basic Information + Action-->
                                 <th class="w-12 py-4">ID</th>
-                                <th class="">Username</th>
-                                <th class="w-56">Email</th>
+                                <th class="">Name</th>
+                                <th class="w-56">Username</th>
                                 <th class="w-32">Contact Information</th>
                                 <th class="">Date Created</th>
                                 <th class="">Date Updated</th>

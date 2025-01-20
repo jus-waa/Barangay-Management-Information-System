@@ -2,13 +2,13 @@
 session_start();
  //db connection
 include("connection.php");
-    $email = $_POST['email'];
+    $username = $_POST['username'];
     $pass = $_POST['pass'];
     
     //select data and a prepared stmt to avoid sql inject
-    $query = 'SELECT * FROM users WHERE users.email = :e'; // AND users.password = :p
+    $query = 'SELECT * FROM users WHERE users.username = :e'; // AND users.password = :p
     $stmt = $dbh->prepare($query);
-    $stmt->execute(array(":e" => $email));//, ":p" => $pass
+    $stmt->execute(array(":e" => $username));//, ":p" => $pass
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     //check if user exists
     if(password_verify($pass, $result['password'])){
@@ -19,7 +19,7 @@ include("connection.php");
         //redirect to this location
         header('location: ../dashboard.php');
         exit();
-    } else if (empty($email) || empty($pass)){
+    } else if (empty($username) || empty($pass)){
         //return to page
         $_SESSION['login_msg'] = "Empty credentials!";
         header('location: ../loginpage.php');
