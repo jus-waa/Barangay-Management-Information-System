@@ -2053,12 +2053,6 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.hover\:scale-150:hover {
-  --tw-scale-x: 1.5;
-  --tw-scale-y: 1.5;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 @keyframes shake {
   10%, 90% {
     transform: translate3d(-1px, 0, 0);
@@ -2093,6 +2087,11 @@ video {
 
 .hover\:animate-wiggle:hover {
   animation: wiggle 1s ease-in-out infinite;
+}
+
+.hover\:border-c:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(175 225 175 / var(--tw-border-opacity, 1));
 }
 
 .hover\:border-red-500:hover {

@@ -155,18 +155,18 @@ if (!isset($_SESSION['users'])) {
             <!-- Body -->
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
             <!-- Outer Box -->
-            <div class="flex-1 grid grid-cols-[auto_30rem] gap-x-4 border-2 p-2 stl:p-4">
+            <div class="flex-1 grid grid-cols-[auto_30rem] gap-x-4 p-2 stl:p-4">
                 <div class="grid grid-rows-[11rem_auto] stl:grid-rows-[13rem_auto] gap-y-4 rounded-xl">
                     <!-- First Upper Box -->
-                    <div class="grid grid-rows-[5rem_auto] h-32 stl:h-52 w-full bg-white border-2 border-sg rounded-xl ">
+                    <div class="grid grid-rows-[5rem_auto] h-32 stl:h-52 w-full bg-sg border-2 border-sg rounded-xl text-white">
                        <div class="flex items-center justify-between p-6 drop-shadow-md mt-2">
                             <h1 class="text-4xl font-bold ">
                                 Population Overview
                             </h1>
                             <div>
-                                <a href="documents/print/dashboard_print.php" class="flex px-6 p-1 rounded-xl border-2 border-sg bg-c place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" target="_blank"> 
+                                <a href="documents/print/dashboard_print.php" class="flex px-6 p-1 rounded-xl border-2 border-sg bg-c place-self-center hover:border-c hover:bg-c hover:text-white transition duration-300" target="_blank"> 
                                     <img src="../img/printer.png" class="size-12" alt="">
-                                    <button >
+                                    <button class="text-black">
                                         Print Dashboard
                                     </button>
                                 </a>
@@ -174,7 +174,7 @@ if (!isset($_SESSION['users'])) {
                         </div>
                         <div class="grid grid-cols-[18rem_18rem_18rem_auto] rounded-xl">
                             <div class="flex justify-center items-center space-x-4 rounded-l-xl">
-                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:animate-wiggle hover:scale-125"> 
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:border-c hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/total-res.png" alt="">
                                 </div>
                                 <div class="flex items-center justify-center flex-col mb-[18px]"> 
@@ -183,41 +183,41 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                             <div class="flex justify-center items-center space-x-4">
-                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:animate-wiggle hover:scale-125"> 
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:border-c hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/total-household.png" alt="">
                                 </div>
                                 <div class="flex items-center justify-center flex-col mb-[18px]"> 
                                     <p>Total Residents</p>
-                                    <p class="text-4xl font-bold"><?= $i ?></p>
+                                    <p class="text-4xl font-bold"><?= $totalRes ?></p>
                                 </div>
                             </div>
                             <div class="flex justify-center items-center space-x-4">
-                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:animate-wiggle hover:scale-125"> 
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:border-c hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/active-res.png" alt="">
                                 </div>
                                 <div class="flex items-center justify-center flex-col"> 
                                     <p>Active Residents</p>
                                     <p class="text-4xl font-bold"><?= $active ?></p>
-                                    <p class="text-sm">out of <?= $i?></p>
+                                    <p class="text-sm">out of <?= $totalRes?></p>
                                 </div>
                             </div>
                             <div class="flex justify-center items-center space-x-4 rounded-r-xl">
-                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:animate-wiggle hover:scale-125"> 
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:border-c hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/res-type.png" alt="">
                                 </div>
                                 <div class="flex items-center justify-center flex-col mb-[8px]"> 
                                     <p>Resident Type</p>
                                     <div class="flex text-center space-x-4">
                                         <div>
-                                            <p class="text-2xl font-bold"><?= $i ?></p>
+                                            <p class="text-2xl font-bold"><?= $permanent ?></p>
                                             <p class="text-sm">Permanent</p>
                                         </div>
                                         <div>
-                                            <p class="text-2xl font-bold"><?= $i ?></p>
+                                            <p class="text-2xl font-bold"><?= $temporary ?></p>
                                             <p class="text-sm">Temporary</p>
                                         </div>
                                         <div>
-                                            <p class="text-2xl font-bold"><?= $i ?></p>
+                                            <p class="text-2xl font-bold"><?= $student ?></p>
                                             <p class="text-sm">Student</p>
                                         </div>
                                     </div>
@@ -229,7 +229,7 @@ if (!isset($_SESSION['users'])) {
                     <div class="grid grid-cols-[75.5%_23.5%] gap-4 border-2 h-full w-full border-sg rounded-xl bg-white p-6">
                         <div class="grid gap-y-4">
                             <div class="flex justify-between items-center w-full drop-shadow-xl">
-                                <h1 class="text-4xl font-bold">Weekly Report</h1>
+                                <h1 class="text-4xl font-bold">Document Issuance Data</h1>
                                 <h1 class="flex space-x-2 text-gray-500">
                                     <p>This Week</p> 
                                     <img src="../img/arrow-down.png" alt="">
@@ -241,19 +241,19 @@ if (!isset($_SESSION['users'])) {
                         </div>
                         <div class="grid grid-rows-4 gap-y-4">
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-2xl font-bold"><?=$n?></div>
+                                <div class="text-2xl font-bold"><?=$totalDocs?></div>
                                 <p class="text-sm">Total documents issued</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-2xl font-bold"><?=$n?></div>
+                                <div class="text-2xl font-bold"><?=$brgyclr?></div>
                                 <p class="text-sm">Total documents issued</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-2xl font-bold"><?=$n?></div>
+                                <div class="text-2xl font-bold"><?=$certIndigency?></div>
                                 <p class="text-sm">Total documents issued</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9]  rounded-xl">
-                                <div class="text-2xl font-bold"><?=$n?></div>
+                                <div class="text-2xl font-bold"><?=$certResidency?></div>
                                 <p class="text-sm">Total documents issued</p>
                             </div>
                         </div>
@@ -262,7 +262,7 @@ if (!isset($_SESSION['users'])) {
                 <!-- Demographics -->
                 <div class="flex flex-col items-center space-y-4  border-2 border-sg rounded-xl bg-white p-6">
                     <h1 class="text-4xl font-bold">
-                        Population Overview
+                        Community Metrics
                     </h1>
                     <!-- Age Brackets Chart-->
                     <div class="h-1/2 w-full">
@@ -294,23 +294,23 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                                 <div class="flex justify-between px-4">
                                     <div class="place-items-center text-2xl p-2">
-                                        <h1 class="font-bold "><?= $i ?></h1>
+                                        <h1 class="font-bold "><?= $single ?></h1>
                                         <p class="text-xs">SINGLE</p>
                                     </div>
                                     <div class="place-items-center text-2xl p-2">
-                                        <h1 class="font-bold "><?= $i ?></h1>
+                                        <h1 class="font-bold "><?= $married ?></h1>
                                         <p class="text-xs">MARRIED</p>
                                     </div>
                                     <div class="place-items-center text-2xl p-2">
-                                        <h1 class="font-bold "><?= $i ?></h1>
+                                        <h1 class="font-bold "><?= $divorced ?></h1>
                                         <p class="text-xs">DIVORCED</p>
                                     </div>
                                     <div class="place-items-center text-2xl p-2">
-                                        <h1 class="font-bold "><?= $i ?></h1>
+                                        <h1 class="font-bold "><?= $separated ?></h1>
                                         <p class="text-xs">SEPARATED</p>
                                     </div>
                                     <div class="place-items-center text-2xl p-2">
-                                        <h1 class="font-bold "><?= $i ?></h1>
+                                        <h1 class="font-bold "><?= $widowed ?></h1>
                                         <p class="text-xs">WIDOWED</p>
                                     </div>
                                 </div>
@@ -322,35 +322,35 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                                 <div class="flex justify-between px-4 ">
                                     <div class="place-items-center text-lg p-2">
-                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $a_plus ?></h1>
                                         <p class="text-xs text-white">A+</p>
                                     </div>
                                     <div class="place-items-center text-lg p-2">
-                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $a_minus ?></h1>
                                         <p class="text-xs text-white">A-</p>
                                     </div>
                                     <div class="place-items-center text-lg p-2">
-                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $b_plus ?></h1>
                                         <p class="text-xs text-white">B+</p>
                                     </div>
                                     <div class="place-items-center text-lg p-2">
-                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $b_minus ?></h1>
                                         <p class="text-xs text-white">B-</p>
                                     </div>
                                     <div class="place-items-center text-lg p-2">
-                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $ab_plus ?></h1>
                                         <p class="text-xs text-white">AB+</p>
                                     </div>
                                     <div class="place-items-center text-lg p-2">
-                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $ab_minus ?></h1>
                                         <p class="text-xs text-white">AB-</p>
                                     </div>
                                     <div class="place-items-center text-lg p-2">
-                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $o_plus ?></h1>
                                         <p class="text-xs text-white">O+</p>
                                     </div>
                                     <div class="place-items-center text-lg p-2">
-                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $o_minus ?></h1>
                                         <p class="text-xs text-white">O-</p>
                                     </div>
                                 </div>
@@ -406,16 +406,20 @@ if (!isset($_SESSION['users'])) {
 </script>
 <script>
     const ageGroupCtx = document.getElementById("ageGroupChart").getContext("2d");
-    const infant = 5;
-    const toddler = 12;
-    const teenager = 123;
-    const youngAdult = 5;
-    const middleAgedAdult = 123;
-    const seniorAdult = 23;
+    
+    const infant = <?php echo $infantJSON; ?>;
+    const toddler = <?php echo $toddlerJSON; ?>;
+    const child = <?php echo $childJSON; ?>;
+    const teenager = <?php echo $teenagerJSON; ?>;
+    const youngAdult = <?php echo $youngAdultJSON; ?>;
+    const middleAgedAdult = <?php echo $middleAgedAdultJSON; ?>;
+    const seniorAdult = <?php echo $seniorAdultJSON; ?>;
+    const totalRes = <?php echo $totalResJSON; ?>;
+
     const config4 = {
         type: 'bar',
         data: {
-            labels: ["Infant", "Toddler", "Teenager/Adolescent", "Young Adult", "Middle-Aged Adult", "Senior/Older Adult"],
+            labels: ["Infant", "Toddler", "Child", "Teenager/Adolescent", "Young Adult", "Middle-Aged Adult", "Senior/Older Adult"],
             datasets: [{
                 label: "Age Group Distribution",
                 data: [infant, toddler, teenager, youngAdult, middleAgedAdult, seniorAdult], // Values
@@ -453,62 +457,20 @@ if (!isset($_SESSION['users'])) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 2000,
+                    max: totalRes,
                     ticks: {
-                        stepSize: 100,
+                        stepSize: totalRes/10,
                     }
                 }
             }
         }
     };
-
-    // Initialize the chart
     const ageGroupChart = new Chart(ageGroupCtx, config4);
-</script>
-<script>
-    // Document Chart
-    const documentctx = document.getElementById("documentChart").getContext("2d");
-    const brgyclr = <?php echo $brgyclrJSON; ?> // use the converted JSON in this script
-    // Data config
-    const config2 = {
-        type: 'pie',
-        data: {
-        labels: ["Barangay Clearance", "Certificate of Indigency", "Certificate of Residency"],
-            datasets: [{
-                label: "Documents Issued Breakdown",
-                data: [brgyclr, male, female], //Values
-                backgroundColor: [
-                'rgba(0, 0, 0, 0)',
-                'rgba(175, 225, 175, 1)',
-                'rgba(76, 147, 76, 1)',
-            ],
-            borderColor: [
-              'rgba(76, 147, 76, 1)',
-              'rgba(76, 147, 76, 1)',
-              'rgba(76, 147, 76, 1)',
-            ],
-            borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Documents Issued Breakdown'
-                }
-            }
-        }
-    };
-    const documentChart = new Chart(documentctx, config2);
 </script>
 <script>
     // Weekly Report
     const weeklyReportctx = document.getElementById("weeklyReportChart").getContext("2d");
-
+    const totalDocs = <?php echo $totalDocsJson; ?>;
     const weeklyData = <?php echo json_encode($documentCounts); ?>;
 
     const config3 = {
@@ -548,7 +510,7 @@ if (!isset($_SESSION['users'])) {
             },
             beginAtZero: true, // Start Y-axis at zero\
             min: 0,
-            max: 20,
+            max: totalDocs,
             stepSize: 2,
           }
         }
