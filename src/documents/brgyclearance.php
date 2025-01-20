@@ -72,6 +72,59 @@ if (isset($_POST['confirm'])) {
         echo "Error: " . $e->getMessage();
     }
 } 
+if (isset($_POST['confirmPrintSignature'])) {
+    try{
+        $first_name = $_POST['first_name']; 
+        $middle_name =  $_POST['middle_name']; 
+        $last_name =  $_POST['last_name'];
+        $suffix = $_POST['suffix'];
+        $age = $_POST['age'];
+        $document_type = 'Barangay Clearance';
+        $barangay_name = 'Barangay Buna Cerca';
+        $print_date = $_POST['print_date'];
+        $control_number = $_POST['control_number'];
+        $ctc_number = $_POST['ctc_number'];
+        $issued_by = $resultUser['username'];
+        $purpose = $_POST['purpose'];
+        
+        if($middle_name == NULL) {
+            $middle_name = '';
+        }
+        if($suffix == NULL) {
+            $suffix = '';
+        }
+ 
+        $query = "INSERT INTO `print_history`(`first_name`, `middle_name`, `last_name`,  `suffix`, `age`, `document_type`, `barangay_name` ,`print_date`, `control_number`, `ctc_number`,  `issued_by`, `purpose`) VALUES (:first_name, :middle_name, :last_name, :suffix, :age, :document_type, :barangay_name, :print_date, :control_number, :ctc_number, :issued_by, :purpose)";
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+        $stmt->bindParam(':middle_name', $middle_name, PDO::PARAM_STR);
+        $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+        $stmt->bindParam(':suffix', $suffix, PDO::PARAM_STR);
+        $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+        $stmt->bindParam(':document_type', $document_type, PDO::PARAM_STR);
+        $stmt->bindParam(':barangay_name', $barangay_name, PDO::PARAM_STR);
+        $stmt->bindParam(':print_date', $print_date, PDO::PARAM_STR);
+        $stmt->bindParam(':control_number', $control_number, PDO::PARAM_STR);
+        $stmt->bindParam(':ctc_number', $ctc_number, PDO::PARAM_STR);
+        $stmt->bindParam(':issued_by', $issued_by, PDO::PARAM_STR);
+        $stmt->bindParam(':purpose', $purpose, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // Get ID of selected record
+        $lastInsertId = $dbh->lastInsertId();
+
+        if ($stmt) {
+            //header("Location: print/brgyclearance_print.php?id=" . $lastInsertId);
+            echo "<script>
+                window.open('print/brgyclearance_print_signatured.php?id=$lastInsertId', '_blank');
+                window.open('../generatedocuments.php', '_self');
+            </script>";
+            exit;
+        }
+    } catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -270,18 +323,23 @@ if (isset($_POST['confirm'])) {
                     </div>
                 </div>
                 <!-- Buttons -->
-                <div class="flex justify-end items-center gap-2">
+                <div class="flex items-center justify-between">
                     <!-- Old Print (Copy Later)
                     <a href="print/brgyclearance_print.php?id=<?= $row['id']?>">
                         <button class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Print </button>
                     </a>
                     -->
-                    <button id="add-button" type="button" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="confirmPrint(<?= $row['id'] ?>)">
-                        Print
+                    <button type="button" class="rounded-md w-48 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="confirmPrintSig(<?= $row['id'] ?>)">
+                        Print with <b>Signature</b>
                     </button>
-                    <a href="../generatedocuments.php">
-                        <button id="cancel-button" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button>
-                    </a>
+                    <div class="flex justify-end items-center gap-2">
+                        <button id="add-button" type="button" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="confirmPrint(<?= $row['id'] ?>)">
+                            Print
+                        </button>
+                        <a href="../generatedocuments.php">
+                            <button id="cancel-button" class="rounded-md border-2 border-c w-32 p-2 place-self-center hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700">Cancel</button>
+                        </a>
+                    </div>
                 </div>
                 <!-- Confirm Print -->
                 <div class="fixed inset-0 z-50 hidden" id="confirmPrint">
@@ -293,11 +351,30 @@ if (isset($_POST['confirm'])) {
                                 <div class="mb-24 mt-4">Do you want to print this record?</div>
                             </div>
                             <div class="flex justify-center space-x-4 mt-6">
-                                <button  type="submit" name="confirm" class="bg-sg rounded-md w-32 h-12">
-                                <input  type="hidden" value="<?= $row['id'] ?>">
+                                <button type="submit" name="confirm" class="bg-sg rounded-md w-32 h-12">
+                                <input type="hidden" value="<?= $row['id'] ?>">
                                     Yes
                                 </button>
                                 <button name="cancel" class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmation()">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Confirm Print with Signature -->
+                <div class="fixed inset-0 z-50 hidden" id="confirmSig">
+                    <div class="w-screen h-screen flex justify-center items-center">
+                        <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                        <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">
+                            <div class="grid justify-center">
+                                <div class="text-3xl font-bold place-self-center mt-12">Confirm Print?</div>
+                                <div class="mb-24 mt-4">Do you want to print this record?</div>
+                            </div>
+                            <div class="flex justify-center space-x-4 mt-6">
+                                <button type="submit" name="confirmPrintSignature" class="bg-sg rounded-md w-32 h-12">
+                                <input  type="hidden" value="<?= $row['id'] ?>">
+                                    Yes
+                                </button>
+                                <button name="cancel" class="bg-sg rounded-md w-32 h-12" onclick="cancelConfirmationSig()">No</button>
                             </div>
                         </div>
                     </div>
@@ -457,9 +534,19 @@ if (isset($_POST['confirm'])) {
     function confirmPrint() {
         document.getElementById("confirmPrint").classList.remove("hidden");
     }
+    //confirm print with signature
+    function confirmPrintSig() {
+        document.getElementById("confirmSig").classList.remove("hidden");
+    }
     function cancelConfirmation() {
         document.getElementById("confirmPrint").classList.add("hidden");
     }
+    function cancelConfirmationSig() {
+        document.getElementById("confirmSig").classList.add("hidden");
+    }
+
+    
+ 
 
     //script for requiring input fields
     document.addEventListener("DOMContentLoaded", () => {
@@ -477,9 +564,6 @@ if (isset($_POST['confirm'])) {
     const purposeError = document.getElementById("purpose-error");
     const issuedByError = document.getElementById("issued-by-error");
     const ctcNumberError = document.getElementById("ctc-number-error");
-
-    const addButton = document.getElementById("add-button"); // Assume the Add button has this ID
-    const cancelButton = document.getElementById("cancel-button"); // Assume the Cancel button has this ID
 
     form.addEventListener("submit", (event) => {
             let isValid = true;
@@ -544,6 +628,7 @@ if (isset($_POST['confirm'])) {
                 event.preventDefault();
                 firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
                 document.getElementById("confirmPrint").classList.add("hidden");
+                document.getElementById("confirmSig").classList.add("hidden");
             } 
 
         });
