@@ -446,8 +446,8 @@ if (!isset($_SESSION['users'])) {
                             <!-- Search -->
                             <div class="relative flex justify-center items-center my-4">
                                 <form method="GET" class="flex justify-center items-center w-full place-self-center">
-                                    <input name="prevSearch" id="prevSearch" type="text" placeholder="Search..." value="<?= isset($prevSearch) ? htmlspecialchars($prevSearch) : ''; ?>" class="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 ring-sg h-8 z-10 transform translate-x-4" >
-                                    <button type="submit" id="prevSearchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20 transform -translate-x-4">
+                                    <input name="prevSearch" id="prevSearchInput" type="text" placeholder="Search..." value="<?= isset($prevSearch) ? htmlspecialchars($prevSearch) : ''; ?>" class="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 ring-sg h-8 z-10 transform translate-x-4" >
+                                    <button type="submit" id="prevSearchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20 transform -translate-x-4 pointer-events-none">
                                         <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
                                     </button>
                                 </form>
@@ -661,8 +661,8 @@ if (!isset($_SESSION['users'])) {
                             <!-- Search -->
                             <div class="relative flex justify-center items-center my-4">
                                 <form method="GET" class="flex justify-center items-center w-full place-self-center">
-                                    <input name="futureSearch" id="futureSearch" type="text" placeholder="Search..." value="<?= isset($futureSearch) ? htmlspecialchars($futureSearch) : ''; ?>" class="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 ring-sg h-8 z-10 transform translate-x-4" >
-                                    <button type="submit" id="futureSearchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20 transform -translate-x-4">
+                                    <input name="futureSearch" id="futureSearchInput" type="text" placeholder="Search..." value="<?= isset($futureSearch) ? htmlspecialchars($futureSearch) : ''; ?>" class="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 ring-sg h-8 z-10 transform translate-x-4" >
+                                    <button type="submit" id="futureSearchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20 transform -translate-x-4 pointer-events-none">
                                         <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
                                     </button>
                                 </form>
@@ -866,6 +866,26 @@ if (!isset($_SESSION['users'])) {
         </div>
     </div>
 <script>
+    //prevents modal on closing if prevsearch is empty
+    document.getElementById("prevSearchInput").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            // Check if the input value is empty
+            if (document.getElementById("prevSearchInput").value.trim() === "") {
+                event.preventDefault();  // Prevent the modal from closing if the input is empty
+                window.location.href = "printhistory.php?category=previous&prevSearch=";
+            }
+        }
+    });
+    //prevents modal on closing if prevsearch is empty
+    document.getElementById("futureSearchInput").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            // Check if the input value is empty
+            if (document.getElementById("futureSearchInput").value.trim() === "") {
+                event.preventDefault();  // Prevent the modal from closing if the input is empty
+                window.location.href = "printhistory.php?category=future&futureSearch=";
+            }
+        }
+    });
     //on load if there is id in the url close select records
     document.addEventListener("DOMContentLoaded", function() {
         if (window.location.href.indexOf("category=previous") !== -1) {

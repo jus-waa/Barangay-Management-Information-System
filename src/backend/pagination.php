@@ -44,8 +44,24 @@ try {
         $print_stmt_total->bindParam(':startOfWeek', $startOfWeek);
         $print_stmt_total->bindParam(':endOfWeek', $endOfWeek);
     } else {
-        $total_sql = "SELECT COUNT(*) AS total FROM `resident_info` WHERE first_name LIKE :search OR middle_name LIKE :search OR last_name LIKE :search";
-        $print_total_sql = "SELECT COUNT(*) AS print_total FROM `print_history` WHERE (first_name LIKE :search OR middle_name LIKE :search OR last_name LIKE :search) AND DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek";
+        $total_sql = "SELECT COUNT(*) AS total
+                    FROM `resident_info`
+                    WHERE
+                        first_name LIKE :search OR
+                        middle_name LIKE :search OR
+                        last_name LIKE :search";
+        $print_total_sql = "SELECT COUNT(*) AS print_total
+                            FROM `print_history` 
+                            WHERE (
+                                first_name LIKE :search OR
+                                middle_name LIKE :search OR
+                                last_name LIKE :search OR
+                                suffix LIKE :search OR
+                                print_date LIKE :search OR
+                                control_number LIKE :search OR
+                                document_type LIKE :search OR
+                                issued_by LIKE :search
+                            ) AND DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek";
 
         $stmt_total = $dbh->prepare($total_sql);
         $stmt_total->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
@@ -62,7 +78,18 @@ try {
         $prev_stmt_total = $dbh->prepare($prev_total_sql);
         $prev_stmt_total->bindParam(':startOfWeek', $startOfWeek);
     } else {
-        $prev_total_sql = "SELECT COUNT(*) AS prev_total FROM `print_history` WHERE (first_name LIKE :prevSearch OR middle_name LIKE :prevSearch OR last_name LIKE :prevSearch) AND DATE(print_date) < :startOfWeek";
+        $prev_total_sql = "SELECT COUNT(*) AS prev_total
+                            FROM `print_history`
+                            WHERE (
+                                first_name LIKE :prevSearch OR
+                                middle_name LIKE :prevSearch OR
+                                last_name LIKE :prevSearch OR
+                                suffix LIKE :prevSearch OR
+                                print_date LIKE :prevSearch OR
+                                control_number LIKE :prevSearch OR
+                                document_type LIKE :prevSearch OR
+                                issued_by LIKE :prevSearch
+                            ) AND DATE(print_date) < :startOfWeek";
         $prev_stmt_total = $dbh->prepare($prev_total_sql);
         $prev_stmt_total->bindValue(':prevSearch', '%' . $prevSearch . '%', PDO::PARAM_STR);
         $prev_stmt_total->bindParam(':startOfWeek', $startOfWeek);
@@ -74,7 +101,18 @@ try {
         $future_stmt_total = $dbh->prepare($future_total_sql);
         $future_stmt_total->bindParam(':endOfWeek', $endOfWeek);
     } else {
-        $future_total_sql = "SELECT COUNT(*) AS future_total FROM `print_history` WHERE (first_name LIKE :futureSearch OR middle_name LIKE :futureSearch OR last_name LIKE :futureSearch) AND DATE(print_date) > :endOfWeek";
+        $future_total_sql = "SELECT COUNT(*) AS future_total
+                            FROM `print_history`
+                            WHERE (
+                                first_name LIKE :futureSearch OR
+                                middle_name LIKE :futureSearch OR
+                                last_name LIKE :futureSearch OR
+                                suffix LIKE :futureSearch OR
+                                print_date LIKE :futureSearch OR
+                                control_number LIKE :futureSearch OR
+                                document_type LIKE :futureSearch OR
+                                issued_by LIKE :futureSearch
+                            ) AND DATE(print_date) > :endOfWeek";
         $future_stmt_total = $dbh->prepare($future_total_sql);
         $future_stmt_total->bindValue(':futureSearch', '%' . $futureSearch . '%', PDO::PARAM_STR);
         $future_stmt_total->bindParam(':endOfWeek', $endOfWeek);
@@ -116,8 +154,23 @@ try {
         $stmt3->bindParam(':startOfWeek', $startOfWeek);
         $stmt3->bindParam(':endOfWeek', $endOfWeek);
     } else {
-        $stmt2 = $dbh->prepare("SELECT * FROM `resident_info` WHERE first_name LIKE :search OR middle_name LIKE :search OR last_name LIKE :search LIMIT :limit OFFSET :offset");
-        $stmt3 = $dbh->prepare("SELECT * FROM `print_history` WHERE (first_name LIKE :search OR middle_name LIKE :search OR last_name LIKE :search) AND DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek LIMIT :limit OFFSET :offset");
+        $stmt2 = $dbh->prepare("SELECT * FROM `resident_info`
+                                WHERE 
+                                    first_name LIKE :search OR
+                                    middle_name LIKE :search OR
+                                    last_name LIKE :search
+                                LIMIT :limit OFFSET :offset");
+        $stmt3 = $dbh->prepare("SELECT * FROM `print_history`
+                                WHERE (
+                                    first_name LIKE :search OR
+                                    middle_name LIKE :search OR
+                                    last_name LIKE :search OR
+                                    suffix LIKE :search OR
+                                    print_date LIKE :search OR
+                                    control_number LIKE :search OR
+                                    document_type LIKE :search OR
+                                    issued_by LIKE :search
+                                ) AND DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek LIMIT :limit OFFSET :offset");
 
         $stmt2->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
         $stmt2->bindParam(':limit', $records, PDO::PARAM_INT);
@@ -136,7 +189,17 @@ try {
         $stmt4->bindParam(':limit', $records, PDO::PARAM_INT);
         $stmt4->bindParam(':offset', $prevRecordOffset, PDO::PARAM_INT);
     } else {
-        $stmt4 = $dbh->prepare("SELECT * FROM `print_history` WHERE (first_name LIKE :prevSearch OR middle_name LIKE :prevSearch OR last_name LIKE :prevSearch) AND DATE(print_date) < :startOfWeek LIMIT :limit OFFSET :offset");
+        $stmt4 = $dbh->prepare("SELECT * FROM `print_history`
+                                WHERE (
+                                    first_name LIKE :prevSearch OR
+                                    middle_name LIKE :prevSearch OR
+                                    last_name LIKE :prevSearch OR
+                                    suffix LIKE :prevSearch OR
+                                    print_date LIKE :prevSearch OR
+                                    control_number LIKE :prevSearch OR
+                                    document_type LIKE :prevSearch OR
+                                    issued_by LIKE :prevSearch
+                                ) AND DATE(print_date) < :startOfWeek LIMIT :limit OFFSET :offset");
         $stmt4->bindValue(':prevSearch', '%' . $prevSearch . '%', PDO::PARAM_STR);
         $stmt4->bindParam(':startOfWeek', $startOfWeek);
         $stmt4->bindParam(':limit', $records, PDO::PARAM_INT);
@@ -149,7 +212,17 @@ try {
         $stmt5->bindParam(':limit', $records, PDO::PARAM_INT);
         $stmt5->bindParam(':offset', $futureRecordOffset, PDO::PARAM_INT);
     } else {
-        $stmt5 = $dbh->prepare("SELECT * FROM `print_history` WHERE (first_name LIKE :futureSearch OR middle_name LIKE :futureSearch OR last_name LIKE :futureSearch) AND DATE(print_date) > :endOfWeek LIMIT :limit OFFSET :offset");
+        $stmt5 = $dbh->prepare("SELECT * FROM `print_history`
+                                WHERE (
+                                    first_name LIKE :futureSearch OR
+                                    middle_name LIKE :futureSearch OR
+                                    last_name LIKE :futureSearch OR
+                                    suffix LIKE :futureSearch OR
+                                    print_date LIKE :futureSearch OR
+                                    control_number LIKE :futureSearch OR
+                                    document_type LIKE :futureSearch OR
+                                    issued_by LIKE :futureSearch
+                                    ) AND DATE(print_date) > :endOfWeek LIMIT :limit OFFSET :offset");
         $stmt5->bindValue(':futureSearch', '%' . $futureSearch . '%', PDO::PARAM_STR);
         $stmt5->bindParam(':endOfWeek', $endOfWeek);
         $stmt5->bindParam(':limit', $records, PDO::PARAM_INT);
