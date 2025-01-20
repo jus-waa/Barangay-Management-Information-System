@@ -154,79 +154,145 @@ if (!isset($_SESSION['users'])) {
             </div>
             <!-- Body -->
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
-            <div class="flex-1 grid grid-cols-[auto_30rem] p-2 stl:p-8 overflow-hidden ">
-                <div class="grid grid-rows-[11rem_auto] stl:grid-rows-[13rem_auto]">
-                    <!-- Data -->
-                    <div class="grid grid-cols-4 mt-4 stl:mt-0 h-32 stl:h-52 pb-0 stl:pb-4 w-full space-x-2 stl:space-x-8">
-                        <!-- Total Residents -->
-                        <div class="border-2 border-sg rounded-xl bg-white">
-                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
-                                <img src="../img/total_res.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
-                                <p class="text-xs stl:text-sm flex items-center">Total Households</p>
-                            </div>
-                            <div class="h-3/5 flex flex-col justify-center items-center text-center ">
-                                <p class="text-lg stl:text-xl"><?php echo $totalHouseHold; ?><br></p>
-                                <p class="text-[10px] stl:text-sm py-2">Total number of Households</p>
-                            </div>
-                        </div> 
-                        <!-- Total Residents -->
-                        <div class="border-2 border-sg rounded-xl bg-white">
-                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
-                                <img src="../img/total_res.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
-                                <p class="text-xs stl:text-sm flex items-center">Total Residents</p>
-                            </div>
-                            <div class="h-3/5 flex flex-col justify-center items-center text-center">
-                                <p class="text-lg stl:text-xl"><?php echo $i; ?><br></p>
-                                <p class="text-[10px] stl:text-sm py-2">Total number of registered residents</p>
-                            </div>
-                        </div> 
-                        <!-- Active Residents Population -->
-                        <div class="border-2 border-sg rounded-xl bg-white">
-                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
-                                <img src="../img/status.png" class="size-6 p-0.5 bg-white rounded-md mr-2" alt="">
-                                <p class="text-xs stl:text-sm flex items-center">Active Residents</p>
-                            </div>
-                            <div class="h-3/5 flex flex-col justify-center items-center text-center">
-                                <p class="text-lg stl:text-xl"><?php echo $active; ?> out of <?php echo $i; ?><br></p>
-                                <p class="text-[10px] stl:text-sm py-2">Total number of active residents</p>
+            <!-- Outer Box -->
+            <div class="flex-1 grid grid-cols-[auto_30rem] gap-x-4 border-2 p-2 stl:p-4">
+                <div class="grid grid-rows-[11rem_auto] stl:grid-rows-[13rem_auto] gap-y-4 rounded-xl">
+                    <!-- First Upper Box -->
+                    <div class="grid grid-rows-[5rem_auto] h-32 stl:h-52 w-full bg-white border-2 border-sg rounded-xl ">
+                       <div class="flex items-center justify-between p-6 drop-shadow-md mt-2">
+                            <h1 class="text-4xl font-bold ">
+                                Population Overview
+                            </h1>
+                            <div>
+                                <a href="documents/print/dashboard_print.php" class="flex px-6 p-1 rounded-xl border-2 border-sg bg-c place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" target="_blank"> 
+                                    <img src="../img/printer.png" class="size-12" alt="">
+                                    <button >
+                                        Print Dashboard
+                                    </button>
+                                </a>
                             </div>
                         </div>
-                        <!-- Total Documents -->
-                        <div class="border-2 border-sg rounded-xl bg-white">
-                            <div class="flex p-2 stl:p-4 border-b-2 border-sg bg-c rounded-t-xl">
-                                <img src="../img/indigency.svg" class="size-6 p-1 bg-white rounded-md mr-2" alt="">
-                                <p class="text-xs stl:text-sm flex items-center">Total Documents</p>
+                        <div class="grid grid-cols-[18rem_18rem_18rem_auto] rounded-xl">
+                            <div class="flex justify-center items-center space-x-4 rounded-l-xl">
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20"> 
+                                    <img src="../img/total-res.png" alt="">
+                                </div>
+                                <div class="flex items-center justify-center flex-col mb-[18px]"> 
+                                    <p>Total Household</p>
+                                    <p class="text-4xl font-bold"><?= $totalHouseHold ?></p>
+                                </div>
                             </div>
-                            <div class="h-3/5 flex flex-col justify-center items-center text-center ">
-                                <p class="text-lg stl:text-xl"><?php echo $n; ?><br></p>
-                                <p class="text-[10px] stl:text-sm py-2 ">Total number of documents issued</p>
+                            <div class="flex justify-center items-center space-x-4">
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20"> 
+                                    <img src="../img/total-household.png" alt="">
+                                </div>
+                                <div class="flex items-center justify-center flex-col mb-[18px]"> 
+                                    <p>Total Residents</p>
+                                    <p class="text-4xl font-bold"><?= $i ?></p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center items-center space-x-4">
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20"> 
+                                    <img src="../img/active-res.png" alt="">
+                                </div>
+                                <div class="flex items-center justify-center flex-col"> 
+                                    <p>Active Residents</p>
+                                    <p class="text-4xl font-bold"><?= $active ?></p>
+                                    <p class="text-sm">out of <?= $i?></p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center items-center space-x-4 rounded-r-xl">
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20"> 
+                                    <img src="../img/res-type.png" alt="">
+                                </div>
+                                <div class="flex items-center justify-center flex-col mb-[8px]"> 
+                                    <p>Resident Type</p>
+                                    <div class="flex text-center space-x-4">
+                                        <div>
+                                            <p class="text-2xl font-bold"><?= $i ?></p>
+                                            <p class="text-sm">Permanent</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-2xl font-bold"><?= $i ?></p>
+                                            <p class="text-sm">Temporary</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-2xl font-bold"><?= $i ?></p>
+                                            <p class="text-sm">Student</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- Weekly Report -->
-                    <div class="border-2 h-full w-full border-sg rounded-xl p-4 stl:p-8 bg-white">
-                        <div class="w-auto h-full stl:w-full stl:h-[33rem] justify-items-center border-2 rounded-xl border-sg">
-                            <canvas id="weeklyReportChart"></canvas>
+                    <div class="grid grid-cols-[75.5%_23.5%] gap-4 border-2 h-full w-full border-sg rounded-xl bg-white p-6">
+                        <div class="grid gap-y-4">
+                            <div class="flex justify-between items-center w-full drop-shadow-xl">
+                                <h1 class="text-4xl font-bold">Weekly Report</h1>
+                                <h1 class="flex space-x-2 text-gray-500">
+                                    <p>This Week</p> 
+                                    <img src="../img/arrow-down.png" alt="">
+                                </h1>
+                            </div>
+                            <div class="w-full justify-items-center border-2 rounded-xl border-sg">
+                                <canvas id="weeklyReportChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="grid grid-rows-4 gap-y-4">
+                            <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
+                                <div class="text-2xl font-bold"><?=$n?></div>
+                                <p class="text-sm">Total documents issued</p>
+                            </div>
+                            <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
+                                <div class="text-2xl font-bold"><?=$n?></div>
+                                <p class="text-sm">Total documents issued</p>
+                            </div>
+                            <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
+                                <div class="text-2xl font-bold"><?=$n?></div>
+                                <p class="text-sm">Total documents issued</p>
+                            </div>
+                            <div class="flex flex-col items-center justify-center bg-[#D9D9D9]  rounded-xl">
+                                <div class="text-2xl font-bold"><?=$n?></div>
+                                <p class="text-sm">Total documents issued</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Pie Charts -->
-                <div class="grid grid-rows-[44px_auto_auto] h-full w-full pl-4 gap-y-4 overflow-hidden ">
-                    <div class="place-self-center w-full">
-                        <a href="documents/print/dashboard_print.php" target="_blank"> 
-                            <button class="rounded-md w-full border-2 border-sg bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
-                            Print Report
-                            </button>
-                        </a>
+                <!-- Demographics -->
+                <div class="flex flex-col items-center space-y-4  border-2 border-sg rounded-xl bg-white p-6">
+                    <h1 class="text-4xl font-bold">
+                        Population Overview
+                    </h1>
+                    <div class="border-2 h-1/2 w-full">
+                        <canvas id="ageGroupChart"></canvas>
                     </div>
-                    <div class="border-2 border-sg rounded-xl flex justify-center bg-white">
-                        <div class=" w-80 h-80 p-4">
-                            <canvas id="genderChart" class="max-w-full"></canvas>
-                        </div>
-                    </div>
-                    <div class="border-2 border-sg rounded-xl flex justify-center bg-white ">
-                        <div class="w-80 h-80 p-4">
-                            <canvas id="documentChart" class="max-w-full"></canvas>
+                    <div class="w-full grow">
+                        <div class="grid grid-rows-3 h-full w-full ">
+                            <div class="grid grid-cols-2 gap-x-4 rounded-xl text-white">
+                                <div class="flex items-center rounded-xl bg-black pr-4">
+                                    <img src="../img/male.png" alt="">
+                                    <div class="flex flex-col items-center justify-start grow">
+                                        <h1 class="text-sm">Male Population</h1>
+                                        <p class="text-4xl font-bold"><?=$male?></p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center rounded-xl bg-black pr-2">
+                                    <img src="../img/female.png" alt="">
+                                    <div class="flex flex-col items-center justify-start grow">
+                                        <h1 class="text-sm">Female Population</h1>
+                                        <p class="text-4xl font-bold"><?=$female?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-2">
+                                <div class="bg-black">s</div>
+                                <div class="bg-black">s</div>
+                            </div>
+                            <div class="border-2">
+                                <div class="bg-black">s</div>
+                                <div class="bg-black">s</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -277,43 +343,61 @@ if (!isset($_SESSION['users'])) {
     setInterval(updateTimer, 1000);
 </script>
 <script>
-    // Gender Chart
-    const genderctx = document.getElementById("genderChart").getContext("2d");
-    const male = <?php echo $maleJSON; ?> // use the converted JSON in this script
-    const female = <?php echo $femaleJSON; ?>
-    // Data config
-    const config1 = {
-        type: 'pie',
+    // Age Group Chart
+    const ageGroupCtx = document.getElementById("ageGroupChart").getContext("2d");
+
+    // Sample data for each age group (use PHP to generate dynamic values)
+    const infant = 5;
+    const toddler = 12;
+    const teenager = 123;
+    const youngAdult = 5;
+    const middleAgedAdult = 123;
+    const seniorAdult = 23;
+
+    const config4 = {
+        type: 'bar',
         data: {
-        labels: ["Female", "Male"],
+            labels: ["Infant", "Toddler", "Teenager/Adolescent", "Young Adult", "Middle-Aged Adult", "Senior/Older Adult"],
             datasets: [{
-                label: "Gender Breakdown",
-                data: [female, male], //Values
+                label: "Age Group Distribution",
+                data: [infant, toddler, teenager, youngAdult, middleAgedAdult, seniorAdult], // Values
                 backgroundColor: [
-                'rgba(0, 0, 0, 0)',
-                'rgba(175, 225, 175, 1)',
-            ],
-            borderColor: [
-                'rgba(76, 147, 76, 1)',
-                'rgba(76, 147, 76, 1)',
-            ],
-            borderWidth: 1
+                    'rgba(175, 225, 175, 0.5)',
+                    'rgba(175, 225, 175, 0.5)',
+                    'rgba(175, 225, 175, 0.5)',
+                    'rgba(175, 225, 175, 0.5)',
+                    'rgba(175, 225, 175, 0.5)',
+                    'rgba(175, 225, 175, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(175, 225, 175, 1)',
+                    'rgba(175, 225, 175, 1)',
+                    'rgba(175, 225, 175, 1)',
+                    'rgba(175, 225, 175, 1)',
+                    'rgba(175, 225, 175, 1)',
+                    'rgba(175, 225, 175, 1)'
+                ],
+                borderWidth: 1,
+                // Adjust bar width with barThickness
+                barThickness: 50 // Adjust the value for smaller or larger bars
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    position: 'top',
+                    display: false,  // Hide legend since it won't fit in the small space
                 },
                 title: {
-                    display: true,
-                    text: 'Gender Breakdown'
+                    display: false,  // Hide title for better clarity
                 }
-            }
+            },
         }
     };
-    const genderChart = new Chart(genderctx, config1);
+
+    // Initialize the chart
+    const ageGroupChart = new Chart(ageGroupCtx, config4);
 </script>
 <script>
     // Document Chart
@@ -359,21 +443,20 @@ if (!isset($_SESSION['users'])) {
     // Weekly Report
     const weeklyReportctx = document.getElementById("weeklyReportChart").getContext("2d");
 
-    // Pass PHP data to JavaScript
     const weeklyData = <?php echo json_encode($documentCounts); ?>;
 
     const config3 = {
-      type: 'line', // Chart type
+      type: 'line', 
       data: {
         labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], // X-axis labels
         datasets: [{
-          label: 'Documents Issued Weekly', // Dataset label
-          data: weeklyData, // Data points from PHP
-          borderColor: 'rgba(175, 225, 175, 1)', // Line color
-          backgroundColor: 'rgba(175, 225, 175, 0.5)', // Fill under the line
-          borderWidth: 2, // Line width
-          fill: true, // Fill the area under the line
-          tension: 0.1 // Smooth curve (0.1 for a slight curve, 0 for straight lines)
+          label: 'Documents Issued Weekly', 
+          data: weeklyData, 
+          borderColor: 'rgba(175, 225, 175, 1)', 
+          backgroundColor: 'rgba(175, 225, 175, 0.5)', 
+          borderWidth: 2, 
+          fill: true, 
+          tension: 0.1 
         }]
       },
       options: {
