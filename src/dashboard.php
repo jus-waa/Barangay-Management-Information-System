@@ -32,6 +32,7 @@ if (!isset($_SESSION['users'])) {
             <!--Nav-->
             <div id="mainNav" class="flex flex-col place-content-start h-full w-full bg-c duration-500 ease-in-out">
                 <div class="h-full flex flex-col ">
+                    <!-- Menu -->
                     <div class="place-content-center h-full grow-0 space-y-14 ">
                         <div>
                             <a href="dashboard.php">
@@ -88,9 +89,9 @@ if (!isset($_SESSION['users'])) {
                         </div>
                     </div>
                     <!-- Account and Logout -->
-                    <div class="place-content-center space-x-4 h-2/5 w-full grow">
+                    <div class="border-2 flex flex-col justify-center h-2/5 w-full grow">
                         <!-- Account -->
-                        <div>
+                        <div class="border-2">
                             <button  onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
                                 <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
                                 <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
@@ -109,7 +110,7 @@ if (!isset($_SESSION['users'])) {
                                     ?>
                                 </span>
                             </button>
-                            <button class="flex place-self-center">
+                            <button class="flex place-self-center text-left">
                                 <?php
                                     $userId = $_SESSION['users'];
                                     $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
@@ -118,17 +119,23 @@ if (!isset($_SESSION['users'])) {
                                     $stmt->execute();
                                     $result = $stmt->fetch(PDO::FETCH_ASSOC);
                                     if ($result) {
-                                        echo $result['email'];
+                                        $email = $result['email'];
+                                        //break every 10 let
+                                        $formatEmail = wordwrap($email, 10, "<br/>", true);
+                                        echo $formatEmail;
                                     }   else {
                                         echo "No such user found.";
                                     }
                                 ?>
                             </button>
                         </div>
-                        <a href="backend/logout.php">
-                            <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
-                            <p class="flex place-self-center">Logout</p>
-                        </a>
+                        <!-- Logout -->
+                        <div class="flex place-content-center w-full border-2">
+                            <a href="backend/logout.php">
+                                <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
+                                <p class="flex place-self-center">Logout</p>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -246,15 +253,15 @@ if (!isset($_SESSION['users'])) {
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
                                 <div class="text-2xl font-bold"><?=$brgyclr?></div>
-                                <p class="text-sm">Total documents issued</p>
+                                <p class="text-sm">Barangay Clearance</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
                                 <div class="text-2xl font-bold"><?=$certIndigency?></div>
-                                <p class="text-sm">Total documents issued</p>
+                                <p class="text-sm">Certificate of Indigency</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9]  rounded-xl">
                                 <div class="text-2xl font-bold"><?=$certResidency?></div>
-                                <p class="text-sm">Total documents issued</p>
+                                <p class="text-sm">Certificate of Residency</p>
                             </div>
                         </div>
                     </div>

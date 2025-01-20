@@ -87,10 +87,10 @@ if (!isset($_SESSION['users'])) {
                         </div>
                     </div>
                     <!-- Account and Logout -->
-                    <div class="place-content-center space-x-4 h-2/5 w-full grow">
+                    <div class="border-2 flex flex-col justify-center h-2/5 w-full grow">
                         <!-- Account -->
-                        <div>
-                            <button onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
+                        <div class="border-2">
+                            <button  onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
                                 <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
                                 <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
                                     <?php
@@ -108,7 +108,7 @@ if (!isset($_SESSION['users'])) {
                                     ?>
                                 </span>
                             </button>
-                            <button class="flex place-self-center">
+                            <button class="flex place-self-center text-left">
                                 <?php
                                     $userId = $_SESSION['users'];
                                     $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
@@ -117,17 +117,23 @@ if (!isset($_SESSION['users'])) {
                                     $stmt->execute();
                                     $result = $stmt->fetch(PDO::FETCH_ASSOC);
                                     if ($result) {
-                                        echo $result['email'];
+                                        $email = $result['email'];
+                                        //break every 10 let
+                                        $formatEmail = wordwrap($email, 10, "<br/>", true);
+                                        echo $formatEmail;
                                     }   else {
                                         echo "No such user found.";
                                     }
                                 ?>
                             </button>
                         </div>
-                        <a href="backend/logout.php">
-                            <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
-                            <p class="flex place-self-center">Logout</p>
-                        </a>
+                        <!-- Logout -->
+                        <div class="flex place-content-center w-full border-2">
+                            <a href="backend/logout.php">
+                                <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
+                                <p class="flex place-self-center">Logout</p>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
