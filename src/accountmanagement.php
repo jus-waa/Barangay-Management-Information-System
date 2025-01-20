@@ -90,9 +90,9 @@ if (!isset($_SESSION['users'])) {
                         </div>
                     </div>
                     <!-- Account and Logout -->
-                    <div class="border-2 flex flex-col justify-center h-2/5 w-full grow">
+                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow">
                         <!-- Account -->
-                        <div class="border-2">
+                        <div>
                             <button  onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
                                 <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
                                 <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
@@ -102,9 +102,9 @@ if (!isset($_SESSION['users'])) {
                                         $stmt = $dbh->prepare($query);
                                         $stmt->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
                                         $stmt->execute();
-                                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                                        if ($result) {
-                                            echo $result['username'];
+                                        $resultz = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        if ($resultz) {
+                                            echo $resultz['username'];
                                         }   else {
                                             echo "No such user found.";
                                         }
@@ -118,9 +118,9 @@ if (!isset($_SESSION['users'])) {
                                     $stmt = $dbh->prepare($query);
                                     $stmt->bindParam(':id', $userId, PDO::PARAM_INT);  // Bind the user ID parameter
                                     $stmt->execute();
-                                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                                    if ($result) {
-                                        $email = $result['email'];
+                                    $resultz = $stmt->fetch(PDO::FETCH_ASSOC);
+                                    if ($resultz) {
+                                        $email = $resultz['email'];
                                         //break every 10 let
                                         $formatEmail = wordwrap($email, 10, "<br/>", true);
                                         echo $formatEmail;
@@ -131,7 +131,7 @@ if (!isset($_SESSION['users'])) {
                             </button>
                         </div>
                         <!-- Logout -->
-                        <div class="flex place-content-center w-full border-2">
+                        <div class="flex place-content-center w-full ">
                             <a href="backend/logout.php">
                                 <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
                                 <p class="flex place-self-center">Logout</p>
