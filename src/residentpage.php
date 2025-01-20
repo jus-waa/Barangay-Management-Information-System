@@ -695,7 +695,7 @@ if (!isset($_SESSION['users'])) {
                                         </td>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center" >
-                                                <?=$row['civil_status']?>
+                                                <?=ucwords($row['civil_status'])?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-c py-2">
@@ -795,25 +795,25 @@ if (!isset($_SESSION['users'])) {
                                         </td>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
-                                                <?=$row['residency_type']?>
+                                                <?=ucwords($row['residency_type'])?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center" >
                                                 <?php
-                                                if ($row['status'] === 'Active') {
+                                                if (strtolower($row['status']) === 'active') {
                                                     ?>
                                                     <div class="flex items-center mr-1">
                                                         <img src="../img/active.png" class="size-4 flex items-center" alt="">
                                                     </div>
-                                                <?=$row['status']?>
+                                                <?=ucwords($row['status'])?>
                                                 <?php 
-                                                } else if ($row['status'] === 'Inactive') {
+                                                } else if (strtolower($row['status']) === 'inactive') {
                                                     ?>
                                                     <div class="flex items-center mr-1">
                                                         <img src="../img/inactive.png" class="size-4 flex items-center" alt="">
                                                     </div>
-                                                    <?=$row['status']?>
+                                                    <?=ucwords($row['status'])?>
                                                 <?php } ?>
                                             </div>
                                         </td>
@@ -864,22 +864,22 @@ if (!isset($_SESSION['users'])) {
                                         <col class="w-[200px]">
                                         <col class="w-[200px]">
                                         <col class="w-[250px]">
-                                        <col class="w-[275px]">
+                                        <col class="w-[300px]">
                                         <col class="w-[200px]">
-                                        <col class="w-[275px]">
+                                        <col class="w-[300px]">
                                         <col class="w-[200px]">
                                     </colgroup>
                                     <thead class=" bg-c sticky top-0">
                                         <tr class="uppercase ">
                                             <!--Basic Information + Action-->
-                                            <th class="py-4 min-w-20">ID</th>
-                                            <th class="py-4  text-sg">Full Name</th>                            
-                                            <th class="py-4">Height</th>
-                                            <th class="py-4">Weight</th>
-                                            <th class="py-4">Eye Color</th>
-                                            <th class="py-4">Blood Type</th>
-                                            <th class="py-4">Religion</th>
-                                            <th class="py-4 min-w-20">Action</th>
+                                            <th class="py-2 min-w-20">ID</th>
+                                            <th class="py-2  text-sg">Full Name</th>                            
+                                            <th class="py-2">Height<br><p class="text-xs">(cm)</p></th>
+                                            <th class="py-2">Weight<br><p class="text-xs">(kg)</p></th>
+                                            <th class="py-2">Eye Color</th>
+                                            <th class="py-2">Blood Type</th>
+                                            <th class="py-2">Religion</th>
+                                            <th class="py-2 min-w-20">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class=" text-gray-600 bg-white">
@@ -904,12 +904,12 @@ if (!isset($_SESSION['users'])) {
 
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center" >
-                                                <?=$row['height']?>
+                                                <?=$row['height']?> cm
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center" >
-                                                <?=$row['weight']?>
+                                                <?=$row['weight']?> KG
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-c py-2">
