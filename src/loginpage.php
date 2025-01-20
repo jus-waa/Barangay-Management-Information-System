@@ -26,7 +26,7 @@
                         <!--username-->
                         <div class="mt-8 mb-6 ">
                             <input name="username" type="text" autocomplete="off" class="block bg-transparent w-72 border-1 text-m p-2 peer rounded-md outline-none ring-2 ring-c focus:ring-sg" placeholder=" "/> 
-                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-[3.8rem] z-10  bg-white/5 pl-1 text-left rounded-2xl "><p class="opacity-100">Name</p></label>
+                            <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-[3.8rem] z-10  bg-white/5 pl-1 text-left rounded-2xl "><p class="opacity-100">Name</p></label>
                         </div>
                         <!--Password-->
                         <div class="relative mb-4">

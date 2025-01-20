@@ -306,9 +306,6 @@ if (!isset($_SESSION['users'])) {
                                                 <?=$row['age']?>
                                             </div>
                                         </td>
-                                        <?php
-                                        if (hasPermission('system_settings')){
-                                        ?>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
                                                 <a href="backend/edit.php?id=<?= $row['id']?>">
@@ -324,20 +321,6 @@ if (!isset($_SESSION['users'])) {
                                                 </button>
                                             </div>
                                         </td>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <td class="border-y-2 border-c py-2">
-                                            <div class="flex justify-center items-center">
-                                                <button disabled class="w-6 mr-1"> 
-                                                    <img src="../img/lock.png" alt="edit"/>
-                                                </button>
-                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
-                                                </button>
-                                            </div>
-                                        </td>
-                                        <?php } ?>
                                     </tr>
                                     <?php $i++; } ?>
                                     </tbody>
@@ -415,9 +398,6 @@ if (!isset($_SESSION['users'])) {
                                                 <?=$row['mother_maiden_name']?>
                                             </div>
                                         </td>
-                                        <?php
-                                        if (hasPermission('system_settings')){
-                                        ?>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -433,20 +413,6 @@ if (!isset($_SESSION['users'])) {
                                                 </button>
                                             </div>
                                         </td>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <td class="border-y-2 border-c py-2">
-                                            <div class="flex justify-center items-center">
-                                                <button disabled class="w-6 mr-1"> 
-                                                    <img src="../img/lock.png" alt="edit"/>
-                                                </button>
-                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
-                                                </button>
-                                            </div>
-                                        </td>
-                                        <?php } ?>
                                     </tr>
                                     <?php $i++; } ?>
                                     </tbody>
@@ -503,9 +469,6 @@ if (!isset($_SESSION['users'])) {
                                                 <?=$row['email_address']?>
                                             </div>
                                         </td>
-                                        <?php
-                                        if (hasPermission('system_settings')){
-                                        ?>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -521,20 +484,6 @@ if (!isset($_SESSION['users'])) {
                                                 </button>
                                             </div>
                                         </td>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <td class="border-y-2 border-c py-2">
-                                            <div class="flex justify-center items-center">
-                                                <button disabled class="w-6 mr-1"> 
-                                                    <img src="../img/lock.png" alt="edit"/>
-                                                </button>
-                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
-                                                </button>
-                                            </div>
-                                        </td>
-                                        <?php } ?>
                                     </tr>
                                     <?php $i++; } ?>
                                     </tbody>
@@ -619,9 +568,6 @@ if (!isset($_SESSION['users'])) {
                                                 <?=$row['zip_code']?>
                                             </div>
                                         </td>
-                                        <?php
-                                        if (hasPermission('system_settings')){
-                                        ?>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -637,20 +583,6 @@ if (!isset($_SESSION['users'])) {
                                                 </button>
                                             </div>
                                         </td>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <td class="border-y-2 border-c py-2">
-                                            <div class="flex justify-center items-center">
-                                                <button disabled class="w-6 mr-1"> 
-                                                    <img src="../img/lock.png" alt="edit"/>
-                                                </button>
-                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
-                                                </button>
-                                            </div>
-                                        </td>
-                                        <?php } ?>
                                     </tr>
                                     <?php $i++; } ?>
                                     </tbody>
@@ -714,9 +646,6 @@ if (!isset($_SESSION['users'])) {
                                                 <?=$row['ethnicity']?>
                                             </div>
                                         </td>
-                                        <?php
-                                        if (hasPermission('system_settings')){
-                                        ?>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -732,20 +661,6 @@ if (!isset($_SESSION['users'])) {
                                                 </button>
                                             </div>
                                         </td>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <td class="border-y-2 border-c py-2">
-                                            <div class="flex justify-center items-center">
-                                                <button disabled class="w-6 mr-1"> 
-                                                    <img src="../img/lock.png" alt="edit"/>
-                                                </button>
-                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
-                                                </button>
-                                            </div>
-                                        </td>
-                                        <?php } ?>
                                     </tr>
                                     <?php $i++; } ?>
                                     </tbody>
@@ -823,9 +738,6 @@ if (!isset($_SESSION['users'])) {
                                                 <?php } ?>
                                             </div>
                                         </td>
-                                        <?php
-                                        if (hasPermission('system_settings')){
-                                        ?>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -841,20 +753,6 @@ if (!isset($_SESSION['users'])) {
                                                 </button>
                                             </div>
                                         </td>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <td class="border-y-2 border-c py-2">
-                                            <div class="flex justify-center items-center">
-                                                <button disabled class="w-6 mr-1"> 
-                                                    <img src="../img/lock.png" alt="edit"/>
-                                                </button>
-                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
-                                                </button>
-                                            </div>
-                                        </td>
-                                        <?php } ?>
                                     </tr>
                                     <?php $i++; } ?>
                                     </tbody>
@@ -933,9 +831,6 @@ if (!isset($_SESSION['users'])) {
                                                 <?=$row['religion']?>
                                             </div>
                                         </td>
-                                        <?php
-                                        if (hasPermission('system_settings')){
-                                        ?>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
@@ -951,20 +846,6 @@ if (!isset($_SESSION['users'])) {
                                                 </button>
                                             </div>
                                         </td>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <td class="border-y-2 border-c py-2">
-                                            <div class="flex justify-center items-center">
-                                                <button disabled class="w-6 mr-1"> 
-                                                    <img src="../img/lock.png" alt="edit"/>
-                                                </button>
-                                                <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
-                                                </button>
-                                            </div>
-                                        </td>
-                                        <?php } ?>
                                     </tr>
                                     <?php $i++; } ?>
                                     </tbody>
