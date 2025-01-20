@@ -174,7 +174,7 @@ if (!isset($_SESSION['users'])) {
                         </div>
                         <div class="grid grid-cols-[18rem_18rem_18rem_auto] rounded-xl">
                             <div class="flex justify-center items-center space-x-4 rounded-l-xl">
-                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20"> 
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/total-res.png" alt="">
                                 </div>
                                 <div class="flex items-center justify-center flex-col mb-[18px]"> 
@@ -183,7 +183,7 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                             <div class="flex justify-center items-center space-x-4">
-                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20"> 
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/total-household.png" alt="">
                                 </div>
                                 <div class="flex items-center justify-center flex-col mb-[18px]"> 
@@ -192,7 +192,7 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                             <div class="flex justify-center items-center space-x-4">
-                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20"> 
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/active-res.png" alt="">
                                 </div>
                                 <div class="flex items-center justify-center flex-col"> 
@@ -202,7 +202,7 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                             <div class="flex justify-center items-center space-x-4 rounded-r-xl">
-                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20"> 
+                                <div class="flex items-center justify-center bg-c rounded-xl h-20 w-20 hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/res-type.png" alt="">
                                 </div>
                                 <div class="flex items-center justify-center flex-col mb-[8px]"> 
@@ -264,12 +264,14 @@ if (!isset($_SESSION['users'])) {
                     <h1 class="text-4xl font-bold">
                         Population Overview
                     </h1>
-                    <div class="border-2 h-1/2 w-full">
+                    <!-- Age Brackets Chart-->
+                    <div class="h-1/2 w-full">
                         <canvas id="ageGroupChart"></canvas>
                     </div>
                     <div class="w-full grow">
-                        <div class="grid grid-rows-3 h-full w-full ">
-                            <div class="grid grid-cols-2 gap-x-4 rounded-xl text-white">
+                        <div class="grid grid-rows-3 gap-y-4 h-full w-full ">
+                            <!-- Gender Breakdown -->
+                            <div class="grid grid-cols-2 gap-x-2 rounded-xl text-white">
                                 <div class="flex items-center rounded-xl bg-black pr-4">
                                     <img src="../img/male.png" alt="">
                                     <div class="flex flex-col items-center justify-start grow">
@@ -285,13 +287,73 @@ if (!isset($_SESSION['users'])) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="border-2">
-                                <div class="bg-black">s</div>
-                                <div class="bg-black">s</div>
+                            <!-- Civil Status Breakdown-->
+                            <div class="grid grid-rows-[auto_1fr] rounded-xl bg-[#D9D9D9]">
+                                <div class="text-sm font-bold px-3 pt-2">
+                                    Civil Status
+                                </div>
+                                <div class="flex justify-between px-4">
+                                    <div class="place-items-center text-2xl p-2">
+                                        <h1 class="font-bold "><?= $i ?></h1>
+                                        <p class="text-xs">SINGLE</p>
+                                    </div>
+                                    <div class="place-items-center text-2xl p-2">
+                                        <h1 class="font-bold "><?= $i ?></h1>
+                                        <p class="text-xs">MARRIED</p>
+                                    </div>
+                                    <div class="place-items-center text-2xl p-2">
+                                        <h1 class="font-bold "><?= $i ?></h1>
+                                        <p class="text-xs">DIVORCED</p>
+                                    </div>
+                                    <div class="place-items-center text-2xl p-2">
+                                        <h1 class="font-bold "><?= $i ?></h1>
+                                        <p class="text-xs">SEPARATED</p>
+                                    </div>
+                                    <div class="place-items-center text-2xl p-2">
+                                        <h1 class="font-bold "><?= $i ?></h1>
+                                        <p class="text-xs">WIDOWED</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="border-2">
-                                <div class="bg-black">s</div>
-                                <div class="bg-black">s</div>
+                            <!-- Blood Type -->
+                            <div class="grid grid-rows-[auto_1fr] rounded-xl bg-black">
+                                <div class="text-sm font-bold px-3 pt-2 text-white">
+                                    Blood Type
+                                </div>
+                                <div class="flex justify-between px-4 ">
+                                    <div class="place-items-center text-lg p-2">
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <p class="text-xs text-white">A+</p>
+                                    </div>
+                                    <div class="place-items-center text-lg p-2">
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <p class="text-xs text-white">A-</p>
+                                    </div>
+                                    <div class="place-items-center text-lg p-2">
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <p class="text-xs text-white">B+</p>
+                                    </div>
+                                    <div class="place-items-center text-lg p-2">
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <p class="text-xs text-white">B-</p>
+                                    </div>
+                                    <div class="place-items-center text-lg p-2">
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <p class="text-xs text-white">AB+</p>
+                                    </div>
+                                    <div class="place-items-center text-lg p-2">
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <p class="text-xs text-white">AB-</p>
+                                    </div>
+                                    <div class="place-items-center text-lg p-2">
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <p class="text-xs text-white">O+</p>
+                                    </div>
+                                    <div class="place-items-center text-lg p-2">
+                                        <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $i ?></h1>
+                                        <p class="text-xs text-white">O-</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -343,17 +405,13 @@ if (!isset($_SESSION['users'])) {
     setInterval(updateTimer, 1000);
 </script>
 <script>
-    // Age Group Chart
     const ageGroupCtx = document.getElementById("ageGroupChart").getContext("2d");
-
-    // Sample data for each age group (use PHP to generate dynamic values)
     const infant = 5;
     const toddler = 12;
     const teenager = 123;
     const youngAdult = 5;
     const middleAgedAdult = 123;
     const seniorAdult = 23;
-
     const config4 = {
         type: 'bar',
         data: {
@@ -378,8 +436,7 @@ if (!isset($_SESSION['users'])) {
                     'rgba(175, 225, 175, 1)'
                 ],
                 borderWidth: 1,
-                // Adjust bar width with barThickness
-                barThickness: 50 // Adjust the value for smaller or larger bars
+                barThickness: 50 
             }]
         },
         options: {
@@ -387,12 +444,21 @@ if (!isset($_SESSION['users'])) {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false,  // Hide legend since it won't fit in the small space
+                    display: false,
                 },
                 title: {
-                    display: false,  // Hide title for better clarity
+                    display: false, 
                 }
             },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 2000,
+                    ticks: {
+                        stepSize: 100,
+                    }
+                }
+            }
         }
     };
 
