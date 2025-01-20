@@ -152,7 +152,7 @@ if (!isset($_SESSION['users'])) {
                     </div>
                 </div>
             </div>
-            <!-- Body -->
+            <!-- Current Records (Body) -->
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
                 <div class="flex flex-col h-full grow mt-[5.5rem]">
                     <!-- Options -->
@@ -177,7 +177,7 @@ if (!isset($_SESSION['users'])) {
                                 <a href="printhistory.php?category=previous&prevSearch="><button class="rounded-md border-c bg-c py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="prevRecords()">Previous Record</button></a>
                             </div>
                             <div>
-                                <button class="rounded-md border-c bg-c py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Future Record</button>
+                                <a href="printhistory.php?category=future&futureSearch="><button class="rounded-md border-c bg-c py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="futureRecords()">Future Record</button>
                             </div>
                         </div>
                     </div>
@@ -649,6 +649,220 @@ if (!isset($_SESSION['users'])) {
                     </div>
                 </div>
             </div>
+            <!-- Future Records -->
+                <?php
+                $isSearchActiveF = isset($_GET['futureSearch']) && !empty($_GET['futureSearch']);
+                ?>
+            <div class="fixed z-50 <?php echo $isSearchActiveF ? 'block' : 'hidden'; ?>" id="futureRecords">
+                <div class="w-screen h-screen flex justify-center items-center flex-col ">
+                    <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid cursor-pointer" onclick="cancelSelect()"></div> <!-- Background overlay -->
+                    <div class="relative flex flex-col h-full w-[45%] overflow-auto bg-white z-10 my-14  border-4 border-c rounded-xl ">
+                        <div class="grid justify-center h-full w-full grow">
+                            <!-- Search -->
+                            <div class="relative flex justify-center items-center my-4">
+                                <form method="GET" class="flex justify-center items-center w-full place-self-center">
+                                    <input name="futureSearch" id="futureSearch" type="text" placeholder="Search..." value="<?= isset($futureSearch) ? htmlspecialchars($futureSearch) : ''; ?>" class="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 ring-sg h-8 z-10 transform translate-x-4" >
+                                    <button type="submit" id="futureSearchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20 transform -translate-x-4">
+                                        <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
+                                    </button>
+                                </form>
+                            </div>
+                            <!-- Tables -->
+                            <?php if ($futureSearchResult) { ?>
+                            <div class="h-full">
+                                <div class="overflow-hidden w-full">
+                                    <div class="border-2 border-c rounded-lg mx-4 bg-white">
+                                        <!--Records Table -->
+                                        <div class="h-[67vh]">
+                                            <div class="rounded-t-sm pt-2 bg-c ">
+                                            <table id="residentTable" class="w-full border-collapse">
+                                                <colgroup>
+                                                    <col class="w-[100px]">
+                                                    <col class="w-[200px]">
+                                                    <col class="w-[200px]">
+                                                    <col class="w-[100px]">
+                                                    <col class="w-[200px]">
+                                                </colgroup>
+                                                <thead class="bg-c sticky top-0 ">
+                                                    <tr class="uppercase">
+                                                        <!--Basic Information + Action-->
+                                                        <th class="py-4 min-w-20">ID</th>
+                                                        <th class="py-4">First Name</th>
+                                                        <th class="py-4">Document Type</th>
+                                                        <th class="py-4">Issued By</th>
+                                                        <th class="py-4">Issued Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class=" text-gray-600 bg-white">
+                                                <?php 
+                                                $male = 0;
+                                                $female = 0;
+                                                $i = 1; //auto numbering
+                                                $j = 10 * $page - 10; // adjust depending on page
+                                                foreach ($futureSearchResult as $row) {
+                                                ?>
+                                                <tr class="hover:bg-gray-100  text-center">
+                                                    <td class=" border-y-2 border-c py-4">
+                                                        <div class="flex justify-center  min-w-20">
+                                                            <?php echo $page > 1 ? $i + $j : $i; ?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c py-2">
+                                                        <div class="flex justify-center">
+                                                            <?=$row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'] . ' ' . $row['suffix']?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c py-2">
+                                                        <div class="flex justify-center" >
+                                                            <?=$row['document_type']?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c py-2">
+                                                        <div class="flex justify-center">
+                                                            <?=$row['issued_by']?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c py-2">
+                                                        <div class="flex justify-center">
+                                                            <?=$row['print_date']?>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php $i++; } ?>
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+                                        <!-- Page Links -->
+                                        <div class=" h-12 rounded-b-sm bg-c">
+                                            <?php
+                                            //display first and prev
+                                            echo "<div class='place-self-end pt-3 p-2'>";
+                                            if ($futureRecordPage > 1) {
+                                                echo "<a href='printhistory.php?category=future&futureRecordPage=1&futureSearch=$futureSearch' class='px-4 py-2  text-sm  text-white bg-sg rounded-l-lg hover:opacity-80'>&laquo; First</a>";
+                                                echo "<a href='printhistory.php?category=future&futureRecordPage=" . ($futureRecordPage - 1) . "&futureSearch=$futureSearch' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>&lt; Previous</a>"; // Previous page link
+                                            } else {
+                                                echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200 rounded-l-lg'>&laquo; First</span>";
+                                                echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200'>&lt; Previous</span>";
+                                            }
+                                            //display range of page link
+                                            for ($i = max(1, $futureRecordPage - 5); $i <= min($future_total_pages, $futureRecordPage + 5); $i++) {
+                                                if ($i == $futureRecordPage) {
+                                                    echo "<span class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</span>";
+                                                } else {
+                                                    echo "<a href='printhistory.php?category=future&futureRecordPage=" . $i . "&futureSearch=$futureSearch' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</a>";
+                                                }
+                                            }
+                                            // Display next and last
+                                            if ($futureRecordPage < $future_total_pages) {
+                                               echo "<a href='printhistory.php?category=future&futureRecordPage=" . ($futureRecordPage + 1) . "&futureSearch=$futureSearch' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>Next &gt;</a>"; // Next page link
+                                               echo "<a href='printhistory.php?category=future&futureRecordPage=$future_total_pages&futureSearch=$futureSearch' class='px-4 py-2  text-sm  text-white bg-sg rounded-r-lg hover:opacity-80'>Last &raquo;</a>"; // Last page link
+                                            } else {
+                                               echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200'>Next &gt;</span>";
+                                               echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200 rounded-r-lg'>Last &raquo;</span>";
+                                            }
+                                            echo "</div>";
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center items-center py-2 pt-3 grow">
+                                    <a href="printhistory.php?"><button class="rounded-md border-2 border-c p-2 w-52 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button></a>
+                                </div>
+                            </div>
+                            <?php } else { ?>
+                            <!-- No records -->
+                            <div class="overflow-hidden w-full ">
+                                <div class="border-2 border-c rounded-lg mx-4 bg-white">
+                                    <!--No Records Table -->
+                                    <div class="h[67vh]">
+                                        <div class="rounded-t-sm pt-2 bg-c ">
+                                            <table id="residentTable" class="w-full border-collapse">
+                                                <colgroup>
+                                                    <col class="w-[100px]">
+                                                    <col class="w-[200px]">
+                                                    <col class="w-[200px]">
+                                                    <col class="w-[200px]">
+                                                    <col class="w-[100px]">
+                                                </colgroup>
+                                                <thead class="bg-c sticky top-0 ">
+                                                    <tr class="uppercase">
+                                                        <!--Basic Information + Action-->
+                                                        <th class="py-4 min-w-20">ID</th>
+                                                        <th class="py-4">First Name</th>
+                                                        <th class="py-4">Age</th>
+                                                        <th class="py-4">Document Type</th>
+                                                        <th class="py-4">Issued By</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class=" text-gray-600 bg-white h-[60vh]">
+                                                <tr class=" text-center">
+                                                    <td class=" border-y-2 border-c py-4">
+                                                        <div class="flex justify-center  min-w-20">
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c py-2">
+                                                        <div class="flex justify-center">
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c py-2">
+                                                        <div class="flex justify-center">
+                                                            No records found
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c py-2">
+                                                        <div class="flex justify-center">
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-y-2 border-c py-2">
+                                                        <div class="flex justify-center">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class=" h-12 rounded-b-sm bg-c">
+                                        <?php
+                                        //display first and prev
+                                        echo "<div class='place-self-end pt-3 p-2'>";
+                                        if ($futureRecordPage > 1) {
+                                            echo "<a href='printhistory.php?category=future&futureRecordPage=1&futureSearch=$futureSearch' class='px-4 py-2  text-sm  text-white bg-sg rounded-l-lg hover:opacity-80'>&laquo; First</a>";
+                                            echo "<a href='printhistory.php?category=future&futureRecordPage=" . ($futureRecordPage - 1) . "&futureSearch=$futureSearch' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>&lt; Previous</a>"; // Previous page link
+                                        } else {
+                                            echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200 rounded-l-lg'>&laquo; First</span>";
+                                            echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200'>&lt; Previous</span>";
+                                        }
+                                        //display range of page link
+                                        for ($i = max(1, $futureRecordPage - 5); $i <= min($future_total_pages, $futureRecordPage + 5); $i++) {
+                                            if ($i == $futureRecordPage) {
+                                                echo "<span class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</span>";
+                                            } else {
+                                                echo "<a href='printhistory.php?category=future&futureRecordPage=" . $i . "&futureSearch=$futureSearch' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>" . $i . "</a>";
+                                            }
+                                        }
+                                        // Display next and last
+                                        if ($futureRecordPage < $future_total_pages) {
+                                           echo "<a href='printhistory.php?category=future&futureRecordPage=" . ($futureRecordPage + 1) . "&futureSearch=$futureSearch' class='px-4 py-2  text-sm  text-white bg-sg hover:opacity-80'>Next &gt;</a>"; // Next page link
+                                           echo "<a href='printhistory.php?category=future&futureRecordPage=$future_total_pages&futureSearch=$futureSearch' class='px-4 py-2  text-sm  text-white bg-sg rounded-r-lg hover:opacity-80'>Last &raquo;</a>"; // Last page link
+                                        } else {
+                                           echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200'>Next &gt;</span>";
+                                           echo "<span class='px-4 py-2  text-sm  text-gray-400 bg-gray-200 rounded-r-lg'>Last &raquo;</span>";
+                                        }
+                                        echo "</div>";
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center items-center py-2 pt-3 grow">
+                                    <a href="printhistory.php?"><button class="rounded-md border-2 border-c p-2 w-52 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button></a>
+                                </div>
+                            </div>
+                            <?php }  ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 <script>
@@ -658,11 +872,22 @@ if (!isset($_SESSION['users'])) {
             document.getElementById("prevRecords").classList.remove("hidden");
         }
     });
-    
-    //confirm deletion
+    //show prev record
     function prevRecords() {
         document.getElementById("prevRecords").classList.remove("hidden");
     }
+
+    //on load if there is id in the url close select records
+    document.addEventListener("DOMContentLoaded", function() {
+        if (window.location.href.indexOf("category=future") !== -1) {
+            document.getElementById("futureRecords").classList.remove("hidden");
+        }
+    });
+    //show future records
+    function futureRecords() {
+        document.getElementById("futureRecords").classList.remove("hidden");
+    }
+
     function cancelSelect() {
         document.getElementById("prevRecords").classList.add("hidden");
         document.getElementById("futureRecords").classList.add("hidden");
