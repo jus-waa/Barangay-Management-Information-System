@@ -197,8 +197,8 @@ if (!isset($_SESSION['users'])) {
                                             <col class="w-[200px]">
                                             <col class="w-[150px]">
                                             <col class="w-[200px]">
-                                            <col>
-                                            <col>
+                                            <col class="w-[200px]">
+                                            <col class="w-[400px]">
                                         </colgroup>
                                         <thead class="bg-c sticky top-0 ">
                                             <tr class="uppercase">

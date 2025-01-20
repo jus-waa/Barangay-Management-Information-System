@@ -55,16 +55,14 @@ try {
 
     // Handling prevSearch for previous page count
     if (empty($prevSearch)) {
-        $prev_total_sql = "SELECT COUNT(*) AS prev_total FROM `print_history` WHERE DATE(print_date) NOT BETWEEN :startOfWeek AND :endOfWeek";
+        $prev_total_sql = "SELECT COUNT(*) AS prev_total FROM `print_history` WHERE DATE(print_date) < :startOfWeek ";
         $prev_stmt_total = $dbh->prepare($prev_total_sql);
         $prev_stmt_total->bindParam(':startOfWeek', $startOfWeek);
-        $prev_stmt_total->bindParam(':endOfWeek', $endOfWeek);
     } else {
-        $prev_total_sql = "SELECT COUNT(*) AS prev_total FROM `print_history` WHERE (first_name LIKE :prevSearch OR middle_name LIKE :prevSearch OR last_name LIKE :prevSearch) AND DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek";
+        $prev_total_sql = "SELECT COUNT(*) AS prev_total FROM `print_history` WHERE (first_name LIKE :prevSearch OR middle_name LIKE :prevSearch OR last_name LIKE :prevSearch) AND DATE(print_date) < :startOfWeek";
         $prev_stmt_total = $dbh->prepare($prev_total_sql);
         $prev_stmt_total->bindValue(':prevSearch', '%' . $prevSearch . '%', PDO::PARAM_STR);
         $prev_stmt_total->bindParam(':startOfWeek', $startOfWeek);
-        $prev_stmt_total->bindParam(':endOfWeek', $endOfWeek);
     }
 
     // Execute the total counts
@@ -114,16 +112,14 @@ try {
     }
 
     if (empty($prevSearch)) {
-        $stmt4 = $dbh->prepare("SELECT * FROM `print_history` WHERE DATE(print_date) NOT BETWEEN :startOfWeek AND :endOfWeek LIMIT :limit OFFSET :offset"); 
+        $stmt4 = $dbh->prepare("SELECT * FROM `print_history` WHERE DATE(print_date) < :startOfWeek LIMIT :limit OFFSET :offset"); 
         $stmt4->bindParam(':startOfWeek', $startOfWeek);
-        $stmt4->bindParam(':endOfWeek', $endOfWeek);
         $stmt4->bindParam(':limit', $records, PDO::PARAM_INT);
         $stmt4->bindParam(':offset', $prevRecordOffset, PDO::PARAM_INT);
     } else {
-        $stmt4 = $dbh->prepare("SELECT * FROM `print_history` WHERE (first_name LIKE :prevSearch OR middle_name LIKE :prevSearch OR last_name LIKE :prevSearch) AND DATE(print_date) NOT BETWEEN :startOfWeek AND :endOfWeek LIMIT :limit OFFSET :offset");
+        $stmt4 = $dbh->prepare("SELECT * FROM `print_history` WHERE (first_name LIKE :prevSearch OR middle_name LIKE :prevSearch OR last_name LIKE :prevSearch) AND DATE(print_date) < :startOfWeek LIMIT :limit OFFSET :offset");
         $stmt4->bindValue(':prevSearch', '%' . $prevSearch . '%', PDO::PARAM_STR);
         $stmt4->bindParam(':startOfWeek', $startOfWeek);
-        $stmt4->bindParam(':endOfWeek', $endOfWeek);
         $stmt4->bindParam(':limit', $records, PDO::PARAM_INT);
         $stmt4->bindParam(':offset', $prevRecordOffset, PDO::PARAM_INT);
     }
