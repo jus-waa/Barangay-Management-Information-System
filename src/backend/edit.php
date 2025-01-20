@@ -300,7 +300,7 @@ if(isset($_POST['update'])) {
                     <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
                         <div class="flex items-center justify-between">
                             <?php 
-                            $civilStatusOptions = ["", "Single", "Married", "Divorced", "Widowed"];
+                            $civilStatusOptions = ["", "Single", "Married", "Divorced", "Separated", "Widowed"];
                             ?>
                             <div for="" class="flex flex-col flex-grow">
                                 <select id="civil-status" name="civil_status" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">

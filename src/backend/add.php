@@ -290,6 +290,7 @@ if(isset($_POST['add'])) {
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
                                 <option value="Divorced">Divorced</option>
+                                <option value="Separated">Separated</option>
                                 <option value="Widowed">Widowed</option>
                             </select>
                             <span id="civil-status-error" class="text-red-500 text-sm hidden">Field is required</span>
