@@ -206,13 +206,13 @@ if (!isset($_SESSION['users'])) {
                         ?>
                             <!-- Add Record -->
                             <div>
-                                <a href="backend/add.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
+                                <a href="backend/add.php"><button class="rounded-md border-c bg-c py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Add Record</button></a>
                             </div>
                             <!--Bulk Import-->
                             <div>
                                 <form id="formUpload"  class="flex items-center">
                                     <div>
-                                        <button id="btnUpload" name="btnUpload" class="py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none rounded-sm" disabled>Bulk Import</button>
+                                        <button id="btnUpload" name="btnUpload" class="rounded-md py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none" disabled>Bulk Import</button>
                                     </div>
                                     <label for="file_input">
                                         <img id="file_output" class="ml-2 size-8 cursor-pointer hover:animate-wiggle" src="../img/document.png">

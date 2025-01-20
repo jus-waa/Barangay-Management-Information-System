@@ -326,7 +326,7 @@ if (isset($_POST['confirm'])) {
                         </div>
                         <!-- Tables -->
                         <?php if ($searchResult) { ?>
-                        <div class="h-full w-screengrow ">
+                        <div class="h-full">
                             <div class="overflow-hidden w-full mt-2">
                                 <div class="border-2 border-c rounded-lg mx-4">
                                     <!--Personal Information Table -->

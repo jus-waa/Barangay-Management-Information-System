@@ -1,64 +1,143 @@
 <?php
 session_start();
 include("connection.php");
-//pagination & search
+
+// Get the current date
+$currentDate = date('Y-m-d');
+
+// Calculate the start of the week (Sunday)
+if (date('l', strtotime($currentDate)) === 'Sunday') {
+    $startOfWeek = $currentDate;
+} else {
+    $startOfWeek = date('Y-m-d', strtotime('last sunday', strtotime($currentDate)));
+}
+
+// Calculate the end of the week (Saturday)
+if (date('l', strtotime($currentDate)) === 'Saturday') {
+    $endOfWeek = $currentDate;
+} else {
+    $endOfWeek = date('Y-m-d', strtotime('next saturday', strtotime($currentDate)));
+}
+
 try {
     $records = 10;
+
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $prevRecordPage = isset($_GET['prevRecordPage']) ? (int)$_GET['prevRecordPage'] : 1;
+
     $offset = ($page - 1) * $records;
+    $prevRecordOffset = ($prevRecordPage - 1) * $records;
+    
     $search = isset($_GET['search']) ? $_GET['search'] : '';
-    //count total records based on based query
+    $prevSearch = isset($_GET['prevSearch']) ? $_GET['prevSearch'] : '';
+
+    // Count total records based on the query
     if (empty($search)) {
         $total_sql = "SELECT COUNT(*) AS total FROM `resident_info`";
-        $print_total_sql = "SELECT COUNT(*) AS print_total FROM `print_history`";
+        $print_total_sql = "SELECT COUNT(*) AS print_total FROM `print_history` WHERE DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek";
+        
         $stmt_total = $dbh->prepare($total_sql);
         $print_stmt_total = $dbh->prepare($print_total_sql);
+        $print_stmt_total->bindParam(':startOfWeek', $startOfWeek);
+        $print_stmt_total->bindParam(':endOfWeek', $endOfWeek);
     } else {
-        $total_sql = "SELECT COUNT(*) AS total FROM `resident_info` WHERE first_name LIKE :search";
-        $print_total_sql = "SELECT COUNT(*) AS print_total FROM `print_history` WHERE first_name LIKE :search";
+        $total_sql = "SELECT COUNT(*) AS total FROM `resident_info` WHERE first_name LIKE :search OR middle_name LIKE :search OR last_name LIKE :search";
+        $print_total_sql = "SELECT COUNT(*) AS print_total FROM `print_history` WHERE (first_name LIKE :search OR middle_name LIKE :search OR last_name LIKE :search) AND DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek";
+
         $stmt_total = $dbh->prepare($total_sql);
         $stmt_total->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+        
         $print_stmt_total = $dbh->prepare($print_total_sql);
         $print_stmt_total->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+        $print_stmt_total->bindParam(':startOfWeek', $startOfWeek);
+        $print_stmt_total->bindParam(':endOfWeek', $endOfWeek);
     }
+
+    // Handling prevSearch for previous page count
+    if (empty($prevSearch)) {
+        $prev_total_sql = "SELECT COUNT(*) AS prev_total FROM `print_history` WHERE DATE(print_date) NOT BETWEEN :startOfWeek AND :endOfWeek";
+        $prev_stmt_total = $dbh->prepare($prev_total_sql);
+        $prev_stmt_total->bindParam(':startOfWeek', $startOfWeek);
+        $prev_stmt_total->bindParam(':endOfWeek', $endOfWeek);
+    } else {
+        $prev_total_sql = "SELECT COUNT(*) AS prev_total FROM `print_history` WHERE (first_name LIKE :prevSearch OR middle_name LIKE :prevSearch OR last_name LIKE :prevSearch) AND DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek";
+        $prev_stmt_total = $dbh->prepare($prev_total_sql);
+        $prev_stmt_total->bindValue(':prevSearch', '%' . $prevSearch . '%', PDO::PARAM_STR);
+        $prev_stmt_total->bindParam(':startOfWeek', $startOfWeek);
+        $prev_stmt_total->bindParam(':endOfWeek', $endOfWeek);
+    }
+
+    // Execute the total counts
     $stmt_total->execute();
     $print_stmt_total->execute();
+    $prev_stmt_total->execute();
 
+    // Fetching total row count
     $total_row = $stmt_total->fetch(PDO::FETCH_ASSOC);
     $print_total_row = $print_stmt_total->fetch(PDO::FETCH_ASSOC);
+    $prev_total_row = $prev_stmt_total->fetch(PDO::FETCH_ASSOC);
 
     $total_records = $total_row['total']; // Total number of records for resident page
-    $print_total_records = $print_total_row['print_total']; // Total number of records for print page
+    $print_total_records = $print_total_row['print_total']; // Total number of records for print page this week
+    $prev_total_records = $prev_total_row['prev_total']; // Total records for previous page this week
 
-    $total_pages = ceil($total_records / $records); // Total number of pages for resident page
-    $print_total_pages = ceil($print_total_records / $records); // Total number of pages for print history page
+    // Pagination calculations
+    $total_pages = ceil($total_records / $records);
+    $print_total_pages = ceil($print_total_records / $records);
+    $prev_total_pages = ceil($prev_total_records / $records);
 
-    //fetch based on query
+    // Fetch data based on query
     if (empty($search)) {
         $stmt2 = $dbh->prepare("SELECT * FROM `resident_info` LIMIT :limit OFFSET :offset");
-        $stmt3 = $dbh->prepare("SELECT * FROM `print_history` LIMIT :limit OFFSET :offset");
+        $stmt3 = $dbh->prepare("SELECT * FROM `print_history` WHERE DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek LIMIT :limit OFFSET :offset");
 
         $stmt2->bindParam(':limit', $records, PDO::PARAM_INT);
         $stmt2->bindParam(':offset', $offset, PDO::PARAM_INT);
 
         $stmt3->bindParam(':limit', $records, PDO::PARAM_INT);
         $stmt3->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt3->bindParam(':startOfWeek', $startOfWeek);
+        $stmt3->bindParam(':endOfWeek', $endOfWeek);
     } else {
-        $stmt2 = $dbh->prepare("SELECT * FROM `resident_info` WHERE first_name LIKE :search LIMIT :limit OFFSET :offset");
-        $stmt3 = $dbh->prepare("SELECT * FROM `print_history` WHERE first_name LIKE :search LIMIT :limit OFFSET :offset");
+        $stmt2 = $dbh->prepare("SELECT * FROM `resident_info` WHERE first_name LIKE :search OR middle_name LIKE :search OR last_name LIKE :search LIMIT :limit OFFSET :offset");
+        $stmt3 = $dbh->prepare("SELECT * FROM `print_history` WHERE (first_name LIKE :search OR middle_name LIKE :search OR last_name LIKE :search) AND DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek LIMIT :limit OFFSET :offset");
 
-        $stmt2->bindValue(':search', '%'.$search.'%', PDO::PARAM_STR);
+        $stmt2->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
         $stmt2->bindParam(':limit', $records, PDO::PARAM_INT);
         $stmt2->bindParam(':offset', $offset, PDO::PARAM_INT);
 
-        $stmt3->bindValue(':search', '%'.$search.'%', PDO::PARAM_STR);
+        $stmt3->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
         $stmt3->bindParam(':limit', $records, PDO::PARAM_INT);
         $stmt3->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt3->bindParam(':startOfWeek', $startOfWeek);
+        $stmt3->bindParam(':endOfWeek', $endOfWeek);
     }
+
+    if (empty($prevSearch)) {
+        $stmt4 = $dbh->prepare("SELECT * FROM `print_history` WHERE DATE(print_date) NOT BETWEEN :startOfWeek AND :endOfWeek LIMIT :limit OFFSET :offset"); 
+        $stmt4->bindParam(':startOfWeek', $startOfWeek);
+        $stmt4->bindParam(':endOfWeek', $endOfWeek);
+        $stmt4->bindParam(':limit', $records, PDO::PARAM_INT);
+        $stmt4->bindParam(':offset', $prevRecordOffset, PDO::PARAM_INT);
+    } else {
+        $stmt4 = $dbh->prepare("SELECT * FROM `print_history` WHERE (first_name LIKE :prevSearch OR middle_name LIKE :prevSearch OR last_name LIKE :prevSearch) AND DATE(print_date) NOT BETWEEN :startOfWeek AND :endOfWeek LIMIT :limit OFFSET :offset");
+        $stmt4->bindValue(':prevSearch', '%' . $prevSearch . '%', PDO::PARAM_STR);
+        $stmt4->bindParam(':startOfWeek', $startOfWeek);
+        $stmt4->bindParam(':endOfWeek', $endOfWeek);
+        $stmt4->bindParam(':limit', $records, PDO::PARAM_INT);
+        $stmt4->bindParam(':offset', $prevRecordOffset, PDO::PARAM_INT);
+    }
+
+    // Execute the final queries
     $stmt2->execute();
     $stmt3->execute();
+    $stmt4->execute();
+    
+    // Fetch results
     $searchResult = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     $printSearchResult = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+    $prevSearchResult = $stmt4->fetchAll(PDO::FETCH_ASSOC);
+
 } catch (PDOException $e) {
     echo $e->getMessage();
 }
