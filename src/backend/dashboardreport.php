@@ -198,6 +198,9 @@ foreach ($result_history as $rows) {
     }
 }
 $totalDocsJson = json_encode($totalDocs);
+
+date_default_timezone_set('Asia/Manila');
+
 // Document Issuance Data
 $currentDate = date('Y-m-d');
 $currentFormatDate = new DateTime();
