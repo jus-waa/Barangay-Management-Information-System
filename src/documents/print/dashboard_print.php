@@ -1,12 +1,18 @@
 <?php
 session_start();
-include("../../backend/connection.php");
+include("./../../backend/connection.php");
 include("../../backend/dashboardreport.php");
-require("../../fpdf/fpdf.php");
+require("./../../fpdf/fpdf.php");
+require("./../../fpdi/FPDI-2.6.1/src/autoload.php");
 
-$pdf = new FPDF('L','mm','A4');
-$pdf->AddPage();
-
+use setasign\Fpdi\Fpdi;
+$pdf = new Fpdi();
+//page start
+$pdf -> AddPage();
+$pdf -> SetFont("Arial", "", 11);
+$pdf -> setSourceFile('./../../pdfs/BRGY.-CLEARANCE-NEW-KAP-2025.pdf');
+$template = $pdf->importPage(1);
+$pdf->useTemplate($template);
 // header
 $pdf->Ln(5);
 $pdf->SetFont('Arial','B',24);

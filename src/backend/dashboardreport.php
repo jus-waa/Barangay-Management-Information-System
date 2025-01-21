@@ -82,9 +82,9 @@ foreach ($result as $row) {
         $child++;
     } else if ($row['age'] >= 13 && $row['age'] <= 19) {
         $teenager++;
-    } else if ($row['age'] >= 20 && $row['age'] <= 29) {
+    } else if ($row['age'] >= 20 && $row['age'] <= 39) {
         $youngAdult++;
-    } else if ($row['age'] >= 30 && $row['age'] <= 59) {
+    } else if ($row['age'] >= 40 && $row['age'] <= 59) {
         $middleAgedAdult++;
     } else if ($row['age'] >= 60) {
         $seniorAdult++;
