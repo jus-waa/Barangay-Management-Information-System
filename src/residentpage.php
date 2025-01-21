@@ -503,11 +503,12 @@ if (!isset($_SESSION['users'])) {
                                     <colgroup>
                                         <col class="w-[100px]">
                                         <col class="w-[150px]">
-                                        <col>
-                                        <col>
-                                        <col>
-                                        <col>
-                                        <col>
+                                        <col class="w-[200px]">
+                                        <col class="w-[250px]">
+                                        <col class="w-[100px]">
+                                        <col class="w-[250px]">
+                                        <col class="w-[250px]">
+                                        <col class="w-[150px]">
                                         <col>
                                         <col class="w-[200px]">
                                     </colgroup>
@@ -518,6 +519,7 @@ if (!isset($_SESSION['users'])) {
                                             <th class="py-4  text-sg">Full Name</th>                            
                                             <th class="py-4">House Number</th>
                                             <th class="py-4">Street Name</th>
+                                            <th class="py-4">Purok</th>
                                             <th class="py-4">Barangay Name</th>
                                             <th class="py-4">Municipality/City</th>                            
                                             <th class="py-4">Province</th>
@@ -552,6 +554,11 @@ if (!isset($_SESSION['users'])) {
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center">
                                                 <?=$row['street_name']?>
+                                            </div>
+                                        </td>
+                                        <td class="border-y-2 border-c py-2">
+                                            <div class="flex justify-center">
+                                                <?=$row['purok']?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-c py-2">

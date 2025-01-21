@@ -28,8 +28,8 @@ if($_FILES["file"]["size"] > 0) {
         $city = "Indang";
         $prov = "Cavite";
         $zip = "4122";
-        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `father_name`, `mother_maiden_name`, `contact_num`, `email_address`, `house_num`, `street_name`, `barangay_name`, `municipality_city`, `province`, `zip_code`, `civil_status`, `citizenship`, `ethnicity`, `occupation`, `residency_type`, `status`, `height`, `weight`, `eye_color`, `blood_type`, `religion`) 
-        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :father_name, :mother_maiden_name, :contact_num, :email_address, :house_num, :street_name, :barangay_name, :municipality_city, :province, :zip_code, :civil_status, :citizenship, :ethnicity, :occupation, :residency_type, :status, :height, :weight, :eye_color, :blood_type, :religion)";
+        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `father_name`, `mother_maiden_name`, `contact_num`, `email_address`, `house_num`, `street_name`, `purok`, `barangay_name`, `municipality_city`, `province`, `zip_code`, `civil_status`, `citizenship`, `ethnicity`, `occupation`, `residency_type`, `status`, `height`, `weight`, `eye_color`, `blood_type`, `religion`) 
+        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :father_name, :mother_maiden_name, :contact_num, :email_address, :house_num, :street_name, :purok, :barangay_name, :municipality_city, :province, :zip_code, :civil_status, :citizenship, :ethnicity, :occupation, :residency_type, :status, :height, :weight, :eye_color, :blood_type, :religion)";
         $stmt = $dbh->prepare($query);
         try {
             $stmt->bindParam(':first_name', $data[0], PDO::PARAM_STR);
@@ -47,22 +47,23 @@ if($_FILES["file"]["size"] > 0) {
             $stmt->bindParam(':email_address', $data[11], PDO::PARAM_STR);
             $stmt->bindParam(':house_num', $data[12], PDO::PARAM_STR);
             $stmt->bindParam(':street_name', $data[13], PDO::PARAM_STR);
+            $stmt->bindParam(':purok', $data[14], PDO::PARAM_STR);
             $stmt->bindParam(':barangay_name', $brgy, PDO::PARAM_STR);
             $stmt->bindParam(':municipality_city', $city, PDO::PARAM_STR);
             $stmt->bindParam(':province', $prov, PDO::PARAM_STR);
             $stmt->bindParam(':zip_code', $zip, PDO::PARAM_STR);
-            $stmt->bindParam(':civil_status', $data[14], PDO::PARAM_STR);
-            $stmt->bindParam(':citizenship', $data[15], PDO::PARAM_STR);
-            $stmt->bindParam(':ethnicity', $data[16], PDO::PARAM_STR);
-            $stmt->bindParam(':occupation', $data[17], PDO::PARAM_STR);
-            $stmt->bindParam(':residency_type', $data[18], PDO::PARAM_STR);
-            $stmt->bindParam(':status', $data[19], PDO::PARAM_STR);
-            $stmt->bindParam(':height', $data[20], PDO::PARAM_INT);
-            $stmt->bindParam(':weight', $data[21], PDO::PARAM_INT);
-            $stmt->bindParam(':eye_color', $data[22], PDO::PARAM_STR);
-            $stmt->bindParam(':blood_type', $data[23], PDO::PARAM_STR);
-            $stmt->bindParam(':religion', $data[24], PDO::PARAM_STR);
-            for($i=0;$i<=24;$i++) {
+            $stmt->bindParam(':civil_status', $data[15], PDO::PARAM_STR);
+            $stmt->bindParam(':citizenship', $data[16], PDO::PARAM_STR);
+            $stmt->bindParam(':ethnicity', $data[17], PDO::PARAM_STR);
+            $stmt->bindParam(':occupation', $data[18], PDO::PARAM_STR);
+            $stmt->bindParam(':residency_type', $data[19], PDO::PARAM_STR);
+            $stmt->bindParam(':status', $data[20], PDO::PARAM_STR);
+            $stmt->bindParam(':height', $data[21], PDO::PARAM_INT);
+            $stmt->bindParam(':weight', $data[22], PDO::PARAM_INT);
+            $stmt->bindParam(':eye_color', $data[23], PDO::PARAM_STR);
+            $stmt->bindParam(':blood_type', $data[24], PDO::PARAM_STR);
+            $stmt->bindParam(':religion', $data[25], PDO::PARAM_STR);
+            for($i=0;$i<=25;$i++) {
                 if($data[$i] == null) {
                     $data[$i] = "";
                 }

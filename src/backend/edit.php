@@ -18,6 +18,7 @@ if(isset($_POST['update'])) {
         $email = $_POST['email_address'];
         $house_num = $_POST['house_num'];
         $street_name = $_POST['street_name'];
+        $purok = $_POST['purok'];
         $barangay_name = "Barangay Buna Cerca";
         $municipality_city = "Indang";
         $province = "Cavite";
@@ -57,7 +58,8 @@ if(isset($_POST['update'])) {
                 `contact_num` = :contact_num,
                 `email_address` = :email_address,
                 `house_num` = :house_num,
-                `street_name` = :street_name, 
+                `street_name` = :street_name,
+                `purok` = :purok, 
                 `barangay_name` = :barangay_name,
                 `municipality_city` = :municipality_city, 
                 `province` = :province, 
@@ -90,6 +92,7 @@ if(isset($_POST['update'])) {
         $stmt->bindParam(':email_address', $email, PDO::PARAM_STR);
         $stmt->bindParam(':house_num', $house_num, PDO::PARAM_STR);
         $stmt->bindParam(':street_name', $street_name, PDO::PARAM_STR);
+        $stmt->bindParam(':purok', $purok, PDO::PARAM_STR);
         $stmt->bindParam(':barangay_name', $barangay_name, PDO::PARAM_STR);
         $stmt->bindParam(':municipality_city', $municipality_city, PDO::PARAM_STR);
         $stmt->bindParam(':province', $province, PDO::PARAM_STR);
@@ -261,10 +264,17 @@ if(isset($_POST['update'])) {
                     <div>
                         <h2 class="text-xl font-bold mb-4 ">Address Details</h2>
                         <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
-                            <div>
-                                <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['house_num']?>" placeholder=" "/> 
-                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">House Number</label>
-                                <span id="house-number-error" class="text-red-500 text-sm hidden">Field is required</span>
+                            <div class="flex items-start justify-between">
+                                <div class="flex-grow mr-2">
+                                    <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 text-m p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['house_num']?>" placeholder=" "/> 
+                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">House Number</label>
+                                    <span id="house-number-error" class="text-red-500 text-sm hidden">Field is required</span>
+                                </div>
+                                <div class="flex-grow">
+                                    <input id="purok" name="purok" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['purok']?>" placeholder=" "/> 
+                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Purok</label>
+                                    <span id="purok-error" class="text-red-500 text-sm hidden">Field is required</span>
+                                </div>
                             </div>
                             <div class="flex items-start justify-between">
                                 <div class="flex-grow mr-2">
@@ -305,7 +315,7 @@ if(isset($_POST['update'])) {
                             <div for="" class="flex flex-col flex-grow">
                                 <select id="civil-status" name="civil_status" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
                                     <?php foreach($civilStatusOptions as $civilStatus): ?>
-                                        <option value="<?=$civilStatus?>" <?= $row['civil_status'] == $civilStatus ? "selected" : "" ?>>
+                                        <option value="<?=$civilStatus?>" <?= ucwords($row['civil_status']) == $civilStatus ? "selected" : "" ?>>
                                             <?=$civilStatus == "" ? "Select Civil Status" : $civilStatus?>
                                         </option>
                                     <?php endforeach; ?>
@@ -342,7 +352,7 @@ if(isset($_POST['update'])) {
                                 ?>
                                 <select id="residency-type" name="residency_type" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
                                     <?php foreach($residencyOptions as $residencyType): ?>
-                                        <option value="<?=$residencyType?>" <?= $row['residency_type'] == $residencyType ? "selected" : "" ?>>
+                                        <option value="<?=$residencyType?>" <?= ucwords($row['residency_type']) == $residencyType ? "selected" : "" ?>>
                                             <?=$residencyType == "" ? "Select Residency Type" : $residencyType?>
                                         </option>
                                     <?php endforeach; ?>
@@ -355,7 +365,7 @@ if(isset($_POST['update'])) {
                                 ?>
                                 <select id="status" name="status" class="border-2 border-gray-200 rounded-md focus:outline-none focus:border-sg  p-2.1 text-sm">
                                     <?php foreach($statusOptions as $statusType): ?>
-                                        <option value="<?=$statusType?>" <?= $row['status'] == $statusType ? "selected" : "" ?>>
+                                        <option value="<?=$statusType?>" <?= ucwords($row['status']) == $statusType ? "selected" : "" ?>>
                                             <?=$statusType == "" ? "Select Status" : $statusType?>
                                         </option>
                                     <?php endforeach; ?>
@@ -460,6 +470,7 @@ if(isset($_POST['update'])) {
 
         const houseNumberInput = document.getElementById("house-number");
         const streetInput = document.getElementById("street-name");
+        const purokInput = document.getElementById("purok");
 
         const civilStatusInput = document.getElementById("civil-status");
         const citizenshipInput = document.getElementById("citizenship");
@@ -484,6 +495,7 @@ if(isset($_POST['update'])) {
 
         const houseNumberError = document.getElementById("house-number-error");
         const streetError = document.getElementById("street-name-error");
+        const purokError = document.getElementById("purok-error");
         
         const civilStatusError = document.getElementById("civil-status-error");
         const citizenshipError = document.getElementById("citizenship-error");
@@ -599,6 +611,14 @@ if(isset($_POST['update'])) {
                 firstInvalidElement = firstInvalidElement || streetInput;
             } else {
                 streetError.classList.add("hidden");
+            }
+            // Validate Purok
+            if (!purokInput.value.trim()) {
+                isValid = false;
+                purokError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || purokInput;
+            } else {
+                purokError.classList.add("hidden");
             }
 
             // Validate Civil Status

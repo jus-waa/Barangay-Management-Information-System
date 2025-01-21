@@ -18,6 +18,7 @@ if(isset($_POST['add'])) {
         $email = $_POST['email_address'];
         $house_num = $_POST['house_num'];
         $street_name = $_POST['street_name'];
+        $purok = $_POST['purok'];
         $barangay_name = "Barangay Buna Cerca";
         $municipality_city = "Indang";
         $province = "Cavite";
@@ -44,8 +45,8 @@ if(isset($_POST['add'])) {
             $age = $currentDate->diff($birthDate)->y; // Get the difference in years
             return $age;
         }
-        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `contact_num`, `email_address`, `house_num`, `street_name`, `barangay_name`, `municipality_city`, `province`, `father_name`, `mother_maiden_name`, `zip_code`, `civil_status`, `citizenship`, `ethnicity` ,`occupation`, `residency_type`, `status`, `height`, `weight`, `eye_color`, `blood_type`, `religion`) 
-                                        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :contact_num, :email_address, :house_num, :street_name, :barangay_name, :municipality_city, :province, :father_name, :mother_maiden_name , :zip_code, :civil_status, :citizenship, :ethnicity ,:occupation, :residency_type, :status, :height, :weight, :eye_color, :blood_type, :religion)";
+        $query = "INSERT INTO `resident_info`(`first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `age`, `birth_date`, `birthplace_municipality_city`, `birthplace_province`, `contact_num`, `email_address`, `house_num`, `street_name`, `purok`, `barangay_name`, `municipality_city`, `province`, `father_name`, `mother_maiden_name`, `zip_code`, `civil_status`, `citizenship`, `ethnicity` ,`occupation`, `residency_type`, `status`, `height`, `weight`, `eye_color`, `blood_type`, `religion`) 
+                                        VALUES (:first_name, :middle_name, :last_name, :suffix, :gender, :age, :birth_date, :birthplace_municipality_city, :birthplace_province, :contact_num, :email_address, :house_num, :street_name, :purok, :barangay_name, :municipality_city, :province, :father_name, :mother_maiden_name , :zip_code, :civil_status, :citizenship, :ethnicity ,:occupation, :residency_type, :status, :height, :weight, :eye_color, :blood_type, :religion)";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
         $stmt->bindParam(':middle_name', $middle_name, PDO::PARAM_STR);
@@ -62,6 +63,7 @@ if(isset($_POST['add'])) {
         $stmt->bindParam(':email_address', $email, PDO::PARAM_STR);
         $stmt->bindParam(':house_num', $house_num, PDO::PARAM_STR);
         $stmt->bindParam(':street_name', $street_name, PDO::PARAM_STR);
+        $stmt->bindParam(':purok', $purok, PDO::PARAM_STR);
         $stmt->bindParam(':barangay_name', $barangay_name, PDO::PARAM_STR);
         $stmt->bindParam(':municipality_city', $municipality_city, PDO::PARAM_STR);
         $stmt->bindParam(':province', $province, PDO::PARAM_STR);
@@ -247,10 +249,17 @@ if(isset($_POST['add'])) {
                     <div>
                         <h2 class="text-xl font-bold mb-4 ">Address Details</h2>
                         <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700">
-                            <div>
-                                <input id="house-number" name="house_num" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
-                                <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">House Number</label>
-                                <span id="house-number-error" class="text-red-500 text-sm hidden">Field is required</span>
+                            <div class="flex items-start justify-between">
+                                <div class="flex-grow mr-2">
+                                    <input id="house-number" name="house_num" type="number" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">House Number</label>
+                                    <span id="house-number-error" class="text-red-500 text-sm hidden">Field is required</span>
+                                </div>
+                                <div class="flex-grow">
+                                    <input id="purok" name="purok" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Purok</label>
+                                    <span id="purok-error" class="text-red-500 text-sm hidden">Field is required</span>
+                                </div>
                             </div>
                             <div class="flex items-start justify-between">
                                 <div class="flex-grow mr-2">
@@ -413,6 +422,7 @@ if(isset($_POST['add'])) {
 
         const houseNumberInput = document.getElementById("house-number");
         const streetInput = document.getElementById("street-name");
+        const purokInput = document.getElementById("purok");
 
         const civilStatusInput = document.getElementById("civil-status");
         const citizenshipInput = document.getElementById("citizenship");
@@ -437,6 +447,7 @@ if(isset($_POST['add'])) {
 
         const houseNumberError = document.getElementById("house-number-error");
         const streetError = document.getElementById("street-name-error");
+        const purokError = document.getElementById("purok-error");
         
         const civilStatusError = document.getElementById("civil-status-error");
         const citizenshipError = document.getElementById("citizenship-error");
@@ -553,7 +564,15 @@ if(isset($_POST['add'])) {
             } else {
                 streetError.classList.add("hidden");
             }
-
+            // Validate Purok
+            if (!purokInput.value.trim()) {
+                isValid = false;
+                purokError.classList.remove("hidden");
+                firstInvalidElement = firstInvalidElement || purokInput;
+            } else {
+                purokError.classList.add("hidden");
+            }
+            
             // Validate Civil Status
             if (!civilStatusInput.value.trim()) {
                 isValid = false;
