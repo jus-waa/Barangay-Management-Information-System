@@ -167,7 +167,6 @@ if (isset($_POST['confirmPrintSignature'])) {
                         </div>
                     </div>
                 </div>
-                
             </div>
             <!-- Note -->
             <div class="grid grid-cols-1 gap-4 mt-2 mx-2 p-4 rounded-md bg-[#FFF2D0] text-[#937E43] <?= $isEnabled ? 'hidden' : '' ?>">
@@ -544,10 +543,6 @@ if (isset($_POST['confirmPrintSignature'])) {
     function cancelConfirmationSig() {
         document.getElementById("confirmSig").classList.add("hidden");
     }
-
-    
- 
-
     //script for requiring input fields
     document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("personal_info");

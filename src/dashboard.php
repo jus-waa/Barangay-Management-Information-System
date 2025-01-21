@@ -447,7 +447,7 @@ if (!isset($_SESSION['users'])) {
                     'rgba(175, 225, 175, 1)'
                 ],
                 borderWidth: 1,
-                barThickness: 50 
+                barThickness: 40 
             }]
         },
         options: {
