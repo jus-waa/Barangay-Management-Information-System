@@ -67,13 +67,26 @@
         <div class="flex flex-grow">
             <!-- Left Side (Information Section) -->
             <div class="bg-sg rounded-l-md w-2/5 text-white flex flex-col justify-center items-center"> 
-                <div class="mx-12">
-                    <h1 class="text-5xl font-bold mb-2 text-center">iBarangay</h1>
-                    <h3 class="text-c text-2xl mt-1 mb-16 text-center">Management Information System</h3>
-                    <p class="text-c text-justify p-6">A user-friendly website designed to simplify barangay management of resident data, incident reports, projects, and documents, enhancing productivity and service to the community.</p> <!-- Changed font to Questrial -->
+                <div class="h-full flex flex-col">
+                    <!-- Back Button -->
+                    <div class="flex m-4">
+                        <a href="accountmanagement.php" class="flex items-center">
+                            <div class="flex items-center p-2 rounded-md cursor-pointer transition duration-700 hover:scale-125 hover:animate-wiggle">
+                                <img src="../img/back-white.png" class="size-4" alt="select from records">
+                            </div>
+                            <p class="flex justify-start w-48 p-2 text-white">Back</p>
+                        </a>
+                    </div>
+                    <!-- Info -->
+                    <div class="h-full flex flex-col justify-center items-center">
+                        <div class="mx-12">
+                            <h1 class="text-5xl font-bold mb-2 text-center">iBarangay</h1>
+                            <h3 class="text-c text-2xl mt-1 mb-16 text-center">Management Information System</h3>
+                            <p class="text-c text-justify p-6">A user-friendly website designed to simplify barangay management of resident data, incident reports, projects, and documents, enhancing productivity and service to the community.</p> <!-- Changed font to Questrial -->
+                        </div>
+                    </div>
                 </div>
             </div>
-
             <!-- Right Side (Create Account Form) -->
             <div class="bg-c w-3/5 flex flex-col justify-center"> 
                 <div class="grid rounded-xl bg-c">
