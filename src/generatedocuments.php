@@ -30,59 +30,65 @@ if (!isset($_SESSION['users'])) {
             <!--Nav-->
             <div id="mainNav" class="flex flex-col place-content-start h-full w-full bg-c duration-500 ease-in-out">
                 <div class="h-full flex flex-col ">
-                    <div class="place-content-center h-full grow-0 space-y-14 ">
-                        <div>
-                            <a href="dashboard.php">
-                                <button onmouseover="toggleDisplay('dashboard_title', true)" onmouseleave="toggleDisplay('dashboard_title', false)" class="flex place-content-center w-full">
-                                    <img  class="size-10 hover:animate-wiggle" src="../img/dashboard.png ">
-                                    <span id="dashboard_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Dashboard</span>
-                                </button>
-                            </a>
+                    <!-- Menu -->
+                    <div class="flex flex-col justify-between place-content-center h-full grow-0">
+                        <div class="m-3 mt-4">
+                            <img src="../img/buna_cerca.png" alt="">
                         </div>
-                        <div>
-                            <a href="residentpage.php">
-                                <button onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
-                                    <img  class="size-10 hover:animate-wiggle" src="../img/res_info.png ">
-                                    <span id="res_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Resident Information</span>
+                        <div class="place-content-center my-20 space-y-14 ">
+                            <div>
+                                <a href="dashboard.php">
+                                    <button id="dashboard"  onmouseover="toggleDisplay('dashboard_title', true)" onmouseleave="toggleDisplay('dashboard_title', false)" class="flex place-content-center w-full">
+                                        <img  class="size-10 hover:animate-wiggle" src="../img/dashboard.png ">
+                                        <span id="dashboard_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Dashboard</span>
+                                    </button>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="residentpage.php">
+                                    <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
+                                        <img  class="size-10 hover:animate-wiggle" src="../img/res_info.png ">
+                                        <span id="res_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Resident Information</span>
+                                    </button>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="generatedocuments.php">
+                                    <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
+                                        <img  class="size-10 hover:animate-wiggle" src="../img/gen_doc.png">
+                                        <span id="doc_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Generate Documents</span>
+                                    </button>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="printhistory.php">
+                                    <button onmouseover="toggleDisplay('print_history', true)" onmouseleave="toggleDisplay('print_history', false)" class="flex place-content-center w-full">
+                                        <img  class="size-10 hover:animate-wiggle" src="../img/reports.png">
+                                        <span id="print_history" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Print History</span>
+                                    </button>
+                                </a>
+                            </div>
+                            <div>
+                                <?php
+                                if (hasPermission('system_settings')){
+                                ?>
+                                <a href="accountmanagement.php">
+                                    <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full ">
+                                        <img class="size-10 hover:animate-wiggle" src="../img/setting.png"  >
+                                        <span id="set_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Account Settings</span>
+                                    </button>
+                                </a>
+                                <?php 
+                                } else {
+                                ?>
+                                <button disabled id="setting" onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
+                                    <img  class="size-10 hover:animate-wiggle" src="../img/setting.png" >
+                                    <span id="set_title" class="absolute z-10 hover:scale-110 text-sm bg-c hidden">
+                                        <img  class="size-10 hover:animate-wiggle" src="../img/x.png">
+                                    </span>
                                 </button>
-                            </a>
-                        </div>
-                        <div>
-                            <a href="generatedocuments.php">
-                                <button  onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
-                                    <img  class="size-10 hover:animate-wiggle" src="../img/gen_doc.png">
-                                    <span id="doc_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Generate Documents</span>
-                                </button>
-                            </a>
-                        </div>
-                        <div>
-                            <a href="printhistory.php">
-                                <button onmouseover="toggleDisplay('print_history', true)" onmouseleave="toggleDisplay('print_history', false)" class="flex place-content-center w-full">
-                                    <img  class="size-10 hover:animate-wiggle" src="../img/reports.png">
-                                    <span id="print_history" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Print History</span>
-                                </button>
-                            </a>
-                        </div>
-                        <div>
-                            <?php
-                            if (hasPermission('system_settings')){
-                            ?>
-                            <a href="accountmanagement.php">
-                                <button  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full ">
-                                    <img class="size-10 hover:animate-wiggle" src="../img/setting.png"  >
-                                    <span id="set_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Account Settings</span>
-                                </button>
-                            </a>
-                            <?php 
-                            } else {
-                            ?>
-                            <button disabled  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
-                                <img  class="size-10 hover:animate-wiggle" src="../img/setting.png" >
-                                <span id="set_title" class="absolute z-10 hover:scale-110 text-sm bg-c hidden">
-                                    <img  class="size-10 hover:animate-wiggle" src="../img/x.png">
-                                </span>
-                            </button>
-                            <?php } ?>
+                                <?php } ?>
+                            </div>
                         </div>
                     </div>
                     <!-- Account and Logout -->
