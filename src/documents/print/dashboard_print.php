@@ -8,64 +8,65 @@ require("./../../fpdi/FPDI-2.6.1/src/autoload.php");
 use setasign\Fpdi\Fpdi;
 $pdf = new Fpdi();
 //page start
-$pdf -> AddPage();
+$pdf -> AddPage('P', 'Legal');
 $pdf -> SetFont("Arial", "", 11);
-$pdf -> setSourceFile('./../../pdfs/BRGY.-CLEARANCE-NEW-KAP-2025.pdf');
+$pdf -> setSourceFile('./../../pdfs/dashboard_report_overview.pdf');
 $template = $pdf->importPage(1);
 $pdf->useTemplate($template);
-// header
-$pdf->Ln(5);
-$pdf->SetFont('Arial','B',24);
-$pdf->Cell(84, 10, '', 0, 0, 'C');
-$pdf->Cell(108, 5, 'Barangay Buna Cerca', 0, 0, 'C'); 
-$pdf->Cell(84, 10, '', 0, 1, 'C');
 
-$pdf->Ln(10);
-$pdf->SetFont('Arial', '', 16);
-$pdf->Cell(276, 10, 'Report Overview', 0, 1, 'C');
-// total res, total docs issued, gender breakdown
-$pdf->SetFont('Arial','B',12);
-$pdf->Cell(30, 10, '', 0, 0, 'C'); //Space
-$pdf->Cell(38, 10, 'Total Households:', 0, 0, 'L');
-$pdf->SetFont('Arial','',14);
-$pdf->Cell(12, 10, $household, 0, 0, 'C'); 
-
-$pdf->Cell(120.5, 10, '', 0, 0, 'C');
-$pdf->SetFont('Arial','B',12);
-$pdf->Cell(54, 10, 'Gender Breakdown', 0, 1, 'C'); 
-
-$pdf->SetFont('Arial','B',12);
-$pdf->Cell(30, 10, '', 0, 0, 'C'); //Space
-$pdf->Cell(34, 10, 'Total Residents:', 0, 0, 'L');
-$pdf->SetFont('Arial','',14);
-$pdf->Cell(12, 10, $totalRes, 0, 0, 'C'); 
-
-$pdf->Cell(104, 10, '', 0, 0, 'C');
-$pdf->SetFont('Arial','B',12);
-$pdf->Cell(40, 10, 'Male:', 0, 0, 'R'); 
-$pdf->SetFont('Arial','',14);
-$pdf->Cell(22, 10, $male, 0, 1, 'C'); 
-
-$pdf->SetFont('Arial','B',12);
-$pdf->Cell(30, 10, '', 0, 0, 'C'); //Space
-$pdf->Cell(37, 10, 'Active Residents:', 0, 0, 'L');
-$pdf->SetFont('Arial','',14);
-$pdf->Cell(38, 10, $active . ' out of ' . $i, 0, 0, 'C'); 
-$pdf->Cell(90.5, 10, '', 0, 0, 'C');
-
-$pdf->SetFont('Arial','B',12);
-$pdf->Cell(30, 10, 'Female:', 0, 0, 'R'); 
-$pdf->SetFont('Arial','',14);
-$pdf->Cell(12, 10, $female, 0, 1, 'C'); 
-
-$pdf->SetFont('Arial','B',12);
-$pdf->Cell(30, 10, '', 0, 0, 'C'); //Space
-$pdf->Cell(37, 10, 'Total Documents:', 0, 0, 'L');
-$pdf->SetFont('Arial','',14);
-$pdf->Cell(10, 10, $totalDocs, 0, 1, 'C'); 
-$pdf->Ln(10);
+$pdf->SetFont('Arial','',12);
+//population overview
+$pdf->Ln(68);
+$pdf->SetLeftMargin(19);
+$pdf->Cell(35, 11, $totalHouseHold, 0, 0, 'C');
+$pdf->Cell(35, 11, $totalRes, 0, 0, 'C');
+$pdf->Cell(35, 11, $active, 0, 0, 'C');
+$pdf->Cell(25, 11, $permanent, 0, 0, 'C');
+$pdf->Cell(24, 11, $temporary, 0, 0, 'C');
+$pdf->Cell(24, 11, $student, 0, 1, 'C');
+//community metrics
+$pdf->Ln(16.5);
+$pdf->SetLeftMargin(113);
+$pdf->Cell(83.5, 6.5, $infant, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $toddler, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $child, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $teenager, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $youngAdult, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $middleAgedAdult, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $seniorAdult, 0, 1, 'C');
+//gender breakdown
+$pdf->Cell(83.5, 6.5, $male, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $female, 0, 1, 'C');
+//civil status
+$pdf->Cell(83.5, 6.5, $single, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $married, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $divorced, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $separated, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $widowed, 0, 1, 'C');
+//blood type
+$pdf->Cell(83.5, 6.5, $a_plus, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $b_plus, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $ab_plus, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $o_plus, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $a_minus, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $b_minus, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $ab_minus, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $o_minus, 0, 1, 'C');
+$pdf->Ln(17);
+//document issuance data
+$pdf->Cell(83.5, 6.5, $totalDocs, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $brgyclr, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $certIndigency, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $certResidency, 0, 1, 'C');
+$pdf->Ln(15);
 
 
+$pdf->SetLeftMargin(148);
+$pdf->SetFont('Times','I',12);
+$pdf->Cell(50, 8.5, $formattedDate, 0, 1, 'C');
+
+/*
+Old format
 // Weekly Document Issuance Report
 $tableWidth = 124;
 
@@ -111,5 +112,6 @@ for ($i = 0; $i < $maxRows; $i++) {
         $pdf->Cell(62, 10, '', 1, 1, 'C');
     }
 }
+*/
 $pdf->Output();
 ?>

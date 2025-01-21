@@ -82,5 +82,4 @@ if ($row) {
 } else {
     die('Error: No record found for the provided ID.');
 }
-
 ?>

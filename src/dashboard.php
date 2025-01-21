@@ -434,7 +434,7 @@ if (!isset($_SESSION['users'])) {
             labels: ["Infant", "Toddler", "Child", "Teenager/Adolescent", "Young Adult", "Middle-Aged Adult", "Senior/Older Adult"],
             datasets: [{
                 label: "Age Group Distribution",
-                data: [infant, toddler, teenager, youngAdult, middleAgedAdult, seniorAdult], // Values
+                data: [infant, toddler, child, teenager, youngAdult, middleAgedAdult, seniorAdult], // Values
                 backgroundColor: [
                     'rgba(175, 225, 175, 0.5)',
                     'rgba(175, 225, 175, 0.5)',

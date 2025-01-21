@@ -135,7 +135,6 @@ $seniorAdultJSON = json_encode($seniorAdult);
 
 $totalResJSON = json_encode($totalRes);
 
-
 //House Hold
 $house_nums = [];
 foreach ($result as $row) {
@@ -184,7 +183,7 @@ $stmt = $dbh->prepare("SELECT * FROM `print_history`");
 $stmt->execute();
 $result_history = $stmt->fetchAll(PDO::FETCH_ASSOC);
 //from print history
-$totalDocs = 0; //total number of printed docs
+$totalDocs = 0;
 $brgyclr = 0;
 $certIndigency = 0;
 $certResidency = 0;
@@ -201,6 +200,9 @@ foreach ($result_history as $rows) {
 $totalDocsJson = json_encode($totalDocs);
 // Document Issuance Data
 $currentDate = date('Y-m-d');
+$currentFormatDate = new DateTime();
+$formattedDate = $currentFormatDate->format('F d, Y, g:i A');
+
 // start of the week (Sunday) and end of the week (Saturday)\
 if (date('l', strtotime($currentDate)) === 'Sunday') {
     $startOfWeek = $currentDate;
