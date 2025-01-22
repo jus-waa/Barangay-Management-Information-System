@@ -8,7 +8,6 @@ module.exports = {
     extend: {
       screens: {
         'std': '1367px',
-        'stl': '1441px',
       },
       keyframes: {
         wiggle: {
