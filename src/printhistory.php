@@ -22,25 +22,24 @@ if (!isset($_SESSION['users'])) {
     <script src="../script.js"></script>
     <script src="clock.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="relative">
     <div class="flex h-screen w-screen overflow-auto">
         <!-- Sidebar -->
-        <div class="flex-none w-20 h-full shadow-2xl">
+        <div class="flex-none w-14 std:w-20 h-full shadow-2xl">
             <!--Nav-->
             <div id="mainNav" class="flex flex-col place-content-start h-full w-full bg-c duration-500 ease-in-out">
                 <div class="h-full flex flex-col ">
                     <!-- Menu -->
                     <div class="flex flex-col justify-between place-content-center h-full grow-0">
-                        <div class="m-3 mt-4">
+                        <div class="m-3 mt-5 std:mt-4">
                             <img src="../img/buna_cerca.png" alt="">
                         </div>
-                        <div class="place-content-center my-20 space-y-14 ">
+                        <div class="place-content-center my-16 std:my-20 space-y-10 std:space-y-14 ">
                             <div>
                                 <a href="dashboard.php">
                                     <button id="dashboard"  onmouseover="toggleDisplay('dashboard_title', true)" onmouseleave="toggleDisplay('dashboard_title', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/dashboard.png ">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/dashboard.png ">
                                         <span id="dashboard_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Dashboard</span>
                                     </button>
                                 </a>
@@ -48,7 +47,7 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <a href="residentpage.php">
                                     <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/res_info.png ">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/res_info.png ">
                                         <span id="res_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Resident Information</span>
                                     </button>
                                 </a>
@@ -56,7 +55,7 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <a href="generatedocuments.php">
                                     <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/gen_doc.png">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/gen_doc.png">
                                         <span id="doc_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Generate Documents</span>
                                     </button>
                                 </a>
@@ -64,7 +63,7 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <a href="printhistory.php">
                                     <button onmouseover="toggleDisplay('print_history', true)" onmouseleave="toggleDisplay('print_history', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/reports.png">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/reports.png">
                                         <span id="print_history" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Print History</span>
                                     </button>
                                 </a>
@@ -75,7 +74,7 @@ if (!isset($_SESSION['users'])) {
                                 ?>
                                 <a href="accountmanagement.php">
                                     <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full ">
-                                        <img class="size-10 hover:animate-wiggle" src="../img/setting.png"  >
+                                        <img class="size-8 std:size-10 hover:animate-wiggle"  src="../img/setting.png"  >
                                         <span id="set_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Account Settings</span>
                                     </button>
                                 </a>
@@ -83,7 +82,7 @@ if (!isset($_SESSION['users'])) {
                                 } else {
                                 ?>
                                 <button disabled id="setting" onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
-                                    <img  class="size-10 hover:animate-wiggle" src="../img/setting.png" >
+                                    <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/setting.png" >
                                     <span id="set_title" class="absolute z-10 hover:scale-110 text-sm bg-c hidden">
                                         <img  class="size-10 hover:animate-wiggle" src="../img/x.png">
                                     </span>
@@ -93,11 +92,11 @@ if (!isset($_SESSION['users'])) {
                         </div>
                     </div>
                     <!-- Account and Logout -->
-                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow">
+                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow text-xs std-textbase">
                         <!-- Account -->
                         <div>
-                            <button  onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
-                                <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
+                            <button onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
+                                <img class="size-8 std:size-10 hover:animate-wiggle"  src="../img/account.png">
                                 <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
                                     <?php
                                         $userId = $_SESSION['users'];
@@ -114,7 +113,7 @@ if (!isset($_SESSION['users'])) {
                                     ?>
                                 </span>
                             </button>
-                            <button class="flex place-self-center text-left">
+                            <button class="flex place-self-center text-left ">
                                 <?php
                                     $userId = $_SESSION['users'];
                                     $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
@@ -134,10 +133,10 @@ if (!isset($_SESSION['users'])) {
                             </button>
                         </div>
                         <!-- Logout -->
-                        <div class="flex place-content-center w-full ">
+                        <div class="flex place-content-center w-full">
                             <a href="backend/logout.php">
-                                <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
-                                <p class="flex place-self-center">Logout</p>
+                                <img src="../img/logout.png"  class="place-self-center size-10 std:size-12 std:hover:scale-125 transition duration-500" alt="">
+                                <p class="flex place-self-center text-xs std:text-base">Logout</p>
                             </a>
                         </div>
                     </div>
@@ -147,31 +146,30 @@ if (!isset($_SESSION['users'])) {
         <!-- Main -->
         <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
-            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-8 py-2 bg-white">
-                <div class="text-3xl">
-                    <b>Barangay Buna Cerca</b><br>
+            <div class="grid grid-cols-2 items-center shadow-md px-8 py-2 std:py-2 bg-white">
+                <div class="text-xl std:text-3xl ">
+                    <b>Barangay Buna Cerca</b>
+                    <br>
                     <div class="flex items-center">
-                        <p class="text-[20px] italic">Transaction History</p>
+                        <p class="text-[16px] std:text-[20px] italic">Transaction History</p>
                         <?php if(hasPermission('system_settings')) : ?>
-                            <p class="text-[16px] italic transform translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
+                            <p class="text-[12px] std:text-[16px] italic transform translate-y-0 std:translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
                         <?php endif ?>
                     </div>
                 </div>
-                <div class="flex justify-end items-center space-x-4">
-                    <div class="justify-items-end">
-                        <b>Philippine Standard Time: </b><br>
-                        <p class="italic" id="liveClock"></p>
-                    </div>
+                <div class="justify-items-end text-sm std:text-base">
+                    <b>Philippine Standard Time: </b><br>
+                    <p class="italic" id="liveClock"></p>
                 </div>
             </div>
             <!-- Current Records (Body) -->
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
-                <div class="flex flex-col h-full grow mt-[5.5rem]">
+                <div class="flex flex-col h-full grow mt-[5.7rem] std:mt-[5.5rem]">
                     <!-- Options -->
                     <div class="grid grid-cols-[1fr_auto_auto_auto] mx-8 items-center ">
                         <!-- Categories -->
                         <div class="flex justify-start items-center">
-                            <p class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm">
+                            <p class="border-b-4 border-sg text-black py-1 px-3 hover:border-sg rounded-sm text-sm std:text-base">
                                 History of Documents Issued
                             </p>
                         </div>
@@ -186,77 +184,76 @@ if (!isset($_SESSION['users'])) {
                                 </form>
                             </div>
                             <div>
-                                <a href="printhistory.php?category=previous&prevSearch="><button class="rounded-md border-c bg-c py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="prevRecords()">Previous Record</button></a>
+                                <a href="printhistory.php?category=previous&prevSearch="><button class="rounded-md border-c bg-c py-1.5 std:py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300 text-sm std:text-base" onclick="prevRecords()">Previous Record</button></a>
                             </div>
                             <div>
-                                <a href="printhistory.php?category=future&futureSearch="><button class="rounded-md border-c bg-c py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="futureRecords()">Future Record</button>
+                                <a href="printhistory.php?category=future&futureSearch="><button class="rounded-md border-c bg-c py-1.5 std:py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300 text-sm std:text-base" onclick="futureRecords()">Future Record</button>
                             </div>
                         </div>
                     </div>
                     <!-- Tables -->
                     <?php if ($printSearchResult) { ?>
-                    <div class="overflow-hidden mt-4 w-full">
+                    <div class="overflow-hidden mt-4 w-full pointer-events-none">
                         <div class="border-2 border-c rounded-lg mx-8 bg-white">
-                            <!--No Records Table -->
-                            <div class="h-[67vh]">
+                            <div>
                                 <div class="rounded-t-sm pt-2 bg-c ">
-                                    <table id="residentTable" class="w-full border-collapse">
+                                    <table class="w-full border-collapse">
                                         <colgroup>
                                             <col class="w-[100px]">
-                                            <col class="w-[200px]">
+                                            <col class="w-[350px] std:w-[200px]">
                                             <col class="w-[100px]">
-                                            <col class="w-[200px]">
-                                            <col class="w-[200px]">
+                                            <col class="w-[300px] std:w-[200px]">
+                                            <col class="w-[250px] std:w-[200px]">
                                             <col class="w-[150px]">
                                             <col class="w-[200px]">
                                             <col class="w-[200px]">
                                             <col class="w-[400px]">
                                         </colgroup>
-                                        <thead class="bg-c sticky top-0 ">
+                                        <thead class="bg-c sticky top-0 text-sm std:text-base">
                                             <tr class="uppercase">
                                                 <!--Basic Information + Action-->
-                                                <th class="py-4 min-w-20">ID</th>
-                                                <th class="py-4">First Name</th>
-                                                <th class="py-4">Age</th>
-                                                <th class="py-4">Document Type</th>
-                                                <th class="py-4">Control Number</th>
-                                                <th class="py-4">CTC Number</th>
-                                                <th class="py-4">Issued By</th>
-                                                <th class="py-4">Issued Date</th>
+                                                <th class="py-2 std:py-4 min-w-20">ID</th>
+                                                <th class="py-2 std:py-4">First Name</th>
+                                                <th class="py-2 std:py-4">Age</th>
+                                                <th class="py-2 std:py-4">Document Type</th>
+                                                <th class="py-2 std:py-4">Control Number</th>
+                                                <th class="py-2 std:py-4">CTC Number</th>
+                                                <th class="py-2 std:py-4">Issued By</th>
+                                                <th class="py-2 std:py-4">Issued Date</th>
                                                 <th class="min-w-20">Purpose</th>
                                             </tr>
                                         </thead>
-                                        <tbody class=" text-gray-600 bg-white">
-                                        <?php 
-                                        // Get the current date
-                                        $currentDate = date('Y-m-d');
-                                                            
-                                        // start of the week (Sunday) and end of the week (Saturday)\
-                                        if (date('l', strtotime($currentDate)) === 'Sunday') {
-                                            $startOfWeek = $currentDate;
-                                        } else {
-                                            $startOfWeek = date('Y-m-d', strtotime('last sunday', strtotime($currentDate)));
-                                        }
-                                        
-                                        if (date('l', strtotime($currentDate)) === 'Saturday') {
-                                            $endOfWeek = $currentDate;
-                                        } else {
-                                            $endOfWeek = date('Y-m-d', strtotime('next saturday', strtotime($currentDate)));
-                                        }
-                                        
-                                        //  SQL query to fetch document counts by day of the week
-                                        $stmt = $dbh->prepare("SELECT print_date FROM print_history WHERE DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek");
-                                        $stmt->bindParam(':startOfWeek', $startOfWeek);
-                                        $stmt->bindParam(':endOfWeek', $endOfWeek);
-                                        $stmt->execute();
-                                        $dates = $stmt->fetchAll(PDO::FETCH_COLUMN);
+                                        <tbody class=" text-gray-600 bg-white text-sm std:text-base">
+                                            <?php 
+                                            // Get the current date
+                                            $currentDate = date('Y-m-d');
 
-                                        $i = 1; //auto numbering
-                                        $j = 10 * $page - 10; // adjust depending on page
-                                        foreach ($printSearchResult as $row) {
-                                        ?>
-                                        <tr class="hover:bg-gray-100  text-center">
-                                            <td class=" border-y-2 border-c py-4">
+                                            // start of the week (Sunday) and end of the week (Saturday)\
+                                            if (date('l', strtotime($currentDate)) === 'Sunday') {
+                                                $startOfWeek = $currentDate;
+                                            } else {
+                                                $startOfWeek = date('Y-m-d', strtotime('last sunday', strtotime($currentDate)));
+                                            }
+
+                                            if (date('l', strtotime($currentDate)) === 'Saturday') {
+                                                $endOfWeek = $currentDate;
+                                            } else {
+                                                $endOfWeek = date('Y-m-d', strtotime('next saturday', strtotime($currentDate)));
+                                            }
+
+                                            //  SQL query to fetch document counts by day of the week
+                                            $stmt = $dbh->prepare("SELECT print_date FROM print_history WHERE DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek");
+                                            $stmt->bindParam(':startOfWeek', $startOfWeek);
+                                            $stmt->bindParam(':endOfWeek', $endOfWeek);
+                                            $stmt->execute();
+                                            $dates = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+                                            $i = 1; //auto numbering
+                                            $j = 10 * $page - 10; // adjust depending on page
+                                            foreach ($printSearchResult as $row) {
+                                            ?>
+                                            <tr class="hover:bg-gray-100  text-center pointer-events-none">
+                                            <td class=" border-y-2 border-c py-[10px] std:py-4">
                                                 <div class="flex justify-center  min-w-20">
                                                     <?php echo $page > 1 ? $i + $j : $i; ?>
                                                 </div>
@@ -301,8 +298,8 @@ if (!isset($_SESSION['users'])) {
                                                     <?=$row['purpose']?>
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <?php $i++; } ?>
+                                                </tr>
+                                            <?php $i++; } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -356,9 +353,9 @@ if (!isset($_SESSION['users'])) {
                                             <col class="w-[200px]">
                                             <col class="w-[200px]">
                                             <col class="w-[200px]">
-                                            <col>
+                                            <col class="w-[200px]">
                                         </colgroup>
-                                        <thead class="bg-c sticky top-0 ">
+                                        <thead class="bg-c sticky top-0 text-sm std:text-base">
                                             <tr class="uppercase">
                                                 <!--Basic Information + Action-->
                                                 <th class="py-4 min-w-20">ID</th>
@@ -371,7 +368,7 @@ if (!isset($_SESSION['users'])) {
                                                 <th class="min-w-20">Purpose</th>
                                             </tr>
                                         </thead>
-                                        <tbody class=" text-gray-600 bg-white h-[60vh]">
+                                        <tbody class=" text-gray-600 bg-white h-[60vh] text-sm std:text-base">
                                         <tr class=" text-center">
                                             <td class=" border-y-2 border-c py-4">
                                                 <div class="flex justify-center  min-w-20">
@@ -391,11 +388,11 @@ if (!isset($_SESSION['users'])) {
                                             </td>
                                             <td class="border-y-2 border-c py-2">
                                                 <div class="flex justify-center">
+                                                    No records found
                                                 </div>
                                             </td>
                                             <td class="border-y-2 border-c py-2">
                                                 <div class="flex justify-center">
-                                                    No records found
                                                 </div>
                                             </td>
                                             <td class="border-y-2 border-c py-2">
@@ -453,13 +450,13 @@ if (!isset($_SESSION['users'])) {
             <div class="fixed z-50 <?php echo $isSearchActive ? 'block' : 'hidden'; ?>" id="prevRecords">
                 <div class="w-screen h-screen flex justify-center items-center flex-col ">
                     <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid cursor-pointer" onclick="cancelSelect()"></div> <!-- Background overlay -->
-                    <div class="relative flex flex-col h-full w-[45%] overflow-auto bg-white z-10 my-14  border-4 border-c rounded-xl ">
+                    <div class="relative flex flex-col h-full w-[50%] std:w-[45%] overflow-auto bg-white z-10 my-14  border-4 border-c rounded-xl ">
                         <div class="grid justify-center h-full w-full grow">
                             <!-- Search -->
                             <div class="relative flex justify-center items-center my-4">
                                 <form method="GET" class="flex justify-center items-center w-full place-self-center">
                                     <input name="prevSearch" id="prevSearchInput" type="text" placeholder="Search..." value="<?= isset($prevSearch) ? htmlspecialchars($prevSearch) : ''; ?>" class="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 ring-sg h-8 z-10 transform translate-x-4" >
-                                    <button type="submit" id="prevSearchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20 transform -translate-x-4 pointer-events-none">
+                                    <button type="submit" id="prevSearchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20 transform -translate-x-5 std:-translate-x-4 pointer-events-none">
                                         <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
                                     </button>
                                 </form>
@@ -470,24 +467,24 @@ if (!isset($_SESSION['users'])) {
                                 <div class="overflow-hidden w-full">
                                     <div class="border-2 border-c rounded-lg mx-4 bg-white">
                                         <!--Records Table -->
-                                        <div class="h-[67vh]">
+                                        <div class="h-[60.8vh] std:h-[67vh]">
                                             <div class="rounded-t-sm pt-2 bg-c ">
                                             <table id="residentTable" class="w-full border-collapse">
                                                 <colgroup>
-                                                    <col class="w-[100px]">
-                                                    <col class="w-[200px]">
+                                                    <col class="w-[50px]">
+                                                    <col class="w-[250px]">
                                                     <col class="w-[200px]">
                                                     <col class="w-[100px]">
                                                     <col class="w-[200px]">
                                                 </colgroup>
-                                                <thead class="bg-c sticky top-0 ">
+                                                <thead class="bg-c sticky top-0 text-sm std:text-base">
                                                     <tr class="uppercase">
                                                         <!--Basic Information + Action-->
-                                                        <th class="py-4 min-w-20">ID</th>
-                                                        <th class="py-4">First Name</th>
-                                                        <th class="py-4">Document Type</th>
-                                                        <th class="py-4">Issued By</th>
-                                                        <th class="py-4">Issued Date</th>
+                                                        <th class="py-2 std:py-4 min-w-20">ID</th>
+                                                        <th class="py-2 std:py-4">First Name</th>
+                                                        <th class="py-2 std:py-4">Document Type</th>
+                                                        <th class="py-2 std:py-4">Issued By</th>
+                                                        <th class="py-2 std:py-4">Issued Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class=" text-gray-600 bg-white">
@@ -498,8 +495,8 @@ if (!isset($_SESSION['users'])) {
                                                 $j = 10 * $page - 10; // adjust depending on page
                                                 foreach ($prevSearchResult as $row) {
                                                 ?>
-                                                <tr class="hover:bg-gray-100  text-center">
-                                                    <td class=" border-y-2 border-c py-4">
+                                                <tr class="hover:bg-gray-100 text-center text-sm std:text-base">
+                                                    <td class=" border-y-2 border-c py-[10px] std:py-4">
                                                         <div class="flex justify-center  min-w-20">
                                                             <?php echo $page > 1 ? $i + $j : $i; ?>
                                                         </div>
@@ -564,7 +561,7 @@ if (!isset($_SESSION['users'])) {
                                     </div>
                                 </div>
                                 <div class="flex justify-center items-center py-2 pt-3 grow">
-                                    <a href="printhistory.php?"><button class="rounded-md border-2 border-c p-2 w-52 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button></a>
+                                    <a href="printhistory.php?"><button class="text-sm std:text-base rounded-md border-2 border-c p-2 w-52 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button></a>
                                 </div>
                             </div>
                             <?php } else { ?>
@@ -572,27 +569,27 @@ if (!isset($_SESSION['users'])) {
                             <div class="overflow-hidden w-full ">
                                 <div class="border-2 border-c rounded-lg mx-4 bg-white">
                                     <!--No Records Table -->
-                                    <div class="h[67vh]">
+                                    <div class="h-[60.8vh] std:h[67vh]">
                                         <div class="rounded-t-sm pt-2 bg-c ">
                                             <table id="residentTable" class="w-full border-collapse">
                                                 <colgroup>
-                                                    <col class="w-[100px]">
                                                     <col class="w-[200px]">
                                                     <col class="w-[200px]">
+                                                    <col class="w-[300px]">
                                                     <col class="w-[200px]">
-                                                    <col class="w-[100px]">
+                                                    <col class="w-[200px]">
                                                 </colgroup>
-                                                <thead class="bg-c sticky top-0 ">
+                                                <thead class="bg-c sticky top-0 text-sm std:text-base">
                                                     <tr class="uppercase">
                                                         <!--Basic Information + Action-->
-                                                        <th class="py-4 min-w-20">ID</th>
-                                                        <th class="py-4">First Name</th>
-                                                        <th class="py-4">Age</th>
-                                                        <th class="py-4">Document Type</th>
-                                                        <th class="py-4">Issued By</th>
+                                                        <th class="py-2 std:py-4 min-w-20">ID</th>
+                                                        <th class="py-2 std:py-4">First Name</th>
+                                                        <th class="py-2 std:py-4">Age</th>
+                                                        <th class="py-2 std:py-4">Document Type</th>
+                                                        <th class="py-2 std:py-4">Issued By</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class=" text-gray-600 bg-white h-[60vh]">
+                                                <tbody class=" text-gray-600 bg-white h-[60vh] ">
                                                 <tr class=" text-center">
                                                     <td class=" border-y-2 border-c py-4">
                                                         <div class="flex justify-center  min-w-20">
@@ -653,7 +650,7 @@ if (!isset($_SESSION['users'])) {
                                     
                                 </div>
                                 <div class="flex justify-center items-center py-2 pt-3 grow">
-                                    <a href="printhistory.php?"><button class="rounded-md border-2 border-c p-2 w-52 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button></a>
+                                    <a href="printhistory.php?"><button class="rounded-md border-2 border-c p-2 w-52 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700 text-sm std:text-base" onclick="cancelSelect()">Cancel</button></a>
                                 </div>
                             </div>
                             <?php }  ?>
@@ -668,7 +665,7 @@ if (!isset($_SESSION['users'])) {
             <div class="fixed z-50 <?php echo $isSearchActiveF ? 'block' : 'hidden'; ?>" id="futureRecords">
                 <div class="w-screen h-screen flex justify-center items-center flex-col ">
                     <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid cursor-pointer" onclick="cancelSelect()"></div> <!-- Background overlay -->
-                    <div class="relative flex flex-col h-full w-[45%] overflow-auto bg-white z-10 my-14  border-4 border-c rounded-xl ">
+                    <div class="relative flex flex-col h-full w-[50%] std:w-[45%] overflow-auto bg-white z-10 my-14  border-4 border-c rounded-xl ">
                         <div class="grid justify-center h-full w-full grow">
                             <!-- Search -->
                             <div class="relative flex justify-center items-center my-4">
@@ -685,27 +682,27 @@ if (!isset($_SESSION['users'])) {
                                 <div class="overflow-hidden w-full">
                                     <div class="border-2 border-c rounded-lg mx-4 bg-white">
                                         <!--Records Table -->
-                                        <div class="h-[67vh]">
+                                        <div class="h-[60.8vh] std:h-[67vh]">
                                             <div class="rounded-t-sm pt-2 bg-c ">
                                             <table id="residentTable" class="w-full border-collapse">
                                                 <colgroup>
-                                                    <col class="w-[100px]">
-                                                    <col class="w-[200px]">
+                                                    <col class="w-[50px]">
+                                                    <col class="w-[250px]">
                                                     <col class="w-[200px]">
                                                     <col class="w-[100px]">
                                                     <col class="w-[200px]">
                                                 </colgroup>
-                                                <thead class="bg-c sticky top-0 ">
+                                                <thead class="bg-c sticky top-0 text-sm std:text-base">
                                                     <tr class="uppercase">
                                                         <!--Basic Information + Action-->
-                                                        <th class="py-4 min-w-20">ID</th>
-                                                        <th class="py-4">First Name</th>
-                                                        <th class="py-4">Document Type</th>
-                                                        <th class="py-4">Issued By</th>
-                                                        <th class="py-4">Issued Date</th>
+                                                        <th class="py-2 std:py-4 min-w-20">ID</th>
+                                                        <th class="py-2 std:py-4">First Name</th>
+                                                        <th class="py-2 std:py-4">Document Type</th>
+                                                        <th class="py-2 std:py-4">Issued By</th>
+                                                        <th class="py-2 std:py-4">Issued Date</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class=" text-gray-600 bg-white">
+                                                <tbody class=" text-gray-600 bg-white ">
                                                 <?php 
                                                 $male = 0;
                                                 $female = 0;
@@ -713,8 +710,8 @@ if (!isset($_SESSION['users'])) {
                                                 $j = 10 * $page - 10; // adjust depending on page
                                                 foreach ($futureSearchResult as $row) {
                                                 ?>
-                                                <tr class="hover:bg-gray-100  text-center">
-                                                    <td class=" border-y-2 border-c py-4">
+                                                <tr class="hover:bg-gray-100  text-center text-sm std:text-base">
+                                                    <td class=" border-y-2 border-c py-[10px] std:py-4">
                                                         <div class="flex justify-center  min-w-20">
                                                             <?php echo $page > 1 ? $i + $j : $i; ?>
                                                         </div>
@@ -787,24 +784,24 @@ if (!isset($_SESSION['users'])) {
                             <div class="overflow-hidden w-full ">
                                 <div class="border-2 border-c rounded-lg mx-4 bg-white">
                                     <!--No Records Table -->
-                                    <div class="h[67vh]">
+                                    <div class="h-[60.8vh] std:h[67vh]">
                                         <div class="rounded-t-sm pt-2 bg-c ">
-                                            <table id="residentTable" class="w-full border-collapse">
+                                            <table id="residentTable" class="w-full border-collapse ">
                                                 <colgroup>
-                                                    <col class="w-[100px]">
                                                     <col class="w-[200px]">
                                                     <col class="w-[200px]">
+                                                    <col class="w-[300px]">
                                                     <col class="w-[200px]">
-                                                    <col class="w-[100px]">
+                                                    <col class="w-[200px]">
                                                 </colgroup>
-                                                <thead class="bg-c sticky top-0 ">
+                                                <thead class="bg-c sticky top-0 text-sm std:text-base">
                                                     <tr class="uppercase">
                                                         <!--Basic Information + Action-->
-                                                        <th class="py-4 min-w-20">ID</th>
-                                                        <th class="py-4">First Name</th>
-                                                        <th class="py-4">Age</th>
-                                                        <th class="py-4">Document Type</th>
-                                                        <th class="py-4">Issued By</th>
+                                                        <th class="py-2 std:py-4 min-w-20">ID</th>
+                                                        <th class="py-2 std:py-4">First Name</th>
+                                                        <th class="py-2 std:py-4">Age</th>
+                                                        <th class="py-2 std:py-4">Document Type</th>
+                                                        <th class="py-2 std:py-4">Issued By</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class=" text-gray-600 bg-white h-[60vh]">
@@ -867,7 +864,7 @@ if (!isset($_SESSION['users'])) {
                                     </div>
                                 </div>
                                 <div class="flex justify-center items-center py-2 pt-3 grow">
-                                    <a href="printhistory.php?"><button class="rounded-md border-2 border-c p-2 w-52 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700" onclick="cancelSelect()">Cancel</button></a>
+                                    <a href="printhistory.php?"><button class="rounded-md border-2 border-c p-2 w-52 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-700 text-sm std:text-base" onclick="cancelSelect()">Cancel</button></a>
                                 </div>
                             </div>
                             <?php }  ?>

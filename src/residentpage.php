@@ -93,7 +93,7 @@ if (!isset($_SESSION['users'])) {
                         </div>
                     </div>
                     <!-- Account and Logout -->
-                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow">
+                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow text-xs std:text-base">
                         <!-- Account -->
                         <div>
                             <button onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
@@ -152,13 +152,13 @@ if (!isset($_SESSION['users'])) {
                     <b>Barangay Buna Cerca</b>
                     <br>
                     <div class="flex items-center">
-                        <p class="text-[20px] italic">Dashboard</p>
+                        <p class="text-[16px] std:text-[20px] italic">Resident Information</p>
                         <?php if(hasPermission('system_settings')) : ?>
-                            <p class="text-[16px] italic transform translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
+                            <p class="text-[12px] std:text-[16px] italic transform translate-y-0 std:translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
                         <?php endif ?>
                     </div>
                 </div>
-                <div class="justify-items-end">
+                <div class="justify-items-end text-sm std:text-base">
                     <b>Philippine Standard Time: </b><br>
                     <p class="italic" id="liveClock"></p>
                 </div>
@@ -188,7 +188,7 @@ if (!isset($_SESSION['users'])) {
                     ?>
                 </div>
                 <!-- Options -->
-                <div class="grid grid-cols-[auto_1fr] items-center border-2 mr-4 std:mr-0">
+                <div class="grid grid-cols-[auto_1fr] items-center mr-4 std:mr-0">
                     <!-- Categories -->
                     <div class="ml-8 text-black ">
                         <ul class="flex justify-start items-center space-x-4 ">
@@ -204,7 +204,7 @@ if (!isset($_SESSION['users'])) {
                     <!-- Search -->
                     <div class="flex justify-start std:justify-end items-center space-x-2 std:space-x-4 mr-4 std:mr-6">
                         <div class="relative">
-                            <form method="GET" class="flex justify-end items-center border-2">
+                            <form method="GET" class="flex justify-end items-center">
                                 <input name="search" id="search" type="text" placeholder="Search..." value="<?=$search?>" class="border border-gray-300 rounded-md p-2 w-60 h-8 focus:outline-none focus:ring-2 ring-sg  z-10  transform translate-x-8" >
                                 <button type="submit" id="searchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20">
                                     <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
@@ -909,27 +909,27 @@ if (!isset($_SESSION['users'])) {
                                         <col class="w-[200px]">
                                         <col class="w-[200px]">
                                         <col class="w-[200px]">
-                                        <col>
-                                        <col>
-                                        <col>
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
+                                        <col class="w-[200px]">
                                         <col class="w-[200px]">
                                     </colgroup>
-                                    <thead class="bg-c sticky top-0 ">
+                                    <thead class="bg-c sticky top-0 text-sm std:text-base">
                                         <tr class="uppercase ">
                                             <!--Basic Information + Action-->
-                                            <th class="py-4 min-w-20">ID</th>
-                                            <th class="py-4">First Name</th>
-                                            <th class="py-4">Middle Name</th>
-                                            <th class="py-4">Last Name</th>
-                                            <th class="py-4">Suffix</th>
-                                            <th class="py-4">Gender</th>
-                                            <th class="py-4">Age</th>
+                                            <th class="py-2 std:py-4 min-w-20">ID</th>
+                                            <th class="py-2 std:py-4">First Name</th>
+                                            <th class="py-2 std:py-4">Middle Name</th>
+                                            <th class="py-2 std:py-4">Last Name</th>
+                                            <th class="py-2 std:py-4">Suffix</th>
+                                            <th class="py-2 std:py-4">Gender</th>
+                                            <th class="py-2 std:py-4">Age</th>
                                             <th class="min-w-20">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class=" text-gray-600 bg-white h-[60vh] ">
+                                    <tbody class=" text-gray-600 bg-white h-[55vh] std:h-[60vh] text-sm std:text-base">
                                     <tr class=" text-center">
-                                        <td class=" border-y-2 border-c py-4">
+                                        <td class=" border-y-2 border-c py-2 std:py-4">
                                             <div class="flex justify-center  min-w-20">
                                             </div>
                                         </td>

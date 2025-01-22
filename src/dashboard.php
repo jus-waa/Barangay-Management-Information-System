@@ -94,7 +94,7 @@ if (!isset($_SESSION['users'])) {
                         </div>
                     </div>
                     <!-- Account and Logout -->
-                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow">
+                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow text-xs std-textbase">
                         <!-- Account -->
                         <div>
                             <button onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
@@ -115,7 +115,7 @@ if (!isset($_SESSION['users'])) {
                                     ?>
                                 </span>
                             </button>
-                            <button class="flex place-self-center text-left">
+                            <button class="flex place-self-center text-left ">
                                 <?php
                                     $userId = $_SESSION['users'];
                                     $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
@@ -138,7 +138,7 @@ if (!isset($_SESSION['users'])) {
                         <div class="flex place-content-center w-full">
                             <a href="backend/logout.php">
                                 <img src="../img/logout.png"  class="place-self-center size-10 std:size-12 std:hover:scale-125 transition duration-500" alt="">
-                                <p class="flex place-self-center">Logout</p>
+                                <p class="flex place-self-center text-xs std:text-base">Logout</p>
                             </a>
                         </div>
                     </div>
@@ -153,13 +153,13 @@ if (!isset($_SESSION['users'])) {
                     <b>Barangay Buna Cerca</b>
                     <br>
                     <div class="flex items-center">
-                        <p class="text-[20px] italic">Dashboard</p>
+                        <p class="text-[16px] std:text-[20px] italic">Dashboard</p>
                         <?php if(hasPermission('system_settings')) : ?>
-                            <p class="text-[16px] italic transform translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
+                            <p class="text-[12px] std:text-[16px] italic transform translate-y-0 std:translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
                         <?php endif ?>
                     </div>
                 </div>
-                <div class="justify-items-end">
+                <div class="justify-items-end text-sm std:text-base">
                     <b>Philippine Standard Time: </b><br>
                     <p class="italic" id="liveClock"></p>
                 </div>

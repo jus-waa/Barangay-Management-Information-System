@@ -30,20 +30,20 @@ if (!isset($_SESSION['users'])) {
 <body class="relative">
     <div class="flex h-screen w-screen overflow-auto">
         <!-- Sidebar -->
-        <div class="flex-none w-20 h-full shadow-2xl">
+        <div class="flex-none w-14 std:w-20 h-full shadow-2xl">
             <!--Nav-->
             <div id="mainNav" class="flex flex-col place-content-start h-full w-full bg-c duration-500 ease-in-out">
                 <div class="h-full flex flex-col ">
                     <!-- Menu -->
                     <div class="flex flex-col justify-between place-content-center h-full grow-0">
-                        <div class="m-3 mt-4">
+                        <div class="m-3 mt-5 std:mt-4">
                             <img src="../img/buna_cerca.png" alt="">
                         </div>
-                        <div class="place-content-center my-20 space-y-14 ">
+                        <div class="place-content-center my-16 std:my-20 space-y-10 std:space-y-14 ">
                             <div>
                                 <a href="dashboard.php">
                                     <button id="dashboard"  onmouseover="toggleDisplay('dashboard_title', true)" onmouseleave="toggleDisplay('dashboard_title', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/dashboard.png ">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/dashboard.png ">
                                         <span id="dashboard_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Dashboard</span>
                                     </button>
                                 </a>
@@ -51,7 +51,7 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <a href="residentpage.php">
                                     <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/res_info.png ">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/res_info.png ">
                                         <span id="res_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Resident Information</span>
                                     </button>
                                 </a>
@@ -59,7 +59,7 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <a href="generatedocuments.php">
                                     <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/gen_doc.png">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/gen_doc.png">
                                         <span id="doc_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Generate Documents</span>
                                     </button>
                                 </a>
@@ -67,7 +67,7 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <a href="printhistory.php">
                                     <button onmouseover="toggleDisplay('print_history', true)" onmouseleave="toggleDisplay('print_history', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/reports.png">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/reports.png">
                                         <span id="print_history" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Print History</span>
                                     </button>
                                 </a>
@@ -78,7 +78,7 @@ if (!isset($_SESSION['users'])) {
                                 ?>
                                 <a href="accountmanagement.php">
                                     <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full ">
-                                        <img class="size-10 hover:animate-wiggle" src="../img/setting.png"  >
+                                        <img class="size-8 std:size-10 hover:animate-wiggle"  src="../img/setting.png"  >
                                         <span id="set_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Account Settings</span>
                                     </button>
                                 </a>
@@ -86,7 +86,7 @@ if (!isset($_SESSION['users'])) {
                                 } else {
                                 ?>
                                 <button disabled id="setting" onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
-                                    <img  class="size-10 hover:animate-wiggle" src="../img/setting.png" >
+                                    <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/setting.png" >
                                     <span id="set_title" class="absolute z-10 hover:scale-110 text-sm bg-c hidden">
                                         <img  class="size-10 hover:animate-wiggle" src="../img/x.png">
                                     </span>
@@ -96,11 +96,11 @@ if (!isset($_SESSION['users'])) {
                         </div>
                     </div>
                     <!-- Account and Logout -->
-                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow">
+                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow text-xs std-textbase">
                         <!-- Account -->
                         <div>
-                            <button  onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
-                                <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
+                            <button onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
+                                <img class="size-8 std:size-10 hover:animate-wiggle"  src="../img/account.png">
                                 <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
                                     <?php
                                         $userId = $_SESSION['users'];
@@ -117,7 +117,7 @@ if (!isset($_SESSION['users'])) {
                                     ?>
                                 </span>
                             </button>
-                            <button class="flex place-self-center text-left">
+                            <button class="flex place-self-center text-left ">
                                 <?php
                                     $userId = $_SESSION['users'];
                                     $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user
@@ -137,10 +137,10 @@ if (!isset($_SESSION['users'])) {
                             </button>
                         </div>
                         <!-- Logout -->
-                        <div class="flex place-content-center w-full ">
+                        <div class="flex place-content-center w-full">
                             <a href="backend/logout.php">
-                                <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
-                                <p class="flex place-self-center">Logout</p>
+                                <img src="../img/logout.png"  class="place-self-center size-10 std:size-12 std:hover:scale-125 transition duration-500" alt="">
+                                <p class="flex place-self-center text-xs std:text-base">Logout</p>
                             </a>
                         </div>
                     </div>
@@ -151,27 +151,26 @@ if (!isset($_SESSION['users'])) {
         <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
         <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
-            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-8 py-2 bg-white">
-                <div class="text-3xl">
-                    <b>Barangay Buna Cerca</b><br>
+            <div class="grid grid-cols-2 items-center shadow-md px-8 py-2 std:py-2 bg-white">
+                <div class="text-xl std:text-3xl ">
+                    <b>Barangay Buna Cerca</b>
+                    <br>
                     <div class="flex items-center">
-                        <p class="text-[20px] italic">Account Management</p>
+                        <p class="text-[16px] std:text-[20px] italic">Account management</p>
                         <?php if(hasPermission('system_settings')) : ?>
-                            <p class="text-[16px] italic transform translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
+                            <p class="text-[12px] std:text-[16px] italic transform translate-y-0 std:translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
                         <?php endif ?>
                     </div>
                 </div>
-                <div class="flex justify-end items-center space-x-4">
-                    <div class="justify-items-end">
-                        <b>Philippine Standard Time: </b><br>
-                        <p class="italic" id="liveClock"></p>
-                    </div>
+                <div class="justify-items-end text-sm std:text-base">
+                    <b>Philippine Standard Time: </b><br>
+                    <p class="italic" id="liveClock"></p>
                 </div>
             </div>
             <!-- List of Accounts -->
             <div class="flex flex-col h-full grow">
                 <!-- Note -->
-                <div class="h-14 mb-4 mt-8 mx-8 text-white">
+                <div class="h-14 my-6 mx-4 std:my-4 std:mx-8 text-white">
                 <?php
                 if(isset($_GET['msg'])) {
                     $msg = $_GET['msg'];
@@ -192,14 +191,14 @@ if (!isset($_SESSION['users'])) {
                 </div>
                 <!-- Regular Section -->
                 <div class="flex justify-between items-end mx-8 mt-4">
-                    <div class="bg-c text-black py-2 px-14 rounded-xl font-bold text-3xl min-w-[200px] text-center">Regular</div>
-                    <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-sm">Add Record</button></a>
+                    <div class="bg-c text-black py-2 px-14 rounded-xl font-bold text-xl std:text-3xl std:min-w-[200px] text-center">Regular</div>
+                    <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 duration-500 hover:bg-sg focus:outline-none rounded-md text-sm std:text-base">Add Record</button></a>
                 </div>
                 <!-- Regular Account Table -->
                 <div class="overflow-hidden w-full  mt-4">
                     <div class="border-2 border-c rounded-lg mx-8">
                     <!--Regular-->
-                    <div id="tb1" class="overflow-auto no-scrollbar" style="height: 24vh;">
+                    <div id="tb1" class="overflow-auto no-scrollbar h-[21vh] std:h-[24vh]">
                         <div class="rounded-t-sm pt-2 bg-c ">
                             <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
@@ -211,10 +210,10 @@ if (!isset($_SESSION['users'])) {
                             <col class="w-[200px]">
                             <col class="w-[200px]">
                         </colgroup>
-                        <thead class="bg-c sticky top-0 ">
+                        <thead class="bg-c sticky top-0 text-sm std:text-base">
                             <tr class="uppercase">
                                 <!--Basic Information + Action-->
-                                <th class="w-12 py-4">ID</th>
+                                <th class="w-12 py-2 std:py-4">ID</th>
                                 <th class="">Name</th>
                                 <th class="w-56">Username</th>
                                 <th class="w-32">Contact Information</th>
@@ -223,7 +222,7 @@ if (!isset($_SESSION['users'])) {
                                 <th class="w-36">Action</th>
                             </tr>
                         </thead>
-                        <tbody class=" text-gray-600 bg-white">
+                        <tbody class=" text-gray-600 bg-white ">
                         <?php 
                         $i = 1; //auto numbering
                         foreach ($result as $row) {
@@ -283,14 +282,14 @@ if (!isset($_SESSION['users'])) {
                 </div>
                 <!-- Admin Section -->
                 <div class="flex justify-between items-end mx-8 mt-10">
-                    <div class="bg-c text-black py-2 px-16 rounded-xl font-bold text-3xl min-w-[200px] text-center">Admin</div>
+                    <div class="bg-c text-black py-2 px-12 std:px-16 rounded-xl font-bold text-xl std:text-3xl min-w-[200px] text-center">Admin</div>
                     <!-- <a href="signuppage.php"><button class="bg-c text-black py-1 px-3 hover:bg-sg focus:outline-none rounded-sm focus:ring-4 ring-dg">Add Record</button></a> -->
                 </div>
                 <!-- Admin Table -->
                 <div class="w-full overflow-hidden mt-4">
                     <div class="border-2 border-c rounded-lg mx-8">
                         <!-- Admin -->
-                        <div id="tb1" class="overflow-auto no-scrollbar" style="height: 24vh;">
+                        <div id="tb1" class="overflow-auto no-scrollbar h-[21vh] std:h-[24vh]">
                         <div class="rounded-t-sm pt-2 bg-c ">
                             <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
@@ -302,10 +301,10 @@ if (!isset($_SESSION['users'])) {
                             <col class="w-[200px]">
                             <col class="w-[200px]">
                         </colgroup>
-                        <thead class="bg-c sticky top-0 ">
+                        <thead class="bg-c sticky top-0 text-sm std:text-base">
                             <tr class="uppercase ">
                                 <!--Basic Information + Action-->
-                                <th class="w-12 py-4">ID</th>
+                                <th class="w-12 py-2 std:py-4">ID</th>
                                 <th class="">Name</th>
                                 <th class="w-56">Username</th>
                                 <th class="w-32">Contact Information</th>
