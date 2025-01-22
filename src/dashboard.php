@@ -176,7 +176,7 @@ if (!isset($_SESSION['users'])) {
                                 Population Overview
                             </h1>
                             <div>
-                                <a href="documents/print/dashboard_print.php" class="flex px-6 p-1 text-sm std:text-base rounded-xl border-2 border-sg bg-c place-self-center hover:border-c hover:bg-c hover:text-white transition duration-300" target="_blank"> 
+                                <a href="documents/print/dashboard_print.php" class="flex px-6 p-1 mt-2 std:mt-4 text-sm std:text-base rounded-xl border-2 border-sg bg-c place-self-center hover:border-c hover:bg-c hover:text-white transition duration-300" target="_blank"> 
                                     <img src="../img/printer.png" class="size-10 std:size-12" alt="">
                                     <button class="text-black">
                                         Print Dashboard

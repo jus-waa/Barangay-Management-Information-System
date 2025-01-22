@@ -27,20 +27,20 @@ if (!isset($_SESSION['users'])) {
 <body class="relative"> 
     <div class="flex h-screen w-screen overflow-auto">
         <!-- Sidebar -->
-        <div class="flex-none w-20 h-full shadow-2xl">
+        <div class="flex-none w-14 std:w-20 h-full shadow-2xl">
             <!--Nav-->
             <div id="mainNav" class="flex flex-col place-content-start h-full w-full bg-c duration-500 ease-in-out">
                 <div class="h-full flex flex-col ">
                     <!-- Menu -->
                     <div class="flex flex-col justify-between place-content-center h-full grow-0">
-                        <div class="m-3 mt-4">
+                        <div class="m-3 mt-5 std:mt-4">
                             <img src="../img/buna_cerca.png" alt="">
                         </div>
-                        <div class="place-content-center my-20 space-y-14 ">
+                        <div class="place-content-center my-16 std:my-20 space-y-10 std:space-y-14 ">
                             <div>
                                 <a href="dashboard.php">
                                     <button id="dashboard"  onmouseover="toggleDisplay('dashboard_title', true)" onmouseleave="toggleDisplay('dashboard_title', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/dashboard.png ">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/dashboard.png ">
                                         <span id="dashboard_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Dashboard</span>
                                     </button>
                                 </a>
@@ -48,7 +48,7 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <a href="residentpage.php">
                                     <button id="res_info"  onmouseover="toggleDisplay('res_title', true)" onmouseleave="toggleDisplay('res_title', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/res_info.png ">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/res_info.png ">
                                         <span id="res_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Resident Information</span>
                                     </button>
                                 </a>
@@ -56,7 +56,7 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <a href="generatedocuments.php">
                                     <button id="gen_doc" onmouseover="toggleDisplay('doc_title', true)" onmouseleave="toggleDisplay('doc_title', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/gen_doc.png">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/gen_doc.png">
                                         <span id="doc_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Generate Documents</span>
                                     </button>
                                 </a>
@@ -64,7 +64,7 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <a href="printhistory.php">
                                     <button onmouseover="toggleDisplay('print_history', true)" onmouseleave="toggleDisplay('print_history', false)" class="flex place-content-center w-full">
-                                        <img  class="size-10 hover:animate-wiggle" src="../img/reports.png">
+                                        <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/reports.png">
                                         <span id="print_history" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Print History</span>
                                     </button>
                                 </a>
@@ -75,7 +75,7 @@ if (!isset($_SESSION['users'])) {
                                 ?>
                                 <a href="accountmanagement.php">
                                     <button id="setting"  onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full ">
-                                        <img class="size-10 hover:animate-wiggle" src="../img/setting.png"  >
+                                        <img class="size-8 std:size-10 hover:animate-wiggle"  src="../img/setting.png"  >
                                         <span id="set_title" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">Account Settings</span>
                                     </button>
                                 </a>
@@ -83,7 +83,7 @@ if (!isset($_SESSION['users'])) {
                                 } else {
                                 ?>
                                 <button disabled id="setting" onmouseover="toggleDisplay('set_title', true)" onmouseleave="toggleDisplay('set_title', false)" class="flex place-content-center w-full">
-                                    <img  class="size-10 hover:animate-wiggle" src="../img/setting.png" >
+                                    <img  class="size-8 std:size-10 hover:animate-wiggle"  src="../img/setting.png" >
                                     <span id="set_title" class="absolute z-10 hover:scale-110 text-sm bg-c hidden">
                                         <img  class="size-10 hover:animate-wiggle" src="../img/x.png">
                                     </span>
@@ -96,8 +96,8 @@ if (!isset($_SESSION['users'])) {
                     <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow">
                         <!-- Account -->
                         <div>
-                            <button  onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
-                                <img  class="size-10 hover:animate-wiggle" src="../img/account.png">
+                            <button onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
+                                <img class="size-8 std:size-10 hover:animate-wiggle"  src="../img/account.png">
                                 <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
                                     <?php
                                         $userId = $_SESSION['users'];
@@ -136,7 +136,7 @@ if (!isset($_SESSION['users'])) {
                         <!-- Logout -->
                         <div class="flex place-content-center w-full">
                             <a href="backend/logout.php">
-                                <img src="../img/logout.png" class="place-self-center size-12 hover:scale-125 transition duration-500" alt="">
+                                <img src="../img/logout.png"  class="place-self-center size-10 std:size-12 std:hover:scale-125 transition duration-500" alt="">
                                 <p class="flex place-self-center">Logout</p>
                             </a>
                         </div>
@@ -147,29 +147,27 @@ if (!isset($_SESSION['users'])) {
         <!-- Main -->
         <div class="flex flex-col w-screen h-screen">
             <!-- Header -->
-            <div class="h-22 w-full grid gap-x-10 grow grid-cols-2 shadow-md px-8 py-2 bg-white">
-                <div class="text-3xl">
-                    <b>Barangay Buna Cerca</b><br>
+            <div class="grid grid-cols-2 items-center shadow-md px-8 py-2 std:py-2 bg-white">
+                <div class="text-xl std:text-3xl ">
+                    <b>Barangay Buna Cerca</b>
+                    <br>
                     <div class="flex items-center">
-                        <p class="text-[20px] italic">Resident Information</p>
+                        <p class="text-[20px] italic">Dashboard</p>
                         <?php if(hasPermission('system_settings')) : ?>
                             <p class="text-[16px] italic transform translate-y-[0.5px] translate-x-4" id="timer">Session expires in: </p>
                         <?php endif ?>
                     </div>
                 </div>
-                <!-- Time -->
-                <div class="flex justify-end items-center space-x-4">
-                    <div class="justify-items-end">
-                        <b>Philippine Standard Time: </b><br>
-                        <p class="italic" id="liveClock"></p>
-                    </div>
+                <div class="justify-items-end">
+                    <b>Philippine Standard Time: </b><br>
+                    <p class="italic" id="liveClock"></p>
                 </div>
             </div>
             <!-- Body -->
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
             <div class="flex flex-col h-full grow">
                 <!-- Note -->
-                <div class="h-14 my-4 mx-8 text-white ">
+                <div class="h-14 my-2 mx-4 std:my-4 std:mx-8 text-white ">
                     <?php
                     //displays message
                     if(isset($_GET['msg'])) {
@@ -190,24 +188,24 @@ if (!isset($_SESSION['users'])) {
                     ?>
                 </div>
                 <!-- Options -->
-                <div class="grid grid-cols-[auto_1fr] items-center">
+                <div class="grid grid-cols-[auto_1fr] items-center border-2 mr-4 std:mr-0">
                     <!-- Categories -->
                     <div class="ml-8 text-black ">
                         <ul class="flex justify-start items-center space-x-4 ">
-                            <li onclick="showCategory('tb1','option1')"><button id="option1" class="border-b-4 border-sg py-1 px-3 hover:border-sg rounded-sm">Personal Information</button></li>
-                            <li onclick="showCategory('tb2','option2')"><button id="option2" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Birth Details</button></li>
-                            <li onclick="showCategory('tb3','option3')"><button id="option3" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Contact Information</button></li>
-                            <li onclick="showCategory('tb4','option4')"><button id="option4" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Address Details</button></li>
-                            <li onclick="showCategory('tb5','option5')"><button id="option5" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Citizenship and Civil Status</button></li>
-                            <li onclick="showCategory('tb6','option6')"><button id="option6" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Residency and Occupation</button></li>
-                            <li onclick="showCategory('tb7','option7')"><button id="option7" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm">Health</button></li>
+                            <li onclick="showCategory('tb1','option1')"><button id="option1" class="border-b-4 border-sg py-1 px-3 hover:border-sg rounded-sm text-sm std:text-base">Personal Information</button></li>
+                            <li onclick="showCategory('tb2','option2')"><button id="option2" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm text-sm std:text-base">Birth Details</button></li>
+                            <li onclick="showCategory('tb3','option3')"><button id="option3" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm text-sm std:text-base">Contact Information</button></li>
+                            <li onclick="showCategory('tb4','option4')"><button id="option4" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm text-sm std:text-base">Address Details</button></li>
+                            <li onclick="showCategory('tb5','option5')"><button id="option5" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm text-sm std:text-base">Citizenship and Civil Status</button></li>
+                            <li onclick="showCategory('tb6','option6')"><button id="option6" class="border-b-4 border-c  py-1 px-3 hover:border-sg rounded-sm text-sm std:text-base">Residency and Occupation</button></li>
+                            <li onclick="showCategory('tb7','option7')"><button id="option7" class="border-b-4 border-c  py-3.5 std:py-1 px-3 hover:border-sg rounded-sm text-sm std:text-base">Health</button></li>
                         </ul>
                     </div>
                     <!-- Search -->
-                    <div class="flex justify-end items-center space-x-4 mr-8">
+                    <div class="flex justify-start std:justify-end items-center space-x-2 std:space-x-4 mr-4 std:mr-6">
                         <div class="relative">
-                            <form method="GET" class="flex justify-end items-center">
-                                <input name="search" id="search" type="text" placeholder="Search..." value="<?=$search?>" class="border border-gray-300 rounded-md p-2 w-60 focus:outline-none focus:ring-2 ring-sg h-8 z-10  transform translate-x-8" >
+                            <form method="GET" class="flex justify-end items-center border-2">
+                                <input name="search" id="search" type="text" placeholder="Search..." value="<?=$search?>" class="border border-gray-300 rounded-md p-2 w-60 h-8 focus:outline-none focus:ring-2 ring-sg  z-10  transform translate-x-8" >
                                 <button type="submit" id="searchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20">
                                     <img class="w-4" src="../img/search.svg" alt="Search Icon"/>
                                 </button>
@@ -218,16 +216,16 @@ if (!isset($_SESSION['users'])) {
                         ?>
                             <!-- Add Record -->
                             <div>
-                                <a href="backend/add.php"><button class="rounded-md border-c bg-c py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Add Record</button></a>
+                                <a href="backend/add.php"><button class="rounded-md border-c bg-c py-1.5 std:py-1 std:px-3 w-20 std:w-full place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300 text-sm std:text-base">Add Record</button></a>
                             </div>
                             <!--Bulk Import-->
                             <div>
                                 <form id="formUpload"  class="flex items-center">
                                     <div>
-                                        <button id="btnUpload" name="btnUpload" class="rounded-md py-1 px-3 bg-gray-400 text-gray-600 focus:outline-none" disabled>Bulk Import</button>
+                                        <button id="btnUpload" name="btnUpload" class="rounded-md py-1.5 std:py-1 std:px-3 w-20 std:w-full text-sm std:text-base bg-gray-400 text-gray-600 focus:outline-none" disabled>Bulk Import</button>
                                     </div>
                                     <label for="file_input">
-                                        <img id="file_output" class="ml-2 size-8 cursor-pointer hover:animate-wiggle" src="../img/document.png">
+                                        <img id="file_output" class="mr-8 std:mr-0 size-8 cursor-pointer hover:animate-wiggle" src="../img/document.png">
                                         <input type="file" id="file_input" name="file" accept="csv/*" class="hidden"></input>
                                     </label>
                                 </form>
@@ -238,10 +236,10 @@ if (!isset($_SESSION['users'])) {
                 </div>
                 <!-- Tables -->
                 <?php if ($searchResult) { ?>
-                <div class="overflow-hidden mt-4 w-full ">
+                <div class=" mt-4 w-full ">
                     <div class="border-2 border-c rounded-lg mx-8 bg-white">
                         <!--Personal Information Table -->
-                        <div id="tb1" class="h[67vh]">
+                        <div id="tb1" class=" ">
                             <div class="rounded-t-sm pt-2 bg-c ">
                                 <table id="residentTable" class="w-full border-collapse">
                                     <colgroup>
@@ -254,16 +252,16 @@ if (!isset($_SESSION['users'])) {
                                         <col>
                                         <col class="w-[200px]">
                                     </colgroup>
-                                    <thead class="bg-c sticky top-0 ">
+                                    <thead class="bg-c sticky top-0 font-bold text-sm std:text-base">
                                         <tr class="uppercase">
                                             <!--Basic Information + Action-->
-                                            <th class="py-4 min-w-20">ID</th>
-                                            <th class="py-4">First Name</th>
-                                            <th class="py-4">Middle Name</th>
-                                            <th class="py-4">Last Name</th>
-                                            <th class="py-4">Suffix</th>
-                                            <th class="py-4">Gender</th>
-                                            <th class="py-4">Age</th>
+                                            <th class="py-2 std:py-4 min-w-20">ID</th>
+                                            <th class="py-2 std:py-4">First Name</th>
+                                            <th class="py-2 std:py-4">Middle Name</th>
+                                            <th class="py-2 std:py-4">Last Name</th>
+                                            <th class="py-2 std:py-4">Suffix</th>
+                                            <th class="py-2 std:py-4">Gender</th>
+                                            <th class="py-2 std:py-4">Age</th>
                             
                                             <th class="min-w-20">Action</th>
                                         </tr>
@@ -276,8 +274,8 @@ if (!isset($_SESSION['users'])) {
                                     $j = 10 * $page - 10; // adjust depending on page
                                     foreach ($searchResult as $row) {
                                     ?>
-                                    <tr class="hover:bg-gray-100  text-center">
-                                        <td class=" border-y-2 border-c py-4">
+                                    <tr class="hover:bg-gray-100 text-sm std:text-base text-center">
+                                        <td class=" border-y-2 border-c py-2 std:py-4">
                                             <div class="flex justify-center  min-w-20">
                                                 <?php echo $page > 1 ? $i + $j : $i; ?>
                                             </div>
@@ -334,12 +332,12 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>
                         <!--Birth Details Table -->
-                        <div  id="tb2" class="hidden h[67vh]">
+                        <div  id="tb2" class="hidden ">
                             <div class="rounded-t-sm pt-2 bg-c ">
                                 <table id="residentTable" class="w-full border-collapse ">
                                     <colgroup>
                                         <col class="w-[100px]">
-                                        <col class="w-[200px]">
+                                        <col class="w-[300px] std:w-[200px]">
                                         <col class="w-[200px]">
                                         <col class="w-[300px]">
                                         <col class="w-[300px]">
@@ -347,17 +345,17 @@ if (!isset($_SESSION['users'])) {
                                         <col class="w-[250px]">
                                         <col class="w-[200px]">
                                     </colgroup>
-                                    <thead class=" bg-c sticky top-0">
+                                    <thead class=" bg-c sticky top-0 text-sm font-bold std:text-base">
                                         <tr class="uppercase ">
                                             <!--Basic Information + Action-->
-                                            <th class="py-4 min-w-20">ID</th>
-                                            <th class="py-4 text-sg">Full Name</th>                            
-                                            <th class="py-4">Date of Birth</th>
-                                            <th>Place of Birth Municipality/City</th>
+                                            <th class="py-1 std:py-4">ID</th>
+                                            <th class="py-1 std:py-4 text-sg">Full Name</th>                            
+                                            <th class="py-1 std:py-4">Date of Birth</th>
+                                            <th class="text-xs std:text-base">Place of Birth Municipality/City</th>
                                             <th>Place of Birth Province</th>
-                                            <th class="py-4">Father's Name</th>                            
-                                            <th class="py-4">Mother's Maiden Name</th>
-                                            <th class="py-4 min-w-20">Action</th>
+                                            <th class="py-1 std:py-4">Father's Name</th>                            
+                                            <th class="py-1 std:py-4 text-xs std:text-base">Mother's Maiden Name</th>
+                                            <th class="py-1 std:py-4 min-w-20">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class=" text-gray-600 bg-white">
@@ -366,45 +364,45 @@ if (!isset($_SESSION['users'])) {
                                     $j = 10 * $page - 10;
                                     foreach ($searchResult as $row) {
                                     ?>
-                                    <tr class="hover:bg-gray-100  text-center">
-                                        <td class="border-y-2 border-c py-4">
+                                    <tr class="hover:bg-gray-100 text-sm std:text-base text-center">
+                                        <td class="border-y-2 border-c py-2 std:py-4">
                                             <div class="flex justify-center min-w-20">
                                                 <?php echo $page > 1 ? $i + $j : $i; ?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c text-sg">
+                                        <td class="border-y-2 border-c text-sg py-2 std:py-2">
                                             <div class="flex justify-center ">
                                                 <?=$row['first_name']?>
                                                 <?=$row['middle_name']?>
                                                 <?=$row['last_name']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center" >
                                                 <?=$row['birth_date']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center">
                                                 <?=$row['birthplace_municipality_city']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center">
                                                 <?=$row['birthplace_province']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center">
                                                 <?=$row['father_name']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center">
                                                 <?=$row['mother_maiden_name']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center items-center">
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                                     <a href="backend/edit.php?id=<?= $row['id']?>">
@@ -426,24 +424,24 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>
                         <!--Contact Information Table -->
-                        <div id="tb3" class="hidden h[67vh]">
+                        <div id="tb3" class="hidden ">
                             <div class="rounded-t-sm pt-2 bg-c ">
                                 <table id="residentTable" class="w-full border-collapse">
                                     <colgroup>
                                         <col class="w-[100px]">
-                                        <col class="w-[200px]">
+                                        <col class="w-[300px] std:w-[200px]">
                                         <col class="w-[600px]">
-                                        <col>
+                                        <col class="w-[600px]">
                                         <col class="w-[200px]">
                                     </colgroup>
-                                    <thead class=" bg-c sticky top-0">
+                                    <thead class=" bg-c sticky top-0 text-sm std:text-base">
                                         <tr class="uppercase ">
                                             <!--Basic Information + Action-->
-                                            <th class="py-4 min-w-20">ID</th>
-                                            <th class="py-4  text-sg">Full Name</th>                            
-                                            <th class="py-4">Contact Information</th>
-                                            <th class="py-4">Email Address</th>
-                                            <th class="py-4 min-w-20">Action</th>
+                                            <th class="py-2 std:py-4 min-w-20">ID</th>
+                                            <th class="py-2 std:py-4  text-sg">Full Name</th>                            
+                                            <th class="py-2 std:py-4">Contact Information</th>
+                                            <th class="py-2 std:py-4">Email Address</th>
+                                            <th class="py-2 std:py-4 min-w-20">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class=" text-gray-600 bg-white">
@@ -452,30 +450,30 @@ if (!isset($_SESSION['users'])) {
                                     $j = 10 * $page - 10; // adjust depending on page
                                     foreach ($searchResult as $row) {
                                     ?>
-                                    <tr class="hover:bg-gray-100  text-center">
-                                        <td class="border-y-2 border-c py-4">
+                                    <tr class="hover:bg-gray-100 text-sm std:text-base text-center">
+                                        <td class="border-y-2 border-c py-2 std:py-4">
                                             <div class="flex justify-center">
                                                 <?php echo $page > 1 ? $i + $j : $i; ?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c text-sg">
+                                        <td class="border-y-2 border-c text-sg py-2 std:py-2">
                                             <div class="flex justify-center ">
                                                 <?=$row['first_name']?>
                                                 <?=$row['middle_name']?>
                                                 <?=$row['last_name']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center" >
                                                 <?=$row['contact_num']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center">
                                                 <?=$row['email_address']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center items-center">
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                                     <a href="backend/edit.php?id=<?= $row['id']?>">
@@ -497,34 +495,34 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>
                         <!--Address Table -->
-                        <div id="tb4" class="hidden h[67vh]">
+                        <div id="tb4" class="hidden ">
                             <div class="rounded-t-sm pt-2 bg-c ">
                                 <table id="residentTable" class="w-full border-collapse ">
                                     <colgroup>
                                         <col class="w-[100px]">
-                                        <col class="w-[150px]">
+                                        <col class="w-[300px] std:w-[200px]">
                                         <col class="w-[200px]">
-                                        <col class="w-[250px]">
+                                        <col class="w-[300px] std:w-[200px]">
                                         <col class="w-[100px]">
-                                        <col class="w-[250px]">
+                                        <col class="hidden std:block w-[200px]">
                                         <col class="w-[250px]">
                                         <col class="w-[150px]">
-                                        <col>
+                                        <col class="w-[150px]">
                                         <col class="w-[200px]">
                                     </colgroup>
-                                    <thead class=" bg-c sticky top-0">
+                                    <thead class=" bg-c sticky text-sm std:text-base top-0">
                                         <tr class="uppercase">
                                             <!--Basic Information + Action-->
-                                            <th class="py-4 min-w-20 ">ID</th>
-                                            <th class="py-4  text-sg">Full Name</th>                            
-                                            <th class="py-4">House Number</th>
-                                            <th class="py-4">Street Name</th>
-                                            <th class="py-4">Purok</th>
-                                            <th class="py-4">Barangay Name</th>
-                                            <th class="py-4">Municipality/City</th>                            
-                                            <th class="py-4">Province</th>
-                                            <th class="py-4">Zip Code</th>
-                                            <th class="py-4 min-w-24">Action</th>
+                                            <th class="py-2 std:py-4 min-w-20 ">ID</th>
+                                            <th class="py-2 std:py-4 text-sg">Full Name</th>                            
+                                            <th class="py-2 std:py-4">House Number</th>
+                                            <th class="py-2 std:py-4">Street Name</th>
+                                            <th class="py-2 std:py-4">Purok</th>
+                                            <th class="py-2 std:py-4 ">Barangay Name</th>
+                                            <th class="py-2 std:py-4">Municipality/City</th>                            
+                                            <th class="py-2 std:py-4">Province</th>
+                                            <th class="py-2 std:py-4">Zip Code</th>
+                                            <th class="py-2 std:py-4">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class=" text-gray-600 bg-white">
@@ -533,14 +531,14 @@ if (!isset($_SESSION['users'])) {
                                     $j = 10 * $page - 10; // adjust depending on page
                                     foreach ($searchResult as $row) {
                                     ?>
-                                    <tr class="hover:bg-gray-100  text-center">
-                                        <td class="border-y-2 border-c py-4">
+                                    <tr class="hover:bg-gray-100 text-sm std:text-base text-center">
+                                        <td class="border-y-2 border-c py-1 std:py-4">
                                             <div class="flex justify-center">
                                                 <?php echo $page > 1 ? $i + $j : $i; ?>
                                             </div>
                                         </td>
                                         <td class="border-y-2 border-c text-sg">
-                                            <div class="flex justify-center ">
+                                            <div class="flex justify-center py-2">
                                                 <?=$row['first_name']?>
                                                 <?=$row['middle_name']?>
                                                 <?=$row['last_name']?>
@@ -561,7 +559,7 @@ if (!isset($_SESSION['users'])) {
                                                 <?=$row['purok']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-2 std:py-4">
                                             <div class="flex justify-center" >
                                                 <?=$row['barangay_name']?>
                                             </div>
@@ -581,18 +579,18 @@ if (!isset($_SESSION['users'])) {
                                                 <?=$row['zip_code']?>
                                             </div>
                                         </td>
-                                        <td class="border-y-2 border-c py-2">
+                                        <td class="border-y-2 border-c py-1 std:py-2 ">
                                             <div class="flex justify-center items-center">
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                                     <a href="backend/edit.php?id=<?= $row['id']?>">
-                                                        <img src="../img/edit.svg" alt="edit"/>
+                                                        <img src="../img/edit.svg" class="size-5 std:size-10" alt="edit"/>
                                                     </a>
                                                 </button>
                                                 <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
-                                                    <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                                    <img name="delete" src="../img/trash.svg" class="size-5 std:size-10" alt="delete"/>
                                                 </button>
                                                 <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
-                                                    <img name="view_details" src="../img/view.png" alt="delete"/>
+                                                    <img name="view_details" src="../img/view.png" class="size-5 std:size-6" alt="delete"/>
                                                 </button>
                                             </div>
                                         </td>
@@ -603,7 +601,7 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>         
                         <!--Civil Status & Citizenship Table -->
-                        <div id="tb5" class="hidden h[67vh]">
+                        <div id="tb5" class="hidden ">
                             <div class="rounded-t-sm pt-2 bg-c ">
                                 <table id="residentTable" class="w-full border-collapse ">
                                     <colgroup>
@@ -614,15 +612,15 @@ if (!isset($_SESSION['users'])) {
                                         <col >
                                         <col class="w-[200px]">
                                     </colgroup>
-                                    <thead class=" bg-c sticky top-0">
+                                    <thead class=" bg-c sticky text-sm std:text-base top-0">
                                         <tr class="uppercase ">
                                             <!--Basic Information + Action-->
-                                            <th class="py-4 min-w-20">ID</th>
-                                            <th class="py-4  text-sg">Full Name</th>                            
-                                            <th class="py-4">Civil Status</th>
-                                            <th class="py-4">Citizenship</th>
-                                            <th class="py-4">Ethnicity</th>
-                                            <th class="py-4 min-w-20">Action</th>
+                                            <th class="py-2 std:py-4 min-w-20">ID</th>
+                                            <th class="py-2 std:py-4  text-sg">Full Name</th>                            
+                                            <th class="py-2 std:py-4">Civil Status</th>
+                                            <th class="py-2 std:py-4">Citizenship</th>
+                                            <th class="py-2 std:py-4">Ethnicity</th>
+                                            <th class="py-2 std:py-4 min-w-20">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class=" text-gray-600 bg-white">
@@ -631,8 +629,8 @@ if (!isset($_SESSION['users'])) {
                                     $j = 10 * $page - 10; // adjust depending on page
                                     foreach ($searchResult as $row) {
                                     ?>
-                                    <tr class="hover:bg-gray-100  text-center">
-                                        <td class="border-y-2 border-c py-4">
+                                    <tr class="hover:bg-gray-100 text-sm std:text-base text-center">
+                                        <td class="border-y-2 border-c py-2 std:py-4">
                                             <div class="flex justify-center">
                                                 <?php echo $page > 1 ? $i + $j : $i; ?>
                                             </div>
@@ -681,7 +679,7 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>
                         <!--Residentcy & Occupation Table -->
-                        <div id="tb6" class="hidden h[67vh]">
+                        <div id="tb6" class="hidden ">
                             <div class="rounded-t-sm pt-2 bg-c ">
                                 <table id="residentTable" class="w-full border-collapse ">
                                     <colgroup>
@@ -692,25 +690,25 @@ if (!isset($_SESSION['users'])) {
                                         <col>
                                         <col class="w-[200px]">
                                     </colgroup>
-                                    <thead class=" bg-c sticky top-0">
+                                    <thead class=" bg-c sticky text-sm std:text-base top-0">
                                         <tr class="uppercase ">
                                             <!--Basic Information + Action-->
-                                            <th class="py-4 min-w-20">ID</th>
-                                            <th class="py-4  text-sg">Full Name</th>                            
-                                            <th class="py-4">Occupation</th>
-                                            <th class="py-4">Type Of Residency</th>
-                                            <th class="py-4">Status</th>
-                                            <th class="py-4 min-w-20">Action</th>
+                                            <th class="py-2 std:py-4 min-w-20">ID</th>
+                                            <th class="py-2 std:py-4  text-sg">Full Name</th>                            
+                                            <th class="py-2 std:py-4">Occupation</th>
+                                            <th class="py-2 std:py-4">Type Of Residency</th>
+                                            <th class="py-2 std:py-4">Status</th>
+                                            <th class="py-2 std:py-4 min-w-20">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class=" text-gray-600 bg-white">
+                                    <tbody class=" text-gray-600 text-sm std:text-base bg-white">
                                     <?php 
                                     $i = 1; //auto numbering
                                     $j = 10 * $page - 10; // adjust depending on page
                                     foreach ($searchResult as $row) {
                                     ?>
                                     <tr class="hover:bg-gray-100  text-center">
-                                        <td class="border-y-2 border-c py-4">
+                                        <td class="border-y-2 border-c py-2 std:py-4">
                                             <div class="flex justify-center">
                                                 <?php echo $page > 1 ? $i + $j : $i; ?>
                                             </div>
@@ -738,14 +736,14 @@ if (!isset($_SESSION['users'])) {
                                                 if (strtolower($row['status']) === 'active') {
                                                     ?>
                                                     <div class="flex items-center mr-1">
-                                                        <img src="../img/active.png" class="size-4 flex items-center" alt="">
+                                                        <img src="../img/active.png" class="size-2 std:size-4 flex items-center" alt="">
                                                     </div>
                                                 <?=ucwords($row['status'])?>
                                                 <?php 
                                                 } else if (strtolower($row['status']) === 'inactive') {
                                                     ?>
                                                     <div class="flex items-center mr-1">
-                                                        <img src="../img/inactive.png" class="size-4 flex items-center" alt="">
+                                                        <img src="../img/inactive.png" class="size-2 std:size-4 flex items-center" alt="">
                                                     </div>
                                                     <?=ucwords($row['status'])?>
                                                 <?php } ?>
@@ -773,40 +771,40 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>
                         <!--Health Table -->
-                        <div id="tb7" class="hidden h[67vh]">
+                        <div id="tb7" class="hidden ">
                             <div class="rounded-t-sm pt-2 bg-c ">
                                 <table id="residentTable" class="w-full border-collapse ">
                                     <colgroup>
                                         <col class="w-[100px]">
+                                        <col class="w-[300px] std:w-[200px]">
                                         <col class="w-[200px]">
                                         <col class="w-[200px]">
-                                        <col class="w-[250px]">
-                                        <col class="w-[300px]">
                                         <col class="w-[200px]">
+                                        <col class="w-[150px]">
                                         <col class="w-[300px]">
                                         <col class="w-[200px]">
                                     </colgroup>
-                                    <thead class=" bg-c sticky top-0">
+                                    <thead class=" bg-c sticky text-sm std:text-base top-0">
                                         <tr class="uppercase ">
                                             <!--Basic Information + Action-->
                                             <th class="py-2 min-w-20">ID</th>
                                             <th class="py-2  text-sg">Full Name</th>                            
-                                            <th class="py-2">Height<br><p class="text-xs">(cm)</p></th>
-                                            <th class="py-2">Weight<br><p class="text-xs">(kg)</p></th>
+                                            <th class="py-2 text-xs std:text-base">Height<br><p class="text-xs hidden std:block">(cm)</p></th>
+                                            <th class="py-2 text-xs std:text-base">Weight<br><p class="text-xs hidden std:block">(kg)</p></th>
                                             <th class="py-2">Eye Color</th>
                                             <th class="py-2">Blood Type</th>
                                             <th class="py-2">Religion</th>
                                             <th class="py-2 min-w-20">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class=" text-gray-600 bg-white">
+                                    <tbody class=" text-gray-600 text-sm std:text-base bg-white">
                                     <?php 
                                     $i = 1; //auto numbering
                                     $j = 10 * $page - 10; // adjust depending on page
                                     foreach ($searchResult as $row) {
                                     ?>
-                                    <tr class="hover:bg-gray-100  text-center ">
-                                        <td class="border-y-2 border-c py-4">
+                                    <tr class="hover:bg-gray-100 text-sm std:text-base text-center ">
+                                        <td class="border-y-2 border-c py-2 std:py-4">
                                             <div class="flex justify-center">
                                                 <?php echo $page > 1 ? $i + $j : $i; ?>
                                             </div>
@@ -903,7 +901,7 @@ if (!isset($_SESSION['users'])) {
                 <div class="overflow-hidden mt-4 w-full ">
                     <div class="border-2 border-c rounded-lg mx-8 bg-white">
                         <!--Personal Information Table -->
-                        <div class="h[67vh]">
+                        <div class="">
                             <div class="rounded-t-sm pt-2 bg-c ">
                                 <table id="residentTable" class="w-full border-collapse">
                                     <colgroup>
