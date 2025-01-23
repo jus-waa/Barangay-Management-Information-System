@@ -164,7 +164,15 @@ if (!isset($_SESSION['users'])) {
             </div>
             <!-- Current Records (Body) -->
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
-                <div class="flex flex-col h-full grow mt-[5.7rem] std:mt-[5.5rem]">
+                <div class="flex flex-col h-full grow ">
+                    <div class="flex justify-start mx-8 mt-7">
+                        <a href="documents/print/transactionhistory_print.php" class="flex px-6 p-1 text-sm std:text-base rounded-xl border-2 border-sg bg-c place-self-center hover:border-c hover:bg-c hover:text-white transition duration-300" target="_blank"> 
+                            <img src="../img/printer.png" class="size-10 std:size-12" alt="">
+                            <button class="text-black">
+                                Print Dashboard
+                            </button>
+                        </a>
+                    </div>
                     <!-- Options -->
                     <div class="grid grid-cols-[1fr_auto_auto_auto] mx-8 items-center ">
                         <!-- Categories -->
@@ -189,11 +197,12 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <a href="printhistory.php?category=future&futureSearch="><button class="rounded-md border-c bg-c py-1.5 std:py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300 text-sm std:text-base" onclick="futureRecords()">Future Record</button>
                             </div>
+                            
                         </div>
                     </div>
                     <!-- Tables -->
                     <?php if ($printSearchResult) { ?>
-                    <div class="overflow-hidden mt-4 w-full pointer-events-none">
+                    <div class="overflow-hidden mt-4 w-full">
                         <div class="border-2 border-c rounded-lg mx-8 bg-white">
                             <div>
                                 <div class="rounded-t-sm pt-2 bg-c ">
