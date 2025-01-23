@@ -134,7 +134,6 @@ if (isset($_POST['confirmPrintSignature'])) {
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../../script.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
@@ -200,14 +199,14 @@ if (isset($_POST['confirmPrintSignature'])) {
                 ];
                 ?>
                 <!-- Two-column Grid -->
-                <div class="grid grid-cols-2  gap-20">
+                <div class="grid grid-cols-2 gap-10 std:gap-20">
                     <!-- First Column: Personal Information and Purpose -->
                     <div>                      
                         <!-- Personal Information -->
                         <div class="rounded-lg p-2 mb-8 ">
                             <div>
-                                <h2 class="text-xl font-bold mb-4">Personal Information</h2>
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg">
+                                <h2 class="text-lg font-bold mb-4">Personal Information</h2>
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg text-sm std:text-base">
                                     <div>
                                         <input id="first-name" name="first_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg pointer-events-none" value="<?php echo $recordLoaded ? $row['first_name'] : $defaultValues['first_name']?>" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">First Name</label>
@@ -252,8 +251,8 @@ if (isset($_POST['confirmPrintSignature'])) {
                         <!-- Barangay -->
                         <div class="rounded-lg p-2 mb-8">
                             <div>
-                                <h2 class="text-xl font-bold mb-4">Barangay</h2>
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md transition duration-700 hover:border-sg <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
+                                <h2 class="text-lg font-bold mb-4">Barangay</h2>
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 text-sm std:text-base rounded-md transition duration-700 hover:border-sg <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
                                     <div class="flex-grow">
                                         <input id="barangay-name" name="barangay_name" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $recordLoaded ? $row['barangay_name'] : $defaultValues['barangay_name']?>" placeholder=" " disabled/>
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Barangay Name</label>
@@ -267,9 +266,9 @@ if (isset($_POST['confirmPrintSignature'])) {
                         <!-- Control Number, Date of Birth, and Date of Issuance -->
                         <div class="rounded-lg p-2 mb-8">
                             <div>
-                                <h2 class="text-xl font-bold mb-4"> Control Number, Date of Birth, & Date of Issuance</h2>
+                                <h2 class="text-lg font-bold mb-4"> Control Number, Date of Birth, & Date of Issuance</h2>
                                
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700 <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 text-sm std:text-base rounded-md hover:border-sg transition duration-700 <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
                                     <?php 
                                     // fetch data
                                     $stmt = $dbh->prepare("SELECT * FROM `print_history`");
@@ -305,8 +304,8 @@ if (isset($_POST['confirmPrintSignature'])) {
                         <!-- Issued By & Purpose -->
                         <div class="rounded-lg p-2 mb-8">
                             <div>
-                                <h2 class="text-xl font-bold mb-4">Purpose & Issued By</h2>
-                                <div class="border-2 grid grid-cols-1 gap-4 p-6 rounded-md hover:border-sg transition duration-700 <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
+                                <h2 class="text-lg font-bold mb-4">Purpose & Issued By</h2>
+                                <div class="border-2 grid grid-cols-1 gap-4 p-6 text-sm std:text-base rounded-md hover:border-sg transition duration-700 <?= $isEnabled ? '' : 'hover:animate-shake' ?>">
                                     <div class="relative">
                                         <input id="purpose" name="purpose" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200 p-2 peer rounded-md focus:outline-none focus:border-sg" placeholder=" "/> 
                                         <label class="absolute text-gray-500 pointer-events-none text-sm duration-300 transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl">Purpose</label>
@@ -392,17 +391,17 @@ if (isset($_POST['confirmPrintSignature'])) {
         </div>
         <!-- Bottom Logo -->
         <div class="w-full flex justify-center mt-12">
-            <img src="../../img/coat.png" alt="Bottom Image" class="w-[100px] h-[100px] object-contain">
+            <img src="../../img/coat.png" alt="Bottom Image" class="hidden std:block w-[100px] h-[100px] object-contain">
         </div>
         <!--Select from Records -->
         <div class="fixed z-50" id="selectRecords">
             <div class=" w-screen h-screen flex justify-center items-center flex-col ">
                 <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
-                <div class="relative flex flex-col h-full w-[51%] overflow-auto bg-white z-10 my-14  border-4 border-c rounded-xl ">
+                <div class="relative flex flex-col h-full w-[66%] std:w-[51%] overflow-auto bg-white z-10 my-14  border-4 border-c rounded-xl ">
                     <div class="grid justify-center h-full w-full grow-0">
                     <!-- Search -->
                         <div class="relative">
-                            <form method="GET" class="flex justify-center items-center py-1 pt-4">
+                            <form method="GET" class="flex justify-center items-center pt-2 std:py-1 std:pt-4">
                                 <input name="search" id="search" type="text" placeholder="Search..." value="<?=$search?>" class="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 ring-sg h-8 z-10 transform translate-x-4 " >
                                 <button type="submit" id="searchBtn" class=" bg-white  rounded-md p-2 focus:outline-none focus:ring-2 ring-sg h-7 flex items-center justify-center z-20 transform -translate-x-4 ">
                                     <img class="w-4" src="../../img/search.svg" alt="Search Icon"/>
@@ -415,7 +414,7 @@ if (isset($_POST['confirmPrintSignature'])) {
                             <div class="overflow-hidden w-full mt-2">
                                 <div class="border-2 border-c rounded-lg mx-4">
                                     <!--Personal Information Table -->
-                                    <div id="tb1" class="h-[67.5vh]" >
+                                    <div id="tb1" class="h-[63vh] std:h-[67.5vh]" >
                                         <div class="rounded-t-sm pt-2 bg-c ">
                                         <table id="residentTable" class="w-full border-collapse">
                                             <colgroup>
@@ -425,7 +424,7 @@ if (isset($_POST['confirmPrintSignature'])) {
                                                 <col class="w-[200px]">
                                                 <col class="w-[200px]">
                                             </colgroup>
-                                            <thead class="bg-c sticky top-0 ">
+                                            <thead class="bg-c sticky top-0 text-sm std:text-base">
                                             <tr class="uppercase ">
                                                 <!--Basic Information + Action-->
                                                 <th class="py-2 min-w-20">ID</th>
@@ -435,7 +434,7 @@ if (isset($_POST['confirmPrintSignature'])) {
                                                 <th class="py-2 min-w-20">Action</th>
                                             </tr>
                                             </thead>
-                                            <tbody class=" text-gray-600 bg-white">
+                                            <tbody class=" text-gray-600 bg-white text-sm std:text-base">
                                                 <?php 
                                                 $i = 1; //auto numbering
                                                 $i = 1; //auto numbering
@@ -464,9 +463,9 @@ if (isset($_POST['confirmPrintSignature'])) {
                                                         </div>
                                                     </td>
                                                     <td class="border-y-2 border-c">
-                                                        <div class="flex justify-center items-center h-14 grow">
+                                                        <div class="flex justify-center items-center  h-10 std:h-14 grow">
                                                             <a href="certresidency.php?id=<?= $row['id']?>">
-                                                                <button id="select-button" name="select" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
+                                                                <button id="select-button" name="select" class="rounded-md w-32 border-2 border-c bg-c p-0.5 std:p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">
                                                                 Select
                                                                 </button>
                                                             </a>

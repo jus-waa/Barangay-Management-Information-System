@@ -142,7 +142,7 @@ if(isset($_POST['update'])) {
             <h1 class="text-3xl font-bold"></h1>
         </div>
         <!-- Main Content -->
-        <div class="w-full p-6">
+        <div class="w-full p-6 px-2 std:px-6">
             <?php 
             $query = "SELECT * FROM `resident_info` WHERE `id` = :id";
             $stmt = $dbh->prepare($query);
@@ -402,12 +402,12 @@ if(isset($_POST['update'])) {
                             <div class="flex-grow mr-2">
                                 <input maxlength="3" id="height" name="height" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg "value="<?php echo $row['height']?>" placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Height</label>
-                                <span class="absolute transform -translate-y-8 translate-x-38 text-gray-500 text-sm">cm</span>
+                                <span class="absolute transform -translate-y-8 translate-x-22 std:translate-x-38 text-gray-500 text-sm">cm</span>
                             </div>
                             <div class="flex-grow mr-2">
                                 <input maxlength="3" id="weight" name="weight" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg "value="<?php echo $row['weight']?>" placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Weight</label>
-                                <span class="absolute transform -translate-y-8 translate-x-38 text-gray-500 text-sm">kg</span>
+                                <span class="absolute transform -translate-y-8 translate-x-23 std:translate-x-38 text-gray-500 text-sm">kg</span>
                             </div>
                             <div class="flex-grow">
                                 <input id="eye_color" name="eye_color" type="text"  autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg "value="<?php echo $row['eye_color']?>" placeholder=" "/> 
@@ -438,13 +438,13 @@ if(isset($_POST['update'])) {
                     <p class="flex justify-start w-48 p-2 text-white">Back</p>
                 </a>
                 </div>
-                <div class="px-32 sticky top-0">
+                <div class="px-12 std:px-32 sticky top-0">
                     <div class="bg-sg text-sg h-64"></div>
-                    <div class="bg-sg  p-16">
-                        <h1 class="text-white text-3xl font-bold">Edit record</h1>
-                        <p class="text-c">Update existing data to ensure your records are accurate and current.</p>
+                    <div class="bg-sg p-12 std:p-16">
+                        <h1 class="text-white text-xl std:text-3xl font-bold">Edit record</h1>
+                        <p class="text-c text-sm std:text-base">Update existing data to ensure your records are accurate and current.</p>
                     </div>
-                    <div class="bg-sg text-sg h-64"></div>
+                    <div class="bg-sg text-sg  h-64"></div>
                 </div>
             </div>
         </div>
