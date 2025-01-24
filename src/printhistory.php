@@ -211,7 +211,7 @@ if (!isset($_SESSION['users'])) {
                                             <tr class="uppercase">
                                                 <!--Basic Information + Action-->
                                                 <th class="py-2 std:py-4 min-w-20">ID</th>
-                                                <th class="py-2 std:py-4">First Name</th>
+                                                <th class="py-2 std:py-4">Full Name</th>
                                                 <th class="py-2 std:py-4">Age</th>
                                                 <th class="py-2 std:py-4">Document Type</th>
                                                 <th class="py-2 std:py-4">Control Number</th>
@@ -356,7 +356,7 @@ if (!isset($_SESSION['users'])) {
                                             <tr class="uppercase">
                                                 <!--Basic Information + Action-->
                                                 <th class="py-4 min-w-20">ID</th>
-                                                <th class="py-4">First Name</th>
+                                                <th class="py-4">Full Name</th>
                                                 <th class="py-4">Age</th>
                                                 <th class="py-4">Document Type</th>
                                                 <th class="py-4">Control Number</th>
@@ -478,7 +478,7 @@ if (!isset($_SESSION['users'])) {
                                                     <tr class="uppercase">
                                                         <!--Basic Information + Action-->
                                                         <th class="py-2 std:py-4 min-w-20">ID</th>
-                                                        <th class="py-2 std:py-4">First Name</th>
+                                                        <th class="py-2 std:py-4">Full Name</th>
                                                         <th class="py-2 std:py-4">Document Type</th>
                                                         <th class="py-2 std:py-4">Issued By</th>
                                                         <th class="py-2 std:py-4">Issued Date</th>
@@ -580,7 +580,7 @@ if (!isset($_SESSION['users'])) {
                                                     <tr class="uppercase">
                                                         <!--Basic Information + Action-->
                                                         <th class="py-2 std:py-4 min-w-20">ID</th>
-                                                        <th class="py-2 std:py-4">First Name</th>
+                                                        <th class="py-2 std:py-4">Full Name</th>
                                                         <th class="py-2 std:py-4">Document Type</th>
                                                         <th class="py-2 std:py-4">Issued By</th>
                                                         <th class="py-2 std:py-4">Issued Date</th>
@@ -693,7 +693,7 @@ if (!isset($_SESSION['users'])) {
                                                     <tr class="uppercase">
                                                         <!--Basic Information + Action-->
                                                         <th class="py-2 std:py-4 min-w-20">ID</th>
-                                                        <th class="py-2 std:py-4">First Name</th>
+                                                        <th class="py-2 std:py-4">Full Name</th>
                                                         <th class="py-2 std:py-4">Document Type</th>
                                                         <th class="py-2 std:py-4">Issued By</th>
                                                         <th class="py-2 std:py-4">Issued Date</th>
@@ -795,7 +795,7 @@ if (!isset($_SESSION['users'])) {
                                                     <tr class="uppercase">
                                                         <!--Basic Information + Action-->
                                                         <th class="py-2 std:py-4 min-w-20">ID</th>
-                                                        <th class="py-2 std:py-4">First Name</th>
+                                                        <th class="py-2 std:py-4">Full Name</th>
                                                         <th class="py-2 std:py-4">Age</th>
                                                         <th class="py-2 std:py-4">Document Type</th>
                                                         <th class="py-2 std:py-4">Issued By</th>

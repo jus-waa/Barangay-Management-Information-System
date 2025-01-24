@@ -45,8 +45,8 @@
         if (empty($username) || empty($email) || empty($pass) || empty($pass_re) || empty($contact_info) || empty($role_id)) {
             $_SESSION['empty_info'] = "Please fill in required information.";
             header('location: ../signuppage.php');
-        }  else if($email == $result['email']) { //check for email duplicates
-            $_SESSION['email_dup'] = "Email already in use.";
+        }  else if($username == $result['username']) { //check for email duplicates
+            $_SESSION['email_dup'] = "Username already in use.";
             header('location: ../signuppage.php');
             exit();
         } 
