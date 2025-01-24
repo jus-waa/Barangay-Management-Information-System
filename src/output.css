@@ -2427,6 +2427,10 @@ video {
     height: 24vh;
   }
 
+  .std\:h-\[25vh\] {
+    height: 25vh;
+  }
+
   .std\:h-\[60vh\] {
     height: 60vh;
   }

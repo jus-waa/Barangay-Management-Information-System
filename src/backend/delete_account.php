@@ -9,7 +9,7 @@ include("connection.php");
             $sql = "ALTER TABLE `users` AUTO_INCREMENT=1";
             $sth = $dbh->prepare($sql);
             $sth->execute();
-            header("location: ../accountmanagement.php?msg= account removed successfully");
+            header("location: ../accountmanagement.php?msg= The data has been successfully removed from the system.");
         } else {
             echo "Error: " . $e->getMessage();
         }

@@ -198,7 +198,7 @@ if (!isset($_SESSION['users'])) {
                 <div class="overflow-hidden w-full  mt-4">
                     <div class="border-2 border-c rounded-lg mx-8">
                     <!--Regular-->
-                    <div id="tb1" class="overflow-auto no-scrollbar h-[21vh] std:h-[24vh]">
+                    <div id="tb1" class="overflow-auto no-scrollbar h-[21vh] std:h-[25vh]">
                         <div class="rounded-t-sm pt-2 bg-c ">
                             <table id="residentTable" class="w-full border-collapse">
                         <colgroup>
@@ -289,7 +289,7 @@ if (!isset($_SESSION['users'])) {
                 <div class="w-full overflow-hidden mt-4">
                     <div class="border-2 border-c rounded-lg mx-8">
                         <!-- Admin -->
-                        <div id="tb1" class="overflow-auto no-scrollbar h-[21vh] std:h-[24vh]">
+                        <div id="tb1" class="overflow-auto no-scrollbar h-[21vh] std:h-[25vh]">
                         <div class="rounded-t-sm pt-2 bg-c ">
                             <table id="residentTable" class="w-full border-collapse ">
                         <colgroup>
@@ -358,6 +358,9 @@ if (!isset($_SESSION['users'])) {
                                             <img src="../img/edit.svg" alt="edit"/>
                                         </a>
                                     </button>
+                                    <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
+                                        <img name="delete" src="../img/trash.svg" alt="delete"/>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -373,7 +376,7 @@ if (!isset($_SESSION['users'])) {
             </div>
         </div>
         <!--Confirm Deletion-->
-        <div class="fixed z-50 hidden" id="confirmDeletion">
+        <div class="fixed inset-0 z-50 hidden" id="confirmDeletion">
             <div class="border-4 w-screen h-screen flex justify-center items-center">
                 <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
                 <div class="relative grid grid-cols-1 grid-rows-2 h-72 w-96 overflow-auto rounded-md bg-white z-10">

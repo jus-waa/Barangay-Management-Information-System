@@ -308,6 +308,9 @@ if (!isset($_SESSION['users'])) {
                                         </td>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
+                                                <?php 
+                                                if (hasPermission('system_settings')){
+                                                ?>
                                                 <a href="backend/edit.php?id=<?= $row['id']?>">
                                                     <button class="w-6 mr-1 cursor-pointer flex justify-center items-center" name="id" id="editBtn"> 
                                                     <img src="../img/edit.svg" alt="edit"/>
@@ -316,6 +319,7 @@ if (!isset($_SESSION['users'])) {
                                                 <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                                     <img name="delete" src="../img/trash.svg" alt="delete"/>
                                                 </button>
+                                                <?php } ?>
                                                 <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                                     <img name="view_details" src="../img/view.png" alt="delete"/>
                                                 </button>
@@ -400,6 +404,9 @@ if (!isset($_SESSION['users'])) {
                                         </td>
                                         <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center items-center">
+                                                <?php 
+                                                if (hasPermission('system_settings')){
+                                                ?>
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                                     <a href="backend/edit.php?id=<?= $row['id']?>">
                                                         <img src="../img/edit.svg" alt="edit"/>
@@ -408,6 +415,7 @@ if (!isset($_SESSION['users'])) {
                                                 <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                                     <img name="delete" src="../img/trash.svg" alt="delete"/>
                                                 </button>
+                                                <?php } ?>
                                                 <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                                     <img name="view_details" src="../img/view.png" alt="delete"/>
                                                 </button>
@@ -471,6 +479,9 @@ if (!isset($_SESSION['users'])) {
                                         </td>
                                         <td class="border-y-2 border-c py-2 std:py-2">
                                             <div class="flex justify-center items-center">
+                                                <?php 
+                                                if (hasPermission('system_settings')){
+                                                ?>
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                                     <a href="backend/edit.php?id=<?= $row['id']?>">
                                                         <img src="../img/edit.svg" alt="edit"/>
@@ -479,6 +490,7 @@ if (!isset($_SESSION['users'])) {
                                                 <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                                     <img name="delete" src="../img/trash.svg" alt="delete"/>
                                                 </button>
+                                                <?php } ?>
                                                 <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                                     <img name="view_details" src="../img/view.png" alt="delete"/>
                                                 </button>
@@ -577,6 +589,9 @@ if (!isset($_SESSION['users'])) {
                                         </td>
                                         <td class="border-y-2 border-c py-1 std:py-2 ">
                                             <div class="flex justify-center items-center">
+                                                <?php 
+                                                if (hasPermission('system_settings')){
+                                                ?>
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                                     <a href="backend/edit.php?id=<?= $row['id']?>">
                                                         <img src="../img/edit.svg" class="size-5 std:size-10" alt="edit"/>
@@ -585,6 +600,7 @@ if (!isset($_SESSION['users'])) {
                                                 <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                                     <img name="delete" src="../img/trash.svg" class="size-5 std:size-10" alt="delete"/>
                                                 </button>
+                                                <?php } ?>
                                                 <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                                     <img name="view_details" src="../img/view.png" class="size-5 std:size-6" alt="delete"/>
                                                 </button>
@@ -655,6 +671,9 @@ if (!isset($_SESSION['users'])) {
                                         </td>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
+                                                <?php 
+                                                if (hasPermission('system_settings')){
+                                                ?>
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                                     <a href="backend/edit.php?id=<?= $row['id']?>">
                                                         <img src="../img/edit.svg" alt="edit"/>
@@ -663,6 +682,7 @@ if (!isset($_SESSION['users'])) {
                                                 <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                                     <img name="delete" src="../img/trash.svg" alt="delete"/>
                                                 </button>
+                                                <?php } ?>
                                                 <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                                     <img name="view_details" src="../img/view.png" alt="delete"/>
                                                 </button>
@@ -747,6 +767,9 @@ if (!isset($_SESSION['users'])) {
                                         </td>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
+                                                <?php 
+                                                if (hasPermission('system_settings')){
+                                                ?>
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                                     <a href="backend/edit.php?id=<?= $row['id']?>">
                                                         <img src="../img/edit.svg" alt="edit"/>
@@ -755,6 +778,7 @@ if (!isset($_SESSION['users'])) {
                                                 <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                                     <img name="delete" src="../img/trash.svg" alt="delete"/>
                                                 </button>
+                                                <?php } ?>
                                                 <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                                     <img name="view_details" src="../img/view.png" alt="delete"/>
                                                 </button>
@@ -840,6 +864,9 @@ if (!isset($_SESSION['users'])) {
                                         </td>
                                         <td class="border-y-2 border-c py-2">
                                             <div class="flex justify-center items-center">
+                                                <?php 
+                                                if (hasPermission('system_settings')){
+                                                ?>
                                                 <button class="w-6 mr-1 cursor-pointer" name="id" id="editBtn"> 
                                                     <a href="backend/edit.php?id=<?= $row['id']?>">
                                                         <img src="../img/edit.svg" alt="edit"/>
@@ -848,6 +875,7 @@ if (!isset($_SESSION['users'])) {
                                                 <button  class="w-6 ml-2 cursor-pointer" onclick="confirmDeletion(<?= $row['id'] ?>)">
                                                     <img name="delete" src="../img/trash.svg" alt="delete"/>
                                                 </button>
+                                                <?php } ?>
                                                 <button class="w-6 ml-3 cursor-pointer" onclick="viewDetails(event, '<?= $row['id'] ?>')">
                                                     <img name="view_details" src="../img/view.png" alt="delete"/>
                                                 </button>

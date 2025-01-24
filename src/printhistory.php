@@ -185,12 +185,8 @@ if (!isset($_SESSION['users'])) {
                                 </form>
                             </div>
                             <div>
-                                <a href="printhistory.php?category=previous&prevSearch="><button class="rounded-md border-c bg-c py-1.5 std:py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300 text-sm std:text-base" onclick="prevRecords()">Previous Record</button></a>
+                                <a href="printhistory.php?category=previous&prevSearch="><button class="rounded-md border-c bg-c py-1.5 std:py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300 text-sm std:text-base" onclick="prevRecords()">Archive</button></a>
                             </div>
-                            <div>
-                                <a href="printhistory.php?category=future&futureSearch="><button class="rounded-md border-c bg-c py-1.5 std:py-1 px-3 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300 text-sm std:text-base" onclick="futureRecords()">Future Record</button>
-                            </div>
-                            
                         </div>
                     </div>
                     <!-- Tables -->
@@ -244,9 +240,8 @@ if (!isset($_SESSION['users'])) {
                                             }
 
                                             //  SQL query to fetch document counts by day of the week
-                                            $stmt = $dbh->prepare("SELECT print_date FROM print_history WHERE DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek");
+                                            $stmt = $dbh->prepare("SELECT print_date FROM print_history WHERE DATE(print_date) >= :startOfWeek");
                                             $stmt->bindParam(':startOfWeek', $startOfWeek);
-                                            $stmt->bindParam(':endOfWeek', $endOfWeek);
                                             $stmt->execute();
                                             $dates = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
@@ -660,7 +655,7 @@ if (!isset($_SESSION['users'])) {
                     </div>
                 </div>
             </div>
-            <!-- Future Records -->
+            <!-- Future Records (didn't delete for future purposes)-->
                 <?php
                 $isSearchActiveF = isset($_GET['futureSearch']) && !empty($_GET['futureSearch']);
                 ?>
