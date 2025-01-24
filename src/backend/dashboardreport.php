@@ -203,6 +203,7 @@ date_default_timezone_set('Asia/Manila');
 
 // Document Issuance Data
 $currentDate = date('Y-m-d');
+//$currentDate = '2025-1-13'; test for prev week
 $currentFormatDate = new DateTime();
 $formattedDate = $currentFormatDate->format('F d, Y, g:i A');
 
@@ -234,4 +235,23 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $dayIndex = $row['day_of_week'] - 1; // MySQL DAYOFWEEK() returns 1 for Sunday, 7 for Saturday
     $documentCounts[$dayIndex] = $row['documents_count'];
 }
+//to display current date of the week
+$currentDate = date('Y-m-d'); // Current date
+
+$sundayCurrentWeek = date('Y-m-d', strtotime('last sunday', strtotime($currentDate)));
+$mondayCurrentWeek = date('Y-m-d', strtotime('monday this week', strtotime($currentDate)));
+$tuesdayCurrentWeek = date('Y-m-d', strtotime('tuesday this week', strtotime($currentDate)));
+$wednesdayCurrentWeek = date('Y-m-d', strtotime('wednesday this week', strtotime($currentDate)));
+$thursdayCurrentWeek = date('Y-m-d', strtotime('thursday this week', strtotime($currentDate)));
+$fridayCurrentWeek = date('Y-m-d', strtotime('friday this week', strtotime($currentDate)));
+$saturdayCurrentWeek = date('Y-m-d', strtotime('next saturday', strtotime($currentDate)));
+
+$sundayJson = json_encode($sundayCurrentWeek);
+$mondayJson = json_encode($mondayCurrentWeek);
+$tuesdayJson = json_encode($tuesdayCurrentWeek);
+$wednesdayJson = json_encode($wednesdayCurrentWeek);
+$thursdayJson = json_encode($thursdayCurrentWeek);
+$fridayJson = json_encode($fridayCurrentWeek);
+$saturdayJson = json_encode($saturdayCurrentWeek);
+
 ?>

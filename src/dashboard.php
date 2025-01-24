@@ -485,11 +485,25 @@ if (!isset($_SESSION['users'])) {
     const weeklyReportctx = document.getElementById("weeklyReportChart").getContext("2d");
     const totalDocs = <?php echo $totalDocsJson; ?>;
     const weeklyData = <?php echo json_encode($documentCounts); ?>;
-
+    const sundayJson = <?php echo json_encode($sundayJson); ?>;
+    const mondayJson = <?php echo json_encode($mondayJson); ?>;
+    const tuesdayJson = <?php echo json_encode($tuesdayJson); ?>;
+    const wednesdayJson = <?php echo json_encode($wednesdayJson); ?>;
+    const thursdayJson = <?php echo json_encode($thursdayJson); ?>;
+    const fridayJson = <?php echo json_encode($fridayJson); ?>;
+    const saturdayJson = <?php echo json_encode($saturdayJson); ?>;
     const config3 = {
       type: 'line', 
       data: {
-        labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], // X-axis labels
+        labels: [
+          [<?php echo json_encode($sundayJson); ?>, 'Sunday'],
+          [<?php echo json_encode($mondayJson); ?>, 'Monday'],
+          [<?php echo json_encode($tuesdayJson); ?>, 'Tuesday'],
+          [<?php echo json_encode($wednesdayJson); ?>, 'Wednesday'],
+          [<?php echo json_encode($thursdayJson); ?>, 'Thursday'],
+          [<?php echo json_encode($fridayJson); ?>, 'Friday'],
+          [<?php echo json_encode($saturdayJson); ?>, 'Saturday']
+        ],
         datasets: [{
           label: 'Documents Issued Weekly', 
           data: weeklyData, 
