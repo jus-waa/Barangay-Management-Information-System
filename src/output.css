@@ -967,6 +967,10 @@ video {
   height: 60vh;
 }
 
+.h-\[61vh\] {
+  height: 61vh;
+}
+
 .h-\[63vh\] {
   height: 63vh;
 }
@@ -981,6 +985,14 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-\[60\.7vh\] {
+  height: 60.7vh;
+}
+
+.h-\[60\.6vh\] {
+  height: 60.6vh;
 }
 
 .w-12 {
@@ -2421,10 +2433,6 @@ video {
 
   .std\:h-52 {
     height: 13rem;
-  }
-
-  .std\:h-\[24vh\] {
-    height: 24vh;
   }
 
   .std\:h-\[25vh\] {

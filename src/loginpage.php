@@ -65,7 +65,7 @@
             <img src="../img/coat.png" alt="" class="h-20 w-20 object-contain">
             <h1 class="text-5xl font-bold mb-2 text-center">Barangay Buna Cerca</h1>
             <h3 class="text-c text-2xl mt-1 mb-16 text-center">iBarangay: Management Information System</h3>
-            <p class="text-c text-justify p-6">A user-friendly website designed to simplify barangay management of resident data, incident reports, projects, and documents, enhancing productivity and service to the community.</p> <!-- Changed font to Questrial -->
+            <p class="text-c text-justify p-6" style="text-indent: 3em">A user-friendly website designed to streamline barangay management by offering services such as resident profiling (a summary of all resident data) and generating essential documents like barangay clearance, certificate of residency, and certificate of indigency, enhancing productivity and community service.</p> <!-- Changed font to Questrial -->
         </div>
     </div>
 

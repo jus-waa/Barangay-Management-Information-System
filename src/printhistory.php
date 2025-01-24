@@ -365,9 +365,9 @@ if (!isset($_SESSION['users'])) {
                                                 <th class="min-w-20">Purpose</th>
                                             </tr>
                                         </thead>
-                                        <tbody class=" text-gray-600 bg-white h-[60vh] text-sm std:text-base">
-                                        <tr class=" text-center">
-                                            <td class=" border-y-2 border-c py-4">
+                                        <tbody class=" text-gray-600 bg-white h-[60.6vh] text-sm std:text-base">
+                                        <tr class=" text-center text-sm std:text-base">
+                                            <td class=" border-y-2 border-c py-[10px] std:py-4">
                                                 <div class="flex justify-center  min-w-20">
                                                 </div>
                                             </td>
@@ -566,14 +566,14 @@ if (!isset($_SESSION['users'])) {
                             <div class="overflow-hidden w-full ">
                                 <div class="border-2 border-c rounded-lg mx-4 bg-white">
                                     <!--No Records Table -->
-                                    <div class="h-[60.8vh] std:h[67vh]">
-                                        <div class="rounded-t-sm pt-2 bg-c ">
+                                    <div class="h-[60.8vh] std:h-[67vh]">
+                                            <div class="rounded-t-sm pt-2 bg-c ">
                                             <table id="residentTable" class="w-full border-collapse">
                                                 <colgroup>
+                                                    <col class="w-[50px]">
+                                                    <col class="w-[250px]">
                                                     <col class="w-[200px]">
-                                                    <col class="w-[200px]">
-                                                    <col class="w-[300px]">
-                                                    <col class="w-[200px]">
+                                                    <col class="w-[100px]">
                                                     <col class="w-[200px]">
                                                 </colgroup>
                                                 <thead class="bg-c sticky top-0 text-sm std:text-base">
@@ -581,14 +581,14 @@ if (!isset($_SESSION['users'])) {
                                                         <!--Basic Information + Action-->
                                                         <th class="py-2 std:py-4 min-w-20">ID</th>
                                                         <th class="py-2 std:py-4">First Name</th>
-                                                        <th class="py-2 std:py-4">Age</th>
                                                         <th class="py-2 std:py-4">Document Type</th>
                                                         <th class="py-2 std:py-4">Issued By</th>
+                                                        <th class="py-2 std:py-4">Issued Date</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class=" text-gray-600 bg-white h-[60vh] ">
-                                                <tr class=" text-center">
-                                                    <td class=" border-y-2 border-c py-4">
+                                                <tbody class=" text-gray-600 bg-white h-[60.6vh] text-sm std:text-base">
+                                                <tr class="text-center text-sm std:text-base">
+                                                    <td class=" border-y-2 border-c py-[10px] std:py-4">
                                                         <div class="flex justify-center  min-w-20">
                                                         </div>
                                                     </td>
@@ -597,7 +597,7 @@ if (!isset($_SESSION['users'])) {
                                                         </div>
                                                     </td>
                                                     <td class="border-y-2 border-c py-2">
-                                                        <div class="flex justify-center">
+                                                        <div class="flex justify-center" >
                                                             No records found
                                                         </div>
                                                     </td>
@@ -612,8 +612,8 @@ if (!isset($_SESSION['users'])) {
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            </div>
                                         </div>
-                                    </div>
                                     <div class=" h-12 rounded-b-sm bg-c">
                                         <?php
                                         //display first and prev

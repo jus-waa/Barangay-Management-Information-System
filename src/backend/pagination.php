@@ -199,7 +199,6 @@ try {
         $stmt3->bindParam(':limit', $records, PDO::PARAM_INT);
         $stmt3->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt3->bindParam(':startOfWeek', $startOfWeek);
-        $stmt3->bindParam(':endOfWeek', $endOfWeek);
     }
     // fetch data based on query for print history (previous)
     if (empty($prevSearch)) {
@@ -218,18 +217,18 @@ try {
                                     control_number LIKE :prevSearch OR
                                     document_type LIKE :prevSearch OR
                                     issued_by LIKE :prevSearch
-                                ) AND DATE(print_date) < :startOfWeek 
-                                ORDER BY CASE
-                                    WHEN first_name LIKE :search THEN 1
-                                    WHEN middle_name LIKE :search THEN 2
-                                    WHEN last_name LIKE :search THEN 3
-                                    WHEN suffix LIKE :search THEN 4
-                                    WHEN print_date LIKE :search THEN 5
-                                    WHEN control_number LIKE :search THEN 6
-                                    WHEN document_type LIKE :search THEN 7
-                                    WHEN issued_by LIKE :search THEN 8
-                                END
-                                LIMIT :limit OFFSET :offset");
+                                    
+                                ) AND DATE(print_date) < :startOfWeek ORDER BY CASE
+                                        WHEN first_name LIKE :prevSearch THEN 1
+                                        WHEN middle_name LIKE :prevSearch THEN 2
+                                        WHEN last_name LIKE :prevSearch THEN 3
+                                        WHEN suffix LIKE :prevSearch THEN 4
+                                        WHEN print_date LIKE :prevSearch THEN 5
+                                        WHEN control_number LIKE :prevSearch THEN 6
+                                        WHEN document_type LIKE :prevSearch THEN 7
+                                        WHEN issued_by LIKE :prevSearch THEN 8
+                                    END
+                                    LIMIT :limit OFFSET :offset");
         $stmt4->bindValue(':prevSearch', '%' . $prevSearch . '%', PDO::PARAM_STR);
         $stmt4->bindParam(':startOfWeek', $startOfWeek);
         $stmt4->bindParam(':limit', $records, PDO::PARAM_INT);
