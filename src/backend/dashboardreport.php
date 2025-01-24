@@ -244,7 +244,7 @@ $tuesdayCurrentWeek = date('Y-m-d', strtotime('tuesday this week', strtotime($cu
 $wednesdayCurrentWeek = date('Y-m-d', strtotime('wednesday this week', strtotime($currentDate)));
 $thursdayCurrentWeek = date('Y-m-d', strtotime('thursday this week', strtotime($currentDate)));
 $fridayCurrentWeek = date('Y-m-d', strtotime('friday this week', strtotime($currentDate)));
-$saturdayCurrentWeek = date('Y-m-d', strtotime('next saturday', strtotime($currentDate)));
+$saturdayCurrentWeek = date('Y-m-d', strtotime('saturday', strtotime($currentDate)));
 
 $sundayJson = json_encode($sundayCurrentWeek);
 $mondayJson = json_encode($mondayCurrentWeek);
