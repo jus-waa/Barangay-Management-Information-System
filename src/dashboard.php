@@ -245,7 +245,6 @@ if (!isset($_SESSION['users'])) {
                                 <h1 class="text-2xl std:text-4xl font-bold">Document Issuance Data</h1>
                                 <h1 class="flex space-x-2 text-gray-500">
                                     <p class="text-sm std:text-base">This Week</p> 
-                                    <img src="../img/arrow-down.png" class="size-5 std:size-6" alt="">
                                 </h1>
                             </div>
                             <div class="w-full justify-items-center pt-6 std:p-4 border-2 rounded-xl border-sg">
