@@ -1162,7 +1162,7 @@ if (!isset($_SESSION['users'])) {
     const fileOutput = document.querySelector("#file_output");
     const notifMsg = 
     `
-    <div id="notif-del" class="grid grid-cols-2 items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100">
+    <div id="notif-del" class="grid grid-cols-2 items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100 mx-4 std:mx-0">
         <p>Unsupported file type. Please upload a CSV file.</p>
         <img src="../img/notif-del.png" alt="X" class="justify-self-end cursor-pointer" onclick="notifDel();">
     </div>

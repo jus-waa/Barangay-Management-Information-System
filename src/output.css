@@ -627,10 +627,6 @@ video {
   margin: 1rem;
 }
 
-.m-2 {
-  margin: 0.5rem;
-}
-
 .mx-12 {
   margin-left: 3rem;
   margin-right: 3rem;
@@ -804,20 +800,12 @@ video {
   margin-top: 1.5rem;
 }
 
-.mt-7 {
-  margin-top: 1.75rem;
-}
-
 .mt-8 {
   margin-top: 2rem;
 }
 
-.mr-12 {
-  margin-right: 3rem;
-}
-
-.mr-20 {
-  margin-right: 5rem;
+.mt-\[5\.75rem\] {
+  margin-top: 5.75rem;
 }
 
 .block {
@@ -881,11 +869,6 @@ video {
 .size-8 {
   width: 2rem;
   height: 2rem;
-}
-
-.size-6 {
-  width: 1.5rem;
-  height: 1.5rem;
 }
 
 .h-1\/2 {
@@ -2339,6 +2322,11 @@ video {
 }
 
 @media (min-width: 1367px) {
+  .std\:mx-0 {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
   .std\:mx-8 {
     margin-left: 2rem;
     margin-right: 2rem;
@@ -2384,6 +2372,10 @@ video {
 
   .std\:mt-4 {
     margin-top: 1rem;
+  }
+
+  .std\:mt-\[5\.5rem\] {
+    margin-top: 5.5rem;
   }
 
   .std\:block {

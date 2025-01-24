@@ -51,8 +51,8 @@ if($_FILES["file"]["size"] > 0) {
 
     $header = fgetcsv($file, 10000, ",");
     if ($header === false || array_map('strtolower', $header) !== $expectedHeaders) {
-        echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100'>
-            <p>Invalid file format. Check the manual for Expected headers.</p>
+        echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100 mx-4 std:mx-0'>
+            <p>Invalid file header format. Check the manual for Expected headers.</p>
             <img src='../img/notif-del.png' alt='X' class='justify-self-end cursor-pointer' onclick='notifDel();'>
         </div>";
         fclose($file);
@@ -62,7 +62,7 @@ if($_FILES["file"]["size"] > 0) {
     $rowCount = 0;
     while(($data = fgetcsv($file, 10000, ",")) !== FALSE) {
         if (count($data) < count($expectedHeaders)) {
-            echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100'>
+            echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100 mx-4 std:mx-0'>
                 <p>Data Incomplete. Error on row " . $rowCount + 2 . " Incomplete data.</p>
                 <img src='../img/notif-del.png' alt='X' class='justify-self-end cursor-pointer' onclick='notifDel();'>
             </div>";
@@ -124,19 +124,19 @@ if($_FILES["file"]["size"] > 0) {
     fclose($file);
     
     if ($rowCount > 0) {
-        echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100'>
+        echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100 mx-4 std:mx-0'>
             <p>File uploaded successfully, $rowCount rows inserted.</p>
             <img src='../img/notif-del.png' alt='X' class='justify-self-end cursor-pointer' onclick='notifDel();'>
         </div>";
         exit();
     } else {
-        echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100'>
+        echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100 mx-4 std:mx-0'>
             <p>No rows were inserted. Please check the file and try again.</p>
             <img src='../img/notif-del.png' alt='X' class='justify-self-end cursor-pointer' onclick='notifDel();'>
         </div>";
     }
 } else {
-    echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100'>
+    echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100 mx-4 std:mx-0'>
             <p>Invalid file. This only accepts CSV file format. Please refresh and try again.</p>
             <img src='../img/notif-del.png' alt='X' class='justify-self-end cursor-pointer' onclick='notifDel();'>
         </div>";

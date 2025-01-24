@@ -164,15 +164,7 @@ if (!isset($_SESSION['users'])) {
             </div>
             <!-- Current Records (Body) -->
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
-                <div class="flex flex-col h-full grow ">
-                    <div class="flex justify-start mx-8 mt-7">
-                        <a href="documents/print/transactionhistory_print.php" class="flex px-6 p-1 text-sm std:text-base rounded-xl border-2 border-sg bg-c place-self-center hover:border-c hover:bg-c hover:text-white transition duration-300" target="_blank"> 
-                            <img src="../img/printer.png" class="size-10 std:size-12" alt="">
-                            <button class="text-black">
-                                Print Dashboard
-                            </button>
-                        </a>
-                    </div>
+                <div class="flex flex-col h-full grow mt-[5.75rem] std:mt-[5.5rem]">
                     <!-- Options -->
                     <div class="grid grid-cols-[1fr_auto_auto_auto] mx-8 items-center ">
                         <!-- Categories -->
