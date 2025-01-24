@@ -190,7 +190,7 @@ if (!isset($_SESSION['users'])) {
                                 <div class="flex items-center justify-center bg-c rounded-xl h-14 std:h-20 w-14 std:w-20 hover:border-c hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/total-res.png" alt="">
                                 </div>
-                                <div class="flex items-center justify-center flex-col mb-[14px] std:mb-[18px]"> 
+                                <div class="flex items-center justify-center flex-col mb-[10px] std:mb-[14px]"> 
                                     <p class="text-sm std:text-lg">Total Household</p>
                                     <p class="text-xl std:text-4xl font-bold"><?= $totalHouseHold ?></p>
                                 </div>
@@ -199,7 +199,7 @@ if (!isset($_SESSION['users'])) {
                                 <div class="flex items-center justify-center bg-c rounded-xl h-14 std:h-20 w-14 std:w-20 hover:border-c hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/total-household.png" alt="">
                                 </div>
-                                <div class="flex items-center justify-center flex-col mb-[14px] std:mb-[18px]"> 
+                                <div class="flex items-center justify-center flex-col mb-[10px] std:mb-[14px]"> 
                                     <p class="text-sm std:text-lg">Total Residents</p>
                                     <p class="text-xl std:text-4xl font-bold"><?= $totalRes ?></p>
                                 </div>
@@ -208,10 +208,9 @@ if (!isset($_SESSION['users'])) {
                                 <div class="flex items-center justify-center bg-c rounded-xl h-14 std:h-20 w-14 std:w-20 hover:border-c hover:animate-wiggle hover:scale-125"> 
                                     <img src="../img/active-res.png" alt="">
                                 </div>
-                                <div class="flex items-center justify-center flex-col mb-1 std:mb-0 std:mt-1"> 
+                                <div class="flex items-center justify-center flex-col  mb-[10px] std:mb-[14px]"> 
                                     <p class="text-sm std:text-lg">Active Residents</p>
                                     <p class="text-xl std:text-4xl font-bold"><?= $active ?></p>
-                                    <p class="text-xs std:text-base">out of <?= $totalRes?></p>
                                 </div>
                             </div>
                             <div class="flex justify-center items-center space-x-4 rounded-r-xl">
@@ -253,19 +252,19 @@ if (!isset($_SESSION['users'])) {
                         </div>
                         <div class="grid grid-rows-4 gap-y-2 std:gap-y-4">
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-xl std:text-2xl font-bold"><?=$totalDocs?></div>
+                                <div class="text-2xl std:text-4xl font-bold"><?=$totalDocs?></div>
                                 <p class="text-xs std:text-sm">Total documents issued</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-xl std:text-2xl font-bold"><?=$brgyclr?></div>
+                                <div class="text-2xl std:text-4xl font-bold"><?=$brgyclr?></div>
                                 <p class="text-xs std:text-sm">Barangay Clearance</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-xl std:text-2xl font-bold"><?=$certIndigency?></div>
+                                <div class="text-2xl std:text-4xl font-bold"><?=$certIndigency?></div>
                                 <p class="text-xs std:text-sm">Certificate of Indigency</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-xl std:text-2xl font-bold"><?=$certResidency?></div>
+                                <div class="text-2xl std:text-4xl font-bold"><?=$certResidency?></div>
                                 <p class="text-xs std:text-sm">Certificate of Residency</p>
                             </div>
                         </div>

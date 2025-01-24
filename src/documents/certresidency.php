@@ -338,7 +338,7 @@ if (isset($_POST['confirmPrintSignature'])) {
                     </a>
                     -->
                     <button type="button" class="rounded-md w-48 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="confirmPrintSig(<?= $row['id'] ?>)">
-                        Print with <b>Signature</b>
+                        Print on <b>Template</b>
                     </button>
                     <div class="flex justify-end items-center gap-2">
                         <button id="add-button" type="button" class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="confirmPrint(<?= $row['id'] ?>)">

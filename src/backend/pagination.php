@@ -49,11 +49,13 @@ try {
                     WHERE
                         first_name LIKE :search OR
                         middle_name LIKE :search OR
-                        last_name LIKE :search
+                        last_name LIKE :search OR
+                        CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE :search
                         ORDER BY CASE
                             WHEN first_name LIKE :search THEN 1
                             WHEN middle_name LIKE :search THEN 2
                             WHEN last_name LIKE :search THEN 3
+                            WHEN CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE :search THEN 4
                         END";
         $print_total_sql = "SELECT COUNT(*) AS print_total
                             FROM `print_history` 
@@ -62,6 +64,7 @@ try {
                                 middle_name LIKE :search OR
                                 last_name LIKE :search OR
                                 suffix LIKE :search OR
+                                CONCAT(first_name, ' ', middle_name, ' ', last_name, ' ', suffix) LIKE :search OR
                                 print_date LIKE :search OR
                                 control_number LIKE :search OR
                                 document_type LIKE :search OR
@@ -89,6 +92,7 @@ try {
                                 middle_name LIKE :prevSearch OR
                                 last_name LIKE :prevSearch OR
                                 suffix LIKE :prevSearch OR
+                                CONCAT(first_name, ' ', middle_name, ' ', last_name, ' ', suffix) LIKE :prevSearch OR
                                 print_date LIKE :prevSearch OR
                                 control_number LIKE :prevSearch OR
                                 document_type LIKE :prevSearch OR
@@ -161,11 +165,13 @@ try {
                                 WHERE 
                                     first_name LIKE :search OR
                                     middle_name LIKE :search OR
-                                    last_name LIKE :search 
+                                    last_name LIKE :search OR
+                                    CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE :search
                                     ORDER BY CASE
                                         WHEN first_name LIKE :search THEN 1
                                         WHEN middle_name LIKE :search THEN 2
                                         WHEN last_name LIKE :search THEN 3
+                                        WHEN CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE :search THEN 4
                                     END
                                 LIMIT :limit OFFSET :offset");
         $stmt3 = $dbh->prepare("SELECT * FROM `print_history`
@@ -174,20 +180,22 @@ try {
                                     middle_name LIKE :search OR
                                     last_name LIKE :search OR
                                     suffix LIKE :search OR
+                                    CONCAT(first_name, ' ', middle_name, ' ', last_name, ' ', suffix) LIKE :search OR
                                     print_date LIKE :search OR
                                     control_number LIKE :search OR
                                     document_type LIKE :search OR
-                                    issued_by LIKE :search
+                                    issued_by LIKE :search 
                                 ) AND DATE(print_date) >= :startOfWeek
                                 ORDER BY CASE
                                     WHEN first_name LIKE :search THEN 1
                                     WHEN middle_name LIKE :search THEN 2
                                     WHEN last_name LIKE :search THEN 3
                                     WHEN suffix LIKE :search THEN 4
-                                    WHEN print_date LIKE :search THEN 5
-                                    WHEN control_number LIKE :search THEN 6
-                                    WHEN document_type LIKE :search THEN 7
-                                    WHEN issued_by LIKE :search THEN 8
+                                    WHEN CONCAT(first_name, ' ', middle_name, ' ', last_name, ' ', suffix) LIKE :search THEN 5
+                                    WHEN print_date LIKE :search THEN 6
+                                    WHEN control_number LIKE :search THEN 7
+                                    WHEN document_type LIKE :search THEN 8
+                                    WHEN issued_by LIKE :search THEN 9
                                 END
                                 LIMIT :limit OFFSET :offset");
 
@@ -213,6 +221,7 @@ try {
                                     middle_name LIKE :prevSearch OR
                                     last_name LIKE :prevSearch OR
                                     suffix LIKE :prevSearch OR
+                                    CONCAT(first_name, ' ', middle_name, ' ', last_name, ' ', suffix) LIKE :prevSearch OR
                                     print_date LIKE :prevSearch OR
                                     control_number LIKE :prevSearch OR
                                     document_type LIKE :prevSearch OR
@@ -223,10 +232,11 @@ try {
                                         WHEN middle_name LIKE :prevSearch THEN 2
                                         WHEN last_name LIKE :prevSearch THEN 3
                                         WHEN suffix LIKE :prevSearch THEN 4
-                                        WHEN print_date LIKE :prevSearch THEN 5
-                                        WHEN control_number LIKE :prevSearch THEN 6
-                                        WHEN document_type LIKE :prevSearch THEN 7
-                                        WHEN issued_by LIKE :prevSearch THEN 8
+                                        WHEN CONCAT(first_name, ' ', middle_name, ' ', last_name, ' ', suffix) LIKE :prevSearch THEN 5
+                                        WHEN print_date LIKE :prevSearch THEN 6
+                                        WHEN control_number LIKE :prevSearch THEN 7
+                                        WHEN document_type LIKE :prevSearch THEN 8
+                                        WHEN issued_by LIKE :prevSearch THEN 9
                                     END
                                     LIMIT :limit OFFSET :offset");
         $stmt4->bindValue(':prevSearch', '%' . $prevSearch . '%', PDO::PARAM_STR);

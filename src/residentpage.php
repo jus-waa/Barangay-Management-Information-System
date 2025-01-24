@@ -243,8 +243,8 @@ if (!isset($_SESSION['users'])) {
                                         <col class="w-[200px]">
                                         <col class="w-[200px]">
                                         <col class="w-[200px]">
-                                        <col>
-                                        <col>
+                                        <col class="w-[350px]">
+                                        <col class="w-[200px]">
                                         <col>
                                         <col class="w-[200px]">
                                     </colgroup>
