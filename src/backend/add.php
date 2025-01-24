@@ -373,12 +373,12 @@ if(isset($_POST['add'])) {
                         </div>
                         <div class="flex items-center justify-between">
                             <div class="flex-grow mr-2">
-                                <input maxlength="3" id="height" name="height" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                <input id="height" name="height" type="number" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Height</label>
                                 <span class="absolute transform -translate-y-8 translate-x-22 std:translate-x-38 text-gray-500 text-sm">cm</span>
                             </div>
                             <div class="flex-grow mr-2">
-                                <input maxlength="3" id="weight" name="weight" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
+                                <input id="weight" name="weight" type="number" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
                                 <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-0 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Weight</label>
                                 <span class="absolute transform -translate-y-8 translate-x-23 std:translate-x-38 text-gray-500 text-sm ">kg</span>
                             </div>

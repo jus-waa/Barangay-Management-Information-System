@@ -5,21 +5,68 @@ if(empty($file_name)) {
     echo "<div class=error_message> Upload File.</div>";
     exit();
 }
-$i = 0; //for header
 //caluate age
 function calculateAge($birthdate) {
-    $birthDate = new DateTime($birthdate);
-    $currentDate = new DateTime();
-    $age = $currentDate->diff($birthDate)->y; //get the difference in years
-    return $age;
+    try {
+        $birthDate = new DateTime($birthdate);
+        $currentDate = new DateTime();
+        $age = $currentDate->diff($birthDate)->y; //get the difference in years
+        return $age;
+    } catch (Exception $e) {
+        return "Invalid date: " . $e->getMessage();
+    }
+    
 }
+$expectedHeaders = [
+    'first name', 
+    'middle name', 
+    'last name', 
+    'suffix', 
+    'gender', 
+    'date of birth', 
+    'birthplace (municipality/city)', 
+    'birthplace (province)', 
+    'father\'s name', 
+    'mother\'s maiden name', 
+    'contact number', 
+    'email address', 
+    'house number', 
+    'street name', 
+    'purok', 
+    'civil status', 
+    'citizenship', 
+    'ethnicity', 
+    'occupation', 
+    'residency type', 
+    'status', 
+    'height', 
+    'weight', 
+    'eye color', 
+    'blood type', 
+    'religion'
+];
 
 if($_FILES["file"]["size"] > 0) {
     $file = fopen($file_name, "r");
+
+    $header = fgetcsv($file, 10000, ",");
+    if ($header === false || array_map('strtolower', $header) !== $expectedHeaders) {
+        echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100'>
+            <p>Invalid file format. Check the manual for Expected headers.</p>
+            <img src='../img/notif-del.png' alt='X' class='justify-self-end cursor-pointer' onclick='notifDel();'>
+        </div>";
+        fclose($file);
+        exit();
+    }
+
+    $rowCount = 0;
     while(($data = fgetcsv($file, 10000, ",")) !== FALSE) {
-        if ($i === 0) {
-            $i++;
-            continue; // Skip the header row
+        if (count($data) < count($expectedHeaders)) {
+            echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100'>
+                <p>Data Incomplete. Error on row " . $rowCount + 2 . " Incomplete data.</p>
+                <img src='../img/notif-del.png' alt='X' class='justify-self-end cursor-pointer' onclick='notifDel();'>
+            </div>";
+            exit();
         }
         //calculate age using the birth date
         $age = calculateAge($data[5]); 
@@ -69,30 +116,29 @@ if($_FILES["file"]["size"] > 0) {
                 }
             }
             $stmt->execute();
-            $rowCount = $stmt->rowCount(); // Increment rowCount
+            $rowCount++; // Increment rowCount
         } catch (PDOException $e) {
             echo "Error on row $i: " . $e->getMessage() . "<br/>";
         }
     }
     fclose($file);
-    ?>
-    <div class="success_message absolute top-52 right-32 pl-6 mt-0.5 text-xs bg-sg w-16">
-    <?php 
     
-    if($rowCount > 0) {
-        echo '<script>window.location.href = "residentpage.php";</script>';
+    if ($rowCount > 0) {
+        echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100'>
+            <p>File uploaded successfully, $rowCount rows inserted.</p>
+            <img src='../img/notif-del.png' alt='X' class='justify-self-end cursor-pointer' onclick='notifDel();'>
+        </div>";
         exit();
-    ?>
-    </div>
-    <script>
-        let form = document.querySelector("form");
-        form.style.display = 'none';
-    </script>
-    <?php
     } else {
-        echo 'Nothing was inserted, please refresh';
-        } 
+        echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100'>
+            <p>No rows were inserted. Please check the file and try again.</p>
+            <img src='../img/notif-del.png' alt='X' class='justify-self-end cursor-pointer' onclick='notifDel();'>
+        </div>";
+    }
 } else {
-    echo "Invalid file. This only accepts CSV file format, please refresh.";
+    echo "<div id='notif-del' class='grid grid-cols-2 text-sm items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100'>
+            <p>Invalid file. This only accepts CSV file format. Please refresh and try again.</p>
+            <img src='../img/notif-del.png' alt='X' class='justify-self-end cursor-pointer' onclick='notifDel();'>
+        </div>";
 }
 ?>

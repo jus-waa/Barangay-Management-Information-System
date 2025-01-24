@@ -167,7 +167,7 @@ if (!isset($_SESSION['users'])) {
             <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('../img/bunacerca-bg.png'); filter: blur(5px); z-index: -1;"></div>
             <div class="flex flex-col h-full grow">
                 <!-- Note -->
-                <div class="h-14 my-2 mx-4 std:my-4 std:mx-8 text-white ">
+                <div id="uploadMsg" class="h-14 my-2 mx-4 std:my-4 std:mx-8 text-white ">
                     <?php
                     //displays message
                     if(isset($_GET['msg'])) {
@@ -222,14 +222,13 @@ if (!isset($_SESSION['users'])) {
                             <div>
                                 <form id="formUpload"  class="flex items-center">
                                     <div>
-                                        <button id="btnUpload" name="btnUpload" class="rounded-md py-1.5 std:py-1 std:px-3 w-20 std:w-full text-sm std:text-base bg-gray-400 text-gray-600 focus:outline-none" disabled>Bulk Import</button>
+                                        <button id="btnUpload" name="btnUpload" type="submit" class="rounded-md py-1.5 std:py-1 std:px-3 w-20 std:w-full text-sm std:text-base bg-gray-400 text-gray-600 focus:outline-none" disabled>Bulk Import</button>
                                     </div>
                                     <label for="file_input">
                                         <img id="file_output" class="mr-8 std:mr-0 size-8 cursor-pointer hover:animate-wiggle" src="../img/document.png">
                                         <input type="file" id="file_input" name="file" accept="csv/*" class="hidden"></input>
                                     </label>
                                 </form>
-                                <div id="msgUpload"></div>
                             </div>
                         <?php } ?>
                     </div>
@@ -1052,6 +1051,10 @@ if (!isset($_SESSION['users'])) {
                 </div>
             </div>
         </div>
+        <!-- Loading Message -->
+        <div class="fixed z-50 " id="msgUpload">
+        
+        </div>
     </div>
 <script>
     //remove notif
@@ -1157,7 +1160,13 @@ if (!isset($_SESSION['users'])) {
     // bulk import
     const fileInput = document.querySelector("#file_input");
     const fileOutput = document.querySelector("#file_output");
-
+    const notifMsg = 
+    `
+    <div id="notif-del" class="grid grid-cols-2 items-center p-4 rounded-md bg-[#FFF2D0] text-[#937E43] opacity-100 transition-opacity duration-100">
+        <p>Unsupported file type. Please upload a CSV file.</p>
+        <img src="../img/notif-del.png" alt="X" class="justify-self-end cursor-pointer" onclick="notifDel();">
+    </div>
+    `;
     let file = "";
 
     fileInput.addEventListener("change", function(){
@@ -1181,42 +1190,48 @@ if (!isset($_SESSION['users'])) {
 
             };
         } else {
-            fileOutput.src="../img/lock.png";
-            document.querySelector("#btnUpload").setAttribute("disabled", "true"); 
-            document.querySelector("#btnUpload").classList.add("w-26");
-            document.querySelector("#btnUpload").classList.add("h-8");
-            document.querySelector("#btnUpload").classList.remove("px-3");
-            document.querySelector("#btnUpload").textContent = "Not csv, Please refresh.";
-            document.querySelector("#btnUpload").classList.add("bg-gray-400");
-            document.querySelector("#btnUpload").classList.add("text-[10px]");
-            document.querySelector("#btnUpload").classList.remove("bg-c");
-            document.querySelector("#btnUpload").classList.remove("hover:bg-sg");
-            document.querySelector("#btnUpload").classList.add("text-gray-600");
+            document.querySelector("#uploadMsg").innerHTML = notifMsg;
         } 
         fileReader.readAsDataURL(file);
     };
-    //upload csv file
-    $(function (){
-        $('#formUpload').on('submit', function(e) {
-            e.preventDefault();
-            let form = $(this);
-            let csv = new FormData(form[0]);
-            $('.msgUpload').show(2).html('<center><img src=../img/loader.gif width=60px/> <br>Uploading Data. Please wait...</center>');
-            $('.btnUpload').hide(2);
-            $.ajax({
-                url: "backend/upload.php",
-                type: 'POST',
-                contentType: false,
-                processData: false,
-                data: csv,
-                success: function(data) {
-                    console.log(data);
-                    $('#msgUpload').html(data);
-                    $('#btnUpload').hide(2);
-                }
-            }); 
+    $('#formUpload').on('submit', function(e) {
+    e.preventDefault();
+        let form = $(this);
+        let csv = new FormData(form[0]);
+        $('#msgUpload').html(
+            `<div class="fixed z-50">
+                <div class="border-4 w-screen h-screen flex justify-center items-center">
+                    <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
+                    <div class="relative flex items-center justify-center h-72 w-96 overflow-auto rounded-md bg-white z-10">
+                        <center><img src="../img/loader.gif"/> <br>Uploading Data. Please wait...</center>
+                    </div>
+                </div>
+            </div>
+            `);
+
+// To make sure the loader shows up, remove the "hidden" class
+$('#msgUpload').removeClass('hidden');
+        $('#btnUpload').hide();
+
+        $.ajax({
+            url: "backend/upload.php",
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: csv,
+            success: function(data) {
+                $('#msgUpload').html('');  // Clear the loading message
+                $('#btnUpload').show();
+                console.log(data); // Debugging: Check what is being returned
+                $('#uploadMsg').html(data); // Ensure data is valid HTML or text
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error:', textStatus, errorThrown);
+                $('#uploadMsg').html('<p style="color: red;">An error occurred while uploading. Please try again.</p>');
+            }
         });
     });
+
 </script>
 </body>
 </html>
