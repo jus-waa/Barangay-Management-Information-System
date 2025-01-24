@@ -65,7 +65,7 @@ $pdf->Ln(15);
 
 $pdf->SetLeftMargin(148);
 $pdf->SetFont('Times','I',12);
-$pdf->Cell(50, 8.5, $formattedDate, 0, 1, 'C');
+$pdf->Cell(52, 8.5, $formattedDate, 0, 1, 'C');
 
 /*
 Old format
