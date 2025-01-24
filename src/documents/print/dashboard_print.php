@@ -7,6 +7,8 @@ require("./../../fpdi/FPDI-2.6.1/src/autoload.php");
 
 use setasign\Fpdi\Fpdi;
 $pdf = new Fpdi();
+$pdf->SetTitle('Barangay Management System');
+
 //page start
 $pdf -> AddPage('P', 'Legal');
 $pdf -> SetFont("Arial", "", 11);
@@ -114,4 +116,3 @@ for ($i = 0; $i < $maxRows; $i++) {
 }
 */
 $pdf->Output();
-?>

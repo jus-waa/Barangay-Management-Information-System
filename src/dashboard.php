@@ -20,6 +20,7 @@ if (!isset($_SESSION['users'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
+    <link rel="icon" type="image/x-icon" href="../img/buna_cerca.png">
     <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
     <script src="../script.js"></script>
     <script src="clock.js" defer></script>
@@ -94,7 +95,7 @@ if (!isset($_SESSION['users'])) {
                         </div>
                     </div>
                     <!-- Account and Logout -->
-                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow text-xs std-textbase">
+                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow text-xs std:text-base">
                         <!-- Account -->
                         <div>
                             <button onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">

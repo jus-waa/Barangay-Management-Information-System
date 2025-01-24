@@ -19,6 +19,7 @@ if (!isset($_SESSION['users'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
+    <link rel="icon" type="image/x-icon" href="../img/buna_cerca.png">
     <script src="../script.js"></script>
     <script src="clock.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -92,7 +93,7 @@ if (!isset($_SESSION['users'])) {
                         </div>
                     </div>
                     <!-- Account and Logout -->
-                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow text-xs std-textbase">
+                    <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow text-xs std:text-base">
                         <!-- Account -->
                         <div>
                             <button onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">

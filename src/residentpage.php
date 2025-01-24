@@ -20,6 +20,7 @@ if (!isset($_SESSION['users'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
+    <link rel="icon" type="image/x-icon" href="../img/buna_cerca.png">
     <script src="../script.js"></script>
     <script src="clock.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -211,26 +212,22 @@ if (!isset($_SESSION['users'])) {
                                 </button>
                             </form>
                         </div>
-                        <?php 
-                        if(hasPermission('system_settings')) {
-                        ?>
-                            <!-- Add Record -->
-                            <div>
-                                <a href="backend/add.php"><button class="rounded-md border-c bg-c py-1.5 std:py-1 std:px-3 w-20 std:w-full place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300 text-sm std:text-base">Add Record</button></a>
-                            </div>
-                            <!--Bulk Import-->
-                            <div>
-                                <form id="formUpload"  class="flex items-center">
-                                    <div>
-                                        <button id="btnUpload" name="btnUpload" type="submit" class="rounded-md py-1.5 std:py-1 std:px-3 w-20 std:w-full text-sm std:text-base bg-gray-400 text-gray-600 focus:outline-none" disabled>Bulk Import</button>
-                                    </div>
-                                    <label for="file_input">
-                                        <img id="file_output" class="mr-8 std:mr-0 size-8 cursor-pointer hover:animate-wiggle" src="../img/document.png">
-                                        <input type="file" id="file_input" name="file" accept="csv/*" class="hidden"></input>
-                                    </label>
-                                </form>
-                            </div>
-                        <?php } ?>
+                        <!-- Add Record -->
+                        <div>
+                            <a href="backend/add.php"><button class="rounded-md border-c bg-c py-1.5 std:py-1 std:px-3 w-20 std:w-full place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300 text-sm std:text-base">Add Record</button></a>
+                        </div>
+                        <!--Bulk Import-->
+                        <div>
+                            <form id="formUpload"  class="flex items-center">
+                                <div>
+                                    <button id="btnUpload" name="btnUpload" type="submit" class="rounded-md py-1.5 std:py-1 std:px-3 w-20 std:w-full text-sm std:text-base bg-gray-400 text-gray-600 focus:outline-none" disabled>Bulk Import</button>
+                                </div>
+                                <label for="file_input">
+                                    <img id="file_output" class="mr-8 std:mr-0 size-8 cursor-pointer hover:animate-wiggle" src="../img/document.png">
+                                    <input type="file" id="file_input" name="file" accept="csv/*" class="hidden"></input>
+                                </label>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <!-- Tables -->

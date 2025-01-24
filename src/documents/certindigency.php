@@ -130,7 +130,7 @@ if (isset($_POST['confirmPrintSignature'])) {
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../../script.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="../../img/buna_cerca.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
@@ -612,6 +612,7 @@ if (isset($_POST['confirmPrintSignature'])) {
             if (!isValid) {
                 event.preventDefault();
                 firstInvalidElement.scrollIntoView({ behavior: "smooth", block: "center" });
+                document.getElementById("confirmSig").classList.add("hidden");
                 document.getElementById("confirmPrint").classList.add("hidden");
             } 
 

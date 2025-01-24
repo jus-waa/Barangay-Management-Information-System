@@ -59,7 +59,7 @@
     <title>Barangay Management System</title>
     <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
     <script src="../script.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="../img/buna_cerca.png">
 </head>
 <body class="h-screen w-full p-6 flex items-center justify-center">
     <!-- Main Content Area -->
