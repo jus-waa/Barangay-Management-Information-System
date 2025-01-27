@@ -1,4 +1,5 @@
 <?php 
+ini_set('max_execution_time', 600); // Set to 300 seconds (5 minutes)
 include_once("connection.php");
 $file_name = $_FILES["file"]["tmp_name"];
 if(empty($file_name)) {

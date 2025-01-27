@@ -280,7 +280,7 @@ if (!isset($_SESSION['users'])) {
                         <canvas id="ageGroupChart"></canvas>
                     </div>
                     <div class="w-full grow">
-                        <div class="grid grid-rows-3 gap-y-2 std:gap-y-4 h-full w-full ">
+                        <div class="grid grid-rows-3 gap-y-2 std:gap-y-4 h-full w-full  ">
                             <!-- Gender Breakdown -->
                             <div class="grid grid-cols-2 gap-x-1 std:gap-x-2 rounded-xl text-white">
                                 <div class="flex items-center rounded-xl bg-black pr-4">
@@ -299,28 +299,28 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                             </div>
                             <!-- Civil Status Breakdown-->
-                            <div class="grid grid-rows-[auto_1fr] rounded-xl bg-[#D9D9D9]">
-                                <div class="text-xs std:text-sm font-bold px-3 pt-2">
+                            <div class="grid grid-rows-[auto_1fr] rounded-xl text-xl std:text-2xl bg-[#D9D9D9]">
+                                <div class="text-xs std:text-sm font-bold px-2 pt-3">
                                     Civil Status
                                 </div>
-                                <div class="flex justify-between px-4">
-                                    <div class="place-items-center text-xl std:text-2xl p-1 std:p-2">
+                                <div class="flex justify-between px-2">
+                                    <div class="place-items-center std:p-1">
                                         <h1 class="font-bold "><?= $single ?></h1>
                                         <p class="text-xs">SINGLE</p>
                                     </div>
-                                    <div class="place-items-center text-xl std:text-2xl p-1 std:p-2">
+                                    <div class="place-items-center std:p-1">
                                         <h1 class="font-bold "><?= $married ?></h1>
                                         <p class="text-xs">MARRIED</p>
                                     </div>
-                                    <div class="place-items-center text-xl std:text-2xl p-1 std:p-2">
+                                    <div class="place-items-center std:p-1">
                                         <h1 class="font-bold "><?= $divorced ?></h1>
                                         <p class="text-xs">DIVORCED</p>
                                     </div>
-                                    <div class="place-items-center text-xl std:text-2xl p-1 std:p-2">
+                                    <div class="place-items-center std:p-1">
                                         <h1 class="font-bold "><?= $separated ?></h1>
                                         <p class="text-xs">SEPARATED</p>
                                     </div>
-                                    <div class="place-items-center text-xl std:text-2xl p-1 std:p-2">
+                                    <div class="place-items-center std:p-1">
                                         <h1 class="font-bold "><?= $widowed ?></h1>
                                         <p class="text-xs">WIDOWED</p>
                                     </div>
@@ -328,39 +328,39 @@ if (!isset($_SESSION['users'])) {
                             </div>
                             <!-- Blood Type -->
                             <div class="grid grid-rows-[auto_1fr] rounded-xl bg-black">
-                                <div class="text-xs std:text-sm font-bold px-3 pt-2 text-white">
+                                <div class="text-xs std:text-sm font-bold px-2 pt-3 text-white">
                                     Blood Type
                                 </div>
-                                <div class="flex justify-between px-4 ">
-                                    <div class="place-items-center text-lg p-1 std:p-2">
+                                <div class="flex justify-between px-1 ">
+                                    <div class="place-items-center  p-1 std:p-2">
                                         <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $a_plus ?></h1>
                                         <p class="text-xs text-white">A+</p>
                                     </div>
-                                    <div class="place-items-center text-lg p-1 std:p-2">
+                                    <div class="place-items-center p-1 std:p-2">
                                         <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $a_minus ?></h1>
                                         <p class="text-xs text-white">A-</p>
                                     </div>
-                                    <div class="place-items-center text-lg p-1 std:p-2">
+                                    <div class="place-items-center p-1 std:p-2">
                                         <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $b_plus ?></h1>
                                         <p class="text-xs text-white">B+</p>
                                     </div>
-                                    <div class="place-items-center text-lg p-1 std:p-2">
+                                    <div class="place-items-center p-1 std:p-2">
                                         <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $b_minus ?></h1>
                                         <p class="text-xs text-white">B-</p>
                                     </div>
-                                    <div class="place-items-center text-lg p-1 std:p-2">
+                                    <div class="place-items-center p-1 std:p-2">
                                         <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $ab_plus ?></h1>
                                         <p class="text-xs text-white">AB+</p>
                                     </div>
-                                    <div class="place-items-center text-lg p-1 std:p-2">
+                                    <div class="place-items-center p-1 std:p-2">
                                         <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $ab_minus ?></h1>
                                         <p class="text-xs text-white">AB-</p>
                                     </div>
-                                    <div class="place-items-center text-lg p-1 std:p-2">
+                                    <div class="place-items-center p-1 std:p-2">
                                         <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $o_plus ?></h1>
                                         <p class="text-xs text-white">O+</p>
                                     </div>
-                                    <div class="place-items-center text-lg p-1 std:p-2">
+                                    <div class="place-items-center p-1 std:p-2">
                                         <h1 class="font-bold text-pg hover:text-c cursor-default transition duration-700"><?= $o_minus ?></h1>
                                         <p class="text-xs text-white">O-</p>
                                     </div>
