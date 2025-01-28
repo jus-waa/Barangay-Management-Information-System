@@ -627,6 +627,18 @@ video {
   margin: 1rem;
 }
 
+.m-24 {
+  margin: 6rem;
+}
+
+.m-2 {
+  margin: 0.5rem;
+}
+
+.m-32 {
+  margin: 8rem;
+}
+
 .mx-12 {
   margin-left: 3rem;
   margin-right: 3rem;
@@ -670,6 +682,26 @@ video {
 .my-6 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+.mx-24 {
+  margin-left: 6rem;
+  margin-right: 6rem;
+}
+
+.mx-32 {
+  margin-left: 8rem;
+  margin-right: 8rem;
+}
+
+.my-24 {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+
+.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .mb-16 {
@@ -983,6 +1015,14 @@ video {
   height: 100vh;
 }
 
+.h-\[99\%\] {
+  height: 99%;
+}
+
+.h-\[90vh\] {
+  height: 90vh;
+}
+
 .w-12 {
   width: 3rem;
 }
@@ -1123,20 +1163,8 @@ video {
   width: 100vw;
 }
 
-.w-5\/6 {
-  width: 83.333333%;
-}
-
-.w-\[85\%\] {
-  width: 85%;
-}
-
-.w-\[86\%\] {
-  width: 86%;
-}
-
-.w-\[86\.5\%\] {
-  width: 86.5%;
+.w-1\/2 {
+  width: 50%;
 }
 
 .min-w-20 {
@@ -1459,6 +1487,12 @@ video {
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
 .place-self-end {
   place-self: end;
 }
@@ -1621,6 +1655,11 @@ video {
   border-color: rgb(76 147 76 / var(--tw-border-opacity, 1));
 }
 
+.border-blue-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
+}
+
 .bg-\[\#D9D9D9\] {
   --tw-bg-opacity: 1;
   background-color: rgb(217 217 217 / var(--tw-bg-opacity, 1));
@@ -1736,6 +1775,15 @@ video {
   padding: 1.5rem;
 }
 
+.p-24 {
+  padding: 6rem;
+}
+
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -1814,6 +1862,16 @@ video {
 .py-\[10px\] {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.px-24 {
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
+
+.px-32 {
+  padding-left: 8rem;
+  padding-right: 8rem;
 }
 
 .pl-1 {
@@ -1914,6 +1972,11 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .font-bold {
@@ -2533,6 +2596,10 @@ video {
     --tw-space-y-reverse: 0;
     margin-top: calc(3.5rem * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(3.5rem * var(--tw-space-y-reverse));
+  }
+
+  .std\:p-1 {
+    padding: 0.25rem;
   }
 
   .std\:p-16 {

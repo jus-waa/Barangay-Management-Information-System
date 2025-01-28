@@ -346,7 +346,7 @@ if (isset($_POST['confirmPrintSignature'])) {
                                 <div class="mb-24 mt-4">Do you want to print this record?</div>
                             </div>
                             <div class="flex justify-center space-x-4 mt-6">
-                                <button type="submit" name="confirm" class="bg-sg rounded-md w-32 h-12">
+                                <button type="submit" name="confirm" class="bg-sg rounded-md w-32 h-12" onclick="confirmPreview();">
                                 <input type="hidden" value="<?= $row['id'] ?>">
                                     Yes
                                 </button>
@@ -381,7 +381,7 @@ if (isset($_POST['confirmPrintSignature'])) {
         <div class="w-full flex justify-center mt-12">
             <img src="../../img/coat.png" alt="Bottom Image" class="hidden std:block w-[100px] h-[100px] object-contain">
         </div>
-        <!--Select from Records -->
+        <!-- Select from Records -->
         <div class="fixed z-50" id="selectRecords">
             <div class=" w-screen h-screen flex justify-center items-center flex-col ">
                 <div class="absolute inset-0 bg-black opacity-50 w-screen h-screen grid"></div> <!-- Background overlay -->
@@ -518,6 +518,7 @@ if (isset($_POST['confirmPrintSignature'])) {
             fieldset.disabled = false;
         }
     }
+
     //confirm deletion
     function selectRecords() {
         document.getElementById("selectRecords").classList.remove("hidden");
@@ -525,20 +526,23 @@ if (isset($_POST['confirmPrintSignature'])) {
     function cancelSelect() {
         document.getElementById("selectRecords").classList.add("hidden");
     }
+
     //confirm print
     function confirmPrint() {
         document.getElementById("confirmPrint").classList.remove("hidden");
     }
+    function cancelConfirmation() {
+        document.getElementById("confirmPrint").classList.add("hidden");
+    }
+
     //confirm print with signature
     function confirmPrintSig() {
         document.getElementById("confirmSig").classList.remove("hidden");
     }
-    function cancelConfirmation() {
-        document.getElementById("confirmPrint").classList.add("hidden");
-    }
     function cancelConfirmationSig() {
         document.getElementById("confirmSig").classList.add("hidden");
     }
+
     //script for requiring input fields
     document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("personal_info");

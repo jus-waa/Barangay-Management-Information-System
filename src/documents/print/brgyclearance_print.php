@@ -80,7 +80,13 @@ if ($row) {
     $pdf->SetXY(96, 231.5);
     $pdf->Write(0, $barangay_name);
 
-    $pdf->Output('I', 'generated.pdf');
+    $uniqueID = uniqid();
+    $filename = "brgy_clearance_preview_$uniqueID.pdf";
+
+    $pdf->Output($filename, 'F');
+
+    header("location: preview_pdf.php?file=$filename");
+    exit();
 } else {
     die('Error: No record found for the provided ID.');
 }
