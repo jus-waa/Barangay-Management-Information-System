@@ -237,7 +237,7 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>
                     </div>
-                    <!-- Weekly Report -->
+                    <!-- Weekly Report 
                     <div class="grid grid-cols-[75.5%_23.5%] gap-4 border-2 h-full w-full border-sg rounded-xl bg-white p-6">
                         <div class="grid gap-y-0 std:gap-y-4">
                             <div class="flex justify-between items-center h-4/6 std:h-full w-full drop-shadow-xl">
@@ -268,7 +268,8 @@ if (!isset($_SESSION['users'])) {
                                 <p class="text-xs std:text-sm">Certificate of Residency</p>
                             </div>
                         </div>
-                    </div>
+                    </div> 
+                    -->
                 </div>
                 <!-- Demographics -->
                 <div class="flex flex-col items-center space-y-4 border-2 border-sg rounded-xl bg-white p-2 std:p-6 w-[90%]  std:w-full">
