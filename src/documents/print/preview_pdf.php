@@ -24,11 +24,6 @@ if (!$file || !file_exists($file)) {
         </div>
         <div class="flex flex-col items-center justify-center space-y-4 border-2 border-black">
                 <iframe src="<?php echo htmlspecialchars($file);?>" class="w-3/5 h-[90%]"></iframe>
-                <div class="flex space-x-2">
-                    <button class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300" onclick="window.print()">Print</button>
-                    <a  href="<?php echo htmlspecialchars($file);?>" download><button class="rounded-md w-32 border-2 border-c bg-c p-2 place-self-center hover:border-sg hover:bg-sg hover:text-white transition duration-300">Download</button></a>
-                </div>
-            </div>
         </div>
     </div>
 </body>

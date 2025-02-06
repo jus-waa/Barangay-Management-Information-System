@@ -81,7 +81,7 @@ if ($row) {
     $pdf->Write(0, $barangay_name);
 
     $uniqueID = uniqid();
-    $filename = "brgy_clearance_preview_$uniqueID.pdf";
+    $filename = "temp/brgy_clearance_preview_$uniqueID.pdf";
 
     $pdf->Output($filename, 'F');
 
