@@ -134,7 +134,7 @@ $middleAgedAdultJSON = json_encode($middleAgedAdult);
 $seniorAdultJSON = json_encode($seniorAdult);
 
 $totalResJSON = json_encode($totalRes);
-
+$activeJSON = json_encode($active);
 //House Hold
 $house_nums = [];
 foreach ($result as $row) {
@@ -167,6 +167,7 @@ if (!empty($duplicates)) {
     //echo $household . "<br>";
 } 
 $totalHouseHold = $arr_length - $household;
+$totalHouseHoldJSON = json_encode($totalHouseHold);
 //for checking
 /*
 if (!empty($duplicates)) {

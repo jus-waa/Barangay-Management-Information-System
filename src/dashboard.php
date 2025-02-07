@@ -173,9 +173,22 @@ if (!isset($_SESSION['users'])) {
                     <!-- First Upper Box -->
                     <div class="grid grid-rows-[3.5rem_auto] std:grid-rows[5rem_auto] h-30 std:h-52 std:w-full bg-sg border-2 border-sg rounded-xl text-white ">
                        <div class="flex items-center justify-between p-2 std:p-6 drop-shadow-md mt-0 std:mt-2 w-full">
-                            <h1 class="text-2xl std:text-4xl font-bold">
-                                Population Overview
-                            </h1>
+                            <div class="flex space-x-4">
+                                <h1 class="text-2xl std:text-4xl font-bold">
+                                    Population Overview
+                                </h1>
+                                <select id="" class="text-black bg-white rounded-md px-2">
+                                    <option value="Overall">Overall</option>
+                                    <option value="Purok 1">Purok 1</option>
+                                    <option value="Purok 2">Purok 2</option>
+                                    <option value="Purok 3">Purok 3</option>
+                                    <option value="Purok 4">Purok 4</option>
+                                    <option value="Purok 5">Purok 5</option>
+                                    <option value="Purok 6">Purok 6</option>
+                                    <option value="Purok 7">Purok 7</option>
+                                    <option value="Purok 8">Purok 8</option>
+                                </select>
+                            </div>
                             <div>
                                 <a href="documents/print/dashboard_print.php" class="flex px-6 p-1 mt-2 std:mt-4 text-sm std:text-base rounded-xl border-2 border-sg bg-c place-self-center hover:border-c hover:bg-c hover:text-white transition duration-300" target="_blank"> 
                                     <img src="../img/printer.png" class="size-10 std:size-12" alt="">
@@ -237,13 +250,18 @@ if (!isset($_SESSION['users'])) {
                             </div>
                         </div>
                     </div>
-                    <!-- Weekly Report 
+                    <!-- Weekly Report -->
                     <div class="grid grid-cols-[75.5%_23.5%] gap-4 border-2 h-full w-full border-sg rounded-xl bg-white p-6">
                         <div class="grid gap-y-0 std:gap-y-4">
                             <div class="flex justify-between items-center h-4/6 std:h-full w-full drop-shadow-xl">
                                 <h1 class="text-2xl std:text-4xl font-bold">Document Issuance Data</h1>
                                 <h1 class="flex space-x-2 text-gray-500">
-                                    <p class="text-sm std:text-base">This Week</p> 
+                                    <select id="" class="text-white bg-sg rounded-md p-2">
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Monthly">Quarterly</option>
+                                        <option value="Monthly">Annually</option>
+                                    </select>
                                 </h1>
                             </div>
                             <div class="w-full justify-items-center pt-6 std:p-4 border-2 rounded-xl border-sg">
@@ -252,24 +270,23 @@ if (!isset($_SESSION['users'])) {
                         </div>
                         <div class="grid grid-rows-4 gap-y-2 std:gap-y-4">
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-2xl std:text-4xl font-bold"><?=$totalDocs?></div>
+                                <div class="text-3xl std:text-5xl font-bold"><?=$totalDocs?></div>
                                 <p class="text-xs std:text-sm">Total documents issued</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-2xl std:text-4xl font-bold"><?=$brgyclr?></div>
+                                <div class="text-3xl std:text-5xl font-bold"><?=$brgyclr?></div>
                                 <p class="text-xs std:text-sm">Barangay Clearance</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-2xl std:text-4xl font-bold"><?=$certIndigency?></div>
+                                <div class="text-3xl std:text-5xl font-bold"><?=$certIndigency?></div>
                                 <p class="text-xs std:text-sm">Certificate of Indigency</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-2xl std:text-4xl font-bold"><?=$certResidency?></div>
+                                <div class="text-3xl std:text-5xl font-bold"><?=$certResidency?></div>
                                 <p class="text-xs std:text-sm">Certificate of Residency</p>
                             </div>
                         </div>
-                    </div> 
-                    -->
+                    </div>
                 </div>
                 <!-- Demographics -->
                 <div class="flex flex-col items-center space-y-4 border-2 border-sg rounded-xl bg-white p-2 std:p-6 w-[90%]  std:w-full">
