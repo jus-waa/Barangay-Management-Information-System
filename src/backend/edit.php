@@ -271,9 +271,17 @@ if(isset($_POST['update'])) {
                                     <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">House Number</label>
                                     <span id="house-number-error" class="text-red-500 text-sm hidden">Field is required</span>
                                 </div>
+                                <?php
+                                $purokOptions = ["", "Purok 1", "Purok 2", "Purok 3", "Purok 4", "Purok 5", "Purok 6", "Purok 7", "Purok 8"];
+                                ?>
                                 <div class="flex-grow">
-                                    <input id="purok" name="purok" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg" value="<?php echo $row['purok']?>" placeholder=" "/> 
-                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Purok</label>
+                                    <select id="purok" name="purok" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-black text-sm">
+                                        <?php foreach ($purokOptions as $purok): ?>
+                                            <option value="<?=$purok?>" <?= ucwords($row['purok']) == $purok ? "selected" : "" ?>>
+                                                <?=$purok == "" ? "Select Purok" : $purok ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                     <span id="purok-error" class="text-red-500 text-sm hidden">Field is required</span>
                                 </div>
                             </div>

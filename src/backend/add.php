@@ -257,8 +257,17 @@ if(isset($_POST['add'])) {
                                     <span id="house-number-error" class="text-red-500 text-sm hidden">Field is required</span>
                                 </div>
                                 <div class="flex-grow">
-                                    <input id="purok" name="purok" type="text" autocomplete="off" class="block bg-transparent w-full border-2 border-gray-200  p-2 peer rounded-md focus:outline-none focus:border-sg " placeholder=" "/> 
-                                    <label class="absolute text-gray-500 pointer-events-none text-sm duration-300  transform -translate-y-13.5 -translate-x-1 pr-2 scale-75 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-8 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-x-1 peer-focus:-translate-y-14 z-10 bg-white pl-1 text-left rounded-2xl ">Purok</label>
+                                    <select id="purok" name="purok" class="border-2 border-gray-200 w-full rounded-md focus:outline-none focus:border-sg  p-2.1 text-black text-sm">
+                                        <option value="" class="text-gray-500">Select Purok</option>
+                                        <option value="Purok 1">Purok 1</option>
+                                        <option value="Purok 2">Purok 2</option>
+                                        <option value="Purok 3">Purok 3</option>
+                                        <option value="Purok 4">Purok 4</option>
+                                        <option value="Purok 5">Purok 5</option>
+                                        <option value="Purok 6">Purok 6</option>
+                                        <option value="Purok 7">Purok 7</option>
+                                        <option value="Purok 8">Purok 8</option>
+                                    </select>
                                     <span id="purok-error" class="text-red-500 text-sm hidden">Field is required</span>
                                 </div>
                             </div>
