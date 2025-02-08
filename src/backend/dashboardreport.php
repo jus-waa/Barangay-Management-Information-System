@@ -257,6 +257,8 @@ $fridayJson = json_encode($fridayCurrentWeek);
 $saturdayJson = json_encode($saturdayCurrentWeek);
 
 // Purok type filter total residents for dashboard
+$purokType = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
+
 if (isset($_GET['purokType'])) {
     $purokType = $_GET['purokType'];
     if ($purokType === 'Overall') {
@@ -268,4 +270,79 @@ if (isset($_GET['purokType'])) {
     $stmt->execute();
     $totalRes = $stmt->fetchColumn();
 }
+
+// Purok type filter total household for dashboard
+$selectedPurok = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
+
+$household_per_purok = [];
+
+foreach ($result as $row) {
+    $purok = $row['purok']; // Ensure 'purok' exists in your database
+    $house_num = $row['house_num'];
+
+    if (!isset($household_per_purok[$purok])) {
+        $household_per_purok[$purok] = [];
+    }
+    $household_per_purok[$purok][] = $house_num;
+}
+
+$totalHouseHoldPerPurok = [];
+
+foreach ($household_per_purok as $purok => $house_nums) {
+    $house_count = [];
+    $household = 0;
+
+    foreach ($house_nums as $house_num) {
+        if (isset($house_count[$house_num])) {
+            $house_count[$house_num]++;
+        } else {
+            $house_count[$house_num] = 1;
+        }
+    }
+
+    foreach ($house_count as $house_num => $count) {
+        if ($count > 1 && ($house_num !== null && $house_num !== '')) {
+            $household++;
+        }
+    }
+
+    $totalHouseHoldPerPurok[$purok] = count($house_nums) - $household;
+}
+
+// Purok type filter total active for dashboard
+$purokType = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
+
+if ($purokType === 'Overall') {
+    $stmt = $dbh->prepare('SELECT COUNT(*) AS total FROM `resident_info` WHERE `status` = "Active"');
+} else {
+    $stmt = $dbh->prepare('SELECT COUNT(*) AS total FROM `resident_info` WHERE `purok` = :purok AND `status` = "Active"');
+    $stmt->bindValue(':purok', $purokType, PDO::PARAM_STR);
+}
+$stmt->execute();
+$totalActiveRes = $stmt->fetchColumn(); 
+
+// Purok type filter total resident type for dashboard
+$purokType = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
+$types = ['Permanent', 'Temporary', 'Student'];
+$counts = [];
+
+foreach ($types as $type) {
+    if ($purokType === 'Overall') {
+        $stmt = $dbh->prepare('SELECT COUNT(*) AS total FROM `resident_info` WHERE `residency_type` = :residentType');
+    } else {
+        $stmt = $dbh->prepare('SELECT COUNT(*) AS total FROM `resident_info` WHERE `residency_type` = :residentType AND `purok` = :purokType');
+        $stmt->bindValue(':purokType', $purokType, PDO::PARAM_STR);
+    }
+    
+    $stmt->bindValue(':residentType', $type, PDO::PARAM_STR);
+    $stmt->execute();
+    $counts[$type] = $stmt->fetchColumn();
+}
+
+// Assign counts to variables
+$permanent = $counts['Permanent'] ?? 0;
+$temporary = $counts['Temporary'] ?? 0;
+$student = $counts['Student'] ?? 0;
+
+
 ?>

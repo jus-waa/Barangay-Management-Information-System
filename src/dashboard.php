@@ -177,7 +177,7 @@ if (!isset($_SESSION['users'])) {
                                 <h1 class="text-2xl std:text-4xl font-bold">
                                     Population Overview
                                 </h1>
-                                <form method="GET">
+                                <form method="GET" class="flex flex-col justify-center">
                                     <select name="purokType" class="text-black bg-white rounded-md px-2" onchange="this.form.submit()">
                                         <?php
                                         $selectedPurok = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
@@ -208,7 +208,13 @@ if (!isset($_SESSION['users'])) {
                                     <p class="text-sm std:text-lg">Total Household</p>
                                     <p class="text-xl std:text-4xl font-bold">
                                     <?php
+                                    if ($selectedPurok === 'Overall') {
                                         echo $totalHouseHold;
+                                    } else {
+                                        // Show only the selected purok
+                                        $total = isset($totalHouseHoldPerPurok[$selectedPurok]) ? $totalHouseHoldPerPurok[$selectedPurok] : 0;
+                                        echo $total;
+                                    }
                                     ?>
                                     </p>
                                 </div>
@@ -236,7 +242,15 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                                 <div class="flex items-center justify-center flex-col  mb-[10px] std:mb-[14px]"> 
                                     <p class="text-sm std:text-lg">Active Residents</p>
-                                    <p class="text-xl std:text-4xl font-bold"><?= $active ?></p>
+                                    <p class="text-xl std:text-4xl font-bold">
+                                    <?php
+                                    if (isset($_GET['purokType'])) {
+                                        echo $totalActiveRes;
+                                    } else {
+                                        echo $totalActiveRes;
+                                    }
+                                    ?>
+                                    </p>
                                 </div>
                             </div>
                             <div class="flex justify-center items-center space-x-4 rounded-r-xl">
