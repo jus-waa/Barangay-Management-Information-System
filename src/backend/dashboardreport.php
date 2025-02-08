@@ -135,7 +135,8 @@ $seniorAdultJSON = json_encode($seniorAdult);
 
 $totalResJSON = json_encode($totalRes);
 $activeJSON = json_encode($active);
-//House Hold
+
+//Select House Hold
 $house_nums = [];
 foreach ($result as $row) {
     $house_nums[] = $row['house_num'];
@@ -255,4 +256,16 @@ $thursdayJson = json_encode($thursdayCurrentWeek);
 $fridayJson = json_encode($fridayCurrentWeek);
 $saturdayJson = json_encode($saturdayCurrentWeek);
 
+// Purok type filter total residents for dashboard
+if (isset($_GET['purokType'])) {
+    $purokType = $_GET['purokType'];
+    if ($purokType === 'Overall') {
+        $stmt = $dbh->prepare('SELECT COUNT(*) AS total FROM `resident_info`');
+    } else {
+        $stmt = $dbh->prepare('SELECT COUNT(*) AS total FROM `resident_info` WHERE `purok` = :purok');
+        $stmt->bindValue(':purok', $purokType, PDO::PARAM_STR);
+    }
+    $stmt->execute();
+    $totalRes = $stmt->fetchColumn();
+}
 ?>

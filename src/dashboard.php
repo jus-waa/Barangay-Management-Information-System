@@ -177,17 +177,18 @@ if (!isset($_SESSION['users'])) {
                                 <h1 class="text-2xl std:text-4xl font-bold">
                                     Population Overview
                                 </h1>
-                                <select id="" class="text-black bg-white rounded-md px-2">
-                                    <option value="Overall">Overall</option>
-                                    <option value="Purok 1">Purok 1</option>
-                                    <option value="Purok 2">Purok 2</option>
-                                    <option value="Purok 3">Purok 3</option>
-                                    <option value="Purok 4">Purok 4</option>
-                                    <option value="Purok 5">Purok 5</option>
-                                    <option value="Purok 6">Purok 6</option>
-                                    <option value="Purok 7">Purok 7</option>
-                                    <option value="Purok 8">Purok 8</option>
-                                </select>
+                                <form method="GET">
+                                    <select name="purokType" class="text-black bg-white rounded-md px-2" onchange="this.form.submit()">
+                                        <?php
+                                        $selectedPurok = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
+                                        $puroks = ['Overall', 'Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7', 'Purok 8'];
+                                        foreach ($puroks as $purok) {
+                                            $isSelected = ($purok === $selectedPurok) ? 'selected' : '';
+                                            echo "<option value=\"$purok\" $isSelected>$purok</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </form>
                             </div>
                             <div>
                                 <a href="documents/print/dashboard_print.php" class="flex px-6 p-1 mt-2 std:mt-4 text-sm std:text-base rounded-xl border-2 border-sg bg-c place-self-center hover:border-c hover:bg-c hover:text-white transition duration-300" target="_blank"> 
@@ -205,7 +206,11 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                                 <div class="flex items-center justify-center flex-col mb-[10px] std:mb-[14px]"> 
                                     <p class="text-sm std:text-lg">Total Household</p>
-                                    <p class="text-xl std:text-4xl font-bold"><?= $totalHouseHold ?></p>
+                                    <p class="text-xl std:text-4xl font-bold">
+                                    <?php
+                                        echo $totalHouseHold;
+                                    ?>
+                                    </p>
                                 </div>
                             </div>
                             <div class="flex justify-center items-center space-x-2 std:space-x-4">
@@ -214,7 +219,15 @@ if (!isset($_SESSION['users'])) {
                                 </div>
                                 <div class="flex items-center justify-center flex-col mb-[10px] std:mb-[14px]"> 
                                     <p class="text-sm std:text-lg">Total Residents</p>
-                                    <p class="text-xl std:text-4xl font-bold"><?= $totalRes ?></p>
+                                    <p class="text-xl std:text-4xl font-bold">
+                                    <?php
+                                    if (isset($_GET['purokType'])) {
+                                        echo $totalRes;
+                                    } else {
+                                        echo $totalRes;
+                                    }
+                                    ?>
+                                    </p>
                                 </div>
                             </div>
                             <div class="flex justify-center items-center space-x-2 std:space-x-4">
