@@ -1,28 +1,23 @@
 <?php
 include("connection.php");
-//for resident info
+//Display 1. popu overview and 3. community metrics
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //total Residents
 $totalRes = 0;
-
 //gender breakdown
 $male = 0;
 $female = 0;
-
 //status
 $active = 0;
 $inactive = 0;
-
 $household = 0;
-
 //residency type
 $permanent = 0;
 $temporary = 0;
 $student = 0;
-
 //age brackets
 $infant = 0;
 $toddler = 0;
@@ -31,14 +26,12 @@ $teenager = 0;
 $youngAdult = 0;
 $middleAgedAdult = 0;
 $seniorAdult = 0;
-
 //civil status
 $single = 0;
 $married = 0;
 $divorced = 0;
 $separated = 0;
 $widowed = 0;
-
 //blood types
 $a_plus = 0;
 $b_plus = 0;
@@ -135,8 +128,8 @@ $seniorAdultJSON = json_encode($seniorAdult);
 
 $totalResJSON = json_encode($totalRes);
 $activeJSON = json_encode($active);
-
-//Select House Hold
+//end of display popu overview and community metrics
+//for household computation
 $house_nums = [];
 foreach ($result as $row) {
     $house_nums[] = $row['house_num'];
@@ -179,8 +172,8 @@ if (!empty($duplicates)) {
     echo "No duplicates found.";
 }
 */
-
-//Documents Breakdown
+//end of household computation
+//Documents breakdown
 $stmt = $dbh->prepare("SELECT * FROM `print_history`");
 $stmt->execute();
 $result_history = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -200,26 +193,29 @@ foreach ($result_history as $rows) {
     }
 }
 $totalDocsJson = json_encode($totalDocs);
+//end of documents breakdown
+
 
 date_default_timezone_set('Asia/Manila');
 
-// Document Issuance Data
+// 2. Document Issuance Data
 $currentDate = date('Y-m-d');
 //$currentDate = '2025-1-13'; test for prev week
 $currentFormatDate = new DateTime();
 $formattedDate = $currentFormatDate->format('F d, Y, g:i A');
 
+// Flter for weeks
 // start of the week (Sunday) and end of the week (Saturday)\
 if (date('l', strtotime($currentDate)) === 'Sunday') {
     $startOfWeek = $currentDate;
 } else {
-    $startOfWeek = date('Y-m-d', strtotime('last sunday', strtotime($currentDate)));
+    $startOfWeek = date('Y-m-d', strtotime('sunday', strtotime($currentDate)));
 }
 
 if (date('l', strtotime($currentDate)) === 'Saturday') {
     $endOfWeek = $currentDate;
 } else {
-    $endOfWeek = date('Y-m-d', strtotime('next saturday', strtotime($currentDate)));
+    $endOfWeek = date('Y-m-d', strtotime('saturday', strtotime($currentDate)));
 }
 //fetch document counts by day of the week
 $sql = "SELECT DAYOFWEEK(print_date) AS day_of_week, COUNT(*) AS documents_count
@@ -238,14 +234,12 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $documentCounts[$dayIndex] = $row['documents_count'];
 }
 //to display current date of the week
-$currentDate = date('Y-m-d'); // Current date
-
-$sundayCurrentWeek = date('Y-m-d', strtotime('last sunday', strtotime($currentDate)));
-$mondayCurrentWeek = date('Y-m-d', strtotime('monday this week', strtotime($currentDate)));
-$tuesdayCurrentWeek = date('Y-m-d', strtotime('tuesday this week', strtotime($currentDate)));
-$wednesdayCurrentWeek = date('Y-m-d', strtotime('wednesday this week', strtotime($currentDate)));
-$thursdayCurrentWeek = date('Y-m-d', strtotime('thursday this week', strtotime($currentDate)));
-$fridayCurrentWeek = date('Y-m-d', strtotime('friday this week', strtotime($currentDate)));
+$sundayCurrentWeek = date('Y-m-d', strtotime('sunday', strtotime($currentDate)));
+$mondayCurrentWeek = date('Y-m-d', strtotime('monday', strtotime($currentDate)));
+$tuesdayCurrentWeek = date('Y-m-d', strtotime('tuesday', strtotime($currentDate)));
+$wednesdayCurrentWeek = date('Y-m-d', strtotime('wednesday', strtotime($currentDate)));
+$thursdayCurrentWeek = date('Y-m-d', strtotime('thursday ', strtotime($currentDate)));
+$fridayCurrentWeek = date('Y-m-d', strtotime('friday', strtotime($currentDate)));
 $saturdayCurrentWeek = date('Y-m-d', strtotime('saturday', strtotime($currentDate)));
 
 $sundayJson = json_encode($sundayCurrentWeek);
@@ -255,7 +249,79 @@ $wednesdayJson = json_encode($wednesdayCurrentWeek);
 $thursdayJson = json_encode($thursdayCurrentWeek);
 $fridayJson = json_encode($fridayCurrentWeek);
 $saturdayJson = json_encode($saturdayCurrentWeek);
+// end of filter for weeks
+//filter for months
+// Get the current month and year
+$currentYear = date('Y');
+$currentMonth = date('m');
 
+// Get the first and last day of the month
+$firstDayOfMonth = date('Y-m-01');
+$lastDayOfMonth = date('Y-m-t');
+
+// Find the total number of weeks in the month
+$weeks = [];
+$firstDayWeekday = date('w', strtotime($firstDayOfMonth)); // 0 = Sunday, 6 = Saturday
+
+if ($firstDayWeekday != 0) {
+    // If the month does NOT start on a Sunday, count the first few days as Week 1
+    $firstWeekEnd = strtotime('next saturday', strtotime($firstDayOfMonth));
+
+    if ($firstWeekEnd > strtotime($lastDayOfMonth)) {
+        $firstWeekEnd = strtotime($lastDayOfMonth);
+    }
+
+    $weeks[] = [
+        'start' => $firstDayOfMonth,
+        'end' => date('Y-m-d', $firstWeekEnd)
+    ];
+
+    // Move to the first Sunday after these initial days
+    $startOfWeek = strtotime('+1 day', $firstWeekEnd);
+} else {
+    // If the month starts on a Sunday, begin counting weeks normally
+    $startOfWeek = strtotime($firstDayOfMonth);
+}
+
+// Iterate through the weeks of the month
+while ($startOfWeek <= strtotime($lastDayOfMonth)) {
+    $endOfWeek = strtotime('next saturday', $startOfWeek);
+    
+    if ($endOfWeek > strtotime($lastDayOfMonth)) {
+        $endOfWeek = strtotime($lastDayOfMonth);
+    }
+
+    $weeks[] = [
+        'start' => date('Y-m-d', $startOfWeek),
+        'end' => date('Y-m-d', $endOfWeek)
+    ];
+
+    $startOfWeek = strtotime('+1 week', $startOfWeek);
+}
+// Fetch document counts per week
+$weeklyCounts = [];
+foreach ($weeks as $index => $week) {
+    $sql = "SELECT COUNT(*) AS documents_count 
+            FROM print_history 
+            WHERE DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek";
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(':startOfWeek', $week['start']);
+    $stmt->bindParam(':endOfWeek', $week['end']);
+    $stmt->execute();
+    
+    $resultWeek = $stmt->fetch(PDO::FETCH_ASSOC);
+    $weeklyCounts[] = $resultWeek['documents_count'] ?? 0;
+}
+$weeksJson = json_encode(array_map(fn($week) => $week['start'] . ' - ' . $week['end'], $weeks));
+$weeklyCountsJson = json_encode($weeklyCounts);
+//end of filter for months
+//filter quarterly 
+
+
+
+//end filter for quarterly
+
+// Filter purok for 1. popu overview and 3. community metrics
 // Purok type filter total residents
 $purokType = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall'; // Global overall as default
 

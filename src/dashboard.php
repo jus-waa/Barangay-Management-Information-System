@@ -178,7 +178,7 @@ if (!isset($_SESSION['users'])) {
                                     Population Overview
                                 </h1>
                                 <form method="GET" class="flex flex-col justify-center">
-                                    <select name="purokType" class="text-black bg-white rounded-md px-2" onchange="this.form.submit()">
+                                    <select name="purokType" class="text-black bg-white rounded-md p-2" onchange="this.form.submit()">
                                         <?php
                                         $selectedPurok = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
                                         $puroks = ['Overall', 'Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7', 'Purok 8'];
@@ -271,16 +271,29 @@ if (!isset($_SESSION['users'])) {
                             <div class="flex justify-between items-center h-4/6 std:h-full w-full drop-shadow-xl">
                                 <h1 class="text-2xl std:text-4xl font-bold">Document Issuance Data</h1>
                                 <h1 class="flex space-x-2 text-gray-500">
-                                    <select id="" class="text-white bg-sg rounded-md p-2">
-                                        <option value="Weekly">Weekly</option>
-                                        <option value="Monthly">Monthly</option>
-                                        <option value="Monthly">Quarterly</option>
-                                        <option value="Monthly">Annually</option>
-                                    </select>
+                                <form method="GET" class="flex flex-col justify-center">
+                                    <select name="timePeriod" class="text-black bg-sg rounded-md p-2" onchange="this.form.submit()">
+                                        <?php
+                                        $selectedPeriod = isset($_GET['timePeriod']) ? $_GET['timePeriod'] : 'weekly';
+                                        $periods = ['weekly' => 'Weekly', 'monthly' => 'Monthly', 'quarterly' => 'Quarterly', 'annually' => 'Annually'];
+                                        foreach ($periods as $key => $label) {
+                                            $isSelected = ($key === $selectedPeriod) ? 'selected' : '';
+                                            echo "<option value=\"$key\" $isSelected>$label</option>";
+                                        }
+                                        ?>
+                                    </select>                                    
+                                </form>
                                 </h1>
                             </div>
                             <div class="w-full justify-items-center pt-6 std:p-4 border-2 rounded-xl border-sg">
+                                <?php 
+                                if (isset($_GET['timePeriod'])) {
+                                    if ($_GET['timePeriod'] === 'weekly') {
+                                ?>
                                 <canvas id="weeklyReportChart"></canvas>
+                                <?php } else if ($_GET['timePeriod'] === 'monthly'){ ?>
+                                <canvas id="monthlyReportChart"></canvas>
+                                <?php } } ?>
                             </div>
                         </div>
                         <div class="grid grid-rows-4 gap-y-2 std:gap-y-4">
@@ -512,10 +525,16 @@ if (!isset($_SESSION['users'])) {
     const ageGroupChart = new Chart(ageGroupCtx, config4);
 </script>
 <script>
-    // Weekly Report
+    <?php 
+    if (isset($_GET['timePeriod'])) {
+        if ($_GET['timePeriod'] === 'weekly') {
+    ?>
+    // Weekly Chart
     const weeklyReportctx = document.getElementById("weeklyReportChart").getContext("2d");
+
     const totalDocs = <?php echo $totalDocsJson; ?>;
     const weeklyData = <?php echo json_encode($documentCounts); ?>;
+
     const sundayJson = <?php echo json_encode($sundayJson); ?>;
     const mondayJson = <?php echo json_encode($mondayJson); ?>;
     const tuesdayJson = <?php echo json_encode($tuesdayJson); ?>;
@@ -523,6 +542,7 @@ if (!isset($_SESSION['users'])) {
     const thursdayJson = <?php echo json_encode($thursdayJson); ?>;
     const fridayJson = <?php echo json_encode($fridayJson); ?>;
     const saturdayJson = <?php echo json_encode($saturdayJson); ?>;
+
     const config3 = {
       type: 'line', 
       data: {
@@ -574,8 +594,52 @@ if (!isset($_SESSION['users'])) {
         }
       }
     };
-
     const weeklyChart = new Chart(weeklyReportctx, config3);
+</script>
+<script>
+    <?php } else if ($_GET['timePeriod'] === 'monthly'){ ?>
+    // Monthly Chart
+    const MonthlyReportctx = document.getElementById("monthlyReportChart").getContext("2d");
+
+    const totalDocs = <?php echo $totalDocsJson; ?>;
+    const weeksLabels = <?php echo $weeksJson; ?>;
+    const weeklyData = <?php echo $weeklyCountsJson; ?>;
+
+    const configMonthly = {
+        type: 'bar',
+        data: {
+            labels: weeksLabels,
+            datasets: [{
+                label: 'Documents Issued Per Week',
+                data: weeklyData,
+                borderColor: 'rgba(175, 225, 175, 1)', 
+                backgroundColor: 'rgba(175, 225, 175, 0.5)', 
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true, position: 'top' }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: 'Weeks of the Month' }
+                },
+                y: {
+                    title: { display: true, text: 'Number of Documents Issued' },
+                    beginAtZero: true,
+                    min: 0,
+                    max: totalDocs,
+                    stepSize: 2
+                }
+            }
+        }
+    };
+    const monthlyChart = new Chart(MonthlyReportctx, configMonthly);
+</script>
+<script>
+    <?php } } ?>
 </script>
 </body>
 </html>
