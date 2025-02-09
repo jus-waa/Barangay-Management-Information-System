@@ -226,13 +226,7 @@ if (!isset($_SESSION['users'])) {
                                 <div class="flex items-center justify-center flex-col mb-[10px] std:mb-[14px]"> 
                                     <p class="text-sm std:text-lg">Total Residents</p>
                                     <p class="text-xl std:text-4xl font-bold">
-                                    <?php
-                                    if (isset($_GET['purokType'])) {
-                                        echo $totalRes;
-                                    } else {
-                                        echo $totalRes;
-                                    }
-                                    ?>
+                                    <?=$totalRes; ?>
                                     </p>
                                 </div>
                             </div>
@@ -243,13 +237,7 @@ if (!isset($_SESSION['users'])) {
                                 <div class="flex items-center justify-center flex-col  mb-[10px] std:mb-[14px]"> 
                                     <p class="text-sm std:text-lg">Active Residents</p>
                                     <p class="text-xl std:text-4xl font-bold">
-                                    <?php
-                                    if (isset($_GET['purokType'])) {
-                                        echo $totalActiveRes;
-                                    } else {
-                                        echo $totalActiveRes;
-                                    }
-                                    ?>
+                                    <?=$totalActiveRes; ?>
                                     </p>
                                 </div>
                             </div>
@@ -463,15 +451,15 @@ if (!isset($_SESSION['users'])) {
 <script>
     const ageGroupCtx = document.getElementById("ageGroupChart").getContext("2d");
     
-    const infant = <?php echo $infantJSON; ?>;
-    const toddler = <?php echo $toddlerJSON; ?>;
-    const child = <?php echo $childJSON; ?>;
-    const teenager = <?php echo $teenagerJSON; ?>;
-    const youngAdult = <?php echo $youngAdultJSON; ?>;
-    const middleAgedAdult = <?php echo $middleAgedAdultJSON; ?>;
-    const seniorAdult = <?php echo $seniorAdultJSON; ?>;
-    const totalRes = <?php echo $totalResJSON; ?>;
-
+    const infant = <?php echo isset($infantJSON) ? $infantJSON : 0; ?>;
+    const toddler = <?php echo isset($toddlerJSON) ? $toddlerJSON : 0; ?>;
+    const child = <?php echo isset($childJSON) ? $childJSON : 0; ?>;
+    const teenager = <?php echo isset($teenagerJSON) ? $teenagerJSON : 0; ?>;
+    const youngAdult = <?php echo isset($youngAdultJSON) ? $youngAdultJSON : 0; ?>;
+    const middleAgedAdult = <?php echo isset($middleAgedAdultJSON) ? $middleAgedAdultJSON : 0; ?>;
+    const seniorAdult = <?php echo isset($seniorAdultJSON) ? $seniorAdultJSON : 0; ?>;
+    const totalRes = <?php echo isset($totalRes) ? json_encode($totalRes) : 1; ?>; // Avoid division by zero
+    
     const config4 = {
         type: 'bar',
         data: {

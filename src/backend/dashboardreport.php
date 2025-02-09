@@ -256,8 +256,8 @@ $thursdayJson = json_encode($thursdayCurrentWeek);
 $fridayJson = json_encode($fridayCurrentWeek);
 $saturdayJson = json_encode($saturdayCurrentWeek);
 
-// Purok type filter total residents for dashboard
-$purokType = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
+// Purok type filter total residents
+$purokType = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall'; // Global overall as default
 
 if (isset($_GET['purokType'])) {
     $purokType = $_GET['purokType'];
@@ -271,7 +271,7 @@ if (isset($_GET['purokType'])) {
     $totalRes = $stmt->fetchColumn();
 }
 
-// Purok type filter total household for dashboard
+// Purok type filter total household
 $selectedPurok = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
 
 $household_per_purok = [];
@@ -309,9 +309,7 @@ foreach ($household_per_purok as $purok => $house_nums) {
     $totalHouseHoldPerPurok[$purok] = count($house_nums) - $household;
 }
 
-// Purok type filter total active for dashboard
-$purokType = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
-
+// Purok type filter total active
 if ($purokType === 'Overall') {
     $stmt = $dbh->prepare('SELECT COUNT(*) AS total FROM `resident_info` WHERE `status` = "Active"');
 } else {
@@ -321,8 +319,7 @@ if ($purokType === 'Overall') {
 $stmt->execute();
 $totalActiveRes = $stmt->fetchColumn(); 
 
-// Purok type filter total resident type for dashboard
-$purokType = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
+// Purok type filter total resident type
 $types = ['Permanent', 'Temporary', 'Student'];
 $counts = [];
 
@@ -333,7 +330,6 @@ foreach ($types as $type) {
         $stmt = $dbh->prepare('SELECT COUNT(*) AS total FROM `resident_info` WHERE `residency_type` = :residentType AND `purok` = :purokType');
         $stmt->bindValue(':purokType', $purokType, PDO::PARAM_STR);
     }
-    
     $stmt->bindValue(':residentType', $type, PDO::PARAM_STR);
     $stmt->execute();
     $counts[$type] = $stmt->fetchColumn();
@@ -344,5 +340,133 @@ $permanent = $counts['Permanent'] ?? 0;
 $temporary = $counts['Temporary'] ?? 0;
 $student = $counts['Student'] ?? 0;
 
+// Purok type filter age group brackets
+if ($purokType === 'Overall') {
+    $stmt = $dbh->prepare('SELECT `age` FROM `resident_info`');
+} else {
+    $stmt = $dbh->prepare('SELECT `age` FROM `resident_info` WHERE `purok` = :purok');
+    $stmt->bindValue(':purok', $purokType, PDO::PARAM_STR);
+}
+$stmt->execute();
+$residentAges = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$infant = $toddler = $child = $teenager = $youngAdult = $middleAgedAdult = $seniorAdult = 0;
+
+foreach ($residentAges as $rowAge) {
+    if ($rowAge['age'] >= 0 && $rowAge['age'] <= 1) {
+        $infant++;
+    } else if ($rowAge['age'] >= 2 && $rowAge['age'] <= 4) {
+        $toddler++; 
+    } else if ($rowAge['age'] >= 5 && $rowAge['age'] <= 12) {
+        $child++;
+    } else if ($rowAge['age'] >= 13 && $rowAge['age'] <= 19) {
+        $teenager++;
+    } else if ($rowAge['age'] >= 20 && $rowAge['age'] <= 39) {
+        $youngAdult++;
+    } else if ($rowAge['age'] >= 40 && $rowAge['age'] <= 59) {
+        $middleAgedAdult++;
+    } else if ($rowAge['age'] >= 60) {
+        $seniorAdult++;
+    }
+}
+$infantJSON = json_encode($infant);
+$toddlerJSON = json_encode($toddler);
+$childJSON = json_encode($child);
+$teenagerJSON = json_encode($teenager);
+$youngAdultJSON = json_encode($youngAdult);
+$middleAgedAdultJSON = json_encode($middleAgedAdult);
+$seniorAdultJSON = json_encode($seniorAdult);
+$totalResJSON = json_encode($totalRes);
+
+// Purok type filter gender
+if ($purokType === 'Overall') {
+    $stmt = $dbh->prepare('SELECT `gender` FROM `resident_info`');
+} else {
+    $stmt = $dbh->prepare('SELECT `gender` FROM `resident_info` WHERE `purok` = :purok');
+    $stmt->bindValue(':purok', $purokType, PDO::PARAM_STR);
+}
+$stmt->execute();
+$residentGenders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$male = 0;
+$female = 0;
+
+foreach ($residentGenders as $rowGender) {
+    if (strtolower($rowGender['gender']) == 'male') {
+        $male++;
+    } else if (strtolower($rowGender['gender']) == 'female') {
+        $female++;
+    }
+}
+$maleJSON = json_encode($male); 
+$femaleJSON = json_encode($female);
+
+// Purok type filter civil status
+if ($purokType === 'Overall') {
+    $stmt = $dbh->prepare('SELECT `civil_status` FROM `resident_info`');
+} else {
+    $stmt = $dbh->prepare('SELECT `civil_status` FROM `resident_info` WHERE `purok` = :purok');
+    $stmt->bindValue(':purok', $purokType, PDO::PARAM_STR);
+}
+$stmt->execute();
+$residentCivilStatus = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$single = 0;
+$married = 0;
+$divorced = 0;
+$separated = 0;
+$widowed = 0;
+
+foreach ($residentCivilStatus as $rowCivil) {
+    if (strtolower($rowCivil['civil_status']) == "single") {
+        $single++;
+    } else if (strtolower($rowCivil['civil_status']) == "married") {
+        $married++;
+    } else if (strtolower($rowCivil['civil_status']) == "divorced") {
+        $divorced++;
+    } else if (strtolower($rowCivil['civil_status']) == "separated") {
+        $separated++;
+    } else if (strtolower($rowCivil['civil_status']) == "widowed") {
+        $widowed++;
+    }
+}
+
+// Purok type filter Blood type
+if ($purokType === 'Overall') {
+    $stmt = $dbh->prepare('SELECT `blood_type` FROM `resident_info`');
+} else {
+    $stmt = $dbh->prepare('SELECT `blood_type` FROM `resident_info` WHERE `purok` = :purok');
+    $stmt->bindValue(':purok', $purokType, PDO::PARAM_STR);
+}
+$stmt->execute();
+$residentBloodType = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$a_plus = 0;
+$b_plus = 0;
+$ab_plus = 0;
+$o_plus = 0;
+$a_minus = 0;
+$b_minus = 0;
+$ab_minus = 0;
+$o_minus = 0;
+
+foreach ($residentBloodType as $rowBlood) {
+    if (strtolower($rowBlood['blood_type']) == "a+") {
+        $a_plus++;
+    } else if (strtolower($rowBlood['blood_type']) == "b+") {
+        $b_plus++;
+    } else if (strtolower($rowBlood['blood_type']) == "ab+") {
+        $ab_plus++;
+    } else if (strtolower($rowBlood['blood_type']) == "o+") {
+        $o_plus++;
+    } else if (strtolower($rowBlood['blood_type']) == "a-") {
+        $a_minus++;
+    } else if (strtolower($rowBlood['blood_type']) == "b-") {
+        $b_minus++;
+    } else if (strtolower($rowBlood['blood_type']) == "ab-") {
+        $ab_minus++;
+    } else if (strtolower($rowBlood['blood_type']) == "o-") {
+        $o_minus++;
+    }
+}
 ?>
