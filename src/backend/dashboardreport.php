@@ -204,19 +204,13 @@ $currentDate = date('Y-m-d');
 $currentFormatDate = new DateTime();
 $formattedDate = $currentFormatDate->format('F d, Y, g:i A');
 
-// Flter for weeks
-// start of the week (Sunday) and end of the week (Saturday)\
-if (date('l', strtotime($currentDate)) === 'Sunday') {
-    $startOfWeek = $currentDate;
-} else {
-    $startOfWeek = date('Y-m-d', strtotime('sunday', strtotime($currentDate)));
-}
+// Flter for weeks------------------------------------------------------------
+// Get the day of the week (1 = Monday, 7 = Sunday in PHP)
+$dayOfWeek = date("w", strtotime($currentDate)); // 0 = Sunday, 6 = Saturday
+// Get the start and end of the current week (Sunday to Saturday)
+$startOfWeek = date('Y-m-d', strtotime($currentDate . ' -' . $dayOfWeek . ' days'));
+$endOfWeek = date('Y-m-d', strtotime($startOfWeek . ' +6 days'));
 
-if (date('l', strtotime($currentDate)) === 'Saturday') {
-    $endOfWeek = $currentDate;
-} else {
-    $endOfWeek = date('Y-m-d', strtotime('saturday', strtotime($currentDate)));
-}
 //fetch document counts by day of the week
 $sql = "SELECT DAYOFWEEK(print_date) AS day_of_week, COUNT(*) AS documents_count
         FROM print_history
@@ -233,14 +227,14 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $dayIndex = $row['day_of_week'] - 1; // MySQL DAYOFWEEK() returns 1 for Sunday, 7 for Saturday
     $documentCounts[$dayIndex] = $row['documents_count'];
 }
-//to display current date of the week
-$sundayCurrentWeek = date('Y-m-d', strtotime('sunday', strtotime($currentDate)));
-$mondayCurrentWeek = date('Y-m-d', strtotime('monday', strtotime($currentDate)));
-$tuesdayCurrentWeek = date('Y-m-d', strtotime('tuesday', strtotime($currentDate)));
-$wednesdayCurrentWeek = date('Y-m-d', strtotime('wednesday', strtotime($currentDate)));
-$thursdayCurrentWeek = date('Y-m-d', strtotime('thursday ', strtotime($currentDate)));
-$fridayCurrentWeek = date('Y-m-d', strtotime('friday', strtotime($currentDate)));
-$saturdayCurrentWeek = date('Y-m-d', strtotime('saturday', strtotime($currentDate)));
+//to display current dates of the week
+$sundayCurrentWeek = $startOfWeek;
+$mondayCurrentWeek = date('Y-m-d', strtotime($startOfWeek . ' +1 day'));
+$tuesdayCurrentWeek = date('Y-m-d', strtotime($startOfWeek . ' +2 days'));
+$wednesdayCurrentWeek = date('Y-m-d', strtotime($startOfWeek . ' +3 days'));
+$thursdayCurrentWeek = date('Y-m-d', strtotime($startOfWeek . ' +4 days'));
+$fridayCurrentWeek = date('Y-m-d', strtotime($startOfWeek . ' +5 days'));
+$saturdayCurrentWeek = $endOfWeek;
 
 $sundayJson = json_encode($sundayCurrentWeek);
 $mondayJson = json_encode($mondayCurrentWeek);
@@ -249,8 +243,8 @@ $wednesdayJson = json_encode($wednesdayCurrentWeek);
 $thursdayJson = json_encode($thursdayCurrentWeek);
 $fridayJson = json_encode($fridayCurrentWeek);
 $saturdayJson = json_encode($saturdayCurrentWeek);
-// end of filter for weeks
-//filter for months
+// end of filter for weeks------------------------------------
+//filter for months-------------------------------------------
 // Get the current month and year
 $currentYear = date('Y');
 $currentMonth = date('m');
@@ -277,26 +271,26 @@ if ($firstDayWeekday != 0) {
     ];
 
     // Move to the first Sunday after these initial days
-    $startOfWeek = strtotime('+1 day', $firstWeekEnd);
+    $startOfWeekMonthly = strtotime('+1 day', $firstWeekEnd);
 } else {
     // If the month starts on a Sunday, begin counting weeks normally
-    $startOfWeek = strtotime($firstDayOfMonth);
+    $startOfWeekMonthly = strtotime($firstDayOfMonth);
 }
 
 // Iterate through the weeks of the month
-while ($startOfWeek <= strtotime($lastDayOfMonth)) {
-    $endOfWeek = strtotime('next saturday', $startOfWeek);
+while ($startOfWeekMonthly <= strtotime($lastDayOfMonth)) {
+    $endOfWeekMonthly = strtotime('next saturday', $startOfWeekMonthly);
     
-    if ($endOfWeek > strtotime($lastDayOfMonth)) {
-        $endOfWeek = strtotime($lastDayOfMonth);
+    if ($endOfWeekMonthly > strtotime($lastDayOfMonth)) {
+        $endOfWeekMonthly = strtotime($lastDayOfMonth);
     }
 
     $weeks[] = [
-        'start' => date('Y-m-d', $startOfWeek),
-        'end' => date('Y-m-d', $endOfWeek)
+        'start' => date('Y-m-d', $startOfWeekMonthly),
+        'end' => date('Y-m-d', $endOfWeekMonthly)
     ];
 
-    $startOfWeek = strtotime('+1 week', $startOfWeek);
+    $startOfWeekMonthly = strtotime('+1 week', $startOfWeekMonthly);
 }
 // Fetch document counts per week
 $weeklyCounts = [];
@@ -314,13 +308,67 @@ foreach ($weeks as $index => $week) {
 }
 $weeksJson = json_encode(array_map(fn($week) => $week['start'] . ' - ' . $week['end'], $weeks));
 $weeklyCountsJson = json_encode($weeklyCounts);
-//end of filter for months
-//filter quarterly 
+//end of filter for months-----------------------------------------
+//filter quarterly ------------------------------------------------
+$currentYear = date('Y');
+$currentMonth = date('m');
 
+// Store results per month
+$monthlyCounts = [];
+$monthNames = [];
 
+// Loop through the last 3 months (including the current one)
+for ($i = 2; $i >= 0; $i--) {
+    $monthStart = date('Y-m-01', strtotime("-$i months"));
+    $monthEnd = date('Y-m-t', strtotime("-$i months"));
+    $year = date('Y', strtotime("-$i months"));
+    $monthName = date('F', strtotime($monthStart)); 
 
-//end filter for quarterly
+    $sqlQuarterly = "SELECT COUNT(*) AS documents_count 
+            FROM print_history 
+            WHERE DATE(print_date) BETWEEN :startDate AND :endDate";
 
+    $stmtQuarterly = $dbh->prepare($sqlQuarterly);
+    $stmtQuarterly->bindParam(':startDate', $monthStart);
+    $stmtQuarterly->bindParam(':endDate', $monthEnd);
+    $stmtQuarterly->execute();
+
+    $resultQuarterly = $stmtQuarterly->fetch(PDO::FETCH_ASSOC);
+    //STore month name and count 
+    $months[] = $monthName . ' ' . $year;
+    $monthlyCounts[] = $resultQuarterly['documents_count'] ?? 0; 
+}
+$monthsJson = json_encode($months);
+$monthlyCountsJson = json_encode($monthlyCounts);
+//end filter for quarterly------------------------------------------
+//filter for annually------------------------------------------
+$monthlyCountsAnnually = [];
+$monthsAnnually = [];
+
+// Loop through the last 3 months (including the current one)
+for ($i = 1; $i <= 12; $i++) {
+    $monthStartAnnually = date("$currentYear-$i-01", strtotime("-$i months"));
+    $monthEndAnnually = date("$currentYear-$i-t", strtotime("-$i months"));
+
+    $monthNameAnnually = date('F', strtotime($monthStartAnnually)); 
+
+    $sqlAnnually = "SELECT COUNT(*) AS documents_count_annually 
+            FROM print_history 
+            WHERE DATE(print_date) BETWEEN :startDate AND :endDate";
+
+    $stmtAnnually = $dbh->prepare($sqlAnnually);
+    $stmtAnnually->bindParam(':startDate', $monthStartAnnually);
+    $stmtAnnually->bindParam(':endDate', $monthEndAnnually);
+    $stmtAnnually->execute();
+
+    $resultAnnually = $stmtAnnually->fetch(PDO::FETCH_ASSOC);
+    //STore month name and count 
+    $monthsAnnually[] = $monthNameAnnually . ' ' . $year;
+    $monthlyCountsAnnually[] = $resultAnnually['documents_count_annually'] ?? 0; 
+}
+$monthsAnnuallyJson = json_encode($monthsAnnually);
+$monthlyCountsAnnuallyJson = json_encode($monthlyCountsAnnually);
+//end filter for annually------------------------------------------
 // Filter purok for 1. popu overview and 3. community metrics
 // Purok type filter total residents
 $purokType = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall'; // Global overall as default

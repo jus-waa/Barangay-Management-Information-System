@@ -287,13 +287,17 @@ if (!isset($_SESSION['users'])) {
                             </div>
                             <div class="w-full justify-items-center pt-6 std:p-4 border-2 rounded-xl border-sg">
                                 <?php 
-                                if (isset($_GET['timePeriod'])) {
-                                    if ($_GET['timePeriod'] === 'weekly') {
+                                $timePeriod = isset($_GET['timePeriod']) ? $_GET['timePeriod'] : 'weekly';
+                                if ($timePeriod === 'weekly') {
                                 ?>
                                 <canvas id="weeklyReportChart"></canvas>
-                                <?php } else if ($_GET['timePeriod'] === 'monthly'){ ?>
+                                <?php } else if ($timePeriod === 'monthly'){ ?>
                                 <canvas id="monthlyReportChart"></canvas>
-                                <?php } } ?>
+                                <?php } else if ($timePeriod === 'quarterly'){ ?>
+                                <canvas id="quarterlyReportChart"></canvas>
+                                <?php }  else if ($timePeriod === 'annually'){ ?>
+                                <canvas id="annuallyReportChart"></canvas>
+                                <?php }  ?>
                             </div>
                         </div>
                         <div class="grid grid-rows-4 gap-y-2 std:gap-y-4">
@@ -526,8 +530,7 @@ if (!isset($_SESSION['users'])) {
 </script>
 <script>
     <?php 
-    if (isset($_GET['timePeriod'])) {
-        if ($_GET['timePeriod'] === 'weekly') {
+    if ($timePeriod === 'weekly') {
     ?>
     // Weekly Chart
     const weeklyReportctx = document.getElementById("weeklyReportChart").getContext("2d");
@@ -597,7 +600,7 @@ if (!isset($_SESSION['users'])) {
     const weeklyChart = new Chart(weeklyReportctx, config3);
 </script>
 <script>
-    <?php } else if ($_GET['timePeriod'] === 'monthly'){ ?>
+    <?php } else if ($timePeriod === 'monthly'){ ?>
     // Monthly Chart
     const MonthlyReportctx = document.getElementById("monthlyReportChart").getContext("2d");
 
@@ -610,7 +613,7 @@ if (!isset($_SESSION['users'])) {
         data: {
             labels: weeksLabels,
             datasets: [{
-                label: 'Documents Issued Per Week',
+                label: 'Documents Issued Monthly',
                 data: weeklyData,
                 borderColor: 'rgba(175, 225, 175, 1)', 
                 backgroundColor: 'rgba(175, 225, 175, 0.5)', 
@@ -639,7 +642,87 @@ if (!isset($_SESSION['users'])) {
     const monthlyChart = new Chart(MonthlyReportctx, configMonthly);
 </script>
 <script>
-    <?php } } ?>
+    <?php } else if ($timePeriod === 'quarterly'){?>
+    const QuarterlyReportctx = document.getElementById("quarterlyReportChart").getContext("2d");
+
+    const totalDocs = <?php echo $totalDocsJson; ?>;
+    const QuarterlyLabels = <?=$monthsJson?>;
+    const QuarterlyData = <?=$monthlyCountsJson?>;
+
+    const configQuarterly = {
+        type: 'bar',
+        data: {
+            labels: QuarterlyLabels,
+            datasets: [{
+                label: 'Douments Issued Quarterly',
+                data: QuarterlyData,
+                borderColor: 'rgba(175, 225, 175, 1)', 
+                backgroundColor: 'rgba(175, 225, 175, 0.5)', 
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true, position: 'top' }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: 'Current Month and the past 2 Months' }
+                },
+                y: {
+                    title: { display: true, text: 'Number of Documents Issued' },
+                    beginAtZero: true,
+                    min: 0,
+                    max: totalDocs,
+                    stepSize: 2
+                }
+            }
+        }
+    };
+    const quarterlyChart = new Chart(QuarterlyReportctx, configQuarterly);
+</script>
+<script>
+    <?php } else if ($timePeriod === 'annually'){?>
+    const AnnuallyReportctx = document.getElementById("annuallyReportChart").getContext("2d");
+
+    const totalDocs = <?php echo $totalDocsJson; ?>;
+    const AnnuallyLabels = <?php echo $monthsAnnuallyJson?>;
+    const AnnuallyData = <?php echo $monthlyCountsAnnuallyJson?>;
+
+    const configAnnually = {
+        type: 'bar',
+        data: {
+            labels: AnnuallyLabels,
+            datasets: [{
+                label: 'Douments Issued Annually',
+                data: AnnuallyData,
+                borderColor: 'rgba(175, 225, 175, 1)', 
+                backgroundColor: 'rgba(175, 225, 175, 0.5)', 
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true, position: 'top' }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: 'Months of the Current Year' }
+                },
+                y: {
+                    title: { display: true, text: 'Number of Documents Issued' },
+                    beginAtZero: true,
+                    min: 0,
+                    max: totalDocs,
+                    stepSize: 2
+                }
+            }
+        }
+    };
+    const annuallyChart = new Chart(AnnuallyReportctx, configAnnually);
+    <?php } ?>
 </script>
 </body>
 </html>
