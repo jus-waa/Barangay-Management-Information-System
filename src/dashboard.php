@@ -181,12 +181,15 @@ if (!isset($_SESSION['users'])) {
                                     <select name="purokType" class="text-black bg-white rounded-md p-2" onchange="this.form.submit()">
                                         <?php
                                         $selectedPurok = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
+                                        $selectedPeriod = isset($_GET['timePeriod']) ? $_GET['timePeriod'] : 'weekly';
+
                                         $puroks = ['Overall', 'Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7', 'Purok 8'];
                                         foreach ($puroks as $purok) {
                                             $isSelected = ($purok === $selectedPurok) ? 'selected' : '';
                                             echo "<option value=\"$purok\" $isSelected>$purok</option>";
                                         }
                                         ?>
+                                       <input type="hidden" name="timePeriod" value="<?php echo htmlspecialchars($selectedPeriod); ?>">
                                     </select>
                                 </form>
                             </div>
@@ -281,7 +284,8 @@ if (!isset($_SESSION['users'])) {
                                             echo "<option value=\"$key\" $isSelected>$label</option>";
                                         }
                                         ?>
-                                    </select>                                    
+                                    </select>                     
+                                    <input type="hidden" name="purokType" value="<?php echo htmlspecialchars($selectedPurok); ?>">
                                 </form>
                                 </h1>
                             </div>
