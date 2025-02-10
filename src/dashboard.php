@@ -306,15 +306,48 @@ if (!isset($_SESSION['users'])) {
                         </div>
                         <div class="grid grid-rows-4 gap-y-2 std:gap-y-4">
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-3xl std:text-5xl font-bold"><?=$totalDocs?></div>
+                                <div class="text-3xl std:text-5xl font-bold">
+                                    <?php
+                                    if ($timePeriod === 'weekly') {
+                                        echo $totalWeeklyDocuments;
+                                    } else if ($timePeriod === 'monthly') { 
+                                        echo $totalDocsMonth;
+                                    } else if ($timePeriod === 'quarterly') { 
+                                        echo $totalDocsQuarterly;
+                                    } else if ($timePeriod === 'annually') { 
+                                        echo $totalDocsAnnually;
+                                    } ?>
+                                </div>
                                 <p class="text-xs std:text-sm">Total documents issued</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-3xl std:text-5xl font-bold"><?=$brgyclr?></div>
+                                <div class="text-3xl std:text-5xl font-bold">
+                                    <?php
+                                    if ($timePeriod === 'weekly') {
+                                        echo $brgyclrWeekly;
+                                    } else if ($timePeriod === 'monthly') { 
+                                        echo $totalDocsMonth;
+                                    } else if ($timePeriod === 'quarterly') { 
+                                        echo $totalDocsQuarterly;
+                                    } else if ($timePeriod === 'annually') { 
+                                        echo $totalDocsAnnually;
+                                    } ?>
+                                </div>
                                 <p class="text-xs std:text-sm">Barangay Clearance</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-3xl std:text-5xl font-bold"><?=$certIndigency?></div>
+                                <div class="text-3xl std:text-5xl font-bold">
+                                    <?php
+                                    if ($timePeriod === 'weekly') {
+                                        echo $certIndigencyWeekly;
+                                    } else if ($timePeriod === 'monthly') { 
+                                        echo $totalDocsMonth;
+                                    } else if ($timePeriod === 'quarterly') { 
+                                        echo $totalDocsQuarterly;
+                                    } else if ($timePeriod === 'annually') { 
+                                        echo $totalDocsAnnually;
+                                    } ?>
+                                </div>
                                 <p class="text-xs std:text-sm">Certificate of Indigency</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
@@ -617,7 +650,7 @@ if (!isset($_SESSION['users'])) {
         data: {
             labels: weeksLabels,
             datasets: [{
-                label: 'Documents Issued Monthly',
+                label: 'Documents Issued Weekly',
                 data: weeklyData,
                 borderColor: 'rgba(175, 225, 175, 1)', 
                 backgroundColor: 'rgba(175, 225, 175, 0.5)', 

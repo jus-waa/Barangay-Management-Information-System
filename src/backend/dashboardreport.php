@@ -1,6 +1,6 @@
 <?php
 include("connection.php");
-//Display 1. popu overview and 3. community metrics
+//Display 1. Population overview and 3. community metrics
 $stmt = $dbh->prepare("SELECT * FROM `resident_info`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -128,7 +128,6 @@ $seniorAdultJSON = json_encode($seniorAdult);
 
 $totalResJSON = json_encode($totalRes);
 $activeJSON = json_encode($active);
-//end of display popu overview and community metrics
 //for household computation
 $house_nums = [];
 foreach ($result as $row) {
@@ -172,7 +171,10 @@ if (!empty($duplicates)) {
     echo "No duplicates found.";
 }
 */
-//end of household computation
+//end of display popu overview and community metrics
+
+
+
 //Documents breakdown
 $stmt = $dbh->prepare("SELECT * FROM `print_history`");
 $stmt->execute();
@@ -194,17 +196,14 @@ foreach ($result_history as $rows) {
 }
 $totalDocsJson = json_encode($totalDocs);
 //end of documents breakdown
-
-
-date_default_timezone_set('Asia/Manila');
-
 // 2. Document Issuance Data
+//Global Values
+date_default_timezone_set('Asia/Manila');
 $currentDate = date('Y-m-d');
 //$currentDate = '2025-1-13'; test for prev week
 $currentFormatDate = new DateTime();
 $formattedDate = $currentFormatDate->format('F d, Y, g:i A');
-
-// Flter for weeks------------------------------------------------------------
+// Flter for weeks =============================================================================================
 // Get the day of the week (1 = Monday, 7 = Sunday in PHP)
 $dayOfWeek = date("w", strtotime($currentDate)); // 0 = Sunday, 6 = Saturday
 // Get the start and end of the current week (Sunday to Saturday)
@@ -243,16 +242,51 @@ $wednesdayJson = json_encode($wednesdayCurrentWeek);
 $thursdayJson = json_encode($thursdayCurrentWeek);
 $fridayJson = json_encode($fridayCurrentWeek);
 $saturdayJson = json_encode($saturdayCurrentWeek);
-// end of filter for weeks------------------------------------
-//filter for months-------------------------------------------
+// Get the total document count for the week
+$sqlTotalWeekly = "SELECT COUNT(*) AS total_documents 
+                   FROM print_history 
+                   WHERE DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek";
+
+$stmtTotalWeekly = $dbh->prepare($sqlTotalWeekly);
+$stmtTotalWeekly->bindParam(':startOfWeek', $startOfWeek);
+$stmtTotalWeekly->bindParam(':endOfWeek', $endOfWeek);
+$stmtTotalWeekly->execute();
+$totalWeeklyDocuments = $stmtTotalWeekly->fetchColumn(); // Fetch total count
+// Get document counts by type for the current week
+$sqlDocTypesWeekly = 'SELECT document_type, COUNT(*) AS count 
+                      FROM print_history 
+                      WHERE DATE(print_date) BETWEEN :startOfWeek AND :endOfWeek 
+                      GROUP BY document_type';
+
+$stmtDocTypesWeekly = $dbh->prepare($sqlDocTypesWeekly);
+$stmtDocTypesWeekly->bindParam(':startOfWeek', $startOfWeek);
+$stmtDocTypesWeekly->bindParam(':endOfWeek', $endOfWeek);
+$stmtDocTypesWeekly->execute();
+$resultDocTypes = $stmtDocTypesWeekly->fetchAll(PDO::FETCH_ASSOC);
+
+// Initialize counts
+$docTypeCounts = [
+    'Barangay Clearance' => 0,
+    'Certificate of Indigency' => 0,
+    'Certificate of Residency' => 0
+];
+
+// Assign values from the query result
+foreach ($resultDocTypes as $row) {
+    $docTypeCounts[$row['document_type']] = $row['count'];
+}
+
+// Assign values to variables
+$brgyclrWeekly = $docTypeCounts['Barangay Clearance'];
+$certIndigencyWeekly = $docTypeCounts['Certificate of Indigency'];
+$certResidencyWeekly = $docTypeCounts['Certificate of Residency'];
+//filter for months ==============================================================================================
 // Get the current month and year
 $currentYear = date('Y');
 $currentMonth = date('m');
-
 // Get the first and last day of the month
 $firstDayOfMonth = date('Y-m-01');
 $lastDayOfMonth = date('Y-m-t');
-
 // Find the total number of weeks in the month
 $weeks = [];
 $firstDayWeekday = date('w', strtotime($firstDayOfMonth)); // 0 = Sunday, 6 = Saturday
@@ -306,17 +340,16 @@ foreach ($weeks as $index => $week) {
     $resultWeek = $stmt->fetch(PDO::FETCH_ASSOC);
     $weeklyCounts[] = $resultWeek['documents_count'] ?? 0;
 }
+$totalDocsMonth = array_sum($weeklyCounts);
 $weeksJson = json_encode(array_map(fn($week) => $week['start'] . ' - ' . $week['end'], $weeks));
 $weeklyCountsJson = json_encode($weeklyCounts);
-//end of filter for months-----------------------------------------
-//filter quarterly ------------------------------------------------
+//filter quarterly =============================================================================================
 $currentYear = date('Y');
 $currentMonth = date('m');
 
 // Store results per month
 $monthlyCounts = [];
 $monthNames = [];
-
 // Loop through the last 3 months (including the current one)
 for ($i = 2; $i >= 0; $i--) {
     $monthStart = date('Y-m-01', strtotime("-$i months"));
@@ -338,10 +371,10 @@ for ($i = 2; $i >= 0; $i--) {
     $months[] = $monthName . ' ' . $year;
     $monthlyCounts[] = $resultQuarterly['documents_count'] ?? 0; 
 }
+$totalDocsQuarterly = array_sum($monthlyCounts);
 $monthsJson = json_encode($months);
 $monthlyCountsJson = json_encode($monthlyCounts);
-//end filter for quarterly------------------------------------------
-//filter for annually------------------------------------------
+//filter for annually ==========================================================================================
 $monthlyCountsAnnually = [];
 $monthsAnnually = [];
 
@@ -366,9 +399,12 @@ for ($i = 1; $i <= 12; $i++) {
     $monthsAnnually[] = $monthNameAnnually . ' ' . $year;
     $monthlyCountsAnnually[] = $resultAnnually['documents_count_annually'] ?? 0; 
 }
+$totalDocsAnnually = array_sum($monthlyCountsAnnually);
 $monthsAnnuallyJson = json_encode($monthsAnnually);
 $monthlyCountsAnnuallyJson = json_encode($monthlyCountsAnnually);
-//end filter for annually------------------------------------------
+
+
+
 // Filter purok for 1. popu overview and 3. community metrics
 // Purok type filter total residents
 $purokType = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall'; // Global overall as default
