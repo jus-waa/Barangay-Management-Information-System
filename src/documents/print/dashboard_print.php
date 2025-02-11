@@ -9,6 +9,8 @@ use setasign\Fpdi\Fpdi;
 $pdf = new Fpdi();
 $pdf->SetTitle('Barangay Management System');
 
+$selectedPurok = isset($_GET['purokType']) ? $_GET['purokType'] : 'Overall';
+$selectedPeriod = isset($_GET['timePeriod']) ? $_GET['timePeriod'] : 'weekly';
 //page start
 $pdf -> AddPage('P', 'Legal');
 $pdf -> SetFont("Arial", "", 11);
@@ -16,18 +18,32 @@ $pdf -> setSourceFile('./../../pdfs/dashboard_report_overview.pdf');
 $template = $pdf->importPage(1);
 $pdf->useTemplate($template);
 
-$pdf->SetFont('Arial','',12);
 //population overview
-$pdf->Ln(68);
+$pdf->Ln(49);
 $pdf->SetLeftMargin(19);
-$pdf->Cell(35, 11, $totalHouseHold, 0, 0, 'C');
+//selected purok
+$pdf->SetFont('Times','B',12);
+$pdf->Cell(177, 11, $selectedPurok, 0, 0, 'R');
+$pdf->Ln(19);
+$pdf->SetFont('Arial','',12);
+
+if ($selectedPurok === 'Overall') {
+    $pdf->Cell(35, 11, $totalHouseHold, 0, 0, 'C');
+} else {
+    $pdf->Cell(35, 11, $total, 0, 0, 'C');
+}
 $pdf->Cell(35, 11, $totalRes, 0, 0, 'C');
-$pdf->Cell(35, 11, $active, 0, 0, 'C');
+$pdf->Cell(35, 11, $totalActiveRes, 0, 0, 'C');
 $pdf->Cell(25, 11, $permanent, 0, 0, 'C');
 $pdf->Cell(24, 11, $temporary, 0, 0, 'C');
 $pdf->Cell(24, 11, $student, 0, 1, 'C');
+//selected purok
+$pdf->Ln(7.5);
+$pdf->SetFont('Times','B',12);
+$pdf->Cell(177, 11, $selectedPurok, 0, 0, 'R');
 //community metrics
-$pdf->Ln(16.5);
+$pdf->SetFont('Arial','',12);
+$pdf->Ln(9);
 $pdf->SetLeftMargin(113);
 $pdf->Cell(83.5, 6.5, $infant, 0, 1, 'C');
 $pdf->Cell(83.5, 6.5, $toddler, 0, 1, 'C');
@@ -54,14 +70,33 @@ $pdf->Cell(83.5, 6.5, $a_minus, 0, 1, 'C');
 $pdf->Cell(83.5, 6.5, $b_minus, 0, 1, 'C');
 $pdf->Cell(83.5, 6.5, $ab_minus, 0, 1, 'C');
 $pdf->Cell(83.5, 6.5, $o_minus, 0, 1, 'C');
-$pdf->Ln(17);
+$pdf->Ln(10.5);
 //document issuance data
-$pdf->Cell(83.5, 6.5, $totalDocs, 0, 1, 'C');
-$pdf->Cell(83.5, 6.5, $brgyclr, 0, 1, 'C');
-$pdf->Cell(83.5, 6.5, $certIndigency, 0, 1, 'C');
-$pdf->Cell(83.5, 6.5, $certResidency, 0, 1, 'C');
+$pdf->SetFont('Times','B',12);
+$pdf->Cell(83.5, 6.5, ucfirst(strtolower($selectedPeriod)), 0, 1, 'R');
+$pdf->SetFont('Arial','',12);
+if ($selectedPeriod === 'weekly') {
+$pdf->Cell(83.5, 6.5, $totalWeeklyDocuments, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $brgyclrWeekly, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $certIndigencyWeekly, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $certResidencyWeekly, 0, 1, 'C');
+} else if ($selectedPeriod  === 'monthly') { 
+$pdf->Cell(83.5, 6.5, $totalDocsMonth, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $brgyclrMonthly, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $certIndigencyMonthly, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $certResidencyMonthly, 0, 1, 'C');
+} else if ($selectedPeriod  === 'quarterly') { 
+$pdf->Cell(83.5, 6.5, $totalDocsQuarterly, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $brgyclrQuarterly, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $certIndigencyQuarterly, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $certResidencyQuarterly, 0, 1, 'C');
+} else if ($selectedPeriod  === 'annually') { 
+$pdf->Cell(83.5, 6.5, $totalDocsAnnually, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $brgyclrAnnually, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $certIndigencyAnnually, 0, 1, 'C');
+$pdf->Cell(83.5, 6.5, $certResidencyAnnually, 0, 1, 'C');
+}
 $pdf->Ln(15);
-
 
 $pdf->SetLeftMargin(148);
 $pdf->SetFont('Times','I',12);

@@ -263,7 +263,6 @@ $stmtDocTypesWeekly->bindParam(':startOfWeek', $startOfWeek);
 $stmtDocTypesWeekly->bindParam(':endOfWeek', $endOfWeek);
 $stmtDocTypesWeekly->execute();
 $resultDocTypes = $stmtDocTypesWeekly->fetchAll(PDO::FETCH_ASSOC);
-
 // Initialize counts
 $docTypeCounts = [
     'Barangay Clearance' => 0,
@@ -343,37 +342,101 @@ foreach ($weeks as $index => $week) {
 $totalDocsMonth = array_sum($weeklyCounts);
 $weeksJson = json_encode(array_map(fn($week) => $week['start'] . ' - ' . $week['end'], $weeks));
 $weeklyCountsJson = json_encode($weeklyCounts);
+// Get the total document count for the whole month
+$sqlTotalMonthly = "SELECT COUNT(*) AS total_documents_monthly
+                   FROM print_history 
+                   WHERE DATE(print_date) BETWEEN :firstDayOfMonth AND :lastDayOfMonth";
+
+$stmtTotalMonthly = $dbh->prepare($sqlTotalMonthly);
+$stmtTotalMonthly->bindParam(':firstDayOfMonth', $firstDayOfMonth);
+$stmtTotalMonthly->bindParam(':lastDayOfMonth', $lastDayOfMonth);
+$stmtTotalMonthly->execute();
+$totalMonthlyDocuments = $stmtTotalMonthly->fetchColumn(); // Fetch total count
+// Get document counts by type for the whole month 
+$sqlDocTypesMonthly = 'SELECT document_type, COUNT(*) AS count_monthly
+                      FROM print_history 
+                      WHERE DATE(print_date) BETWEEN :firstDayOfMonth AND :lastDayOfMonth 
+                      GROUP BY document_type';
+
+$stmtDocTypesMonthly = $dbh->prepare($sqlDocTypesMonthly);
+$stmtDocTypesMonthly->bindParam(':firstDayOfMonth', $firstDayOfMonth);
+$stmtDocTypesMonthly->bindParam(':lastDayOfMonth', $lastDayOfMonth);
+$stmtDocTypesMonthly->execute();
+$resultDocTypesMonthly = $stmtDocTypesMonthly->fetchAll(PDO::FETCH_ASSOC);
+//use previous doc type counts
+foreach ($resultDocTypesMonthly as $row) {
+    $docTypeCounts[$row['document_type']] = $row['count_monthly'];
+}
+$brgyclrMonthly = $docTypeCounts['Barangay Clearance'];
+$certIndigencyMonthly = $docTypeCounts['Certificate of Indigency'];
+$certResidencyMonthly = $docTypeCounts['Certificate of Residency'];
 //filter quarterly =============================================================================================
 $currentYear = date('Y');
 $currentMonth = date('m');
 
 // Store results per month
 $monthlyCounts = [];
-$monthNames = [];
+$months = [];
+$docTypeCounts = [
+    'Barangay Clearance' => 0,
+    'Certificate of Indigency' => 0,
+    'Certificate of Residency' => 0
+];
+
 // Loop through the last 3 months (including the current one)
 for ($i = 2; $i >= 0; $i--) {
     $monthStart = date('Y-m-01', strtotime("-$i months"));
     $monthEnd = date('Y-m-t', strtotime("-$i months"));
     $year = date('Y', strtotime("-$i months"));
     $monthName = date('F', strtotime($monthStart)); 
+    
+    // Store month name
+    $months[] = "$monthName $year";
+    
+    // Get total document count for the month
+    $sqlMonthly = "SELECT COUNT(*) AS documents_count 
+                   FROM print_history 
+                   WHERE DATE(print_date) BETWEEN :startDate AND :endDate";
 
-    $sqlQuarterly = "SELECT COUNT(*) AS documents_count 
-            FROM print_history 
-            WHERE DATE(print_date) BETWEEN :startDate AND :endDate";
+    $stmtMonthly = $dbh->prepare($sqlMonthly);
+    $stmtMonthly->bindParam(':startDate', $monthStart);
+    $stmtMonthly->bindParam(':endDate', $monthEnd);
+    $stmtMonthly->execute();
+    $resultMonthly = $stmtMonthly->fetch(PDO::FETCH_ASSOC);
 
-    $stmtQuarterly = $dbh->prepare($sqlQuarterly);
-    $stmtQuarterly->bindParam(':startDate', $monthStart);
-    $stmtQuarterly->bindParam(':endDate', $monthEnd);
-    $stmtQuarterly->execute();
+    $monthlyCounts[] = $resultMonthly['documents_count'] ?? 0;
 
-    $resultQuarterly = $stmtQuarterly->fetch(PDO::FETCH_ASSOC);
-    //STore month name and count 
-    $months[] = $monthName . ' ' . $year;
-    $monthlyCounts[] = $resultQuarterly['documents_count'] ?? 0; 
+    // Get document counts by type for the month
+    $sqlDocTypesMonthly = "SELECT document_type, COUNT(*) AS count 
+                           FROM print_history 
+                           WHERE DATE(print_date) BETWEEN :startDate AND :endDate
+                           GROUP BY document_type";
+    
+    $stmtDocTypesMonthly = $dbh->prepare($sqlDocTypesMonthly);
+    $stmtDocTypesMonthly->bindParam(':startDate', $monthStart);
+    $stmtDocTypesMonthly->bindParam(':endDate', $monthEnd);
+    $stmtDocTypesMonthly->execute();
+    $resultDocTypesMonthly = $stmtDocTypesMonthly->fetchAll(PDO::FETCH_ASSOC);
+
+    // Accumulate document type counts over the past 3 months
+    foreach ($resultDocTypesMonthly as $row) {
+        if (isset($docTypeCounts[$row['document_type']])) {
+            $docTypeCounts[$row['document_type']] += $row['count'];
+        }
+    }
 }
-$totalDocsQuarterly = array_sum($monthlyCounts);
+
+// Convert to JSON for frontend use
 $monthsJson = json_encode($months);
 $monthlyCountsJson = json_encode($monthlyCounts);
+
+// Get the total document count for the whole quarter
+$totalDocsQuarterly = array_sum($monthlyCounts);
+
+// Assign quarterly totals
+$brgyclrQuarterly = $docTypeCounts['Barangay Clearance'];
+$certIndigencyQuarterly = $docTypeCounts['Certificate of Indigency'];
+$certResidencyQuarterly = $docTypeCounts['Certificate of Residency'];
 //filter for annually ==========================================================================================
 $monthlyCountsAnnually = [];
 $monthsAnnually = [];
@@ -402,6 +465,43 @@ for ($i = 1; $i <= 12; $i++) {
 $totalDocsAnnually = array_sum($monthlyCountsAnnually);
 $monthsAnnuallyJson = json_encode($monthsAnnually);
 $monthlyCountsAnnuallyJson = json_encode($monthlyCountsAnnually);
+// Get the total document count for the whole year
+$sqlTotalAnnually = "SELECT COUNT(*) AS total_documents_annually
+                     FROM print_history 
+                     WHERE YEAR(print_date) = :currentYear";
+
+$stmtTotalAnnually = $dbh->prepare($sqlTotalAnnually);
+$stmtTotalAnnually->bindParam(':currentYear', $currentYear);
+$stmtTotalAnnually->execute();
+$totalAnnuallyDocuments = $stmtTotalAnnually->fetchColumn(); // Fetch total count
+
+// Get document counts by type for the whole year
+$sqlDocTypesAnnually = "SELECT document_type, COUNT(*) AS count_annually
+                        FROM print_history 
+                        WHERE YEAR(print_date) = :currentYear
+                        GROUP BY document_type";
+
+$stmtDocTypesAnnually = $dbh->prepare($sqlDocTypesAnnually);
+$stmtDocTypesAnnually->bindParam(':currentYear', $currentYear);
+$stmtDocTypesAnnually->execute();
+$resultDocTypesAnnually = $stmtDocTypesAnnually->fetchAll(PDO::FETCH_ASSOC);
+
+// Initialize counts
+$docTypeCounts = [
+    'Barangay Clearance' => 0,
+    'Certificate of Indigency' => 0,
+    'Certificate of Residency' => 0
+];
+
+// Store results in the array
+foreach ($resultDocTypesAnnually as $row) {
+    $docTypeCounts[$row['document_type']] = $row['count_annually'];
+}
+
+// Assign totals
+$brgyclrAnnually = $docTypeCounts['Barangay Clearance'];
+$certIndigencyAnnually = $docTypeCounts['Certificate of Indigency'];
+$certResidencyAnnually = $docTypeCounts['Certificate of Residency'];
 
 
 
@@ -458,7 +558,7 @@ foreach ($household_per_purok as $purok => $house_nums) {
 
     $totalHouseHoldPerPurok[$purok] = count($house_nums) - $household;
 }
-
+$total = isset($totalHouseHoldPerPurok[$selectedPurok]) ? $totalHouseHoldPerPurok[$selectedPurok] : 0;
 // Purok type filter total active
 if ($purokType === 'Overall') {
     $stmt = $dbh->prepare('SELECT COUNT(*) AS total FROM `resident_info` WHERE `status` = "Active"');

@@ -194,12 +194,12 @@ if (!isset($_SESSION['users'])) {
                                 </form>
                             </div>
                             <div>
-                                <a href="documents/print/dashboard_print.php" class="flex px-6 p-1 mt-2 std:mt-4 text-sm std:text-base rounded-xl border-2 border-sg bg-c place-self-center hover:border-c hover:bg-c hover:text-white transition duration-300" target="_blank"> 
-                                    <img src="../img/printer.png" class="size-10 std:size-12" alt="">
-                                    <button class="text-black">
-                                        Print Dashboard
-                                    </button>
-                                </a>
+                            <a href="documents/print/dashboard_print.php?purokType=<?= urlencode($selectedPurok) ?>&timePeriod=<?= urlencode($selectedPeriod) ?>" class="flex px-6 p-1 mt-2 std:mt-4 text-sm std:text-base rounded-xl border-2 border-sg bg-c place-self-center hover:border-c hover:bg-c hover:text-white transition duration-300" target="_blank"> 
+                                <img src="../img/printer.png" class="size-10 std:size-12" alt="">
+                                <button class="text-black">
+                                    Print Dashboard
+                                </button>
+                            </a>
                             </div>
                         </div>
                         <div class="grid grid-cols-[12rem_12rem_12rem_auto] std:grid-cols-[18rem_18rem_18rem_auto] std:w-full rounded-xl">
@@ -214,8 +214,6 @@ if (!isset($_SESSION['users'])) {
                                     if ($selectedPurok === 'Overall') {
                                         echo $totalHouseHold;
                                     } else {
-                                        // Show only the selected purok
-                                        $total = isset($totalHouseHoldPerPurok[$selectedPurok]) ? $totalHouseHoldPerPurok[$selectedPurok] : 0;
                                         echo $total;
                                     }
                                     ?>
@@ -326,11 +324,11 @@ if (!isset($_SESSION['users'])) {
                                     if ($timePeriod === 'weekly') {
                                         echo $brgyclrWeekly;
                                     } else if ($timePeriod === 'monthly') { 
-                                        echo $totalDocsMonth;
+                                        echo $brgyclrMonthly;
                                     } else if ($timePeriod === 'quarterly') { 
-                                        echo $totalDocsQuarterly;
+                                        echo $brgyclrQuarterly;
                                     } else if ($timePeriod === 'annually') { 
-                                        echo $totalDocsAnnually;
+                                        echo $brgyclrAnnually;
                                     } ?>
                                 </div>
                                 <p class="text-xs std:text-sm">Barangay Clearance</p>
@@ -341,17 +339,28 @@ if (!isset($_SESSION['users'])) {
                                     if ($timePeriod === 'weekly') {
                                         echo $certIndigencyWeekly;
                                     } else if ($timePeriod === 'monthly') { 
-                                        echo $totalDocsMonth;
+                                        echo $certIndigencyMonthly;
                                     } else if ($timePeriod === 'quarterly') { 
-                                        echo $totalDocsQuarterly;
+                                        echo $certIndigencyQuarterly;
                                     } else if ($timePeriod === 'annually') { 
-                                        echo $totalDocsAnnually;
+                                        echo $certIndigencyAnnually;
                                     } ?>
                                 </div>
                                 <p class="text-xs std:text-sm">Certificate of Indigency</p>
                             </div>
                             <div class="flex flex-col items-center justify-center bg-[#D9D9D9] rounded-xl">
-                                <div class="text-3xl std:text-5xl font-bold"><?=$certResidency?></div>
+                                <div class="text-3xl std:text-5xl font-bold">
+                                <?php
+                                    if ($timePeriod === 'weekly') {
+                                        echo $certResidencyWeekly;
+                                    } else if ($timePeriod === 'monthly') { 
+                                        echo $certResidencyMonthly;
+                                    } else if ($timePeriod === 'quarterly') { 
+                                        echo $certResidencyQuarterly;
+                                    } else if ($timePeriod === 'annually') { 
+                                        echo $certResidencyAnnually;
+                                    } ?>
+                                </div>
                                 <p class="text-xs std:text-sm">Certificate of Residency</p>
                             </div>
                         </div>
