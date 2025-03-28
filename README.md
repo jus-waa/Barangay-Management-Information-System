@@ -16,6 +16,6 @@ iBarangay: Management Information System (BMIS) by Bit Builders is a web-based p
 ## **Tech Stack**
 - HTML 
 - CSS (Tailwind CSS)
-- JavaScript (w/ JQuery, AJAX, and chartjs
+- JavaScript (w/ JQuery, AJAX, and chartjs)
 - PHP
 - MySQL
