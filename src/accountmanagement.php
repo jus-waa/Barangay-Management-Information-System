@@ -21,7 +21,7 @@ if (!isset($_SESSION['users'])) {
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Management System</title>
-    <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
+    <link href="./output.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../img/buna_cerca.png">
     <script src="../script.js"></script>
     <script src="clock.js" defer></script>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['users'])) {
                     <!-- Account and Logout -->
                     <div class="flex flex-col justify-center space-y-4 h-2/5 w-full grow text-xs std:text-base">
                         <!-- Account -->
-                        <div>
+                        <div class="flex place-self-center flex-col">
                             <button onmouseover="toggleDisplay('account', true)" onmouseleave="toggleDisplay('account', false)" class="flex place-content-center w-full">
                                 <img class="size-8 std:size-10 hover:animate-wiggle"  src="../img/account.png">
                                 <span id="account" class="absolute ml-64 z-10 shadow-3xl text-sm p-2 rounded-lg bg-c min-w-40 hidden">
@@ -117,7 +117,7 @@ if (!isset($_SESSION['users'])) {
                                     ?>
                                 </span>
                             </button>
-                            <button class="flex place-self-center text-left ">
+                            <button>
                                 <?php
                                     $userId = $_SESSION['users'];
                                     $query = 'SELECT * FROM users WHERE id = :id';  // Query with a condition to select the logged-in user

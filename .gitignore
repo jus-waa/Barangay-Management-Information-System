@@ -1,0 +1,67 @@
+# ================================
+# OS FILES
+# ================================
+.DS_Store
+Thumbs.db
+
+# ================================
+# NODE / NPM FILES
+# ================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ================================
+# TAILWIND / BUILD OUTPUT
+# ================================
+src/output.css
+public/build/
+dist/
+
+# ================================
+# PHP / XAMPP ENVIRONMENT
+# ================================
+vendor/
+composer.lock
+.env
+.env.local
+.env.*.local
+
+# ================================
+# LOGS & CACHE
+# ================================
+*.log
+storage/
+cache/
+tmp/
+
+# ================================
+# SYSTEM FILES / EDITOR SETTINGS
+# ================================
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ================================
+# BACKUPS / UPLOADS
+# ================================
+uploads/
+backups/
+*.bak
+*.tmp
+
+# ================================
+# OS-SPECIFIC (Windows)
+# ================================
+desktop.ini
+
+# ================================
+# OTHER PROJECT ARTIFACTS
+# ================================
+*.zip
+*.rar
+*.tar.gz
+*.7z

@@ -78,7 +78,7 @@
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Management System</title>
-    <link rel="stylesheet" href="\Main Project\Barangay-Management-System\src\output.css">
+    <link href="./output.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../img/buna_cerca.png">
     <script src="../script.js"></script>
 </head>
